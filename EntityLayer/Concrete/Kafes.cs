@@ -8,6 +8,6 @@ namespace EntityLayer.Concrete
         public string Description { get; set; }
         public decimal Price { get; set; }
         public ICollection<HayvanKafes> HayvanKafesleri { get; set; }
-        public byte[] Resim { get; set; }
+        public byte[] Image { get; set; }
     }
 }
