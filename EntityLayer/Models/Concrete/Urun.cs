@@ -1,10 +1,12 @@
-﻿using EntityLayer.Abstract;
+﻿using EntityLayer.Concrete;
+using EntityLayer.Models.Abstract;
 
-namespace EntityLayer.Concrete
+namespace EntityLayer.Models.Concrete
 {
 
     public class Urun : BaseEntity
     {
+        public string UrunAdi { get; set; }
         public string Marka { get; set; }
         public string Aciklama { get; set; }
         public decimal Fiyat { get; set; }
@@ -14,7 +16,6 @@ namespace EntityLayer.Concrete
 
         public byte[] Urunfoto { get; set; }
 
-        public ICollection<HayvanTurleri> HayvanTurleri { get; set; }
-        public ICollection<KategoriUrun> KategoriUrunleri { get; set; }
+        public ICollection<Kategori> Kategoriler { get; set; }
     }
 }
