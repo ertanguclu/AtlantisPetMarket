@@ -1,3 +1,8 @@
+
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+
+
 namespace AtlantisPetMarket
 {
     public class Program
@@ -8,6 +13,11 @@ namespace AtlantisPetMarket
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+
+            // Add DbContext
+            builder.Services.AddDbContext<ApplicationDbContext>(options =>
+                options.UseMySql(builder.Configuration.GetConnectionString("DefaultConnection"),
+                new MySqlServerVersion(new Version(8, 0, 21))));
 
             var app = builder.Build();
 
