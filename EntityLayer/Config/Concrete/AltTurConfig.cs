@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace EntityLayer.Config.Concrete
 {
-    public class AltturConfig : BaseConfig<AltTur>
+    public class AltturConfig : BaseConfig<UstKategori>
     {
-        public override void Configure(EntityTypeBuilder<AltTur> builder)
+        public override void Configure(EntityTypeBuilder<UstKategori> builder)
         {
             base.Configure(builder);
 

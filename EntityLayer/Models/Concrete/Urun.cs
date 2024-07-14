@@ -6,7 +6,7 @@ namespace EntityLayer.Models.Concrete
 
     public class Urun : BaseEntity
     {
-        public string UrunAdi { get; set; }
+        public string  UrunAdi { get; set; }
         public string Marka { get; set; }
         public string Aciklama { get; set; }
         public decimal Fiyat { get; set; }
@@ -17,5 +17,7 @@ namespace EntityLayer.Models.Concrete
         public byte[] Urunfoto { get; set; }
 
         public ICollection<Kategori> Kategoriler { get; set; }
+
+        public Fotograf Fotograf { get; set; }
     }
 }

@@ -17,10 +17,11 @@ namespace CompanyInfo.Entities.DbContexts
 
         public DbSet<Urun> Urunler { get; set; }
         public DbSet<Kategori> Kategoriler { get; set; }
-        public DbSet<Kafes> Kafesler { get; set; }
-        public DbSet<Mama> Mamalar { get; set; }
-        public DbSet<Oyuncak> Oyuncaklar { get; set; }
-        public DbSet<AltTur> AltTurler { get; set; }
+        public DbSet<UstKategori> AltTurler { get; set; }
+        public DbSet<Fotograf> Fotograflar { get; set; }
+        public DbSet<Stok> Stoklar { get; set; }
+
+
 
         public AppDbContext()
         {
