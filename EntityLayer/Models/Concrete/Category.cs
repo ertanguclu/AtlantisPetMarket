@@ -15,6 +15,6 @@ namespace EntityLayer.Concrete
 
         public ParentCategory ParentCategory { get; set; }
         public ICollection<Product> Products { get; set; }
-        //deneme 
+
     }
 }
