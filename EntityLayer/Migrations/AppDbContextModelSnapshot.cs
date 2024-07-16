@@ -22,7 +22,7 @@ namespace EntityLayer.Migrations
 
             MySqlModelBuilderExtensions.AutoIncrementColumns(modelBuilder);
 
-            modelBuilder.Entity("EntityLayer.Concrete.Kategori", b =>
+            modelBuilder.Entity("EntityLayer.Concrete.Category", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -30,32 +30,32 @@ namespace EntityLayer.Migrations
 
                     MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<DateTime>("CreateDate")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<string>("KategoriAdi")
+                    b.Property<string>("CategoryName")
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("varchar(50)");
 
-                    b.Property<string>("KategoriFotoDosyaYolu")
+                    b.Property<string>("CategoryPhotoPath")
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<int>("UstKategoriId")
+                    b.Property<DateTime>("CreateDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int>("ParentCategoryId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("KategoriAdi")
+                    b.HasIndex("CategoryName")
                         .IsUnique();
 
-                    b.HasIndex("UstKategoriId");
+                    b.HasIndex("ParentCategoryId");
 
-                    b.ToTable("Kategoriler");
+                    b.ToTable("Categories");
                 });
 
-            modelBuilder.Entity("EntityLayer.Concrete.UstKategori", b =>
+            modelBuilder.Entity("EntityLayer.Concrete.ParentCategory", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -66,16 +66,16 @@ namespace EntityLayer.Migrations
                     b.Property<DateTime>("CreateDate")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<string>("UstKategoriAdi")
+                    b.Property<string>("ParentCategoryName")
                         .IsRequired()
                         .HasColumnType("longtext");
 
                     b.HasKey("Id");
 
-                    b.ToTable("UstKategoriler");
+                    b.ToTable("ParentCategories");
                 });
 
-            modelBuilder.Entity("EntityLayer.Models.Concrete.Urun", b =>
+            modelBuilder.Entity("EntityLayer.Models.Concrete.Product", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -83,91 +83,91 @@ namespace EntityLayer.Migrations
 
                     MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Aciklama")
+                    b.Property<string>("Brand")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreateDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("Description")
                         .IsRequired()
                         .HasMaxLength(150)
                         .HasColumnType("varchar(150)");
 
-                    b.Property<DateTime>("CreateDate")
-                        .HasColumnType("datetime(6)");
+                    b.Property<int>("ParentCategoryId")
+                        .HasColumnType("int");
 
-                    b.Property<decimal>("Fiyat")
+                    b.Property<decimal>("Price")
                         .HasPrecision(18, 2)
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<int>("KategoriId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Marka")
+                    b.Property<string>("ProductCode")
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<int>("StokAdedi")
-                        .HasColumnType("int");
-
-                    b.Property<string>("UrunAdi")
+                    b.Property<string>("ProductName")
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("varchar(50)");
 
-                    b.Property<string>("UrunKodu")
+                    b.Property<string>("ProductPhotoPath")
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<string>("UrunfotoDosyaYolu")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<int>("UstKategoriId")
+                    b.Property<int>("StockQuantity")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("KategoriId");
+                    b.HasIndex("CategoryId");
 
-                    b.HasIndex("UstKategoriId");
+                    b.HasIndex("ParentCategoryId");
 
-                    b.ToTable("Urunler");
+                    b.ToTable("Products");
                 });
 
-            modelBuilder.Entity("EntityLayer.Concrete.Kategori", b =>
+            modelBuilder.Entity("EntityLayer.Concrete.Category", b =>
                 {
-                    b.HasOne("EntityLayer.Concrete.UstKategori", "UstKategori")
-                        .WithMany("Kategoriler")
-                        .HasForeignKey("UstKategoriId")
+                    b.HasOne("EntityLayer.Concrete.ParentCategory", "ParentCategory")
+                        .WithMany("Categories")
+                        .HasForeignKey("ParentCategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("UstKategori");
+                    b.Navigation("ParentCategory");
                 });
 
-            modelBuilder.Entity("EntityLayer.Models.Concrete.Urun", b =>
+            modelBuilder.Entity("EntityLayer.Models.Concrete.Product", b =>
                 {
-                    b.HasOne("EntityLayer.Concrete.Kategori", "Kategori")
-                        .WithMany("Urunler")
-                        .HasForeignKey("KategoriId")
+                    b.HasOne("EntityLayer.Concrete.Category", "Category")
+                        .WithMany("Products")
+                        .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("EntityLayer.Concrete.UstKategori", "UstKategori")
+                    b.HasOne("EntityLayer.Concrete.ParentCategory", "ParentCategory")
                         .WithMany()
-                        .HasForeignKey("UstKategoriId")
+                        .HasForeignKey("ParentCategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Kategori");
+                    b.Navigation("Category");
 
-                    b.Navigation("UstKategori");
+                    b.Navigation("ParentCategory");
                 });
 
-            modelBuilder.Entity("EntityLayer.Concrete.Kategori", b =>
+            modelBuilder.Entity("EntityLayer.Concrete.Category", b =>
                 {
-                    b.Navigation("Urunler");
+                    b.Navigation("Products");
                 });
 
-            modelBuilder.Entity("EntityLayer.Concrete.UstKategori", b =>
+            modelBuilder.Entity("EntityLayer.Concrete.ParentCategory", b =>
                 {
-                    b.Navigation("Kategoriler");
+                    b.Navigation("Categories");
                 });
 #pragma warning restore 612, 618
         }
