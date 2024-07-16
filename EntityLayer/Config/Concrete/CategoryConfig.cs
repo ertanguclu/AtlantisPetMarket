@@ -10,15 +10,15 @@ using System.Threading.Tasks;
 
 namespace EntityLayer.Config.Concrete
 {
-    public class KategoriConfig : BaseConfig<Kategori>
+    public class CategoryConfig : BaseConfig<Category>
     {
-        public override void Configure(EntityTypeBuilder<Kategori> builder)
+        public override void Configure(EntityTypeBuilder<Category> builder)
         {
             base.Configure(builder);
 
-            builder.Property(p => p.KategoriAdi).HasMaxLength(50);
+            builder.Property(p => p.CategoryName).HasMaxLength(50);
 
-            builder.HasIndex(p => p.KategoriAdi).IsUnique();
+            builder.HasIndex(p => p.CategoryName).IsUnique();
 
 
         }

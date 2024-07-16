@@ -7,12 +7,12 @@
 
 //namespace EntityLayer.Models.Concrete
 //{
-//    public class Fotograf : BaseEntity
+//    public class Photo : BaseEntity
 //    {
-//        public string FotografAdi { get; set; }
+//        public string PhotoName { get; set; }
 
-//        public string DosyaAdi { get; set; }
+//        public string FileName { get; set; }
 
-//        public ICollection<Urun> Urunler { get; set; }
+//        public ICollection<Product> Products { get; set; }
 //    }
 //}
