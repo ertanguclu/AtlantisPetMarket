@@ -1,6 +1,5 @@
 ﻿using EntityLayer.Models.Abstract;
 using EntityLayer.Models.Concrete;
-using System.Collections.Generic;
 
 namespace EntityLayer.Concrete
 {
@@ -16,5 +15,6 @@ namespace EntityLayer.Concrete
 
         public ParentCategory ParentCategory { get; set; }
         public ICollection<Product> Products { get; set; }
+        //deneme 
     }
 }
