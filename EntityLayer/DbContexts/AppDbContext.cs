@@ -1,18 +1,13 @@
 ﻿using EntityLayer.Concrete;
 using EntityLayer.Models.Concrete;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
-using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
 
 namespace EntityLayer.DbContexts
 {
-    public class AppDbContext : DbContext
+    public class AppDbContext : IdentityDbContext<MyUser, IdentityRole, string>
     {
 
         public DbSet<Product> Products { get; set; }
@@ -34,8 +29,8 @@ namespace EntityLayer.DbContexts
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            var serverVersion = new MySqlServerVersion(new Version(8, 0, 26));
-            optionsBuilder.UseMySql("server=localhost;Database=PetShopDb;user id=root;password=mert2000", serverVersion);
+            base.OnConfiguring(optionsBuilder);
+            optionsBuilder.UseMySQL("server=localhost;Database=PetShopDb;Uid=root;password=Password187");
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
