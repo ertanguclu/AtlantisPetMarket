@@ -8,5 +8,22 @@
 	<ItemGroup>
 		<ProjectReference Include="..\BusinessLayer\BusinessLayer.csproj" />
 	</ItemGroup>
+	<ItemGroup>
+	  <None Include="wwwroot\login-form-14\.DS_Store" />
+	  <None Include="wwwroot\login-form-14\css\.DS_Store" />
+	  <None Include="wwwroot\login-form-14\css\bootstrap\.DS_Store" />
+	  <None Include="wwwroot\login-form-14\css\bootstrap\mixins\.DS_Store" />
+	  <None Include="wwwroot\login-form-14\fonts\.DS_Store" />
+	  <None Include="wwwroot\login-form-14\images\.DS_Store" />
+	  <None Include="wwwroot\login-form-14\js\.DS_Store" />
+	  <None Include="wwwroot\login-form-14\scss\.DS_Store" />
+	  <None Include="wwwroot\login-form-14\scss\bootstrap\.DS_Store" />
+	</ItemGroup>
+	<ItemGroup>
+	  <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.3" />
+	</ItemGroup>
+	<ItemGroup>
+	  <Folder Include="Areas\Writer\Data\" />
+	</ItemGroup>
 
 </Project>

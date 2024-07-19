@@ -3,8 +3,10 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace EntityLayer.Models.Concrete
 {
-    public class MyUser : IdentityUser
+    public class MyUser : IdentityUser<int>
     {
+        public string Name { get; set; }
+        public string Surname { get; set; }
         public string? TcNo { get; set; }
         public bool? Cinsiyet { get; set; }
 

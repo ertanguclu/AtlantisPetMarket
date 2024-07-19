@@ -1,12 +1,11 @@
 ﻿using EntityLayer.Models.Concrete;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 
 namespace EntityLayer.DbContexts
 {
-    public class AppDbContext : IdentityDbContext<MyUser, IdentityRole, string>
+    public class AppDbContext : IdentityDbContext<MyUser, UserRole, int>
     {
 
         public DbSet<Product> Products { get; set; }

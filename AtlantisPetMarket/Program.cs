@@ -1,3 +1,7 @@
+using EntityLayer.DbContexts;
+using EntityLayer.Models.Concrete;
+using Microsoft.EntityFrameworkCore;
+
 namespace AtlantisPetMarket
 {
     public class Program
@@ -5,9 +9,13 @@ namespace AtlantisPetMarket
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
-
+            builder.Services.AddDbContext<AppDbContext>(p => p.UseMySQL(builder.Configuration.GetConnectionString("DefaultConnection")));
+            builder.Services.AddIdentity<MyUser, UserRole>().AddEntityFrameworkStores<AppDbContext>();
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+
+
+
 
             var app = builder.Build();
 
@@ -32,6 +40,7 @@ namespace AtlantisPetMarket
                   pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
                 );
             });
+
 
             app.MapControllerRoute(
                 name: "default",
