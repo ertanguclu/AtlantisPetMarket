@@ -19,7 +19,8 @@ namespace EntityLayer.Migrations
                 name: "AspNetRoles",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "varchar(255)", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
                     Name = table.Column<string>(type: "varchar(256)", maxLength: 256, nullable: true),
                     NormalizedName = table.Column<string>(type: "varchar(256)", maxLength: 256, nullable: true),
                     ConcurrencyStamp = table.Column<string>(type: "longtext", nullable: true)
@@ -34,7 +35,10 @@ namespace EntityLayer.Migrations
                 name: "AspNetUsers",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "varchar(255)", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
+                    Name = table.Column<string>(type: "longtext", nullable: false),
+                    Surname = table.Column<string>(type: "longtext", nullable: false),
                     TcNo = table.Column<string>(type: "longtext", nullable: true),
                     Cinsiyet = table.Column<bool>(type: "tinyint(1)", nullable: true),
                     DogumTarihi = table.Column<DateTime>(type: "datetime(6)", nullable: true),
@@ -67,7 +71,7 @@ namespace EntityLayer.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
-                    RoleId = table.Column<string>(type: "varchar(255)", nullable: false),
+                    RoleId = table.Column<int>(type: "int", nullable: false),
                     ClaimType = table.Column<string>(type: "longtext", nullable: true),
                     ClaimValue = table.Column<string>(type: "longtext", nullable: true)
                 },
@@ -89,7 +93,7 @@ namespace EntityLayer.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
-                    UserId = table.Column<string>(type: "varchar(255)", nullable: false),
+                    UserId = table.Column<int>(type: "int", nullable: false),
                     ClaimType = table.Column<string>(type: "longtext", nullable: true),
                     ClaimValue = table.Column<string>(type: "longtext", nullable: true)
                 },
@@ -112,7 +116,7 @@ namespace EntityLayer.Migrations
                     LoginProvider = table.Column<string>(type: "varchar(255)", nullable: false),
                     ProviderKey = table.Column<string>(type: "varchar(255)", nullable: false),
                     ProviderDisplayName = table.Column<string>(type: "longtext", nullable: true),
-                    UserId = table.Column<string>(type: "varchar(255)", nullable: false)
+                    UserId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -130,8 +134,8 @@ namespace EntityLayer.Migrations
                 name: "AspNetUserRoles",
                 columns: table => new
                 {
-                    UserId = table.Column<string>(type: "varchar(255)", nullable: false),
-                    RoleId = table.Column<string>(type: "varchar(255)", nullable: false)
+                    UserId = table.Column<int>(type: "int", nullable: false),
+                    RoleId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -155,7 +159,7 @@ namespace EntityLayer.Migrations
                 name: "AspNetUserTokens",
                 columns: table => new
                 {
-                    UserId = table.Column<string>(type: "varchar(255)", nullable: false),
+                    UserId = table.Column<int>(type: "int", nullable: false),
                     LoginProvider = table.Column<string>(type: "varchar(255)", nullable: false),
                     Name = table.Column<string>(type: "varchar(255)", nullable: false),
                     Value = table.Column<string>(type: "longtext", nullable: true)
@@ -180,14 +184,15 @@ namespace EntityLayer.Migrations
                         .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
                     ParentCategoryName = table.Column<string>(type: "longtext", nullable: false),
                     CreateDate = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    MyUserId = table.Column<string>(type: "varchar(255)", nullable: true)
+                    MyUserId = table.Column<string>(type: "longtext", nullable: true),
+                    MyUserId1 = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_ParentCategories", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_ParentCategories_AspNetUsers_MyUserId",
-                        column: x => x.MyUserId,
+                        name: "FK_ParentCategories_AspNetUsers_MyUserId1",
+                        column: x => x.MyUserId1,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id");
                 })
@@ -203,14 +208,15 @@ namespace EntityLayer.Migrations
                     CategoryPhotoPath = table.Column<string>(type: "longtext", nullable: false),
                     ParentCategoryId = table.Column<int>(type: "int", nullable: false),
                     CreateDate = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    MyUserId = table.Column<string>(type: "varchar(255)", nullable: true)
+                    MyUserId = table.Column<string>(type: "longtext", nullable: true),
+                    MyUserId1 = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Categories", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Categories_AspNetUsers_MyUserId",
-                        column: x => x.MyUserId,
+                        name: "FK_Categories_AspNetUsers_MyUserId1",
+                        column: x => x.MyUserId1,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id");
                     table.ForeignKey(
@@ -239,14 +245,15 @@ namespace EntityLayer.Migrations
                     ParentCategoryId = table.Column<int>(type: "int", nullable: false),
                     Color = table.Column<string>(type: "longtext", nullable: true),
                     CreateDate = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    MyUserId = table.Column<string>(type: "varchar(255)", nullable: true)
+                    MyUserId = table.Column<string>(type: "longtext", nullable: true),
+                    MyUserId1 = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Products", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Products_AspNetUsers_MyUserId",
-                        column: x => x.MyUserId,
+                        name: "FK_Products_AspNetUsers_MyUserId1",
+                        column: x => x.MyUserId1,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id");
                     table.ForeignKey(
@@ -308,9 +315,9 @@ namespace EntityLayer.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Categories_MyUserId",
+                name: "IX_Categories_MyUserId1",
                 table: "Categories",
-                column: "MyUserId");
+                column: "MyUserId1");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Categories_ParentCategoryId",
@@ -318,9 +325,9 @@ namespace EntityLayer.Migrations
                 column: "ParentCategoryId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ParentCategories_MyUserId",
+                name: "IX_ParentCategories_MyUserId1",
                 table: "ParentCategories",
-                column: "MyUserId");
+                column: "MyUserId1");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Products_CategoryId",
@@ -328,9 +335,9 @@ namespace EntityLayer.Migrations
                 column: "CategoryId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Products_MyUserId",
+                name: "IX_Products_MyUserId1",
                 table: "Products",
-                column: "MyUserId");
+                column: "MyUserId1");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Products_ParentCategoryId",

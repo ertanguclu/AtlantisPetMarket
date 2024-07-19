@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EntityLayer.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240719142127_Myuser")]
-    partial class Myuser
+    [Migration("20240719180706_InitDb")]
+    partial class InitDb
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -41,7 +41,10 @@ namespace EntityLayer.Migrations
                         .HasColumnType("datetime(6)");
 
                     b.Property<string>("MyUserId")
-                        .HasColumnType("varchar(255)");
+                        .HasColumnType("longtext");
+
+                    b.Property<int?>("MyUserId1")
+                        .HasColumnType("int");
 
                     b.Property<int>("ParentCategoryId")
                         .HasColumnType("int");
@@ -51,7 +54,7 @@ namespace EntityLayer.Migrations
                     b.HasIndex("CategoryName")
                         .IsUnique();
 
-                    b.HasIndex("MyUserId");
+                    b.HasIndex("MyUserId1");
 
                     b.HasIndex("ParentCategoryId");
 
@@ -60,8 +63,9 @@ namespace EntityLayer.Migrations
 
             modelBuilder.Entity("EntityLayer.Models.Concrete.MyUser", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("varchar(255)");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
 
                     b.Property<string>("About")
                         .HasColumnType("longtext");
@@ -155,7 +159,10 @@ namespace EntityLayer.Migrations
                         .HasColumnType("datetime(6)");
 
                     b.Property<string>("MyUserId")
-                        .HasColumnType("varchar(255)");
+                        .HasColumnType("longtext");
+
+                    b.Property<int?>("MyUserId1")
+                        .HasColumnType("int");
 
                     b.Property<string>("ParentCategoryName")
                         .IsRequired()
@@ -163,7 +170,7 @@ namespace EntityLayer.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("MyUserId");
+                    b.HasIndex("MyUserId1");
 
                     b.ToTable("ParentCategories");
                 });
@@ -193,7 +200,10 @@ namespace EntityLayer.Migrations
                         .HasColumnType("varchar(150)");
 
                     b.Property<string>("MyUserId")
-                        .HasColumnType("varchar(255)");
+                        .HasColumnType("longtext");
+
+                    b.Property<int?>("MyUserId1")
+                        .HasColumnType("int");
 
                     b.Property<int>("ParentCategoryId")
                         .HasColumnType("int");
@@ -222,7 +232,7 @@ namespace EntityLayer.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.HasIndex("MyUserId");
+                    b.HasIndex("MyUserId1");
 
                     b.HasIndex("ParentCategoryId");
 
@@ -231,8 +241,9 @@ namespace EntityLayer.Migrations
 
             modelBuilder.Entity("EntityLayer.Models.Concrete.UserRole", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("varchar(255)");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
@@ -255,7 +266,7 @@ namespace EntityLayer.Migrations
                     b.ToTable("AspNetRoles", (string)null);
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -267,9 +278,8 @@ namespace EntityLayer.Migrations
                     b.Property<string>("ClaimValue")
                         .HasColumnType("longtext");
 
-                    b.Property<string>("RoleId")
-                        .IsRequired()
-                        .HasColumnType("varchar(255)");
+                    b.Property<int>("RoleId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -278,7 +288,7 @@ namespace EntityLayer.Migrations
                     b.ToTable("AspNetRoleClaims", (string)null);
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<int>", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -290,9 +300,8 @@ namespace EntityLayer.Migrations
                     b.Property<string>("ClaimValue")
                         .HasColumnType("longtext");
 
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("varchar(255)");
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -301,7 +310,7 @@ namespace EntityLayer.Migrations
                     b.ToTable("AspNetUserClaims", (string)null);
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<int>", b =>
                 {
                     b.Property<string>("LoginProvider")
                         .HasColumnType("varchar(255)");
@@ -312,9 +321,8 @@ namespace EntityLayer.Migrations
                     b.Property<string>("ProviderDisplayName")
                         .HasColumnType("longtext");
 
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("varchar(255)");
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
 
                     b.HasKey("LoginProvider", "ProviderKey");
 
@@ -323,13 +331,13 @@ namespace EntityLayer.Migrations
                     b.ToTable("AspNetUserLogins", (string)null);
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<int>", b =>
                 {
-                    b.Property<string>("UserId")
-                        .HasColumnType("varchar(255)");
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
 
-                    b.Property<string>("RoleId")
-                        .HasColumnType("varchar(255)");
+                    b.Property<int>("RoleId")
+                        .HasColumnType("int");
 
                     b.HasKey("UserId", "RoleId");
 
@@ -338,10 +346,10 @@ namespace EntityLayer.Migrations
                     b.ToTable("AspNetUserRoles", (string)null);
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<int>", b =>
                 {
-                    b.Property<string>("UserId")
-                        .HasColumnType("varchar(255)");
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
 
                     b.Property<string>("LoginProvider")
                         .HasColumnType("varchar(255)");
@@ -361,7 +369,7 @@ namespace EntityLayer.Migrations
                 {
                     b.HasOne("EntityLayer.Models.Concrete.MyUser", "MyUser")
                         .WithMany()
-                        .HasForeignKey("MyUserId");
+                        .HasForeignKey("MyUserId1");
 
                     b.HasOne("EntityLayer.Models.Concrete.ParentCategory", "ParentCategory")
                         .WithMany("Categories")
@@ -378,7 +386,7 @@ namespace EntityLayer.Migrations
                 {
                     b.HasOne("EntityLayer.Models.Concrete.MyUser", "MyUser")
                         .WithMany()
-                        .HasForeignKey("MyUserId");
+                        .HasForeignKey("MyUserId1");
 
                     b.Navigation("MyUser");
                 });
@@ -393,7 +401,7 @@ namespace EntityLayer.Migrations
 
                     b.HasOne("EntityLayer.Models.Concrete.MyUser", "MyUser")
                         .WithMany()
-                        .HasForeignKey("MyUserId");
+                        .HasForeignKey("MyUserId1");
 
                     b.HasOne("EntityLayer.Models.Concrete.ParentCategory", "ParentCategory")
                         .WithMany()
@@ -408,7 +416,7 @@ namespace EntityLayer.Migrations
                     b.Navigation("ParentCategory");
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
                 {
                     b.HasOne("EntityLayer.Models.Concrete.UserRole", null)
                         .WithMany()
@@ -417,7 +425,7 @@ namespace EntityLayer.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<int>", b =>
                 {
                     b.HasOne("EntityLayer.Models.Concrete.MyUser", null)
                         .WithMany()
@@ -426,7 +434,7 @@ namespace EntityLayer.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<int>", b =>
                 {
                     b.HasOne("EntityLayer.Models.Concrete.MyUser", null)
                         .WithMany()
@@ -435,7 +443,7 @@ namespace EntityLayer.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<int>", b =>
                 {
                     b.HasOne("EntityLayer.Models.Concrete.UserRole", null)
                         .WithMany()
@@ -450,7 +458,7 @@ namespace EntityLayer.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<int>", b =>
                 {
                     b.HasOne("EntityLayer.Models.Concrete.MyUser", null)
                         .WithMany()
