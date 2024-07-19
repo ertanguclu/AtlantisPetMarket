@@ -15,9 +15,8 @@
     </PackageReference>
     <PackageReference Include="MySql.EntityFrameworkCore" Version="8.0.5" />
   </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\AtlantisPetMarket\AtlantisPetMarket.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\AtlantisPetMarket\AtlantisPetMarket.csproj" />
+	</ItemGroup>
 
 </Project>

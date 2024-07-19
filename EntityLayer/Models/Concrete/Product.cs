@@ -1,4 +1,4 @@
-﻿using EntityLayer.Concrete;
+﻿
 using EntityLayer.Models.Abstract;
 
 namespace EntityLayer.Models.Concrete

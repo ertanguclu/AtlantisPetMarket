@@ -1,5 +1,4 @@
-﻿using EntityLayer.Concrete;
-using EntityLayer.Models.Concrete;
+﻿using EntityLayer.Models.Concrete;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -30,12 +29,12 @@ namespace EntityLayer.DbContexts
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             base.OnConfiguring(optionsBuilder);
-            optionsBuilder.UseMySQL("server=localhost;Database=PetShopDb;Uid=root;password=Password187");
+            optionsBuilder.UseMySQL(@"Server=localhost;Database=PetShopDb;Uid=root;password=Password187");
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
 
-
+            base.OnModelCreating(modelBuilder);
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
 
 

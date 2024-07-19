@@ -1,13 +1,3 @@
-
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using System;
-
-
-
 namespace AtlantisPetMarket
 {
     public class Program
@@ -18,11 +8,6 @@ namespace AtlantisPetMarket
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
-
-            // Add DbContext
-            //builder.Services.AddDbContext<AppDbContext>(options =>
-            //    options.UseMySql(builder.Configuration.GetConnectionString("DefaultConnection"),
-            //    new MySqlServerVersion(new Version(8, 0, 21))));
 
             var app = builder.Build();
 
@@ -40,6 +25,13 @@ namespace AtlantisPetMarket
             app.UseRouting();
 
             app.UseAuthorization();
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllerRoute(
+                  name: "areas",
+                  pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+                );
+            });
 
             app.MapControllerRoute(
                 name: "default",
