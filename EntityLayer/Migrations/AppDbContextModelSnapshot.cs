@@ -19,7 +19,7 @@ namespace EntityLayer.Migrations
                 .HasAnnotation("ProductVersion", "8.0.7")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
-            modelBuilder.Entity("EntityLayer.Concrete.Category", b =>
+            modelBuilder.Entity("EntityLayer.Models.Concrete.Category", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -53,29 +53,6 @@ namespace EntityLayer.Migrations
                     b.HasIndex("ParentCategoryId");
 
                     b.ToTable("Categories");
-                });
-
-            modelBuilder.Entity("EntityLayer.Concrete.ParentCategory", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("CreateDate")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<string>("MyUserId")
-                        .HasColumnType("varchar(255)");
-
-                    b.Property<string>("ParentCategoryName")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("MyUserId");
-
-                    b.ToTable("ParentCategories");
                 });
 
             modelBuilder.Entity("EntityLayer.Models.Concrete.MyUser", b =>
@@ -155,6 +132,29 @@ namespace EntityLayer.Migrations
                         .HasDatabaseName("UserNameIndex");
 
                     b.ToTable("AspNetUsers", (string)null);
+                });
+
+            modelBuilder.Entity("EntityLayer.Models.Concrete.ParentCategory", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreateDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("MyUserId")
+                        .HasColumnType("varchar(255)");
+
+                    b.Property<string>("ParentCategoryName")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("MyUserId");
+
+                    b.ToTable("ParentCategories");
                 });
 
             modelBuilder.Entity("EntityLayer.Models.Concrete.Product", b =>
@@ -346,13 +346,13 @@ namespace EntityLayer.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("EntityLayer.Concrete.Category", b =>
+            modelBuilder.Entity("EntityLayer.Models.Concrete.Category", b =>
                 {
                     b.HasOne("EntityLayer.Models.Concrete.MyUser", "MyUser")
                         .WithMany()
                         .HasForeignKey("MyUserId");
 
-                    b.HasOne("EntityLayer.Concrete.ParentCategory", "ParentCategory")
+                    b.HasOne("EntityLayer.Models.Concrete.ParentCategory", "ParentCategory")
                         .WithMany("Categories")
                         .HasForeignKey("ParentCategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -363,7 +363,7 @@ namespace EntityLayer.Migrations
                     b.Navigation("ParentCategory");
                 });
 
-            modelBuilder.Entity("EntityLayer.Concrete.ParentCategory", b =>
+            modelBuilder.Entity("EntityLayer.Models.Concrete.ParentCategory", b =>
                 {
                     b.HasOne("EntityLayer.Models.Concrete.MyUser", "MyUser")
                         .WithMany()
@@ -374,7 +374,7 @@ namespace EntityLayer.Migrations
 
             modelBuilder.Entity("EntityLayer.Models.Concrete.Product", b =>
                 {
-                    b.HasOne("EntityLayer.Concrete.Category", "Category")
+                    b.HasOne("EntityLayer.Models.Concrete.Category", "Category")
                         .WithMany("Products")
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -384,7 +384,7 @@ namespace EntityLayer.Migrations
                         .WithMany()
                         .HasForeignKey("MyUserId");
 
-                    b.HasOne("EntityLayer.Concrete.ParentCategory", "ParentCategory")
+                    b.HasOne("EntityLayer.Models.Concrete.ParentCategory", "ParentCategory")
                         .WithMany()
                         .HasForeignKey("ParentCategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -448,12 +448,12 @@ namespace EntityLayer.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("EntityLayer.Concrete.Category", b =>
+            modelBuilder.Entity("EntityLayer.Models.Concrete.Category", b =>
                 {
                     b.Navigation("Products");
                 });
 
-            modelBuilder.Entity("EntityLayer.Concrete.ParentCategory", b =>
+            modelBuilder.Entity("EntityLayer.Models.Concrete.ParentCategory", b =>
                 {
                     b.Navigation("Categories");
                 });

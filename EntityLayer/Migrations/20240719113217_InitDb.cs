@@ -12,29 +12,8 @@ namespace EntityLayer.Migrations
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AddColumn<string>(
-                name: "Color",
-                table: "Products",
-                type: "longtext",
-                nullable: true);
-
-            migrationBuilder.AddColumn<string>(
-                name: "MyUserId",
-                table: "Products",
-                type: "varchar(255)",
-                nullable: true);
-
-            migrationBuilder.AddColumn<string>(
-                name: "MyUserId",
-                table: "ParentCategories",
-                type: "varchar(255)",
-                nullable: true);
-
-            migrationBuilder.AddColumn<string>(
-                name: "MyUserId",
-                table: "Categories",
-                type: "varchar(255)",
-                nullable: true);
+            migrationBuilder.AlterDatabase()
+                .Annotation("MySQL:Charset", "utf8mb4");
 
             migrationBuilder.CreateTable(
                 name: "AspNetRoles",
@@ -193,20 +172,97 @@ namespace EntityLayer.Migrations
                 })
                 .Annotation("MySQL:Charset", "utf8mb4");
 
-            migrationBuilder.CreateIndex(
-                name: "IX_Products_MyUserId",
-                table: "Products",
-                column: "MyUserId");
+            migrationBuilder.CreateTable(
+                name: "ParentCategories",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
+                    ParentCategoryName = table.Column<string>(type: "longtext", nullable: false),
+                    CreateDate = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    MyUserId = table.Column<string>(type: "varchar(255)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ParentCategories", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ParentCategories_AspNetUsers_MyUserId",
+                        column: x => x.MyUserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id");
+                })
+                .Annotation("MySQL:Charset", "utf8mb4");
 
-            migrationBuilder.CreateIndex(
-                name: "IX_ParentCategories_MyUserId",
-                table: "ParentCategories",
-                column: "MyUserId");
+            migrationBuilder.CreateTable(
+                name: "Categories",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
+                    CategoryName = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: false),
+                    CategoryPhotoPath = table.Column<string>(type: "longtext", nullable: false),
+                    ParentCategoryId = table.Column<int>(type: "int", nullable: false),
+                    CreateDate = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    MyUserId = table.Column<string>(type: "varchar(255)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Categories", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Categories_AspNetUsers_MyUserId",
+                        column: x => x.MyUserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Categories_ParentCategories_ParentCategoryId",
+                        column: x => x.ParentCategoryId,
+                        principalTable: "ParentCategories",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                })
+                .Annotation("MySQL:Charset", "utf8mb4");
 
-            migrationBuilder.CreateIndex(
-                name: "IX_Categories_MyUserId",
-                table: "Categories",
-                column: "MyUserId");
+            migrationBuilder.CreateTable(
+                name: "Products",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
+                    Brand = table.Column<string>(type: "longtext", nullable: false),
+                    ProductName = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: false),
+                    Description = table.Column<string>(type: "varchar(150)", maxLength: 150, nullable: false),
+                    Price = table.Column<decimal>(type: "decimal(18,2)", precision: 18, scale: 2, nullable: false),
+                    ProductCode = table.Column<string>(type: "longtext", nullable: false),
+                    StockQuantity = table.Column<int>(type: "int", nullable: false),
+                    ProductPhotoPath = table.Column<string>(type: "longtext", nullable: false),
+                    CategoryId = table.Column<int>(type: "int", nullable: false),
+                    ParentCategoryId = table.Column<int>(type: "int", nullable: false),
+                    Color = table.Column<string>(type: "longtext", nullable: true),
+                    CreateDate = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    MyUserId = table.Column<string>(type: "varchar(255)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Products", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Products_AspNetUsers_MyUserId",
+                        column: x => x.MyUserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Products_Categories_CategoryId",
+                        column: x => x.CategoryId,
+                        principalTable: "Categories",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Products_ParentCategories_ParentCategoryId",
+                        column: x => x.ParentCategoryId,
+                        principalTable: "ParentCategories",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                })
+                .Annotation("MySQL:Charset", "utf8mb4");
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -245,43 +301,46 @@ namespace EntityLayer.Migrations
                 column: "NormalizedUserName",
                 unique: true);
 
-            migrationBuilder.AddForeignKey(
-                name: "FK_Categories_AspNetUsers_MyUserId",
+            migrationBuilder.CreateIndex(
+                name: "IX_Categories_CategoryName",
                 table: "Categories",
-                column: "MyUserId",
-                principalTable: "AspNetUsers",
-                principalColumn: "Id");
+                column: "CategoryName",
+                unique: true);
 
-            migrationBuilder.AddForeignKey(
-                name: "FK_ParentCategories_AspNetUsers_MyUserId",
+            migrationBuilder.CreateIndex(
+                name: "IX_Categories_MyUserId",
+                table: "Categories",
+                column: "MyUserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Categories_ParentCategoryId",
+                table: "Categories",
+                column: "ParentCategoryId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ParentCategories_MyUserId",
                 table: "ParentCategories",
-                column: "MyUserId",
-                principalTable: "AspNetUsers",
-                principalColumn: "Id");
+                column: "MyUserId");
 
-            migrationBuilder.AddForeignKey(
-                name: "FK_Products_AspNetUsers_MyUserId",
+            migrationBuilder.CreateIndex(
+                name: "IX_Products_CategoryId",
                 table: "Products",
-                column: "MyUserId",
-                principalTable: "AspNetUsers",
-                principalColumn: "Id");
+                column: "CategoryId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Products_MyUserId",
+                table: "Products",
+                column: "MyUserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Products_ParentCategoryId",
+                table: "Products",
+                column: "ParentCategoryId");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropForeignKey(
-                name: "FK_Categories_AspNetUsers_MyUserId",
-                table: "Categories");
-
-            migrationBuilder.DropForeignKey(
-                name: "FK_ParentCategories_AspNetUsers_MyUserId",
-                table: "ParentCategories");
-
-            migrationBuilder.DropForeignKey(
-                name: "FK_Products_AspNetUsers_MyUserId",
-                table: "Products");
-
             migrationBuilder.DropTable(
                 name: "AspNetRoleClaims");
 
@@ -298,38 +357,19 @@ namespace EntityLayer.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "Products");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
+                name: "Categories");
+
+            migrationBuilder.DropTable(
+                name: "ParentCategories");
+
+            migrationBuilder.DropTable(
                 name: "AspNetUsers");
-
-            migrationBuilder.DropIndex(
-                name: "IX_Products_MyUserId",
-                table: "Products");
-
-            migrationBuilder.DropIndex(
-                name: "IX_ParentCategories_MyUserId",
-                table: "ParentCategories");
-
-            migrationBuilder.DropIndex(
-                name: "IX_Categories_MyUserId",
-                table: "Categories");
-
-            migrationBuilder.DropColumn(
-                name: "Color",
-                table: "Products");
-
-            migrationBuilder.DropColumn(
-                name: "MyUserId",
-                table: "Products");
-
-            migrationBuilder.DropColumn(
-                name: "MyUserId",
-                table: "ParentCategories");
-
-            migrationBuilder.DropColumn(
-                name: "MyUserId",
-                table: "Categories");
         }
     }
 }
