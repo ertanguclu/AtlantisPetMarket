@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EntityLayer.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240719180706_InitDb")]
-    partial class InitDb
+    [Migration("20240720185650_MertMigrations")]
+    partial class MertMigrations
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

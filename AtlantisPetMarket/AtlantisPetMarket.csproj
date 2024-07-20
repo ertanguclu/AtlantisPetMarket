@@ -5,9 +5,7 @@
 		<Nullable>enable</Nullable>
 		<ImplicitUsings>enable</ImplicitUsings>
 	</PropertyGroup>
-	<ItemGroup>
-		<ProjectReference Include="..\BusinessLayer\BusinessLayer.csproj" />
-	</ItemGroup>
+	
 	<ItemGroup>
 	  <None Include="wwwroot\login-form-14\.DS_Store" />
 	  <None Include="wwwroot\login-form-14\css\.DS_Store" />
@@ -24,6 +22,9 @@
 	</ItemGroup>
 	<ItemGroup>
 	  <Folder Include="Areas\Writer\Data\" />
+	</ItemGroup>
+	<ItemGroup>
+	  <ProjectReference Include="..\BusinessLayer\BusinessLayer.csproj" />
 	</ItemGroup>
 
 </Project>
