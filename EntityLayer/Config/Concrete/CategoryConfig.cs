@@ -1,12 +1,6 @@
-﻿using EntityLayer.Concrete;
-using EntityLayer.Config.Abstract;
-using Microsoft.EntityFrameworkCore;
+﻿using EntityLayer.Config.Abstract;
+using EntityLayer.Models.Concrete;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace EntityLayer.Config.Concrete
 {

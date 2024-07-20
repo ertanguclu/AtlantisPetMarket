@@ -1,8 +1,6 @@
 ﻿using EntityLayer.Models.Abstract;
-using EntityLayer.Models.Concrete;
-using System.Collections.Generic;
 
-namespace EntityLayer.Concrete
+namespace EntityLayer.Models.Concrete
 {
     public class Category : BaseEntity
     {

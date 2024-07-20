@@ -1,4 +1,4 @@
-﻿using EntityLayer.Concrete;
+﻿
 using EntityLayer.Models.Abstract;
 
 namespace EntityLayer.Models.Concrete
@@ -11,14 +11,15 @@ namespace EntityLayer.Models.Concrete
         public decimal Price { get; set; }
         public string ProductCode { get; set; }
         public int StockQuantity { get; set; }
+        public string ProductPhotoPath { get; set; }
 
-        public string ProductPhotoPath { get; set; }  
-        public int CategoryId { get; set; } 
-
+        public int CategoryId { get; set; }
         public Category Category { get; set; }
-        public int ParentCategoryId { get; set; }
 
+        public int ParentCategoryId { get; set; }
         public ParentCategory ParentCategory { get; set; }
+
+        public string? Color { get; set; }
 
         //public Photo Photo { get; set; }
     }
