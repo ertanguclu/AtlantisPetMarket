@@ -27,7 +27,7 @@ namespace AtlantisPetMarket.Areas.Writer.Controllers
             XDocument document = XDocument.Load(connection);
             ViewBag.v5 = document.Descendants("temperature").ElementAt(0).Attribute("value").Value;
 
-            //statistics
+
             AppDbContext c = new AppDbContext();
 
             return View();

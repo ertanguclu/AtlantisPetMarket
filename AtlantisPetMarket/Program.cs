@@ -1,3 +1,5 @@
+using BusinessLayer.Abstract;
+using BusinessLayer.Concrete;
 using EntityLayer.DbContexts;
 using EntityLayer.Models.Concrete;
 using Microsoft.EntityFrameworkCore;
@@ -10,6 +12,10 @@ namespace AtlantisPetMarket
         {
             var builder = WebApplication.CreateBuilder(args);
             builder.Services.AddDbContext<AppDbContext>(p => p.UseMySQL(builder.Configuration.GetConnectionString("DefaultConnection")));
+            builder.Services.AddScoped<IProductManager<AppDbContext, Product, int>, ProductManager<AppDbContext, Product, int>>();
+            builder.Services.AddScoped<ICategoryManager<AppDbContext, Category, int>, CategoryManager<AppDbContext, Category, int>>();
+
+
             builder.Services.AddIdentity<MyUser, UserRole>().AddEntityFrameworkStores<AppDbContext>();
             // Add services to the container.
             builder.Services.AddControllersWithViews();
