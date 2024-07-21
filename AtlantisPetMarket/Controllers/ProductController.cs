@@ -39,5 +39,53 @@ namespace AtlantisPetMarket.Controllers
             await _productManager.AddAsync(product);
             return RedirectToAction("Index");
         }
+        [HttpGet]
+        public async Task<IActionResult> Edit(int id)
+        {
+            var product = await _productManager.FindAsync(id);
+            if (product == null)
+            {
+                return NotFound();
+            }
+
+            ViewBag.Categories = await _categoryManager.GetAllAsync(null);
+            return View(product);
+        }
+        [HttpPost]
+        public async Task<IActionResult> Edit(Product product)
+        {
+            if (!ModelState.IsValid)
+            {
+                ViewBag.Categories = await _categoryManager.GetAllAsync(null);
+                return View(product);
+            }
+
+            await _productManager.UpdateAsync(product);
+            return RedirectToAction("Index");
+        }
+        [HttpGet]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var product = await _productManager.FindAsync(id);
+            if (product == null)
+            {
+                return NotFound();
+            }
+            return View(product);
+        }
+
+        [HttpPost, ActionName("Delete")]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            var product = await _productManager.FindAsync(id);
+            if (product != null)
+            {
+                await _productManager.DeleteAsync(product);
+            }
+            return RedirectToAction("Index");
+        }
+
+
+
     }
 }

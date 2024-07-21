@@ -14,6 +14,7 @@ namespace AtlantisPetMarket
             builder.Services.AddDbContext<AppDbContext>(p => p.UseMySQL(builder.Configuration.GetConnectionString("DefaultConnection")));
             builder.Services.AddScoped<IProductManager<AppDbContext, Product, int>, ProductManager<AppDbContext, Product, int>>();
             builder.Services.AddScoped<ICategoryManager<AppDbContext, Category, int>, CategoryManager<AppDbContext, Category, int>>();
+            builder.Services.AddScoped<IParentCategoryManager<AppDbContext, ParentCategory, int>, ParentCategoryManager<AppDbContext, ParentCategory, int>>();
 
 
             builder.Services.AddIdentity<MyUser, UserRole>().AddEntityFrameworkStores<AppDbContext>();
