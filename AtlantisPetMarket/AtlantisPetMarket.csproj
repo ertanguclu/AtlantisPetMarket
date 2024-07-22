@@ -20,6 +20,8 @@
 	  <None Include="wwwroot\login-form-14\scss\bootstrap\.DS_Store" />
 	</ItemGroup>
 	<ItemGroup>
+	  <PackageReference Include="AutoMapper" Version="13.0.1" />
+	  <PackageReference Include="FluentValidation.AspNetCore" Version="11.3.0" />
 	  <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.3" />
 	</ItemGroup>
 	<ItemGroup>

@@ -1,9 +1,9 @@
-﻿using EntityLayer.Models.Concrete;
+﻿using AtlantisPetMarket.Models;
 using FluentValidation;
 
-namespace BusinessLayer.ValidationsRules
+namespace AtlantisPetMarket.ValidationsRules
 {
-    public class ProductValidator : AbstractValidator<Product>
+    public class ProductValidator : AbstractValidator<ProductInsertVM>
     {
         public ProductValidator()
         {
