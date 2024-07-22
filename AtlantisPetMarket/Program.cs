@@ -2,7 +2,13 @@ using BusinessLayer.Abstract;
 using BusinessLayer.Concrete;
 using EntityLayer.DbContexts;
 using EntityLayer.Models.Concrete;
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using BusinessLayer.ValidationsRules;
 
 namespace AtlantisPetMarket
 {
@@ -21,6 +27,8 @@ namespace AtlantisPetMarket
             // Add services to the container.
             builder.Services.AddControllersWithViews();
 
+            builder.Services.AddFluentValidationAutoValidation();
+            builder.Services.AddValidatorsFromAssemblyContaining<ProductValidator>();
 
 
 
