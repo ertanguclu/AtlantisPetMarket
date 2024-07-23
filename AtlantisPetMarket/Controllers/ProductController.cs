@@ -1,5 +1,4 @@
-﻿using AtlantisPetMarket.Models;
-using AutoMapper;
+﻿using AutoMapper;
 using BusinessLayer.Abstract;
 using EntityLayer.DbContexts;
 using EntityLayer.Models.Concrete;
@@ -12,12 +11,12 @@ namespace AtlantisPetMarket.Controllers
 
     public class ProductController : Controller
     {
-        private readonly IValidator<ProductInsertVM> _validator;
+        private readonly IValidator<Product> _validator;
         private readonly IProductManager<AppDbContext, Product, int> _productManager;
         private readonly ICategoryManager<AppDbContext, Category, int> _categoryManager;
         private readonly IMapper _mapper;
         public ProductController(IProductManager<AppDbContext, Product, int> productManager,
-            ICategoryManager<AppDbContext, Category, int> categoryManager, IMapper mapper, IValidator<ProductInsertVM> validator)
+            ICategoryManager<AppDbContext, Category, int> categoryManager, IMapper mapper, IValidator<Product> validator)
         {
             _productManager = productManager;
             _categoryManager = categoryManager;
@@ -38,14 +37,15 @@ namespace AtlantisPetMarket.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<Product>> Create(ProductInsertVM productVM)
+        public async Task<ActionResult> Create(Product product)
         {
-            var product = _mapper.Map<Product>(productVM);
-            var result = _validator.Validate(productVM);
+            var result = await _validator.ValidateAsync(product);
+
             result.AddToModelState(this.ModelState);
-            if (!ModelState.IsValid)
+            if (!result.IsValid)
             {
-                return BadRequest(product);
+                result.AddToModelState(ModelState, null);
+                return View(product);
             }
 
             await _productManager.AddAsync(product);

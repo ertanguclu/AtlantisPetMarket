@@ -1,13 +1,13 @@
-﻿using AtlantisPetMarket.Models;
+﻿using EntityLayer.Models.Concrete;
 using FluentValidation;
 
 namespace AtlantisPetMarket.ValidationsRules
 {
-    public class ProductValidator : AbstractValidator<ProductInsertVM>
+    public class ProductValidator : AbstractValidator<Product>
     {
         public ProductValidator()
         {
-            RuleFor(x => x.Brand).NotEmpty().WithMessage("Marka alanı boş geçilemez.");
+            RuleFor(x => x.Brand).NotEmpty().WithMessage("Marka alanı boş geçilemez.").NotNull().WithMessage("Marka null olamaz");
             RuleFor(x => x.ProductName).NotEmpty().WithMessage("Ürün adı alanı boş geçilemez.");
             RuleFor(x => x.ProductName).MinimumLength(3).WithMessage("Ürün adı en az 3 karakterden oluşmak zorundadır.");
             RuleFor(x => x.ProductName).MaximumLength(50).WithMessage("Ürün adı en fazla 50 karakter olabilir.");
@@ -17,6 +17,8 @@ namespace AtlantisPetMarket.ValidationsRules
             RuleFor(x => x.Price).NotEmpty().WithMessage("Fiyat alanı boş geçilemez.");
             RuleFor(x => x.StockQuantity).NotEmpty().WithMessage("Stok miktarı alanı boş geçilemez.");
             RuleFor(x => x.ProductPhotoPath).NotEmpty().WithMessage("Ürün resmi alanı boş geçilemez.");
+            RuleFor(x => x.ProductCode).NotEmpty().WithMessage("Ürün kodu alanı boş geçilemez.");
+
 
         }
     }

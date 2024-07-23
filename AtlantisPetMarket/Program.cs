@@ -1,9 +1,11 @@
 using AtlantisPetMarket.AutoMapperConfig;
+using AtlantisPetMarket.ValidationsRules;
 using BusinessLayer.Abstract;
 using BusinessLayer.Concrete;
 using EntityLayer.DbContexts;
 using EntityLayer.Models.Concrete;
 using FluentValidation;
+using FluentValidation.AspNetCore;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 
@@ -18,13 +20,15 @@ namespace AtlantisPetMarket
             builder.Services.AddScoped<IProductManager<AppDbContext, Product, int>, ProductManager<AppDbContext, Product, int>>();
             builder.Services.AddScoped<ICategoryManager<AppDbContext, Category, int>, CategoryManager<AppDbContext, Category, int>>();
             builder.Services.AddAutoMapper(typeof(ProductMapperConfig));
-
+            builder.Services.AddScoped<IValidator<Product>, ProductValidator>();
 
             builder.Services.AddIdentity<MyUser, UserRole>().AddEntityFrameworkStores<AppDbContext>();
             // Add services to the container.
             builder.Services.AddControllersWithViews();
-
+            builder.Services.AddFluentValidationAutoValidation();
+            builder.Services.AddFluentValidationClientsideAdapters();
             builder.Services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
+
 
 
 

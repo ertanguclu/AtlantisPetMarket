@@ -1,4 +1,4 @@
-﻿@model ProductInsertVM
+﻿@model Product
 
 <div class="card">
     <div class="card-header">
@@ -48,9 +48,15 @@
                 <span asp-validation-for="Color" class="text-danger"></span>
             </div>
             <div class="card-footer">
-                <button class="btn btn-success">Kaydet</button>
+                <button  class="btn btn-success">Kaydet</button>
             </div>
         </form>
     </div>
 
 </div>
+
+@section Scripts {
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+}
