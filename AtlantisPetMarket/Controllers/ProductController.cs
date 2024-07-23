@@ -41,9 +41,12 @@ namespace AtlantisPetMarket.Controllers
         {
             var result = await _validator.ValidateAsync(product);
 
-            result.AddToModelState(this.ModelState);
             if (!result.IsValid)
             {
+                foreach (var error in result.Errors)
+                {
+                    Console.WriteLine($"Property: {error.PropertyName}, Error: {error.ErrorMessage}");
+                }
                 result.AddToModelState(ModelState, null);
                 return View(product);
             }

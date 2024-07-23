@@ -24,15 +24,18 @@ namespace AtlantisPetMarket
 
             builder.Services.AddIdentity<MyUser, UserRole>().AddEntityFrameworkStores<AppDbContext>();
             // Add services to the container.
-            builder.Services.AddControllersWithViews();
-            builder.Services.AddFluentValidationAutoValidation();
+            builder.Services.AddControllersWithViews()
+        .AddFluentValidation(fv =>
+        {
+            fv.RegisterValidatorsFromAssemblyContaining<ProductValidator>();
+
+            // FluentValidation dil yöneticisini devre dýþý býrakma
+            ValidatorOptions.Global.LanguageManager.Enabled = false;
+        });
+            //builder.Services.AddControllersWithViews();
+            //builder.Services.AddFluentValidationAutoValidation();
             builder.Services.AddFluentValidationClientsideAdapters();
             builder.Services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
-
-
-
-
-
 
             var app = builder.Build();
 
