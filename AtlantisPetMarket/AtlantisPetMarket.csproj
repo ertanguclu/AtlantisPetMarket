@@ -27,7 +27,6 @@
 	<ItemGroup>
 	  <Folder Include="Areas\Writer\Data\" />
 	  <Folder Include="Areas\Writer\Views\Shared\Components\" />
-	  <Folder Include="AutoMapperConfig\" />
 	</ItemGroup>
 
 </Project>

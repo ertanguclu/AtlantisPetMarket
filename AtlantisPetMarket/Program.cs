@@ -1,3 +1,4 @@
+using AtlantisPetMarket.AutoMapperConfig;
 using AtlantisPetMarket.ValidationsRules;
 using BusinessLayer.Abstract;
 using BusinessLayer.Concrete;
@@ -20,7 +21,7 @@ builder.Services.AddScoped<IProductManager<AppDbContext, Product, int>, ProductM
 builder.Services.AddScoped<ICategoryManager<AppDbContext, Category, int>, CategoryManager<AppDbContext, Category, int>>();
 
 // AutoMapper
-
+builder.Services.AddAutoMapper(typeof(MapperConfig));
 // Controllers and views
 builder.Services.AddControllersWithViews();
 builder.Services.AddControllersWithViews(options => options.SuppressImplicitRequiredAttributeForNonNullableReferenceTypes = true);
