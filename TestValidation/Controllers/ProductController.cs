@@ -1,15 +1,13 @@
-﻿using AtlantisPetMarket.ValidationsRules;
-using BusinessLayer.Abstract;
+﻿using BusinessLayer.Abstract;
 using EntityLayer.DbContexts;
 using EntityLayer.Models.Concrete;
 using Microsoft.AspNetCore.Mvc;
+using TestValidation.ValidationRules;
 
-namespace AtlantisPetMarket.Controllers
+namespace TestValidation.Controllers
 {
-
     public class ProductController : Controller
     {
-
         private readonly IProductManager<AppDbContext, Product, int> _productManager;
         private readonly ICategoryManager<AppDbContext, Category, int> _categoryManager;
 
