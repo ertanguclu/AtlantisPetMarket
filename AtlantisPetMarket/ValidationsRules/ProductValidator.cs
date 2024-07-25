@@ -1,9 +1,9 @@
-﻿using EntityLayer.Models.Concrete;
+﻿using AtlantisPetMarket.Models.ProductVM;
 using FluentValidation;
 
 namespace AtlantisPetMarket.ValidationsRules
 {
-    public class ProductValidator : AbstractValidator<Product>
+    public class ProductValidator : AbstractValidator<ProductUpdateVM>
     {
         public ProductValidator()
         {
@@ -33,12 +33,6 @@ namespace AtlantisPetMarket.ValidationsRules
                 .NotEmpty().WithMessage("Ürün fotoğraf yolu alanı boş geçilemez.")
                 .MinimumLength(2).WithMessage("Ürün fotoğraf yolu alanı en az 2 karakter olabilir.")
                 .MaximumLength(250).WithMessage("Ürün fotoğraf yolu alanı en fazla 250 karakter olabilir.");
-            RuleFor(x => x.CategoryId)
-                .NotEmpty().WithMessage("Kategori alanı boş geçilemez.")
-                .GreaterThan(0).WithMessage("Kategori alanı 0'dan büyük olmalıdır.");
-            RuleFor(x => x.ParentCategoryId)
-                .NotEmpty().WithMessage("Ana kategori alanı boş geçilemez.")
-                .GreaterThan(0).WithMessage("Ana kategori alanı 0'dan büyük olmalıdır.");
             RuleFor(x => x.Color)
                 .MaximumLength(50).WithMessage("Renk alanı en fazla 50 karakter olabilir.");
 

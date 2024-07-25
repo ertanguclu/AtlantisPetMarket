@@ -1,4 +1,4 @@
-﻿namespace AtlantisPetMarket.Models
+﻿namespace AtlantisPetMarket.Models.ProductVM
 {
     public class ProductInsertVM
     {
@@ -11,5 +11,8 @@
         public string ProductPhotoPath { get; set; }
 
         public string? Color { get; set; }
+        public int CategoryId { get; set; }
+
+        public int ParentCategoryId { get; set; }
     }
 }

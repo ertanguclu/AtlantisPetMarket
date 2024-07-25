@@ -1,4 +1,5 @@
 using AtlantisPetMarket.AutoMapperConfig;
+using AtlantisPetMarket.Models.ProductVM;
 using AtlantisPetMarket.ValidationsRules;
 using BusinessLayer.Abstract;
 using BusinessLayer.Concrete;
@@ -27,7 +28,7 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddControllersWithViews(options => options.SuppressImplicitRequiredAttributeForNonNullableReferenceTypes = true);
 
 // FluentValidation
-builder.Services.AddScoped<IValidator<Product>, ProductValidator>();
+builder.Services.AddScoped<IValidator<ProductUpdateVM>, ProductValidator>();
 builder.Services.AddFluentValidationClientsideAdapters();
 builder.Services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
 
