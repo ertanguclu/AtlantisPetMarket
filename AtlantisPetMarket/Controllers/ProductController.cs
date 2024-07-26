@@ -1,10 +1,14 @@
 ﻿using AtlantisPetMarket.Models.ProductVM;
+using AtlantisPetMarket.ValidationsRules;
 using AutoMapper;
 using BusinessLayer.Abstract;
 using EntityLayer.DbContexts;
 using EntityLayer.Models.Concrete;
 using FluentValidation;
+using FluentValidation.Results;
 using Microsoft.AspNetCore.Mvc;
+using System.Globalization;
+
 
 namespace AtlantisPetMarket.Controllers
 {
@@ -68,24 +72,42 @@ namespace AtlantisPetMarket.Controllers
 
         }
         [HttpPost]
-        public async Task<IActionResult> Update(ProductUpdateVM productUpdateVM, int id)
+        public async Task<IActionResult> Update(ProductUpdateVM model, string price, int id)
         {
+            if (!decimal.TryParse(price, NumberStyles.Any, CultureInfo.InvariantCulture, out var parsedPrice))
+            {
+                ModelState.AddModelError("Price", "Fiyat alanı geçerli bir sayı olmalıdır.");
+                ViewBag.Categories = await _categoryManager.GetAllAsync(null);
+                return View(model);
+            }
 
-            var product = await _productManager.FindAsync(id);
+            model.Price = parsedPrice;
+
+            // Doğrulama
+            ValidationResult results = await _validator.ValidateAsync(model);
+
+            if (!results.IsValid)
+            {
+                foreach (var failure in results.Errors)
+                {
+                    ModelState.AddModelError(failure.PropertyName, failure.ErrorMessage);
+                }
+                ViewBag.Categories = await _categoryManager.GetAllAsync(null);
+                return View(model);
+            }
+
+            var product = await _productManager.FindAsync(model.Id);
             if (product == null)
             {
                 return NotFound();
             }
-            //var result = _validator.Validate(productUpdateVM);
-            //if (!result.IsValid)
-            //{
-            //    return BadRequest(result.Errors);
-            //}
-            _mapper.Map(productUpdateVM, product);
-            await _productManager.UpdateAsync(product);
-            return RedirectToAction("Index");
 
+            product = _mapper.Map(model, product);
+            await _productManager.UpdateAsync(product);
+            return RedirectToAction(nameof(Index));
         }
+
+    
         [HttpPost]
         public async Task<IActionResult> Delete(int id)
         {

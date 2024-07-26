@@ -1,5 +1,6 @@
 ﻿using AtlantisPetMarket.Models.ProductVM;
 using FluentValidation;
+using System.Globalization;
 
 namespace AtlantisPetMarket.ValidationsRules
 {
@@ -21,7 +22,8 @@ namespace AtlantisPetMarket.ValidationsRules
                 .MaximumLength(500).WithMessage("Açıklama alanı en fazla 500 karakter olabilir.");
             RuleFor(x => x.Price)
                 .NotEmpty().WithMessage("Fiyat alanı boş geçilemez.")
-                .GreaterThan(0).WithMessage("Fiyat alanı 0'dan büyük olmalıdır.");
+                .GreaterThanOrEqualTo(1).WithMessage("Fiyat alanı 1 veya daha büyük olmalıdır.")
+                .Must(BeAValidPrice).WithMessage("Fiyat alanı geçerli bir sayı olmalıdır ve 0'dan büyük olmalıdır.");
             RuleFor(x => x.ProductCode)
                 .NotEmpty().WithMessage("Ürün kodu alanı boş geçilemez.")
                 .MinimumLength(2).WithMessage("Ürün kodu alanı en az 2 karakter olabilir.")
@@ -36,8 +38,19 @@ namespace AtlantisPetMarket.ValidationsRules
             RuleFor(x => x.Color)
                 .MaximumLength(50).WithMessage("Renk alanı en fazla 50 karakter olabilir.");
 
+            bool BeAValidPrice(decimal price)
+            {
+                // Fiyatı tr-TR kültürü ile string olarak al ve parse et
+                var priceString = price.ToString(CultureInfo.InvariantCulture);
+                if (decimal.TryParse(priceString, NumberStyles.Any, new CultureInfo("tr-TR"), out decimal result))
+                {
+                    return result >= 1;
+                }
+                return false;
+            }
 
 
         }
+
     }
 }

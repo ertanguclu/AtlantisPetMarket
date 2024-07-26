@@ -50,12 +50,8 @@
                 else
                 {
                     <option value="@category.Id">@category.CategoryName</option>
-
                 }
-
             }
-            
-
         </select>
         <label asp-for="CategoryId" class="ms-2"></label>
 
@@ -68,10 +64,18 @@
     <button type="submit" class="btn btn-primary" >Güncelle</button>
 </form>
 @section Scripts {
-    @{
-        <script src="~/lib/jquery/dist/jquery.min.js"></script>
-        <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
-        <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
-        // await Html.RenderPartialAsync("_ValidationScriptsPartial");
-    }
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('form').submit(function () {
+                var priceInput = $('#Price');
+                var priceValue = priceInput.val();
+                priceValue = priceValue.replace(',', '.');
+                priceInput.val(priceValue);
+            });
+        });
+    </script>
 }
+
