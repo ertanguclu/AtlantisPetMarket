@@ -55,29 +55,36 @@ namespace AtlantisPetMarket.Controllers
         public async Task<IActionResult> Update(int id)
         {
             var product = await _productManager.FindAsync(id);
-            var viewModel = _mapper.Map<ProductUpdateVM>(product);
             if (product == null)
             {
                 return NotFound();
             }
+            var viewModel = _mapper.Map<ProductUpdateVM>(product);
             ViewBag.Categories = await _categoryManager.GetAllAsync(null);
 
             Category category = await _categoryManager.FindAsync(product.CategoryId);
             ViewBag.CategoryName = category.CategoryName;
             return View(viewModel);
+
         }
         [HttpPost]
-        public async Task<IActionResult> Update(ProductUpdateVM productUpdateVM)
+        public async Task<IActionResult> Update(ProductUpdateVM productUpdateVM, int id)
         {
-            var result = _validator.Validate(productUpdateVM);
-            if (!result.IsValid)
+
+            var product = await _productManager.FindAsync(id);
+            if (product == null)
             {
-                ViewBag.Categories = await _categoryManager.GetAllAsync(null);
-                return View(productUpdateVM);
+                return NotFound();
             }
-            var product = _mapper.Map<Product>(productUpdateVM);
+            //var result = _validator.Validate(productUpdateVM);
+            //if (!result.IsValid)
+            //{
+            //    return BadRequest(result.Errors);
+            //}
+            _mapper.Map(productUpdateVM, product);
             await _productManager.UpdateAsync(product);
             return RedirectToAction("Index");
+
         }
         [HttpPost]
         public async Task<IActionResult> Delete(int id)

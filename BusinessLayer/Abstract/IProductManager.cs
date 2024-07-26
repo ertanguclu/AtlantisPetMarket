@@ -7,5 +7,6 @@ namespace BusinessLayer.Abstract
          where TContext : DbContext, new()
         where T : Product
     {
+
     }
 }
