@@ -69,5 +69,22 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
     <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            // Kullanıcı input yaptığında , dan . ya çevir
+            $('#Price').on('input', function () {
+                var value = $(this).val();
+                $(this).val(value.replace(',', '.'));
+            });
+
+            // Form submit edildiğinde , dan . ya çevir
+            $('form').submit(function () {
+                var priceInput = $('#Price');
+                var priceValue = priceInput.val();
+                priceValue = priceValue.replace(',', '.');
+                priceInput.val(priceValue);
+            });
+        });
+    </script>
 }
 

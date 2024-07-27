@@ -4,9 +4,9 @@ using System.Globalization;
 
 namespace AtlantisPetMarket.ValidationsRules
 {
-    public class ProductValidatorInsert : AbstractValidator<ProductInsertVM>
+    public class ProductValidator : AbstractValidator<ProductUpdateVM>
     {
-        public ProductValidatorInsert()
+        public ProductValidator()
         {
             RuleFor(x => x.Brand)
                 .NotEmpty().WithMessage("Marka alanı boş geçilemez.")
@@ -36,6 +36,10 @@ namespace AtlantisPetMarket.ValidationsRules
                 .MaximumLength(250).WithMessage("Ürün fotoğraf yolu alanı en fazla 250 karakter olabilir.");
             RuleFor(x => x.Color)
                 .MaximumLength(50).WithMessage("Renk alanı en fazla 50 karakter olabilir.");
+
+
+
+
         }
 
     }

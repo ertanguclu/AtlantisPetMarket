@@ -42,19 +42,38 @@ namespace AtlantisPetMarket.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> Create(ProductInsertVM productVM)
+        public async Task<IActionResult> Create(ProductInsertVM productVM, string price)
         {
+            if (!decimal.TryParse(price, NumberStyles.Any, CultureInfo.InvariantCulture, out var parsedPrice))
+            {
+                ModelState.AddModelError("Price", "Fiyat alanı geçerli bir sayı olmalıdır.");
+                ViewBag.Categories = await _categoryManager.GetAllAsync(null);
+                return View(productVM);
+            }
 
-            //var result = _validator.Validate(productVM);
-            //if (!result.IsValid)
-            //{
-            //    return BadRequest(result.Errors);
+            productVM.Price = parsedPrice;
 
-            //}
+            // Doğrulama
+            var validator = new ProductValidatorInsert();
+            ValidationResult results = await validator.ValidateAsync(productVM);
+
+            if (!results.IsValid)
+            {
+                foreach (var failure in results.Errors)
+                {
+                    ModelState.AddModelError(failure.PropertyName, failure.ErrorMessage);
+                }
+                ViewBag.Categories = await _categoryManager.GetAllAsync(null);
+                return View(productVM);
+            }
+
             var product = _mapper.Map<Product>(productVM);
             await _productManager.AddAsync(product);
-            return RedirectToAction("Index");
+            return RedirectToAction(nameof(Index));
         }
+
+
+
         [HttpGet]
         public async Task<IActionResult> Update(int id)
         {

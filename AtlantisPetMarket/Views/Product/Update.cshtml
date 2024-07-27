@@ -69,8 +69,20 @@
     <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
     <script>
         $(document).ready(function () {
+            // Sayfa yüklendiğinde, Price alanındaki değeri , dan . ya çevir
+            var priceInput = $('#Price');
+            var priceValue = priceInput.val();
+            priceValue = priceValue.replace(',', '.');
+            priceInput.val(priceValue);
+
+            // Kullanıcı input yaptığında , dan . ya çevir
+            priceInput.on('input', function () {
+                var value = $(this).val();
+                $(this).val(value.replace(',', '.'));
+            });
+
+            // Form submit edildiğinde , dan . ya çevir
             $('form').submit(function () {
-                var priceInput = $('#Price');
                 var priceValue = priceInput.val();
                 priceValue = priceValue.replace(',', '.');
                 priceInput.val(priceValue);
