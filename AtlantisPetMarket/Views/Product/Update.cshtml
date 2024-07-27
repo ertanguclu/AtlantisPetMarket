@@ -2,6 +2,7 @@
 
 <form asp-action="Update" method="post">
     <input type="hidden" asp-for="Id" />
+    <input type="hidden" name="parentCategoryId" value="@ViewBag.ParentCategoryId" />
     <div class="form-group">
         <label asp-for="Brand"></label>
         <input asp-for="Brand" class="form-control" />
@@ -38,31 +39,22 @@
         <span asp-validation-for="ProductPhotoPath" class="text-danger"></span>
     </div>
     <div class="form-floating py-2 col-12">
-        <select asp-for="CategoryId"  class="form-select form-select-sm" aria-label=".form-select-sm example">
-
-            @foreach (Category category in ViewBag.Categories)
+        <select asp-for="CategoryId" class="form-select form-select-sm" aria-label=".form-select-sm example">
+            @foreach (var category in ViewBag.Categories)
             {
-
-                @if (category.CategoryName == ViewBag.CategoryName)
-                {
-                    <option value="@category.Id" selected>@category.CategoryName</option>
-                }
-                else
-                {
-                    <option value="@category.Id">@category.CategoryName</option>
-                }
+                <option value="@category.Id">@category.CategoryName</option>
             }
         </select>
         <label asp-for="CategoryId" class="ms-2"></label>
-
     </div>
     <div class="form-group">
         <label asp-for="Color"></label>
         <input asp-for="Color" class="form-control" />
         <span asp-validation-for="Color" class="text-danger"></span>
     </div>
-    <button type="submit" class="btn btn-primary" >Güncelle</button>
+    <button type="submit" class="btn btn-primary">Güncelle</button>
 </form>
+
 @section Scripts {
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
@@ -90,4 +82,3 @@
         });
     </script>
 }
-

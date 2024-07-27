@@ -7,7 +7,7 @@ using MySql.EntityFrameworkCore.Metadata;
 namespace EntityLayer.Migrations
 {
     /// <inheritdoc />
-    public partial class initCreate : Migration
+    public partial class initialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -227,11 +227,12 @@ namespace EntityLayer.Migrations
                         onDelete: ReferentialAction.Cascade);
                 })
                 .Annotation("MySQL:Charset", "utf8mb4");
+
             migrationBuilder.CreateIndex(
-        name: "IX_Categories_CategoryName_ParentCategoryId",
-        table: "Categories",
-        columns: new[] { "CategoryName", "ParentCategoryId" },
-        unique: true);
+    name: "IX_Categories_CategoryName_ParentCategoryId",
+    table: "Categories",
+    columns: new[] { "CategoryName", "ParentCategoryId" },
+    unique: true);
 
             migrationBuilder.CreateTable(
                 name: "Products",

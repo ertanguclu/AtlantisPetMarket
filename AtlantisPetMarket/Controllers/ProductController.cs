@@ -7,7 +7,9 @@ using EntityLayer.Models.Concrete;
 using FluentValidation;
 using FluentValidation.Results;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Globalization;
+using System.Linq.Expressions;
 
 
 namespace AtlantisPetMarket.Controllers
@@ -34,6 +36,19 @@ namespace AtlantisPetMarket.Controllers
             var products = await _productManager.GetAllIncludeAsync(x => x.CategoryId == id, x => x.Category);
             return View(products);
         }
+        //public async Task<IEnumerable<Category>> GetAllAsync(Expression<Func<Category, bool>> filter = null)
+        //{
+        //    if (filter != null)
+        //    {
+        //        return await _context.Categories.Where(filter).ToListAsync();
+        //    }
+        //    else
+        //    {
+        //        return await _context.Categories.ToListAsync();
+        //    }
+        //}
+
+
 
         [HttpGet]
         public IActionResult Create()
@@ -42,12 +57,12 @@ namespace AtlantisPetMarket.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(ProductInsertVM productVM, string price)
+        public async Task<IActionResult> Create(ProductInsertVM productVM, string price, int parentCategoryId)
         {
             if (!decimal.TryParse(price, NumberStyles.Any, CultureInfo.InvariantCulture, out var parsedPrice))
             {
                 ModelState.AddModelError("Price", "Fiyat alanı geçerli bir sayı olmalıdır.");
-                ViewBag.Categories = await _categoryManager.GetAllAsync(null);
+                ViewBag.Categories = await _categoryManager.GetAllAsync(c => c.ParentCategoryId == parentCategoryId);
                 return View(productVM);
             }
 
@@ -63,7 +78,7 @@ namespace AtlantisPetMarket.Controllers
                 {
                     ModelState.AddModelError(failure.PropertyName, failure.ErrorMessage);
                 }
-                ViewBag.Categories = await _categoryManager.GetAllAsync(null);
+                ViewBag.Categories = await _categoryManager.GetAllAsync(c => c.ParentCategoryId == parentCategoryId);
                 return View(productVM);
             }
 
@@ -75,7 +90,7 @@ namespace AtlantisPetMarket.Controllers
 
 
         [HttpGet]
-        public async Task<IActionResult> Update(int id)
+        public async Task<IActionResult> Update(int id, int? parentCategoryId)
         {
             var product = await _productManager.FindAsync(id);
             if (product == null)
@@ -83,20 +98,28 @@ namespace AtlantisPetMarket.Controllers
                 return NotFound();
             }
             var viewModel = _mapper.Map<ProductUpdateVM>(product);
-            ViewBag.Categories = await _categoryManager.GetAllAsync(null);
+
+            // ParentCategoryId'yi kontrol edin ve eğer null ise, product'dan alın
+            int effectiveParentCategoryId = parentCategoryId ?? product.ParentCategoryId;
+
+            ViewBag.Categories = await _categoryManager.GetAllAsync(c => c.ParentCategoryId == effectiveParentCategoryId);
+            ViewBag.ParentCategoryId = effectiveParentCategoryId; // ParentCategoryId'yi ViewBag'e ekleyin
 
             Category category = await _categoryManager.FindAsync(product.CategoryId);
             ViewBag.CategoryName = category.CategoryName;
             return View(viewModel);
-
         }
+
+
+
         [HttpPost]
-        public async Task<IActionResult> Update(ProductUpdateVM model, string price, int id)
+        public async Task<IActionResult> Update(ProductUpdateVM model, string price, int parentCategoryId)
         {
             if (!decimal.TryParse(price, NumberStyles.Any, CultureInfo.InvariantCulture, out var parsedPrice))
             {
                 ModelState.AddModelError("Price", "Fiyat alanı geçerli bir sayı olmalıdır.");
-                ViewBag.Categories = await _categoryManager.GetAllAsync(null);
+                ViewBag.Categories = await _categoryManager.GetAllAsync(c => c.ParentCategoryId == parentCategoryId);
+                ViewBag.ParentCategoryId = parentCategoryId; // ParentCategoryId'yi ViewBag'e ekleyin
                 return View(model);
             }
 
@@ -111,7 +134,8 @@ namespace AtlantisPetMarket.Controllers
                 {
                     ModelState.AddModelError(failure.PropertyName, failure.ErrorMessage);
                 }
-                ViewBag.Categories = await _categoryManager.GetAllAsync(null);
+                ViewBag.Categories = await _categoryManager.GetAllAsync(c => c.ParentCategoryId == parentCategoryId);
+                ViewBag.ParentCategoryId = parentCategoryId; // ParentCategoryId'yi ViewBag'e ekleyin
                 return View(model);
             }
 
@@ -126,7 +150,9 @@ namespace AtlantisPetMarket.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-    
+
+
+
         [HttpPost]
         public async Task<IActionResult> Delete(int id)
         {
