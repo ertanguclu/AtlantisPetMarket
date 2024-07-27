@@ -1,0 +1,72 @@
+﻿@model ProductUpdateVM
+
+<form asp-action="Update" method="post">
+    <input type="hidden" asp-for="Id" />
+    <div class="form-group">
+        <label asp-for="Brand"></label>
+        <input asp-for="Brand" class="form-control" />
+        <span asp-validation-for="Brand" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="ProductName"></label>
+        <input asp-for="ProductName" class="form-control" />
+        <span asp-validation-for="ProductName" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Description"></label>
+        <input asp-for="Description" class="form-control" />
+        <span asp-validation-for="Description" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="PriceInput"></label>
+        <input asp-for="PriceInput" class="form-control" type="text" placeholder="Örneğin: 35.78" />
+        <span asp-validation-for="PriceInput" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="ProductCode"></label>
+        <input asp-for="ProductCode" class="form-control" />
+        <span asp-validation-for="ProductCode" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="StockQuantity"></label>
+        <input asp-for="StockQuantity" class="form-control" />
+        <span asp-validation-for="StockQuantity" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="ProductPhotoPath"></label>
+        <input asp-for="ProductPhotoPath" class="form-control" />
+        <span asp-validation-for="ProductPhotoPath" class="text-danger"></span>
+    </div>
+    <div class="form-floating py-2 col-12">
+        <select asp-for="CategoryId" class="form-select form-select-sm" aria-label=".form-select-sm example">
+            @foreach (Category category in ViewBag.Categories)
+            {
+                @if (category.CategoryName == ViewBag.CategoryName)
+                {
+                    <option value="@category.Id" selected>@category.CategoryName</option>
+                }
+                else
+                {
+                    <option value="@category.Id">@category.CategoryName</option>
+
+                }
+            }
+        </select>
+        <label asp-for="CategoryId" class="ms-2"></label>
+    </div>
+    <div class="form-group">
+        <label asp-for="Color"></label>
+        <input asp-for="Color" class="form-control" />
+        <span asp-validation-for="Color" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-primary">Güncelle</button>
+</form>
+@section Scripts {
+    @{
+        <script src="~/lib/jquery/dist/jquery.min.js"></script>
+        <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+        <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

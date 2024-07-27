@@ -13,7 +13,8 @@
                 <td>@Html.DisplayNameFor(p => p.Description)</td>
                 <td>@Html.DisplayNameFor(p => p.Price)</td>
                 <td>@Html.DisplayNameFor(p => p.Color)</td>
-                <td>Kategoriler</td>
+                <td>SİL</td>
+                <td>GÜNCELLE</td>
 
             </tr>
         </thead>
@@ -28,9 +29,15 @@
                     <td>@urun.Price</td>
                     <td>@urun.Color</td>
                     <td>
-                        <a class="btn btn-success"
-                           asp-action="KategoriYonet2"
-                           asp-route-id="@urun.Id">Kategoriler</a>
+                        <form method="post" asp-action="Delete" asp-route-id="@urun.Id">
+                            <button type="submit" class="btn btn-outline-danger">Sil</button>
+                        </form>
+                    </td>
+                    <td>
+                        <a class="btn btn-outline-info"
+                           asp-action="Update"
+                           asp-route-id="@urun.Id">Güncelle
+                       </a>
                     </td>
 
                 </tr>
