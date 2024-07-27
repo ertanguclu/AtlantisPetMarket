@@ -1,0 +1,33 @@
+﻿@model YourNamespace.ViewModels.CategoryDeleteVM
+
+@{
+    ViewData["Title"] = "Delete Category";
+}
+
+<h2>Delete Category</h2>
+
+<h3>Are you sure you want to delete this category?</h3>
+<div>
+    <h4>@Model.CategoryName</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            Category Name
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.CategoryName)
+        </dd>
+        <dt class="col-sm-2">
+            Parent Category
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ParentCategoryName)
+        </dd>
+    </dl>
+
+    <form asp-action="Delete" method="post">
+        <input type="hidden" asp-for="Id" />
+        <input type="submit" value="Delete" class="btn btn-danger" /> |
+        <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>

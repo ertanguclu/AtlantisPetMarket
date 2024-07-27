@@ -1,10 +1,11 @@
 ﻿
+using AtlantisPetMarket.Models.CategoryVM;
 using EntityLayer.Models.Concrete;
 using FluentValidation;
 
 namespace BusinessLayer.ValidationsRules
 {
-    public class CategoryValidator : AbstractValidator<Category>
+    public class CategoryValidator : AbstractValidator<CategoryInsertVM>
     {
         public CategoryValidator()
         {

@@ -1,8 +1,10 @@
 using AtlantisPetMarket.AutoMapperConfig;
+using AtlantisPetMarket.Models.CategoryVM;
 using AtlantisPetMarket.Models.ProductVM;
 using AtlantisPetMarket.ValidationsRules;
 using BusinessLayer.Abstract;
 using BusinessLayer.Concrete;
+using BusinessLayer.ValidationsRules;
 using EntityLayer.DbContexts;
 using EntityLayer.Models.Concrete;
 using FluentValidation;
@@ -30,6 +32,8 @@ builder.Services.AddControllersWithViews(options => options.SuppressImplicitRequ
 
 // FluentValidation
 builder.Services.AddScoped<IValidator<ProductUpdateVM>, ProductValidator>();
+builder.Services.AddScoped<IValidator<CategoryInsertVM>, CategoryValidator>();
+
 builder.Services.AddFluentValidationClientsideAdapters();
 builder.Services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
 

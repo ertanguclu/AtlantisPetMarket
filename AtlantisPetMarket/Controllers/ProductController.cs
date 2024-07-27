@@ -110,7 +110,7 @@ namespace AtlantisPetMarket.Controllers
                 // Fiyat dönüşümü başarısızsa hata mesajı ekle
                 ModelState.AddModelError("PriceInput", "Geçerli bir fiyat girin.");
                 return View(productUpdateVM);
-            }
+            } 
             // Modeli güncelle
             _mapper.Map(productUpdateVM, product);
             await _productManager.UpdateAsync(product);
