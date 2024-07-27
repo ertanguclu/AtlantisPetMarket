@@ -8,6 +8,7 @@ using EntityLayer.Models.Concrete;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.EntityFrameworkCore;
+using System.Globalization;
 using System.Reflection;
 
 
@@ -39,6 +40,10 @@ builder.Services.AddIdentity<MyUser, UserRole>()
     .AddEntityFrameworkStores<AppDbContext>();
 
 var app = builder.Build();
+
+var cultureInfo = new CultureInfo("tr-TR");
+CultureInfo.DefaultThreadCurrentCulture = cultureInfo;
+CultureInfo.DefaultThreadCurrentUICulture = cultureInfo;
 
 // Configure the HTTP request pipeline
 if (!app.Environment.IsDevelopment())

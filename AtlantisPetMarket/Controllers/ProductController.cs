@@ -64,27 +64,57 @@ namespace AtlantisPetMarket.Controllers
 
             Category category = await _categoryManager.FindAsync(product.CategoryId);
             ViewBag.CategoryName = category.CategoryName;
+            ViewBag.SelectedCategoryId = product.CategoryId;
             return View(viewModel);
 
         }
         [HttpPost]
         public async Task<IActionResult> Update(ProductUpdateVM productUpdateVM, int id)
         {
+            var result = _validator.Validate(productUpdateVM);
+            if (!result.IsValid)
+            {
+                return BadRequest(result.Errors);
+            }
+            // Model doğrulaması
+            var validationResult = _validator.Validate(productUpdateVM);
 
+            // Kategorileri tekrar ayarla
+            ViewBag.Categories = await _categoryManager.GetAllAsync(null);
+            ViewBag.SelectedCategoryId = productUpdateVM.CategoryId;
+
+            if (!validationResult.IsValid)
+            {
+                // Hatalar varsa, geri dön ve hata mesajlarını göster
+                return View(productUpdateVM);
+            }
+
+            // Ürünü bul
             var product = await _productManager.FindAsync(id);
             if (product == null)
             {
                 return NotFound();
             }
-            //var result = _validator.Validate(productUpdateVM);
-            //if (!result.IsValid)
-            //{
-            //    return BadRequest(result.Errors);
-            //}
+
+            // Ürünün kategorisini al
+            var category = await _categoryManager.FindAsync(product.CategoryId);
+            ViewBag.CategoryName = category?.CategoryName ?? string.Empty;
+
+            // Fiyatı string'den decimal'e dönüştür
+            if (decimal.TryParse(productUpdateVM.PriceInput.Replace(',', '.'), out decimal price))
+            {
+                productUpdateVM.Price = price;
+            }
+            else
+            {
+                // Fiyat dönüşümü başarısızsa hata mesajı ekle
+                ModelState.AddModelError("PriceInput", "Geçerli bir fiyat girin.");
+                return View(productUpdateVM);
+            }
+            // Modeli güncelle
             _mapper.Map(productUpdateVM, product);
             await _productManager.UpdateAsync(product);
             return RedirectToAction("Index");
-
         }
         [HttpPost]
         public async Task<IActionResult> Delete(int id)
