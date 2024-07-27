@@ -27,8 +27,7 @@ namespace EntityLayer.Migrations
 
                     b.Property<string>("CategoryName")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("varchar(50)");
+                        .HasColumnType("varchar(255)");
 
                     b.Property<string>("CategoryPhotoPath")
                         .IsRequired()
@@ -48,12 +47,12 @@ namespace EntityLayer.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CategoryName")
-                        .IsUnique();
-
                     b.HasIndex("MyUserId1");
 
                     b.HasIndex("ParentCategoryId");
+
+                    b.HasIndex("CategoryName", "ParentCategoryId")
+                        .IsUnique();
 
                     b.ToTable("Categories");
                 });
@@ -193,8 +192,7 @@ namespace EntityLayer.Migrations
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasMaxLength(150)
-                        .HasColumnType("varchar(150)");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("MyUserId")
                         .HasColumnType("longtext");
@@ -206,7 +204,6 @@ namespace EntityLayer.Migrations
                         .HasColumnType("int");
 
                     b.Property<decimal>("Price")
-                        .HasPrecision(18, 2)
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("ProductCode")
@@ -215,8 +212,7 @@ namespace EntityLayer.Migrations
 
                     b.Property<string>("ProductName")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("varchar(50)");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("ProductPhotoPath")
                         .IsRequired()

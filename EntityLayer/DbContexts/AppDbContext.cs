@@ -32,9 +32,11 @@ namespace EntityLayer.DbContexts
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Category>()
+                .HasIndex(c => new { c.CategoryName, c.ParentCategoryId })
+                .IsUnique();
 
             base.OnModelCreating(modelBuilder);
-            modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
 
 
         }

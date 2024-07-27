@@ -7,7 +7,7 @@ using MySql.EntityFrameworkCore.Metadata;
 namespace EntityLayer.Migrations
 {
     /// <inheritdoc />
-    public partial class InitDb : Migration
+    public partial class initCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -204,7 +204,7 @@ namespace EntityLayer.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
-                    CategoryName = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: false),
+                    CategoryName = table.Column<string>(type: "varchar(255)", nullable: false),
                     CategoryPhotoPath = table.Column<string>(type: "longtext", nullable: false),
                     ParentCategoryId = table.Column<int>(type: "int", nullable: false),
                     CreateDate = table.Column<DateTime>(type: "datetime(6)", nullable: false),
@@ -227,6 +227,11 @@ namespace EntityLayer.Migrations
                         onDelete: ReferentialAction.Cascade);
                 })
                 .Annotation("MySQL:Charset", "utf8mb4");
+            migrationBuilder.CreateIndex(
+        name: "IX_Categories_CategoryName_ParentCategoryId",
+        table: "Categories",
+        columns: new[] { "CategoryName", "ParentCategoryId" },
+        unique: true);
 
             migrationBuilder.CreateTable(
                 name: "Products",
@@ -235,9 +240,9 @@ namespace EntityLayer.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
                     Brand = table.Column<string>(type: "longtext", nullable: false),
-                    ProductName = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: false),
-                    Description = table.Column<string>(type: "varchar(150)", maxLength: 150, nullable: false),
-                    Price = table.Column<decimal>(type: "decimal(18,2)", precision: 18, scale: 2, nullable: false),
+                    ProductName = table.Column<string>(type: "longtext", nullable: false),
+                    Description = table.Column<string>(type: "longtext", nullable: false),
+                    Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     ProductCode = table.Column<string>(type: "longtext", nullable: false),
                     StockQuantity = table.Column<int>(type: "int", nullable: false),
                     ProductPhotoPath = table.Column<string>(type: "longtext", nullable: false),
@@ -309,9 +314,9 @@ namespace EntityLayer.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Categories_CategoryName",
+                name: "IX_Categories_CategoryName_ParentCategoryId",
                 table: "Categories",
-                column: "CategoryName",
+                columns: new[] { "CategoryName", "ParentCategoryId" },
                 unique: true);
 
             migrationBuilder.CreateIndex(

@@ -36,6 +36,15 @@ namespace AtlantisPetMarket.ValidationsRules
                 .MaximumLength(250).WithMessage("Ürün fotoğraf yolu alanı en fazla 250 karakter olabilir.");
             RuleFor(x => x.Color)
                 .MaximumLength(50).WithMessage("Renk alanı en fazla 50 karakter olabilir.");
+            RuleFor(x => x.CategoryId)
+                .NotEmpty().WithMessage("Kategori Id boş geçilemez")
+                .Must(BeANumber).WithMessage("Kategori ID yalnızca sayısal değerlerden oluşmalıdır.");
+        }
+
+        private bool BeANumber(int categoryId)
+        {
+            // Bu fonksiyon categoryId'nin sayısal olup olmadığını kontrol eder.
+            return categoryId.ToString().All(char.IsDigit);
         }
 
     }
