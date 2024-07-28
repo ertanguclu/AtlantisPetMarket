@@ -7,15 +7,15 @@
     <table class="table">
         <thead>
             <tr>
-                <td>@Html.DisplayNameFor(p => p.Id)</td>
-                <td>@Html.DisplayNameFor(p => p.Brand)</td>
-                <td>@Html.DisplayNameFor(p => p.Category.CategoryName)</td>
-                <td>@Html.DisplayNameFor(p => p.Description)</td>
-                <td>@Html.DisplayNameFor(p => p.Price)</td>
-                <td>@Html.DisplayNameFor(p => p.Color)</td>
+                <td>ID</td>
+                <td>Marka</td>
+                <td>Kategori</td>
+                <td>Üst Kategori</td>
+                <td>Açıklama</td>
+                <td>Fiyat</td>
+                <td>Renk</td>
                 <td>SİL</td>
                 <td>GÜNCELLE</td>
-
             </tr>
         </thead>
         <tbody>
@@ -25,6 +25,7 @@
                     <td>@urun.Id</td>
                     <td>@urun.Brand</td>
                     <td>@urun.Category.CategoryName</td>
+                    <td>@urun.ParentCategory.ParentCategoryName</td>
                     <td>@urun.Description</td>
                     <td>@urun.Price</td>
                     <td>@urun.Color</td>

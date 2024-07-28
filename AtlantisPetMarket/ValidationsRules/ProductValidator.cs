@@ -22,14 +22,9 @@ namespace AtlantisPetMarket.ValidationsRules
                 .NotEmpty().WithMessage("Açıklama alanı boş geçilemez.")
                 .MinimumLength(2).WithMessage("Açıklama alanı en az 2 karakter olabilir.")
                 .MaximumLength(500).WithMessage("Açıklama alanı en fazla 500 karakter olabilir.");
-            RuleFor(x => x.PriceInput)
-            .NotEmpty().WithMessage("Fiyat alanı boş geçilemez.")
-            .Matches(@"^\d+(\.\d{1,2})?$").WithMessage("Lütfen geçerli bir fiyat girin. Örneğin: 35.78")
-            .Must(BeFormattedCorrectly).WithMessage("Lütfen virgül kullanmayın, yerine nokta kullanın.");
-
             RuleFor(x => x.Price)
                 .NotEmpty().WithMessage("Fiyat alanı boş geçilemez.")
-                .Must(p => p.HasValue && p.Value > 0).WithMessage("Fiyat alanı 0'dan büyük olmalıdır.");
+                .GreaterThan(0).WithMessage("Fiyat alanı 0'dan büyük olmalıdır.");
 
             RuleFor(x => x.ProductCode)
                     .NotEmpty().WithMessage("Ürün kodu alanı boş geçilemez.")
@@ -49,10 +44,5 @@ namespace AtlantisPetMarket.ValidationsRules
                     .MaximumLength(50).WithMessage("Renk alanı en fazla 50 karakter olabilir.");
 
         }
-        private bool BeFormattedCorrectly(string value)
-        {
-            return !value.Contains(',');
-        }
-
     }
 }
