@@ -7,9 +7,9 @@ namespace Core_Proje.Areas.Writer.ViewComponents
     public class Notification : ViewComponent
     {
 
-        private readonly UserManager<MyUser> _userManager;
+        private readonly UserManager<User> _userManager;
 
-        public Notification(UserManager<MyUser> userManager)
+        public Notification(UserManager<User> userManager)
         {
             _userManager = userManager;
         }

@@ -35,7 +35,7 @@ builder.Services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
 
 
 // Identity
-builder.Services.AddIdentity<MyUser, UserRole>()
+builder.Services.AddIdentity<User, UserRole>()
     .AddEntityFrameworkStores<AppDbContext>();
 
 var app = builder.Build();

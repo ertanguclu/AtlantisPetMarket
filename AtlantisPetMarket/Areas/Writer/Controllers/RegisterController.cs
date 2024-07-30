@@ -12,9 +12,9 @@ namespace Core_Proje.Areas.Writer.Controllers
     [AllowAnonymous]
     public class RegisterController : Controller
     {
-        private readonly UserManager<MyUser> _userManager;
+        private readonly UserManager<User> _userManager;
 
-        public RegisterController(UserManager<MyUser> userManager)
+        public RegisterController(UserManager<User> userManager)
         {
             _userManager = userManager;
         }
@@ -29,7 +29,7 @@ namespace Core_Proje.Areas.Writer.Controllers
         public async Task<IActionResult> Index(UserRegisterViewModel p)
         {
 
-            MyUser w = new MyUser()
+            User w = new User()
             {
                 Name = p.Name,
                 Surname = p.Surname,

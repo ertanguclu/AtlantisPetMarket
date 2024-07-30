@@ -12,9 +12,9 @@ namespace AtlantisPetMarket.Areas.Writer.Controllers
     [Route("Writer/[controller]/[action]")]
     public class LoginController : Controller
     {
-        private readonly SignInManager<MyUser> _signInManager;
+        private readonly SignInManager<User> _signInManager;
 
-        public LoginController(SignInManager<MyUser> signInManager)
+        public LoginController(SignInManager<User> signInManager)
         {
             _signInManager = signInManager;
         }

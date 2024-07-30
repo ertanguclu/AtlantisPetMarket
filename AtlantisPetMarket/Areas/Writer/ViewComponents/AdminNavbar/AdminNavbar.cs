@@ -6,9 +6,9 @@ namespace Core_Proje.ViewComponents.AdminNavbar
 {
     public class AdminNavbar : ViewComponent
     {
-        private readonly UserManager<MyUser> _userManager;
+        private readonly UserManager<User> _userManager;
 
-        public AdminNavbar(UserManager<MyUser> userManager)
+        public AdminNavbar(UserManager<User> userManager)
         {
             _userManager = userManager;
         }
