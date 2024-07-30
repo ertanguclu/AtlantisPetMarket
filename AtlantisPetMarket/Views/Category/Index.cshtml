@@ -42,8 +42,12 @@
                     }
                 </td>
                 <td>
-                    <a asp-action="Update" asp-route-id="@item.Id" class="btn btn-warning">Edit</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Delete</a>
+                    <form method="post" asp-action="Delete" asp-controller="Category" asp-route-id="@item.Id">
+                        <button type="submit" class="btn btn-danger">Sil</button>
+                    </form>
+                </td>
+                <td>
+                    <a asp-action="Update" asp-route-id="@item.Id" class="btn btn-warning">Güncelle</a> |
                 </td>
             </tr>
         }

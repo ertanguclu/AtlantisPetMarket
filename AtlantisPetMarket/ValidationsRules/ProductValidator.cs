@@ -24,7 +24,7 @@ namespace AtlantisPetMarket.ValidationsRules
                 .MaximumLength(500).WithMessage("Açıklama alanı en fazla 500 karakter olabilir.");
             RuleFor(x => x.Price)
                 .NotEmpty().WithMessage("Fiyat alanı boş geçilemez.")
-                .GreaterThan(0).WithMessage("Fiyat alanı 0'dan büyük olmalıdır.");
+                .GreaterThanOrEqualTo(1).WithMessage("Fiyat alanı 0'dan büyük olmalıdır.");
 
             RuleFor(x => x.ProductCode)
                     .NotEmpty().WithMessage("Ürün kodu alanı boş geçilemez.")

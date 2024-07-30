@@ -4,6 +4,7 @@ using BusinessLayer.Abstract;
 using EntityLayer.DbContexts;
 using EntityLayer.Models.Concrete;
 using FluentValidation;
+using FluentValidation.Results;
 using Microsoft.AspNetCore.Mvc;
 using System.Globalization;
 
@@ -51,7 +52,7 @@ namespace AtlantisPetMarket.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(ProductInsertVM productVM, string price, int Id)
+        public async Task<IActionResult> Create(ProductInsertVM productVM, string price, int parentCategoryId)
         {
             if (!decimal.TryParse(price, NumberStyles.Any, CultureInfo.InvariantCulture, out var parsedPrice))
             {
@@ -101,46 +102,41 @@ namespace AtlantisPetMarket.Controllers
 
         }
         [HttpPost]
-        public async Task<IActionResult> Update(ProductUpdateVM productUpdateVM, int id, string price)
+        public async Task<IActionResult> Update(ProductUpdateVM productUpdateVM, int parentCategoryId, string price)
         {
-            // Fiyatı string'den decimal'e dönüştür
             if (!decimal.TryParse(price, NumberStyles.Any, CultureInfo.InvariantCulture, out var parsedPrice))
             {
-                // Fiyat dönüşümü başarısızsa hata mesajı ekle
-                ModelState.AddModelError("PriceInput", "Geçerli bir fiyat girin.");
-                ViewBag.Categories = await _categoryManager.GetAllAsync(null);
-                ViewBag.SelectedCategoryId = productUpdateVM.CategoryId;
-                return View(productUpdateVM);
-            }
-            else
-            {
-                productUpdateVM.Price = parsedPrice;
-            }
-
-            var validationResult = _validator.Validate(productUpdateVM);
-            if (!validationResult.IsValid)
-            {
-                ViewBag.Categories = await _categoryManager.GetAllAsync(null);
-                ViewBag.SelectedCategoryId = productUpdateVM.CategoryId;
+                ModelState.AddModelError("Price", "Fiyat alanı geçerli bir sayı olmalıdır.");
+                ViewBag.Categories = await _categoryManager.GetAllAsync(c => c.ParentCategoryId == parentCategoryId);
+                ViewBag.ParentCategoryId = parentCategoryId; // ParentCategoryId'yi ViewBag'e ekleyin
                 return View(productUpdateVM);
             }
 
-            // Ürünü bul
-            var product = await _productManager.FindAsync(id);
+            productUpdateVM.Price = parsedPrice;
+
+            // Doğrulama
+            ValidationResult results = await _validator.ValidateAsync(productUpdateVM);
+
+            if (!results.IsValid)
+            {
+                foreach (var failure in results.Errors)
+                {
+                    ModelState.AddModelError(failure.PropertyName, failure.ErrorMessage);
+                }
+                ViewBag.Categories = await _categoryManager.GetAllAsync(c => c.ParentCategoryId == parentCategoryId);
+                ViewBag.ParentCategoryId = parentCategoryId; // ParentCategoryId'yi ViewBag'e ekleyin
+                return View(productUpdateVM);
+            }
+
+            var product = await _productManager.FindAsync(productUpdateVM.Id);
             if (product == null)
             {
                 return NotFound();
             }
 
-            // Ürünün kategorisini al
-            var category = await _categoryManager.FindAsync(product.CategoryId);
-            ViewBag.CategoryName = category?.CategoryName ?? string.Empty;
-
-            // Modeli güncelle
-            _mapper.Map(productUpdateVM, product);
+            product = _mapper.Map(productUpdateVM, product);
             await _productManager.UpdateAsync(product);
-
-            return RedirectToAction("Index");
+            return RedirectToAction(nameof(Index));
         }
         [HttpPost]
         public async Task<IActionResult> Delete(int id)

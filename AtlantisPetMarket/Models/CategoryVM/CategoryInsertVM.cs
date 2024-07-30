@@ -1,4 +1,4 @@
-﻿namespace AtlantisPetMarket.Models.CategortVm
+﻿namespace AtlantisPetMarket.Models.CategoryVM
 {
     public class CategoryInsertVM
     {

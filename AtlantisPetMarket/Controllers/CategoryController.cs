@@ -1,4 +1,4 @@
-﻿using AtlantisPetMarket.Models.CategortVm;
+﻿using AtlantisPetMarket.Models.CategoryVM;
 using AutoMapper;
 using BusinessLayer.Abstract;
 using EntityLayer.DbContexts;
@@ -12,15 +12,18 @@ namespace AtlantisPetMarket.Controllers
     {
         private readonly IProductManager<AppDbContext, Product, int> _productManager;
         private readonly ICategoryManager<AppDbContext, Category, int> _categoryManager;
+        private readonly IParentCategoryManager<AppDbContext, ParentCategory, int> _parentCategoryManager;
         private readonly IMapper _mapper;
         private readonly IValidator<CategoryUpdateVM> _validator;
         public CategoryController(ICategoryManager<AppDbContext, Category, int> categoryManager,
-            IProductManager<AppDbContext, Product, int> productManager, IMapper mapper, IValidator<CategoryUpdateVM> validator)
+            IProductManager<AppDbContext, Product, int> productManager, IParentCategoryManager<AppDbContext, ParentCategory, int> parentCategoryManager, IMapper mapper, IValidator<CategoryUpdateVM> validator)
         {
             _productManager = productManager;
             _categoryManager = categoryManager;
             _mapper = mapper;
             _validator = validator;
+            _parentCategoryManager = parentCategoryManager;
+
         }
         public async Task<ActionResult<IEnumerable<Category>>> Index(int id)
         {
@@ -28,8 +31,9 @@ namespace AtlantisPetMarket.Controllers
             return View(categories);
         }
         [HttpGet]
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
+            ViewBag.parentCategories = await _parentCategoryManager.GetAllAsync(null);
             return View();
         }
         [HttpPost]
@@ -48,14 +52,18 @@ namespace AtlantisPetMarket.Controllers
             {
                 var resource = Directory.GetCurrentDirectory();
                 var extension = Path.GetExtension(insertVM.CategoryPhotoPath.FileName);
-                var imagename = Guid.NewGuid() + extension;
-                var savelocation = Path.Combine(resource, "wwwroot", "categoryimage", imagename);
-                using (var stream = new FileStream(savelocation, FileMode.Create))
+                var imageName = Guid.NewGuid() + extension;
+                var saveLocation = Path.Combine(resource, "wwwroot", "categoryimage", imageName);
+
+                using (var stream = new FileStream(saveLocation, FileMode.Create))
                 {
                     await insertVM.CategoryPhotoPath.CopyToAsync(stream);
                 }
-                insertVM.CategoryPhotoPath = imagename;
+
+                // Dosya adını ImagePath alanına atayın
+                category.CategoryPhotoPath = imageName;
             }
+
             await _categoryManager.AddAsync(category);
             return RedirectToAction("Index");
         }
@@ -69,7 +77,7 @@ namespace AtlantisPetMarket.Controllers
             }
 
             var viewModel = _mapper.Map<CategoryUpdateVM>(category);
-            ViewBag.Categories = await _categoryManager.GetAllAsync(null);
+            ViewBag.pCategories = await _parentCategoryManager.GetAllAsync(null);
             return View(viewModel);
         }
         [HttpPost]
