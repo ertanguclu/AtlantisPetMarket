@@ -5,7 +5,16 @@
 		<Nullable>enable</Nullable>
 		<ImplicitUsings>enable</ImplicitUsings>
 	</PropertyGroup>
-	
+
+	<ItemGroup>
+	  <Compile Remove="Views\Shared\NewFolder\**" />
+	  <Content Remove="Views\Shared\NewFolder\**" />
+	  <EmbeddedResource Remove="Views\Shared\NewFolder\**" />
+	  <None Remove="Views\Shared\NewFolder\**" />
+	</ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\BusinessLayer\BusinessLayer.csproj" />
+	</ItemGroup>
 	<ItemGroup>
 	  <None Include="wwwroot\login-form-14\.DS_Store" />
 	  <None Include="wwwroot\login-form-14\css\.DS_Store" />
@@ -27,9 +36,6 @@
 	  <Folder Include="Areas\Writer\Views\Shared\Components\" />
 	  <Folder Include="wwwroot\categoryimage\" />
 	  <Folder Include="wwwroot\productimage\" />
-	</ItemGroup>
-	<ItemGroup>
-	  <ProjectReference Include="..\BusinessLayer\BusinessLayer.csproj" />
 	</ItemGroup>
 
 </Project>

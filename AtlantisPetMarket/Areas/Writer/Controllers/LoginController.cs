@@ -31,7 +31,7 @@ namespace AtlantisPetMarket.Areas.Writer.Controllers
                 var result = await _signInManager.PasswordSignInAsync(p.Username, p.Password, true, true);
                 if (result.Succeeded)
                 {
-                    return LocalRedirect("/Writer/Profile/Index/");
+                    return LocalRedirect("/Writer/Dashboard/Index/");
                 }
                 else
                 {
