@@ -10,7 +10,7 @@ namespace BusinessLayer.Concrete
     {
         public ParentCategoryManager(TContext context) : base(context)
         {
+
         }
     }
-
 }

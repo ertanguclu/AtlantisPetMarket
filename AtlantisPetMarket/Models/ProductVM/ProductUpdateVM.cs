@@ -9,14 +9,15 @@ namespace AtlantisPetMarket.Models.ProductVM
         public string Brand { get; set; }
         public string ProductName { get; set; }
         public string Description { get; set; }
-        public string PriceInput { get; set; }  // Kullanıcıdan alınan fiyat (string olarak)
-        public decimal? Price { get; set; }
+        public decimal Price { get; set; }
         public string ProductCode { get; set; }
         public int StockQuantity { get; set; }
         public string ProductPhotoPath { get; set; }
 
         public int CategoryId { get; set; }
         public Category category { get; set; }
+        public int ParentCategoryId { get; set; }
+        public ParentCategory ParentCategory { get; set; }
         public List<SelectListItem> Categories { get; set; }
         //public int ParentCategoryId { get; set; }
         public List<SelectListItem> ParentCategories { get; set; }

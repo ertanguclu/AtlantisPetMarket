@@ -1,6 +1,6 @@
 ﻿@model ProductUpdateVM
 
-<form asp-action="Update" method="post">
+<form asp-action="Update" asp-controller="Product" method="post">
     <input type="hidden" asp-for="Id" />
     <div class="form-group">
         <label asp-for="Brand"></label>
@@ -18,9 +18,9 @@
         <span asp-validation-for="Description" class="text-danger"></span>
     </div>
     <div class="form-group">
-        <label asp-for="PriceInput"></label>
-        <input asp-for="PriceInput" class="form-control" type="text" placeholder="Örneğin: 35.78" />
-        <span asp-validation-for="PriceInput" class="text-danger"></span>
+        <label asp-for="Price"></label>
+        <input asp-for="Price" class="form-control" type="text" placeholder="Örneğin: 35.78" />
+        <span asp-validation-for="Price" class="text-danger"></span>
     </div>
 
     <div class="form-group">
@@ -38,7 +38,26 @@
         <input asp-for="ProductPhotoPath" class="form-control" />
         <span asp-validation-for="ProductPhotoPath" class="text-danger"></span>
     </div>
-    <div class="form-floating py-2 col-12">
+    <label>Üst Kategori</label>
+    <div>     
+        <select asp-for="ParentCategoryId" class="form-select form-select-sm" aria-label=".form-select-sm example">
+            @foreach (ParentCategory pcategory in ViewBag.ParentCategories)
+            {
+                @if (pcategory.ParentCategoryName == ViewBag.ParentCategoryName)
+                {
+                    <option value="@pcategory.Id" selected>@pcategory.ParentCategoryName</option>
+                }
+                else
+                {
+                    <option value="@pcategory.Id">@pcategory.ParentCategoryName
+                    </option>
+
+                }
+            }
+        </select>
+    </div>
+    <label>Kategori</label>
+    <div>
         <select asp-for="CategoryId" class="form-select form-select-sm" aria-label=".form-select-sm example">
             @foreach (Category category in ViewBag.Categories)
             {
@@ -53,8 +72,8 @@
                 }
             }
         </select>
-        <label asp-for="CategoryId" class="ms-2"></label>
-    </div>
+    </div> 
+ 
     <div class="form-group">
         <label asp-for="Color"></label>
         <input asp-for="Color" class="form-control" />
@@ -69,4 +88,54 @@
         <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
+    <script>
+        $(document).ready(function () {
+            // Sayfa yüklendiğinde, Price alanındaki değeri , dan . ya çevir
+            var priceInput = $('#Price');
+            var priceValue = priceInput.val();
+            priceValue = priceValue.replace(',', '.');
+            priceInput.val(priceValue);
+
+            // Kullanıcı input yaptığında , dan . ya çevir
+            priceInput.on('input', function () {
+                var value = $(this).val();
+                $(this).val(value.replace(',', '.'));
+            });
+
+            // Form submit edildiğinde , dan . ya çevir
+            $('form').submit(function () {
+                var priceValue = priceInput.val();
+                priceValue = priceValue.replace(',', '.');
+                priceInput.val(priceValue);
+            });
+        });
+    </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#ParentCategoryId').change(function () {
+                var parentCategoryId = $(this).val();
+                if (parentCategoryId) {
+                    $.ajax({
+                        url: '@Url.Action("GetCategoriesByParentId", "Product")',
+                        type: "GET",
+                        data: { parentCategoryId: parentCategoryId },
+                        success: function (data) {
+                            var categorySelect = $('#CategoryId');
+                            categorySelect.empty();
+                            if (data && data.length > 0) {
+                                $.each(data, function (i, category) {
+                                    categorySelect.append('<option value="' + category.id + '">' + category.categoryName + '</option>');
+                                });
+                            } else {
+                                categorySelect.append('<option value="">No categories available</option>');
+                            }
+                        }
+                    });
+                } else {
+                    $('#CategoryId').empty().append('<option value="">Lütfen bir üst kategori seçin</option>');
+                }
+            });
+        });
+    </script>
 }

@@ -1,12 +1,10 @@
 ﻿using AtlantisPetMarket.Models.CategoryVM;
-using AtlantisPetMarket.Models.ProductVM;
 using AutoMapper;
 using BusinessLayer.Abstract;
 using EntityLayer.DbContexts;
 using EntityLayer.Models.Concrete;
 using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
-using MySqlX.XDevAPI.Common;
 
 namespace AtlantisPetMarket.Controllers
 {
@@ -14,28 +12,32 @@ namespace AtlantisPetMarket.Controllers
     {
         private readonly IProductManager<AppDbContext, Product, int> _productManager;
         private readonly ICategoryManager<AppDbContext, Category, int> _categoryManager;
+        private readonly IParentCategoryManager<AppDbContext, ParentCategory, int> _parentCategoryManager;
         private readonly IMapper _mapper;
         private readonly IValidator<CategoryUpdateVM> _validator;
         public CategoryController(ICategoryManager<AppDbContext, Category, int> categoryManager,
-            IProductManager<AppDbContext, Product, int> productManager, IMapper mapper, IValidator<CategoryUpdateVM> validator)
+            IProductManager<AppDbContext, Product, int> productManager, IParentCategoryManager<AppDbContext, ParentCategory, int> parentCategoryManager, IMapper mapper, IValidator<CategoryUpdateVM> validator)
         {
             _productManager = productManager;
             _categoryManager = categoryManager;
             _mapper = mapper;
             _validator = validator;
+            _parentCategoryManager = parentCategoryManager;
+
         }
-        public async Task<ActionResult<IEnumerable<Category>   >> Index()
+        public async Task<ActionResult<IEnumerable<Category>>> Index(int id)
         {
-            var categories = await _categoryManager.GetAllAsync(null);
+            var categories = await _categoryManager.GetAllIncludeAsync(x => x.ParentCategoryId == id, x => x.ParentCategory);
             return View(categories);
         }
         [HttpGet]
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
+            ViewBag.parentCategories = await _parentCategoryManager.GetAllAsync(null);
             return View();
         }
         [HttpPost]
-        public async Task<ActionResult> Create(CategoryInsertVM  insertVM)
+        public async Task<ActionResult> Create(CategoryUpdateVM insertVM)
         {
 
             //var result = _validator.Validate(productVM);
@@ -45,6 +47,23 @@ namespace AtlantisPetMarket.Controllers
 
             //}
             var category = _mapper.Map<Category>(insertVM);
+
+            if (insertVM.CategoryPhotoPath != null)
+            {
+                var resource = Directory.GetCurrentDirectory();
+                var extension = Path.GetExtension(insertVM.CategoryPhotoPath.FileName);
+                var imageName = Guid.NewGuid() + extension;
+                var saveLocation = Path.Combine(resource, "wwwroot", "categoryimage", imageName);
+
+                using (var stream = new FileStream(saveLocation, FileMode.Create))
+                {
+                    await insertVM.CategoryPhotoPath.CopyToAsync(stream);
+                }
+
+                // Dosya adını ImagePath alanına atayın
+                category.CategoryPhotoPath = imageName;
+            }
+
             await _categoryManager.AddAsync(category);
             return RedirectToAction("Index");
         }
@@ -58,11 +77,11 @@ namespace AtlantisPetMarket.Controllers
             }
 
             var viewModel = _mapper.Map<CategoryUpdateVM>(category);
-            ViewBag.Categories = await _categoryManager.GetAllAsync(null);
+            ViewBag.pCategories = await _parentCategoryManager.GetAllAsync(null);
             return View(viewModel);
         }
         [HttpPost]
-        public async Task<IActionResult> Update( CategoryUpdateVM categoryUpdateVM, int id)
+        public async Task<IActionResult> Update(CategoryUpdateVM categoryUpdateVM, int id)
         {
             if (id != categoryUpdateVM.Id)
             {
