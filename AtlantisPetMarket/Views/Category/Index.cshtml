@@ -1,0 +1,56 @@
+﻿@model IEnumerable<Category>
+
+@{
+    ViewData["Title"] = "Iddex";
+}
+
+<h2>Categories List</h2>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Create New Category</a>
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.CategoryName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ParentCategory)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CategoryPhotoPath)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CategoryName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ParentCategory.ParentCategoryName)
+                </td>
+                <td>
+                    @if (!string.IsNullOrEmpty(item.CategoryPhotoPath))
+                    {
+                        <img src="@Url.Content(item.CategoryPhotoPath)" alt="@item.CategoryName" width="100" height="100" />
+                    }
+                </td>
+                <td>
+                    <form method="post" asp-action="Delete" asp-controller="Category" asp-route-id="@item.Id">
+                        <button type="submit" class="btn btn-danger">Sil</button>
+                    </form>
+                </td>
+                <td>
+                    <a asp-action="Update" asp-route-id="@item.Id" class="btn btn-warning">Güncelle</a> |
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+

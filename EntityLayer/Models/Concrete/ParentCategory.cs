@@ -1,7 +1,6 @@
 ﻿using EntityLayer.Models.Abstract;
-using System.Collections.Generic;
 
-namespace EntityLayer.Concrete
+namespace EntityLayer.Models.Concrete
 {
     public class ParentCategory : BaseEntity
     {

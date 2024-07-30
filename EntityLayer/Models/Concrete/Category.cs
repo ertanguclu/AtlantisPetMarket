@@ -1,7 +1,6 @@
 ﻿using EntityLayer.Models.Abstract;
-using EntityLayer.Models.Concrete;
 
-namespace EntityLayer.Concrete
+namespace EntityLayer.Models.Concrete
 {
     public class Category : BaseEntity
     {
@@ -15,6 +14,5 @@ namespace EntityLayer.Concrete
 
         public ParentCategory ParentCategory { get; set; }
         public ICollection<Product> Products { get; set; }
-
     }
 }
