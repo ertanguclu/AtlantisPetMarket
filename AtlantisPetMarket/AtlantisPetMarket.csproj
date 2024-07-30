@@ -5,6 +5,13 @@
 		<Nullable>enable</Nullable>
 		<ImplicitUsings>enable</ImplicitUsings>
 	</PropertyGroup>
+
+	<ItemGroup>
+	  <Compile Remove="Views\Shared\NewFolder\**" />
+	  <Content Remove="Views\Shared\NewFolder\**" />
+	  <EmbeddedResource Remove="Views\Shared\NewFolder\**" />
+	  <None Remove="Views\Shared\NewFolder\**" />
+	</ItemGroup>
 	<ItemGroup>
 		<ProjectReference Include="..\BusinessLayer\BusinessLayer.csproj" />
 	</ItemGroup>
