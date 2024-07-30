@@ -5,12 +5,18 @@ using System.Reflection;
 
 namespace EntityLayer.DbContexts
 {
-    public class AppDbContext : IdentityDbContext<MyUser, UserRole, int>
+    public class AppDbContext : IdentityDbContext<User, UserRole, int>
     {
 
         public DbSet<Product> Products { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<ParentCategory> ParentCategories { get; set; }
+        public DbSet<Cart> Carts { get; set; }
+        public DbSet<CartItem> CartItems { get; set; }
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<OrderItem> OrderItems { get; set; }
+        public DbSet<Review> Reviews { get; set; }
+        public DbSet<Address> Addresses { get; set; }
 
 
         //public DbSet<Photo> Photos { get; set; }
