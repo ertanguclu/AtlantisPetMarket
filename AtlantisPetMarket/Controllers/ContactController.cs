@@ -8,9 +8,9 @@ namespace AtlantisPetMarket.Controllers
 {
     public class ContactController : Controller
     {
-        private readonly IGenericManager<AppDbContext, Contact, int> _contactManager;
+        private readonly IContactManager<AppDbContext, Contact, int> _contactManager;
         private readonly IValidator<Contact> _validator;
-        public ContactController(IGenericManager<AppDbContext, Contact, int> contactManager, IValidator<Contact> validator)
+        public ContactController(IContactManager<AppDbContext, Contact, int> contactManager, IValidator<Contact> validator)
         {
             _contactManager = contactManager;
             _validator = validator;
@@ -19,6 +19,16 @@ namespace AtlantisPetMarket.Controllers
         {
             var contacts = await _contactManager.GetAllAsync(null);
             return View(contacts);
+        }
+        [HttpPost]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var contact = await _contactManager.FindAsync(id);
+            if (contact != null)
+            {
+                await _contactManager.DeleteAsync(contact);
+            }
+            return RedirectToAction("Index");
         }
     }
 }

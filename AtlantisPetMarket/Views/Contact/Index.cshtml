@@ -38,7 +38,7 @@
                                     @item.Address
                                 </td>                             
                                 <td>
-                                    <form method="post" asp-action="Delete" asp-controller="Product" asp-route-id="@item.Id">
+                                    <form method="post" asp-action="Delete" asp-controller="Contact" asp-route-id="@item.Id">
                                         <button type="submit" class="btn btn-outline-danger">Sil</button>
                                     </form>
                                 </td>
@@ -54,7 +54,7 @@
                     </tbody>
                 </table>
                 <br />
-                <a class="btn btn-primary" asp-action="Create" asp-controller="Product">Ürün Ekle</a>
+                <a class="btn btn-primary" asp-action="Create" asp-controller="Contact">İletişim Ekle</a>
             </div>
         </div>
     </div>
