@@ -1,7 +1,6 @@
 ﻿using BusinessLayer.Abstract;
 using EntityLayer.DbContexts;
 using EntityLayer.Models.Concrete;
-using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AtlantisPetMarket.Controllers
@@ -9,16 +8,23 @@ namespace AtlantisPetMarket.Controllers
     public class ContactController : Controller
     {
         private readonly IContactManager<AppDbContext, Contact, int> _contactManager;
-        private readonly IValidator<Contact> _validator;
-        public ContactController(IContactManager<AppDbContext, Contact, int> contactManager, IValidator<Contact> validator)
+        public ContactController(IContactManager<AppDbContext, Contact, int> contactManager)
         {
             _contactManager = contactManager;
-            _validator = validator;
+
         }
-        public async Task<ActionResult<IEnumerable<Contact>>> Index(int id)
+        public async Task<ActionResult<IEnumerable<Contact>>> Index()
         {
             var contacts = await _contactManager.GetAllAsync(null);
             return View(contacts);
+        }
+        [HttpGet]
+        public async Task<IActionResult> Create()
+        {
+            Contact contact = new Contact();
+
+            return View(contact);
+
         }
         [HttpPost]
         public async Task<IActionResult> Delete(int id)
