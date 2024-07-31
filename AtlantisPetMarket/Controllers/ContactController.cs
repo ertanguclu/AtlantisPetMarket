@@ -27,6 +27,26 @@ namespace AtlantisPetMarket.Controllers
 
         }
         [HttpPost]
+        public async Task<IActionResult> Create(Contact contact)
+        {
+
+            await _contactManager.AddAsync(contact);
+            return RedirectToAction("Index");
+
+        }
+        [HttpGet]
+        public async Task<IActionResult> Update(int id)
+        {
+            var contact = await _contactManager.FindAsync(id);
+            return View(contact);
+        }
+        [HttpPost]
+        public async Task<IActionResult> Update(Contact contact)
+        {
+            await _contactManager.UpdateAsync(contact);
+            return RedirectToAction("Index");
+        }
+        [HttpPost]
         public async Task<IActionResult> Delete(int id)
         {
             var contact = await _contactManager.FindAsync(id);
