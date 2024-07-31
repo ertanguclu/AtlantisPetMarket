@@ -34,7 +34,7 @@ namespace EntityLayer.DbContexts
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             base.OnConfiguring(optionsBuilder);
-            optionsBuilder.UseMySQL(@"Server=localhost;Database=PetShopDb;Uid=root;password=mert2000");
+            optionsBuilder.UseMySQL(@"Server=localhost;Database=PetShopDb;Uid=root;password=Password187");
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
