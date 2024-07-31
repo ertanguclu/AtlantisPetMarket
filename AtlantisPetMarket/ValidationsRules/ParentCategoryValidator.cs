@@ -1,7 +1,7 @@
 ﻿using EntityLayer.Models.Concrete;
 using FluentValidation;
 
-namespace AtlantisPetMarket.ValidationsRules
+namespace BusinessLayer.ValidationsRules
 {
     public class ParentCategoryValidator : AbstractValidator<ParentCategory>
     {

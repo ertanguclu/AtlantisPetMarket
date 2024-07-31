@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataAccessLayer", "DataAcce
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BusinessLayer", "BusinessLayer\BusinessLayer.csproj", "{CA5C34BD-1B7E-4BFD-A7F0-04B91FA4A66B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AtlantisPetMarket", "AtlantisPetMarket\AtlantisPetMarket.csproj", "{C4F0F6A6-B570-44CD-88E1-5D3C6293854E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AtlantisPetMarket", "AtlantisPetMarket\AtlantisPetMarket.csproj", "{C4F0F6A6-B570-44CD-88E1-5D3C6293854E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

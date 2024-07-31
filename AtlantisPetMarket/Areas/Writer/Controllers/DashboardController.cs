@@ -9,9 +9,9 @@ namespace AtlantisPetMarket.Areas.Writer.Controllers
     [Area("Writer")]
     public class DashboardController : Controller
     {
-        private readonly UserManager<MyUser> _userManager;
+        private readonly UserManager<User> _userManager;
 
-        public DashboardController(UserManager<MyUser> userManager)
+        public DashboardController(UserManager<User> userManager)
         {
             _userManager = userManager;
         }

@@ -1,42 +1,76 @@
 ﻿@model IEnumerable<Product>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_NewAdminLayout.cshtml";
+}
 
-<a class="btn btn-primary" asp-action="Create" asp-controller="Product">Yeni Urun</a>
 
 @if (Model != null && Model.Any())
 {
-    <table class="table">
-        <thead>
-            <tr>
-                <td>@Html.DisplayNameFor(p => p.Id)</td>
-                <td>@Html.DisplayNameFor(p => p.Brand)</td>
-                <td>@Html.DisplayNameFor(p => p.Category.CategoryName)</td>
-                <td>@Html.DisplayNameFor(p => p.Description)</td>
-                <td>@Html.DisplayNameFor(p => p.Price)</td>
-                <td>@Html.DisplayNameFor(p => p.Color)</td>
-                <td>Kategoriler</td>
+    <div class="col-lg-12 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Ürün Listesi</h4>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col" class="sort" style="color:white">Marka</th>
+                                <th scope="col" class="sort" style="color:white">Kategori</th>
+                                <th scope="col" class="sort" style="color:white">Üst Kategori</th>
+                                <th scope="col" class="sort" style="color:white">Açıklama</th>
+                                <th scope="col" class="sort" style="color:white">Fiyat</th>
+                                <th scope="col" class="sort" style="color:white">Renk</th>
+                                <th scope="col" style="color:white">Sil</th>
+                                <th scope="col" class="sort" style="color:white">Güncelle</th>
+                                <th scope="col"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td class="budget">
+                                        @item.Brand
+                                    </td>
+                                    <td class="budget">
+                                        @item.Category.CategoryName
+                                    </td>
+                                    <td class="budget">
+                                        @item.ParentCategory.ParentCategoryName
+                                    </td>
+                                    <td class="budget">
+                                        @item.Description
+                                    </td>
+                                    <td class="budget">
+                                        @item.Price
+                                    </td>
+                                    <td class="budget">
+                                        @item.Color
+                                    </td>
+                                    <td>
+                                        <form method="post" asp-action="Delete" asp-controller="Product" asp-route-id="@item.Id">
+                                            <button type="submit" class="btn btn-outline-danger">Sil</button>
+                                        </form>
+                                    </td>
+                                    <td>
+                                        <a class="btn btn-outline-info"
+                                           asp-action="Update"
+                                           asp-route-id="@item.Id">
+                                            Güncelle
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                    <br />
+                    <a class="btn btn-primary" asp-action="Create" asp-controller="Product">Ürün Ekle</a>
+                </div>
+            </div>
+        </div>
+    </div>
 
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var urun in Model)
-            {
-                <tr>
-                    <td>@urun.Id</td>
-                    <td>@urun.Brand</td>
-                    <td>@urun.Category.CategoryName</td>
-                    <td>@urun.Description</td>
-                    <td>@urun.Price</td>
-                    <td>@urun.Color</td>
-                    <td>
-                        <a class="btn btn-success"
-                           asp-action="KategoriYonet2"
-                           asp-route-id="@urun.Id">Kategoriler</a>
-                    </td>
-
-                </tr>
-            }
-        </tbody>
-    </table>
 }
 else
 {

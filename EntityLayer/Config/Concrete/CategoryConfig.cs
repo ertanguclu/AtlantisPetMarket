@@ -12,7 +12,7 @@ namespace EntityLayer.Config.Concrete
 
             builder.Property(p => p.CategoryName).HasMaxLength(50);
 
-            builder.HasIndex(p => p.CategoryName).IsUnique();
+
 
 
         }

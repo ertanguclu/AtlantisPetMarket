@@ -1,29 +1,47 @@
-﻿using EntityLayer.Models.Concrete;
+﻿using AtlantisPetMarket.Models.ProductVM;
 using FluentValidation;
 
 namespace AtlantisPetMarket.ValidationsRules
 {
-    public class ProductValidator : AbstractValidator<Product>
+
+    public class ProductValidator : AbstractValidator<ProductUpdateVM>
     {
         public ProductValidator()
         {
-            RuleFor(x => x.Brand).NotEmpty().WithMessage("Marka alanı boş geçilemez.")
-                                .NotNull().WithMessage("Marka null olamaz")
-            .MinimumLength(3).WithMessage("marka adı en az 3 karakterden oluşmak zorundadır.");
-                                
+            RuleFor(x => x.Brand)
+                .NotEmpty().WithMessage("Marka alanı boş geçilemez.")
+                .MinimumLength(2).WithMessage("Marka alanı en az 2 karakter olabilir.")
+                .MaximumLength(50).WithMessage("Marka alanı en fazla 50 karakter olabilir.");
+
             RuleFor(x => x.ProductName)
-            .MinimumLength(3).WithMessage("Ürün adı en az 3 karakterden oluşmak zorundadır.")
-            .MaximumLength(50).WithMessage("Ürün adı en fazla 50 karakter olabilir.")
-            .NotEmpty().WithMessage("ürün ismi bos olamaz");
+                .NotEmpty().WithMessage("Ürün adı alanı boş geçilemez.")
+                .MinimumLength(2).WithMessage("Ürün adı alanı en az 2 karakter olabilir.")
+                .MaximumLength(50).WithMessage("Ürün adı alanı en fazla 50 karakter olabilir.");
 
-            RuleFor(x => x.Description).NotEmpty().WithMessage("Açıklama alanı boş geçilemez.");
-            RuleFor(x => x.Description).MinimumLength(3).WithMessage("Açıklama en az 3 karakterden oluşmak zorundadır.");
-            RuleFor(x => x.Description).MaximumLength(500).WithMessage("Açıklama en fazla 500 karakter olabilir.");
-            RuleFor(x => x.Price).NotEmpty().WithMessage("Fiyat alanı boş geçilemez.");
-            RuleFor(x => x.StockQuantity).NotEmpty().WithMessage("Stok miktarı alanı boş geçilemez.");
-            RuleFor(x => x.ProductPhotoPath).NotEmpty().WithMessage("Ürün resmi alanı boş geçilemez.");
-            RuleFor(x => x.ProductCode).NotEmpty().WithMessage("Ürün kodu alanı boş geçilemez.");
+            RuleFor(x => x.Description)
+                .NotEmpty().WithMessage("Açıklama alanı boş geçilemez.")
+                .MinimumLength(2).WithMessage("Açıklama alanı en az 2 karakter olabilir.")
+                .MaximumLength(500).WithMessage("Açıklama alanı en fazla 500 karakter olabilir.");
+            RuleFor(x => x.Price)
+                .NotEmpty().WithMessage("Fiyat alanı boş geçilemez.")
+                .GreaterThanOrEqualTo(1).WithMessage("Fiyat alanı 0'dan büyük olmalıdır.");
 
+            RuleFor(x => x.ProductCode)
+                    .NotEmpty().WithMessage("Ürün kodu alanı boş geçilemez.")
+                    .MinimumLength(2).WithMessage("Ürün kodu alanı en az 2 karakter olabilir.")
+                    .MaximumLength(50).WithMessage("Ürün kodu alanı en fazla 50 karakter olabilir.");
+
+            RuleFor(x => x.StockQuantity)
+                    .NotEmpty().WithMessage("Stok miktarı alanı boş geçilemez.")
+                    .GreaterThan(0).WithMessage("Stok miktarı alanı 0'dan büyük olmalıdır.");
+
+            RuleFor(x => x.ProductPhotoPath)
+                    .NotEmpty().WithMessage("Ürün fotoğraf yolu alanı boş geçilemez.")
+                    .MinimumLength(2).WithMessage("Ürün fotoğraf yolu alanı en az 2 karakter olabilir.")
+                    .MaximumLength(250).WithMessage("Ürün fotoğraf yolu alanı en fazla 250 karakter olabilir.");
+
+            RuleFor(x => x.Color)
+                    .MaximumLength(50).WithMessage("Renk alanı en fazla 50 karakter olabilir.");
 
         }
     }
