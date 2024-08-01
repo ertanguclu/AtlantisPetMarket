@@ -36,10 +36,10 @@ namespace AtlantisPetMarket.Controllers
         {
             // Sepeti ve ilişkili CartItem'ları getir
             var cart = await _cartManager.FindAsync(id);
-            if (cart == null)
-            {
-                return NotFound(); // Sepet bulunamazsa hata döndür
-            }
+            //if (cart == null)
+            //{
+            //    return NotFound(); // Sepet bulunamazsa hata döndür
+            //}
 
             var cartItems = await _cartItemManager.GetAllIncludeAsync(
                 x => x.CartId == id,
