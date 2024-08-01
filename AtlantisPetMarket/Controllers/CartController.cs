@@ -1,5 +1,5 @@
 ﻿using AtlantisPetMarket.Models.CartItemVM;
-using AtlantisPetMarket.Models.CartVM;
+using AtlantisPetMarket.Models.CartViewModel;
 using AtlantisPetMarket.Models.CategoryVM;
 using AtlantisPetMarket.Models.ProductVM;
 using AutoMapper;

@@ -3,7 +3,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace AtlantisPetMarket.Models.CartVM
+namespace AtlantisPetMarket.Models.CartViewModel
 {
     public class CartVM
     {
