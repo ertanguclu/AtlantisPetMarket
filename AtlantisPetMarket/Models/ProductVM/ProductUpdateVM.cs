@@ -12,6 +12,7 @@ namespace AtlantisPetMarket.Models.ProductVM
         public decimal Price { get; set; }
         public string ProductCode { get; set; }
         public int StockQuantity { get; set; }
+        public IFormFile ProductPhotoUpdate { get; set; }
         public string ProductPhotoPath { get; set; }
 
         public int CategoryId { get; set; }
@@ -19,7 +20,6 @@ namespace AtlantisPetMarket.Models.ProductVM
         public int ParentCategoryId { get; set; }
         public ParentCategory ParentCategory { get; set; }
         public List<SelectListItem> Categories { get; set; }
-        //public int ParentCategoryId { get; set; }
         public List<SelectListItem> ParentCategories { get; set; }
 
         public string? Color { get; set; }

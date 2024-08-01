@@ -1,25 +1,21 @@
-﻿@model IEnumerable<Product>
+﻿@model IEnumerable<Contact>
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_NewAdminLayout.cshtml";
 }
 
-
-
 <div class="col-lg-12 grid-margin stretch-card">
     <div class="card">
         <div class="card-body">
-            <h4 class="card-title">Ürün Listesi</h4>
+            <h4 class="card-title">İletişim Bilgileri</h4>
             <div class="table-responsive">
                 <table class="table">
                     <thead>
                         <tr>
-                            <th scope="col" class="sort" style="color:white">Marka</th>
-                            <th scope="col" class="sort" style="color:white">Kategori</th>
-                            <th scope="col" class="sort" style="color:white">Üst Kategori</th>
-                            <th scope="col" class="sort" style="color:white">Açıklama</th>
-                            <th scope="col" class="sort" style="color:white">Fiyat</th>
-                            <th scope="col" class="sort" style="color:white">Renk</th>
+                            <th scope="col" class="sort" style="color:white">Satıcı Adı</th>
+                            <th scope="col" class="sort" style="color:white">Telefon</th>
+                            <th scope="col" class="sort" style="color:white">Email</th>
+                            <th scope="col" class="sort" style="color:white">Adres</th>
                             <th scope="col" style="color:white">Sil</th>
                             <th scope="col" class="sort" style="color:white">Güncelle</th>
                             <th scope="col"></th>
@@ -30,25 +26,19 @@
                         {
                             <tr>
                                 <td class="budget">
-                                    @item.Brand
+                                    @item.SellerName
                                 </td>
                                 <td class="budget">
-                                    @item.Category.CategoryName
+                                    @item.Phone
                                 </td>
                                 <td class="budget">
-                                    @item.ParentCategory.ParentCategoryName
+                                    @item.Email
                                 </td>
                                 <td class="budget">
-                                    @item.Description
-                                </td>
-                                <td class="budget">
-                                    @item.Price
-                                </td>
-                                <td class="budget">
-                                    @item.Color
-                                </td>
+                                    @item.Address
+                                </td>                             
                                 <td>
-                                    <form method="post" asp-action="Delete" asp-controller="Product" asp-route-id="@item.Id">
+                                    <form method="post" asp-action="Delete" asp-controller="Contact" asp-route-id="@item.Id">
                                         <button type="submit" class="btn btn-outline-danger">Sil</button>
                                     </form>
                                 </td>
@@ -64,10 +54,9 @@
                     </tbody>
                 </table>
                 <br />
-                <a class="btn btn-primary" asp-action="Create" asp-controller="Product">Ürün Ekle</a>
+                <a class="btn btn-primary" asp-action="Create" asp-controller="Contact">İletişim Ekle</a>
             </div>
         </div>
     </div>
 </div>
-
 

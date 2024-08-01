@@ -4,7 +4,6 @@ using BusinessLayer.Abstract;
 using EntityLayer.DbContexts;
 using EntityLayer.Models.Concrete;
 using FluentValidation;
-using FluentValidation.Results;
 using Microsoft.AspNetCore.Mvc;
 using System.Globalization;
 
@@ -102,40 +101,86 @@ namespace AtlantisPetMarket.Controllers
 
         }
         [HttpPost]
-        public async Task<IActionResult> Update(ProductUpdateVM productUpdateVM, int parentCategoryId, string price)
+        public async Task<IActionResult> Update(ProductUpdateVM productUpdateVM, string price)
         {
+            #region my old code
+            //if (!decimal.TryParse(price, NumberStyles.Any, CultureInfo.InvariantCulture, out var parsedPrice))
+            //{
+            //    ModelState.AddModelError("Price", "Fiyat alanı geçerli bir sayı olmalıdır.");
+            //    ViewBag.Categories = await _categoryManager.GetAllAsync(c => c.ParentCategoryId == parentCategoryId);
+            //    ViewBag.ParentCategoryId = parentCategoryId; // ParentCategoryId'yi ViewBag'e ekleyin
+            //    return View(productUpdateVM);
+            //}
+
+            //productUpdateVM.Price = parsedPrice;
+
+            //// Doğrulama
+            //ValidationResult results = await _validator.ValidateAsync(productUpdateVM);
+
+            //if (!results.IsValid)
+            //{
+            //    foreach (var failure in results.Errors)
+            //    {
+            //        ModelState.AddModelError(failure.PropertyName, failure.ErrorMessage);
+            //    }
+            //    ViewBag.Categories = await _categoryManager.GetAllAsync(c => c.ParentCategoryId == parentCategoryId);
+            //    ViewBag.ParentCategoryId = parentCategoryId; // ParentCategoryId'yi ViewBag'e ekleyin
+            //    return View(productUpdateVM);
+            //}
+
+            //var product = await _productManager.FindAsync(productUpdateVM.Id);
+            //if (product == null)
+            //{
+            //    return NotFound();
+            //}
+
+            //product = _mapper.Map(productUpdateVM, product);
+            //if (productUpdateVM.ProductPhotoUpdate != null && productUpdateVM.ProductPhotoUpdate == null)
+            //{
+            //    var resource = Directory.GetCurrentDirectory();
+            //    var extension = Path.GetExtension(productUpdateVM.ProductPhotoUpdate.FileName);
+            //    var imagename = Guid.NewGuid() + extension;
+            //    var savelocation = Path.Combine(resource, "wwwroot", "productimage", imagename);
+            //    using (var stream = new FileStream(savelocation, FileMode.Create))
+            //    {
+            //        await productUpdateVM.ProductPhotoUpdate.CopyToAsync(stream);
+            //    }
+            //    product.ProductPhotoPath = imagename;
+            //}
+
+
+            //await _productManager.UpdateAsync(product);
+            //return RedirectToAction(nameof(Index)); 
+            #endregion
             if (!decimal.TryParse(price, NumberStyles.Any, CultureInfo.InvariantCulture, out var parsedPrice))
             {
                 ModelState.AddModelError("Price", "Fiyat alanı geçerli bir sayı olmalıdır.");
-                ViewBag.Categories = await _categoryManager.GetAllAsync(c => c.ParentCategoryId == parentCategoryId);
-                ViewBag.ParentCategoryId = parentCategoryId; // ParentCategoryId'yi ViewBag'e ekleyin
+                ViewBag.Categories = await _categoryManager.GetAllAsync(null);
                 return View(productUpdateVM);
             }
 
             productUpdateVM.Price = parsedPrice;
 
-            // Doğrulama
-            ValidationResult results = await _validator.ValidateAsync(productUpdateVM);
-
-            if (!results.IsValid)
+            var product = _mapper.Map<Product>(productUpdateVM);
+            if (productUpdateVM.ProductPhotoUpdate != null)
             {
-                foreach (var failure in results.Errors)
+                var resource = Directory.GetCurrentDirectory();
+                var extension = Path.GetExtension(productUpdateVM.ProductPhotoUpdate.FileName);
+                var imagename = Guid.NewGuid() + extension;
+                var savelocation = Path.Combine(resource, "wwwroot", "productimage", imagename);
+                using (var stream = new FileStream(savelocation, FileMode.Create))
                 {
-                    ModelState.AddModelError(failure.PropertyName, failure.ErrorMessage);
+                    await productUpdateVM.ProductPhotoUpdate.CopyToAsync(stream);
                 }
-                ViewBag.Categories = await _categoryManager.GetAllAsync(c => c.ParentCategoryId == parentCategoryId);
-                ViewBag.ParentCategoryId = parentCategoryId; // ParentCategoryId'yi ViewBag'e ekleyin
-                return View(productUpdateVM);
+                product.ProductPhotoPath = imagename;
             }
-
-            var product = await _productManager.FindAsync(productUpdateVM.Id);
-            if (product == null)
+            else
             {
-                return NotFound();
+                // Eğer yeni bir resim seçilmemişse, mevcut resmi kullan
+                product.ProductPhotoPath = productUpdateVM.ProductPhotoPath;
             }
-
-            product = _mapper.Map(productUpdateVM, product);
             await _productManager.UpdateAsync(product);
+
             return RedirectToAction(nameof(Index));
         }
         [HttpPost]
