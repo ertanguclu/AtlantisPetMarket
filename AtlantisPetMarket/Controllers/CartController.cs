@@ -1,4 +1,5 @@
-﻿using AtlantisPetMarket.Models.CartVM;
+﻿using AtlantisPetMarket.Models.CartItemVM;
+using AtlantisPetMarket.Models.CartVM;
 using AtlantisPetMarket.Models.CategoryVM;
 using AtlantisPetMarket.Models.ProductVM;
 using AutoMapper;
@@ -24,11 +25,34 @@ namespace AtlantisPetMarket.Controllers
             _mapper = mapper;
             _validator = validator;
         }
-        public async Task<ActionResult<IEnumerable<Cart>>> Index(int id)
-        {
-            var carts = await _cartManager.GetAllIncludeAsync(x => x.Id == id, x => x.CreateDateTime, x => x.UserId);
-            return View(carts);
-        }
+        //public async Task<ActionResult<IEnumerable<Cart>>> Index(int id)
+        //{
+        //    var carts = await _cartManager.GetAllIncludeAsync(x => x.Id == id, x => x.CreateDateTime, x => x.UserId);
+        //    return View(carts);
+        //}
+
+
+        //public async Task<IActionResult> Index(int id)
+        //{
+        //    // Sepeti ve ilişkili CartItem'ları getir
+        //    var cart = await _cartManager.FindAsync(id);
+        //    if (cart == null)
+        //    {
+        //        return NotFound(); // Sepet bulunamazsa hata döndür
+        //    }
+
+        //    var cartItems = await _cartItemManager.GetAllIncludeAsync(
+        //        x => x.CartId == id,
+        //        x => x.Product // Sadece navigation property'e include
+        //    );
+
+        //    // Sepet ve CartItem'ları ViewModel'e dönüştür
+        //    var cartVM = _mapper.Map<CartVM>(cart);
+        //    cartVM.CartItems = _mapper.Map<IEnumerable<CartItemVM>>(cartItems);
+
+        //    // View'e gönder
+        //    return View(cartVM);
+        //}
 
         [HttpGet]
         public async Task<IActionResult> Create()
