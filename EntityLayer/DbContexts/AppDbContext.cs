@@ -17,6 +17,8 @@ namespace EntityLayer.DbContexts
         public DbSet<OrderItem> OrderItems { get; set; }
         public DbSet<Review> Reviews { get; set; }
         public DbSet<Address> Addresses { get; set; }
+        public DbSet<Contact> Contacts { get; set; }
+        public DbSet<SocialMedia> SocialMedias { get; set; }
 
 
         //public DbSet<Photo> Photos { get; set; }
@@ -34,7 +36,7 @@ namespace EntityLayer.DbContexts
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             base.OnConfiguring(optionsBuilder);
-            optionsBuilder.UseMySQL(@"Server=localhost;Database=PetShopDb;Uid=root;password=mert2000");
+            optionsBuilder.UseMySQL(@"Server=localhost;Database=PetShopDb;Uid=root;password=Password187");
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

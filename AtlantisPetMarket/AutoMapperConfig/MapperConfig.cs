@@ -16,9 +16,7 @@ namespace AtlantisPetMarket.AutoMapperConfig
 
             CreateMap<CategoryUpdateVM, Category>();
 
-            CreateMap<Category, CategoryUpdateVM>()
-            .ForMember(dest => dest.CurrentPhotoPath, opt => opt.MapFrom(src => src.CategoryPhotoPath)) // Mevcut resim yolunu eşleştirme
-            .ForMember(dest => dest.CategoryPhotoPath, opt => opt.Ignore()); // IFormFile eşleştirmesini atla
+            CreateMap<Category, CategoryUpdateVM>();
             CreateMap<CategoryInsertVM, Category>();
             CreateMap<Category, CategoryInsertVM>();
 

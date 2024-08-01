@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EntityLayer.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240730092157_Added new entities")]
-    partial class Addednewentities
+    [Migration("20240731075213_NewEntities")]
+    partial class NewEntities
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -101,19 +101,11 @@ namespace EntityLayer.Migrations
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
 
-                    b.Property<string>("UserId")
-                        .HasColumnType("longtext");
-
-                    b.Property<int?>("UserId1")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
                     b.HasIndex("CartId");
 
                     b.HasIndex("ProductId");
-
-                    b.HasIndex("UserId1");
 
                     b.ToTable("CartItems");
                 });
@@ -139,17 +131,9 @@ namespace EntityLayer.Migrations
                     b.Property<int>("ParentCategoryId")
                         .HasColumnType("int");
 
-                    b.Property<string>("UserId")
-                        .HasColumnType("longtext");
-
-                    b.Property<int?>("UserId1")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
                     b.HasIndex("ParentCategoryId");
-
-                    b.HasIndex("UserId1");
 
                     b.ToTable("Categories");
                 });
@@ -200,19 +184,11 @@ namespace EntityLayer.Migrations
                     b.Property<decimal>("UnitPrice")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<string>("UserId")
-                        .HasColumnType("longtext");
-
-                    b.Property<int?>("UserId1")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
                     b.HasIndex("OrderId");
 
                     b.HasIndex("ProductId");
-
-                    b.HasIndex("UserId1");
 
                     b.ToTable("OrderItems");
                 });
@@ -230,15 +206,7 @@ namespace EntityLayer.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<string>("UserId")
-                        .HasColumnType("longtext");
-
-                    b.Property<int?>("UserId1")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("UserId1");
 
                     b.ToTable("ParentCategories");
                 });
@@ -290,19 +258,11 @@ namespace EntityLayer.Migrations
                     b.Property<int>("StockQuantity")
                         .HasColumnType("int");
 
-                    b.Property<string>("UserId")
-                        .HasColumnType("longtext");
-
-                    b.Property<int?>("UserId1")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
                     b.HasIndex("CategoryId");
 
                     b.HasIndex("ParentCategoryId");
-
-                    b.HasIndex("UserId1");
 
                     b.ToTable("Products");
                 });
@@ -591,15 +551,9 @@ namespace EntityLayer.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("EntityLayer.Models.Concrete.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId1");
-
                     b.Navigation("Cart");
 
                     b.Navigation("Product");
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("EntityLayer.Models.Concrete.Category", b =>
@@ -610,13 +564,7 @@ namespace EntityLayer.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("EntityLayer.Models.Concrete.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId1");
-
                     b.Navigation("ParentCategory");
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("EntityLayer.Models.Concrete.Order", b =>
@@ -644,24 +592,9 @@ namespace EntityLayer.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("EntityLayer.Models.Concrete.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId1");
-
                     b.Navigation("Order");
 
                     b.Navigation("Product");
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("EntityLayer.Models.Concrete.ParentCategory", b =>
-                {
-                    b.HasOne("EntityLayer.Models.Concrete.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId1");
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("EntityLayer.Models.Concrete.Product", b =>
@@ -678,15 +611,9 @@ namespace EntityLayer.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("EntityLayer.Models.Concrete.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId1");
-
                     b.Navigation("Category");
 
                     b.Navigation("ParentCategory");
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("EntityLayer.Models.Concrete.Review", b =>

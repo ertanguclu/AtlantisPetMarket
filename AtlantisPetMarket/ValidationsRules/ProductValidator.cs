@@ -36,9 +36,8 @@ namespace AtlantisPetMarket.ValidationsRules
                     .GreaterThan(0).WithMessage("Stok miktarı alanı 0'dan büyük olmalıdır.");
 
             RuleFor(x => x.ProductPhotoPath)
-                    .NotEmpty().WithMessage("Ürün fotoğraf yolu alanı boş geçilemez.")
-                    .MinimumLength(2).WithMessage("Ürün fotoğraf yolu alanı en az 2 karakter olabilir.")
-                    .MaximumLength(250).WithMessage("Ürün fotoğraf yolu alanı en fazla 250 karakter olabilir.");
+                    .NotEmpty().WithMessage("Ürün fotoğraf alanı boş geçilemez.");
+
 
             RuleFor(x => x.Color)
                     .MaximumLength(50).WithMessage("Renk alanı en fazla 50 karakter olabilir.");
