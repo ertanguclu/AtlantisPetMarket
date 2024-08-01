@@ -20,6 +20,9 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 builder.Services.AddScoped<IProductManager<AppDbContext, Product, int>, ProductManager<AppDbContext, Product, int>>();
 builder.Services.AddScoped<ICategoryManager<AppDbContext, Category, int>, CategoryManager<AppDbContext, Category, int>>();
 builder.Services.AddScoped<IParentCategoryManager<AppDbContext, ParentCategory, int>, ParentCategoryManager<AppDbContext, ParentCategory, int>>();
+builder.Services.AddScoped<ICartManager<AppDbContext, Cart, int>, CartManager<AppDbContext, Cart, int>>();
+builder.Services.AddScoped<ICartItemManager<AppDbContext, CartItem, int>, CartItemManager<AppDbContext, CartItem, int>>();
+
 
 // AutoMapper
 builder.Services.AddAutoMapper(typeof(MapperConfig));

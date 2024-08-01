@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace AtlantisPetMarket.Controllers
 {
-    [Authorize(Roles = "admin")]
+    [Authorize(Roles = "Admin")]
     public class DashboardController : Controller
     {
         public IActionResult Index()
