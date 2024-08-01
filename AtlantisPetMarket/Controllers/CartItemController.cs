@@ -14,16 +14,16 @@ namespace AtlantisPetMarket.Controllers
     {
         private readonly ICartItemManager<AppDbContext, CartItem, int> _cartItemManager;
         private readonly IMapper _mapper;
-        private readonly IValidator<CartItemVM> _validator;
+        private readonly IValidator<CartItemViewModel> _validator;
 
-        public CartItemController(ICartItemManager<AppDbContext, CartItem, int> cartItemManager, IMapper mapper, IValidator<CartItemVM> validator)
+        public CartItemController(ICartItemManager<AppDbContext, CartItem, int> cartItemManager, IMapper mapper, IValidator<CartItemViewModel> validator)
         {
             _cartItemManager = cartItemManager;
             _mapper = mapper;
             _validator = validator;
         }
 
-        public async Task<ActionResult<IEnumerable<CartItemVM>>> Index(int id)
+        public async Task<ActionResult<IEnumerable<CartItemViewModel>>> Index(int id)
         {
             var cartItems = await _cartItemManager.GetAllIncludeAsync(
                 x => x.Id == id,
@@ -32,14 +32,14 @@ namespace AtlantisPetMarket.Controllers
                 x => x.CreateDate
             );
 
-            var cartItemVMs = _mapper.Map<IEnumerable<CartItemVM>>(cartItems);
+            var cartItemVMs = _mapper.Map<IEnumerable<CartItemViewModel>>(cartItems);
 
             return View(cartItemVMs);
         }
 
 
         [HttpPost]
-        public async Task<IActionResult> Create(CartItemVM cartItemVM)
+        public async Task<IActionResult> Create(CartItemViewModel cartItemVM)
         {
             if (!ModelState.IsValid)
             {
@@ -67,13 +67,13 @@ namespace AtlantisPetMarket.Controllers
                 return NotFound();
             }
 
-            var cartItemVM = _mapper.Map<CartItemVM>(cartItem);
+            var cartItemVM = _mapper.Map<CartItemViewModel>(cartItem);
             return View(cartItemVM);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, CartItemVM cartItemVM)
+        public async Task<IActionResult> Edit(int id, CartItemViewModel cartItemVM)
         {
             if (id != cartItemVM.Id)
             {
@@ -118,7 +118,7 @@ namespace AtlantisPetMarket.Controllers
                 return NotFound();
             }
 
-            var cartItemVM = _mapper.Map<CartItemVM>(cartItem);
+            var cartItemVM = _mapper.Map<CartItemViewModel>(cartItem);
             return View(cartItemVM);
         }
         [ValidateAntiForgeryToken]
