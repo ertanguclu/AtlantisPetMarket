@@ -1,6 +1,12 @@
-﻿using BusinessLayer.Abstract;
+﻿using AtlantisPetMarket.Models.CartVM;
+using AtlantisPetMarket.Models.CategoryVM;
+using AtlantisPetMarket.Models.ProductVM;
+using AutoMapper;
+using BusinessLayer.Abstract;
+using BusinessLayer.Concrete;
 using EntityLayer.DbContexts;
 using EntityLayer.Models.Concrete;
+using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AtlantisPetMarket.Controllers
@@ -9,14 +15,60 @@ namespace AtlantisPetMarket.Controllers
     {
         private readonly ICartManager<AppDbContext, Cart, int> _cartManager;
         private readonly ICartItemManager<AppDbContext, CartItem, int> _cartItemManager;
-        public CartController(ICartManager<AppDbContext, Cart, int> cartManager, ICartItemManager<AppDbContext, CartItem, int> cartItemManager)
+        private readonly IMapper _mapper;
+        private readonly IValidator<CartInsertVM> _validator;
+        public CartController(ICartManager<AppDbContext, Cart, int> cartManager, ICartItemManager<AppDbContext, CartItem, int> cartItemManager, IMapper mapper, IValidator<CartInsertVM> validator)
         {
             _cartManager = cartManager;
             _cartItemManager = cartItemManager;
+            _mapper = mapper;
+            _validator = validator;
         }
-        public IActionResult Index()
+        public async Task<ActionResult<IEnumerable<Cart>>> Index(int id)
         {
-            return View();
+            var carts = await _cartManager.GetAllIncludeAsync(x => x.Id == id, x => x.CreateDateTime, x => x.UserId);
+            return View(carts);
         }
+
+        [HttpGet]
+        public async Task<IActionResult> Create()
+        {
+            CartInsertVM cartInsertVM = new CartInsertVM();
+            return View(cartInsertVM);
+
+        }
+        [HttpPost]
+        public async Task<IActionResult> Create(CartInsertVM cartInsertVM)
+        {
+            if (!ModelState.IsValid)
+            {
+                // Model geçerli değilse hata mesajlarını göster
+                return View(cartInsertVM);
+            }
+
+            // Model doğrulaması
+            var validationResult = _validator.Validate(cartInsertVM);
+            if (!validationResult.IsValid)
+            {
+                foreach (var error in validationResult.Errors)
+                {
+                    ModelState.AddModelError(error.PropertyName, error.ErrorMessage);
+                }
+
+                // Kategorileri veya diğer gerekli verileri yeniden gönder
+                return View(cartInsertVM);
+            }
+
+            // AutoMapper ile CartInsertVM'yi Cart entity'sine dönüştür
+            var cart = _mapper.Map<Cart>(cartInsertVM);
+
+            // Sepeti veritabanına ekle
+            await _cartManager.AddAsync(cart);
+
+            // Başarıyla ekledikten sonra kullanıcıyı uygun bir sayfaya yönlendir
+            return RedirectToAction("Index");
+        }
+
+
     }
 }
