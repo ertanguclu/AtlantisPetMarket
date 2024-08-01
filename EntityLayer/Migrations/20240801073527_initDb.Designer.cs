@@ -11,13 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EntityLayer.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-<<<<<<<< HEAD:EntityLayer/Migrations/20240731075551_initialCreate.Designer.cs
-    [Migration("20240731075551_initialCreate")]
-    partial class initialCreate
-========
-    [Migration("20240731185132_Config")]
-    partial class Config
->>>>>>>> Ertan:EntityLayer/Migrations/20240731185132_Config.Designer.cs
+    [Migration("20240801073527_initDb")]
+    partial class initDb
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -157,10 +152,6 @@ namespace EntityLayer.Migrations
                         .HasColumnType("datetime(6)");
 
                     b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("Message")
                         .IsRequired()
                         .HasColumnType("longtext");
 

@@ -7,11 +7,7 @@ using MySql.EntityFrameworkCore.Metadata;
 namespace EntityLayer.Migrations
 {
     /// <inheritdoc />
-<<<<<<<< HEAD:EntityLayer/Migrations/20240731075551_initialCreate.cs
-    public partial class initialCreate : Migration
-========
-    public partial class NewEntities : Migration
->>>>>>>> Ertan:EntityLayer/Migrations/20240731075213_NewEntities.cs
+    public partial class initDb : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -70,6 +66,24 @@ namespace EntityLayer.Migrations
                 .Annotation("MySQL:Charset", "utf8mb4");
 
             migrationBuilder.CreateTable(
+                name: "Contacts",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
+                    SellerName = table.Column<string>(type: "longtext", nullable: false),
+                    Phone = table.Column<string>(type: "longtext", nullable: false),
+                    Email = table.Column<string>(type: "longtext", nullable: false),
+                    Address = table.Column<string>(type: "longtext", nullable: false),
+                    CreateDate = table.Column<DateTime>(type: "datetime(6)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Contacts", x => x.Id);
+                })
+                .Annotation("MySQL:Charset", "utf8mb4");
+
+            migrationBuilder.CreateTable(
                 name: "ParentCategories",
                 columns: table => new
                 {
@@ -81,6 +95,23 @@ namespace EntityLayer.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_ParentCategories", x => x.Id);
+                })
+                .Annotation("MySQL:Charset", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "SocialMedias",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
+                    Name = table.Column<string>(type: "longtext", nullable: false),
+                    Url = table.Column<string>(type: "longtext", nullable: false),
+                    Icon = table.Column<string>(type: "longtext", nullable: false),
+                    CreateDate = table.Column<DateTime>(type: "datetime(6)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SocialMedias", x => x.Id);
                 })
                 .Annotation("MySQL:Charset", "utf8mb4");
 
@@ -538,10 +569,16 @@ namespace EntityLayer.Migrations
                 name: "CartItems");
 
             migrationBuilder.DropTable(
+                name: "Contacts");
+
+            migrationBuilder.DropTable(
                 name: "OrderItems");
 
             migrationBuilder.DropTable(
                 name: "Reviews");
+
+            migrationBuilder.DropTable(
+                name: "SocialMedias");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");

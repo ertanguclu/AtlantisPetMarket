@@ -12,5 +12,10 @@ namespace EntityLayer.Models.Concrete
         public DateTime CreateDateTime { get; set; }
         public int UserId { get; set; }
         public User User { get; set; }
+        public ICollection<CartItem> CartItems { get; set; } = new List<CartItem>();
+
+        // Sepet ile ilişkili siparişler
+        public ICollection<Order> Orders { get; set; } = new List<Order>();
+
     }
 }
