@@ -17,6 +17,7 @@ namespace AtlantisPetMarket.AutoMapperConfig
             CreateMap<CategoryUpdateVM, Category>();
 
             CreateMap<Category, CategoryUpdateVM>();
+
             CreateMap<CategoryInsertVM, Category>();
             CreateMap<Category, CategoryInsertVM>();
 

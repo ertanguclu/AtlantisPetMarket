@@ -1,11 +1,9 @@
 ﻿@model CategoryUpdateVM
-
-
 @{
-    ViewData["Title"] = "Create Category";
+    Layout = "_NewAdminLayout";
 }
 
-<h2>Create Category</h2>
+@* <h2>Create Category</h2>
 
 <form asp-action="Create" method="post" enctype="multipart/form-data">
     <div class="form-group">
@@ -34,8 +32,108 @@
     </div>
 </form>
 
+
+
+ *@
+
+
+
+
+
+
+
+<div class="col-12 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <h4>Kategori Ekleme</h4>
+            <br />
+            <form class="forms-sample" asp-action="Create" method="post" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label>Kategori Adı</label>
+                    <input asp-for="CategoryName" class="form-control" />
+                    <span asp-validation-for="CategoryName" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label>Üst Kategori</label>
+                    <select asp-for="ParentCategoryId" class="form-select form-select-sm" aria-label=".form-select-sm example">
+                        @foreach (ParentCategory pCategory in ViewBag.parentCategories)
+                        {
+                            <option value="@pCategory.Id">@pCategory.ParentCategoryName</option>
+                        }
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Kategori Resmi Yükle</label>
+                    <input type="file" asp-for="CategoryPhotoPath" class="file-upload-default" style="display: none;" required>
+                    <div class="input-group col-xs-12">
+                        <input type="text" class="form-control file-upload-info" disabled placeholder="Resim Seçiniz">
+                        <span class="input-group-append">
+                            <button class="file-upload-browse btn btn-primary" type="button">Yükle</button>
+                        </span>
+                    </div>
+                </div>
+                @*   <label>Resmi</label>
+                <div class="input-group col-xs-12">
+                <input type="file" asp-for="CategoryPhotoPath" class="form-control file-upload-info" placeholder="Resminizi seçiniz.">
+                </div> *@
+
+                <button type="submit" class="btn btn-primary mr-2">Kaydet</button>
+                <button class="btn btn-dark">İptal</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+
 @section Scripts {
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
     @{
+
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
+
+@*     <script>
+
+        (function ($) {
+            'use strict';
+            $(function () {
+                $('.file-upload-browse').on('click', function () {
+                    var file = $(this).parent().parent().parent().find('.file-upload-default');
+                    file.trigger('click');
+                });
+                $('.file-upload-default').on('change', function () {
+                    var fileName = $(this).val().replace(/C:\\fakepath\\/i, '');
+                    $(this).parent().find('.form-control.file-upload-info').val(fileName);
+                });
+            });
+        })(jQuery);
+
+    </script> *@
+    <script>
+        document.querySelector('.file-upload-browse').addEventListener('click', function () {
+            var fileInput = document.querySelector('.file-upload-default');
+            fileInput.click();
+        });
+
+        document.querySelector('.file-upload-default').addEventListener('change', function () {
+            var filePath = this.value.split('\\').pop();
+            document.querySelector('.file-upload-info').value = filePath;
+        });
+
+        document.querySelector('form').addEventListener('submit', function (event) {
+            var fileInput = document.querySelector('.file-upload-default');
+            if (!fileInput.value) {
+                alert("Lütfen bir resim seçiniz.");
+                event.preventDefault();
+            }
+        });
+    </script>
 }
+

@@ -1,10 +1,12 @@
 ﻿using AtlantisPetMarket.Models.CategoryVM;
+using AtlantisPetMarket.Models.ProductVM;
 using AutoMapper;
 using BusinessLayer.Abstract;
 using EntityLayer.DbContexts;
 using EntityLayer.Models.Concrete;
 using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
+using Mysqlx.Crud;
 
 namespace AtlantisPetMarket.Controllers
 {
@@ -37,7 +39,7 @@ namespace AtlantisPetMarket.Controllers
             return View();
         }
         [HttpPost]
-        public async Task<ActionResult> Create(CategoryUpdateVM insertVM)
+        public async Task<ActionResult> Create(CategoryInsertVM insertVM)
         {
 
             //var result = _validator.Validate(productVM);
@@ -104,8 +106,26 @@ namespace AtlantisPetMarket.Controllers
                 return NotFound();
             }
 
-            _mapper.Map(categoryUpdateVM, category);
-            await _categoryManager.UpdateAsync(category);
+
+            var category2 = _mapper.Map<Category>(categoryUpdateVM);
+            if (categoryUpdateVM.CategoryPhotoUpdate != null)
+            {
+                var resource = Directory.GetCurrentDirectory();
+                var extension = Path.GetExtension(categoryUpdateVM.CategoryPhotoUpdate.FileName);
+                var imagename = Guid.NewGuid() + extension;
+                var savelocation = Path.Combine(resource, "wwwroot", "productimage", imagename);
+                using (var stream = new FileStream(savelocation, FileMode.Create))
+                {
+                    await categoryUpdateVM.CategoryPhotoUpdate.CopyToAsync(stream);
+                }
+                category2.CategoryPhotoPath = imagename;
+            }
+            else
+            {
+                // Eğer yeni bir resim seçilmemişse, mevcut resmi kullan
+                category2.CategoryPhotoPath = categoryUpdateVM.CategoryPhotoPath;
+            }
+            await _categoryManager.UpdateAsync(category2);
             return RedirectToAction("Index");
         }
         [HttpPost]
