@@ -5,13 +5,6 @@
 		<Nullable>enable</Nullable>
 		<ImplicitUsings>enable</ImplicitUsings>
 	</PropertyGroup>
-
-	<ItemGroup>
-	  <Compile Remove="Views\Shared\NewFolder\**" />
-	  <Content Remove="Views\Shared\NewFolder\**" />
-	  <EmbeddedResource Remove="Views\Shared\NewFolder\**" />
-	  <None Remove="Views\Shared\NewFolder\**" />
-	</ItemGroup>
 	<ItemGroup>
 		<ProjectReference Include="..\BusinessLayer\BusinessLayer.csproj" />
 	</ItemGroup>
@@ -35,6 +28,7 @@
 	  <Folder Include="Areas\Writer\Data\" />
 	  <Folder Include="Areas\Writer\Views\Shared\Components\" />
 	  <Folder Include="wwwroot\categoryimage\" />
+	  <Folder Include="wwwroot\processedimage\" />
 	  <Folder Include="wwwroot\productimage\" />
 	</ItemGroup>
 
