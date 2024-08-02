@@ -19,6 +19,7 @@ namespace AtlantisPetMarket.ViewComponents.PetClothing
             var values = await _productManager.GetAllIncludeAsync(x => x.CategoryId == id, x => x.Category);
             return View(values);
         }
+        //kategorisi kıyafet olan ürünleri alma
     }
 
 }
