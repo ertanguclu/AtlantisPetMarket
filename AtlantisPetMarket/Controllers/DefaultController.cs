@@ -18,6 +18,26 @@ namespace AtlantisPetMarket.Controllers
         {
             return View();
         }
+        public PartialViewResult HeaderPartial()
+        {
+            return PartialView();
+        }
+        public PartialViewResult CartModalPartial()
+        {
+            return PartialView();
+        }
 
+        public PartialViewResult ScriptPartial()
+        {
+            return PartialView();
+        }
+        public PartialViewResult SearchPartial()
+        {
+            return PartialView();
+        }
+        public PartialViewResult SvgPartial()
+        {
+            return PartialView();
+        }
     }
 }
