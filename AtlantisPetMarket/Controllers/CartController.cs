@@ -59,8 +59,8 @@ namespace AtlantisPetMarket.Controllers
         {
             CartVM cartVM = new CartVM();
             return View(cartVM);
-
         }
+
         [HttpPost]
         public async Task<IActionResult> Create(CartVM CartVM)
         {

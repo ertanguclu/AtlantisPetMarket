@@ -1,0 +1,52 @@
+﻿@model IEnumerable<AtlantisPetMarket.Models.CartItemVM.CartItemViewModel>
+
+@{
+    ViewData["Title"] = "Sepetiniz";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+@if (Model != null && Model.Any())
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Ürün Adı</th>
+                <th>Miktar</th>
+                <th>Fiyat</th>
+                <th>Toplam</th>
+                <th>İşlemler</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Product?.ProductName</td> <!-- Ürün Adı -->
+                    <td>@item.Quantity</td> <!-- Miktar -->
+                    <td>@item.Product?.Price.ToString("C")</td> <!-- Fiyat -->
+                    <td>@(item.Quantity * item.Product?.Price).ToString("C")</td> <!-- Toplam -->
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-primary">Düzenle</a>
+                        <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Sil</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="3" class="text-right"><strong>Toplam:</strong></td>
+                <td colspan="2">@Model.Sum(x => x.Quantity * x.Product.Price).ToString("C")</td>
+            </tr>
+        </tfoot>
+    </table>
+}
+else
+{
+    <div class="alert alert-info" role="alert">
+        Sepetinizde henüz ürün bulunmamaktadır.
+    </div>
+}
+
+<a asp-action="Create" class="btn btn-success">Ürün Ekle</a>
+<a asp-action="Checkout" class="btn btn-primary">Alışverişi Tamamla</a>
