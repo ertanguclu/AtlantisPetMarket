@@ -236,11 +236,44 @@ namespace EntityLayer.Migrations
 
                     b.Property<string>("ParentCategoryName")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasMaxLength(20)
+                        .HasColumnType("varchar(20)");
 
                     b.HasKey("Id");
 
                     b.ToTable("ParentCategories");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CreateDate = new DateTime(2024, 8, 2, 14, 27, 51, 672, DateTimeKind.Local).AddTicks(2876),
+                            ParentCategoryName = "Kedi"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CreateDate = new DateTime(2024, 8, 2, 14, 27, 51, 672, DateTimeKind.Local).AddTicks(2878),
+                            ParentCategoryName = "Köpek"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CreateDate = new DateTime(2024, 8, 2, 14, 27, 51, 672, DateTimeKind.Local).AddTicks(2879),
+                            ParentCategoryName = "Kuş"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            CreateDate = new DateTime(2024, 8, 2, 14, 27, 51, 672, DateTimeKind.Local).AddTicks(2881),
+                            ParentCategoryName = "Balık"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            CreateDate = new DateTime(2024, 8, 2, 14, 27, 51, 672, DateTimeKind.Local).AddTicks(2882),
+                            ParentCategoryName = "Kemirgen"
+                        });
                 });
 
             modelBuilder.Entity("EntityLayer.Models.Concrete.Product", b =>
