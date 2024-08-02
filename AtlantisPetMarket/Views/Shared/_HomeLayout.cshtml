@@ -2,7 +2,6 @@
 <html lang="en">
 
 <head>
-    <title>Atlantis Pet Market</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,36 +10,30 @@
     <meta name="author" content="">
     <meta name="keywords" content="">
     <meta name="description" content="">
-</head>
+    <title>Atlantis Pet Market</title>
 
- <head>
-    <link rel="stylesheet" href="~/waggypetshop/css/swiper.css" />
-    <link rel="stylesheet" href="~/waggypetshop/css/bootstrap.css" />
-
-    <link rel="stylesheet" type="text/css" href="~/waggypetshop/css/vendor.css">
-    <link rel="stylesheet" type="text/css" href="~/waggypetshop/style.css">
+    <link rel="stylesheet" href="/waggypetshop/css/swiper.css" />
+    <link rel="stylesheet" href="/waggypetshop/css/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="/waggypetshop/css/vendor.css">
+    <link rel="stylesheet" type="text/css" href="/waggypetshop/style.css">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Chilanka&family=Montserrat:wght@300;400;500&display=swap"
-          rel="stylesheet">
-
- </head>
+    <link href="https://fonts.googleapis.com/css2?family=Chilanka&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+</head>
 
 <body>
-
-    @await Html.PartialAsync("SvgPartial")
+    @await Html.PartialAsync("Default/SvgPartial")
 
     <div class="preloader-wrapper">
-        <div class="preloader">
-        </div>
+        <div class="preloader"></div>
     </div>
 
-    @await Html.PartialAsync("CartModalPartial")
+    @await Html.PartialAsync("Default/CartModalPartial")
 
-    @await Html.PartialAsync("SearchPartial")
+    @await Html.PartialAsync("Default/SearchPartial")
 
-    @await Html.PartialAsync("HeaderPartial")
+    @await Html.PartialAsync("Default/HeaderPartial")
 
     @RenderBody()
 
@@ -169,10 +162,9 @@
         </div>
     </section> *@
 
-   @await Html.PartialAsync("FooterPartial")
+    @await Html.PartialAsync("Default/FooterPartial")
 
-   @await Html.PartialAsync("ScriptPartial")
-
+    @await Html.PartialAsync("Default/ScriptPartial")
 </body>
 
 </html>

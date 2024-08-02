@@ -1,10 +1,9 @@
 ﻿@model IEnumerable<AtlantisPetMarket.Models.CartItemVM.CartItemViewModel>
-
 @{
-    ViewData["Title"] = "Sepetiniz";
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
 }
 
-<h2>@ViewData["Title"]</h2>
 
 @if (Model != null && Model.Any())
 {
@@ -50,3 +49,4 @@ else
 
 <a asp-action="Create" class="btn btn-success">Ürün Ekle</a>
 <a asp-action="Checkout" class="btn btn-primary">Alışverişi Tamamla</a>
+
