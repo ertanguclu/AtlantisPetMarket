@@ -171,6 +171,9 @@ namespace EntityLayer.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
+                    b.Property<int?>("CartId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("CreateDate")
                         .HasColumnType("datetime(6)");
 
@@ -184,6 +187,8 @@ namespace EntityLayer.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CartId");
 
                     b.HasIndex("UserId");
 
@@ -582,7 +587,7 @@ namespace EntityLayer.Migrations
             modelBuilder.Entity("EntityLayer.Models.Concrete.Cart", b =>
                 {
                     b.HasOne("EntityLayer.Models.Concrete.User", "User")
-                        .WithMany()
+                        .WithMany("Carts")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -593,7 +598,7 @@ namespace EntityLayer.Migrations
             modelBuilder.Entity("EntityLayer.Models.Concrete.CartItem", b =>
                 {
                     b.HasOne("EntityLayer.Models.Concrete.Cart", "Cart")
-                        .WithMany()
+                        .WithMany("CartItems")
                         .HasForeignKey("CartId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -622,11 +627,17 @@ namespace EntityLayer.Migrations
 
             modelBuilder.Entity("EntityLayer.Models.Concrete.Order", b =>
                 {
+                    b.HasOne("EntityLayer.Models.Concrete.Cart", "Cart")
+                        .WithMany("Orders")
+                        .HasForeignKey("CartId");
+
                     b.HasOne("EntityLayer.Models.Concrete.User", "User")
                         .WithMany("Orders")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Cart");
 
                     b.Navigation("User");
                 });
@@ -739,6 +750,13 @@ namespace EntityLayer.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("EntityLayer.Models.Concrete.Cart", b =>
+                {
+                    b.Navigation("CartItems");
+
+                    b.Navigation("Orders");
+                });
+
             modelBuilder.Entity("EntityLayer.Models.Concrete.Category", b =>
                 {
                     b.Navigation("Products");
@@ -761,6 +779,8 @@ namespace EntityLayer.Migrations
             modelBuilder.Entity("EntityLayer.Models.Concrete.User", b =>
                 {
                     b.Navigation("Addresses");
+
+                    b.Navigation("Carts");
 
                     b.Navigation("Orders");
 

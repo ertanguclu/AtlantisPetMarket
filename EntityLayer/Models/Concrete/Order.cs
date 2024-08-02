@@ -15,6 +15,8 @@ namespace EntityLayer.Models.Concrete
         }
         public int UserId { get; set; }
         public User User { get; set; }
+        public int? CartId { get; set; } // Nullable olmalı çünkü sipariş her zaman bir sepetle ilişkili olmayabilir
+        public Cart Cart { get; set; }
 
     }
 }

@@ -16,7 +16,9 @@ namespace EntityLayer.Models.Concrete
         public int? Yas { get; set; }
 
         public string? ImagePath { get; set; }
-        public string? About { get; set; }
+        public string? About { get; set; }   
+        public ICollection<Cart> Carts { get; set; }
+
         public ICollection<Order> Orders { get; set; }
         public ICollection<Address> Addresses { get; set; }
         public ICollection<Review> Reviews { get; set; }

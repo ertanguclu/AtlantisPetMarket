@@ -22,6 +22,9 @@ builder.Services.AddScoped<ICategoryManager<AppDbContext, Category, int>, Catego
 builder.Services.AddScoped<IParentCategoryManager<AppDbContext, ParentCategory, int>, ParentCategoryManager<AppDbContext, ParentCategory, int>>();
 builder.Services.AddScoped<IContactManager<AppDbContext, Contact, int>, ContactManager<AppDbContext, Contact, int>>();
 builder.Services.AddScoped<ISocialMediaManager<AppDbContext, SocialMedia, int>, SocialMediaManager<AppDbContext, SocialMedia, int>>();
+builder.Services.AddScoped<ICartManager<AppDbContext, Cart, int>, CartManager<AppDbContext, Cart, int>>();
+builder.Services.AddScoped<ICartItemManager<AppDbContext, CartItem, int>, CartItemManager<AppDbContext, CartItem, int>>();
+
 
 // AutoMapper
 builder.Services.AddAutoMapper(typeof(MapperConfig));
