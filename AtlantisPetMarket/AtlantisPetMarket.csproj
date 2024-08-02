@@ -34,7 +34,6 @@
 	<ItemGroup>
 	  <Folder Include="Areas\Writer\Data\" />
 	  <Folder Include="Areas\Writer\Views\Shared\Components\" />
-	  <Folder Include="ViewComponents\" />
 	  <Folder Include="wwwroot\categoryimage\" />
 	  <Folder Include="wwwroot\productimage\" />
 	</ItemGroup>

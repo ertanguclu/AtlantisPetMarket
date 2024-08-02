@@ -16,23 +16,8 @@ namespace AtlantisPetMarket.Controllers
         }
         public IActionResult Index()
         {
-            var products = _productManager.GetAllAsync(null);
-            return View(products);
+            return View();
         }
-
-        //public PartialViewResult HeaderPartial()
-        //{
-        //    return PartialView();
-        //}
-        //public PartialViewResult NavbarPartial()
-        //{
-        //    return PartialView();
-        //}
-        //[HttpGet]
-        //public PartialViewResult SendMessage()
-        //{
-        //    return PartialView();
-        //}
 
     }
 }
