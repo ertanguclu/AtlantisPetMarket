@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EntityLayer.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240801061750_Updated entities.")]
-    partial class Updatedentities
+    [Migration("20240803171750_Added ParentCategories")]
+    partial class AddedParentCategories
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -239,11 +239,44 @@ namespace EntityLayer.Migrations
 
                     b.Property<string>("ParentCategoryName")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasMaxLength(20)
+                        .HasColumnType("varchar(20)");
 
                     b.HasKey("Id");
 
                     b.ToTable("ParentCategories");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CreateDate = new DateTime(2024, 8, 3, 20, 17, 48, 251, DateTimeKind.Local).AddTicks(3595),
+                            ParentCategoryName = "Kedi"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CreateDate = new DateTime(2024, 8, 3, 20, 17, 48, 251, DateTimeKind.Local).AddTicks(3603),
+                            ParentCategoryName = "Köpek"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CreateDate = new DateTime(2024, 8, 3, 20, 17, 48, 251, DateTimeKind.Local).AddTicks(3607),
+                            ParentCategoryName = "Kuş"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            CreateDate = new DateTime(2024, 8, 3, 20, 17, 48, 251, DateTimeKind.Local).AddTicks(3611),
+                            ParentCategoryName = "Balık"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            CreateDate = new DateTime(2024, 8, 3, 20, 17, 48, 251, DateTimeKind.Local).AddTicks(3615),
+                            ParentCategoryName = "Kemirgen"
+                        });
                 });
 
             modelBuilder.Entity("EntityLayer.Models.Concrete.Product", b =>
@@ -347,19 +380,22 @@ namespace EntityLayer.Migrations
 
                     b.Property<string>("Icon")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100)");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100)");
 
                     b.Property<string>("Url")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasMaxLength(200)
+                        .HasColumnType("varchar(200)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("SocialMedias");
+                    b.ToTable("SocialMedia", (string)null);
                 });
 
             modelBuilder.Entity("EntityLayer.Models.Concrete.User", b =>

@@ -1,4 +1,30 @@
-﻿@{
-    ViewData["Title"] = "Index";
+﻿@model IEnumerable<EntityLayer.Models.Concrete.Product>
+
+@{
+    ViewData["Title"] = "Ürünler";
     Layout = "~/Views/Shared/_HomeLayout.cshtml";
 }
+
+<h2>Ürünler</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Ürün Adı</th>
+            <th>Marka</th>
+            <th>Açıklama</th>
+            <th>Fiyat</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var product in Model)
+        {
+            <tr>
+                <td>@product.ProductName</td>
+                <td>@product.Brand</td>
+                <td>@product.Description</td>
+                <td>@product.Price.ToString("C")</td> <!-- Para formatı -->
+            </tr>
+        }
+    </tbody>
+</table>
