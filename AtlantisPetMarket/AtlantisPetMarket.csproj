@@ -12,7 +12,12 @@
 	  <EmbeddedResource Remove="Views\Shared\NewFolder\**" />
 	  <None Remove="Views\Shared\NewFolder\**" />
 	</ItemGroup>
-	<ItemGroup>
+
+  <!--<ItemGroup>
+  <Compile Remove="Program.cs" />
+</ItemGroup>-->
+
+  <ItemGroup>
 		<ProjectReference Include="..\BusinessLayer\BusinessLayer.csproj" />
 	</ItemGroup>
 	<ItemGroup>
