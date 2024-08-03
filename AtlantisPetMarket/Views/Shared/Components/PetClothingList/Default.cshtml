@@ -1,5 +1,15 @@
 ﻿@model List<ProductListVM>
-
+<div class="section-header d-md-flex justify-content-between align-items-center mb-3">
+    <h2 class="display-3 fw-normal">Evcil Hayvan Giyim</h2>
+    <div>
+        <a href="#" class="btn btn-outline-dark btn-lg text-uppercase fs-6 rounded-1">
+            Satın Al
+            <svg width="24" height="24" viewBox="0 0 24 24" class="mb-1">
+                <use xlink:href="#arrow-right"></use>
+            </svg>
+        </a>
+    </div>
+</div>
 <div class="products-carousel swiper">
     <div class="swiper-wrapper">
         @foreach (var item in Model)
@@ -10,7 +20,7 @@
                 </div>
 
                 <div class="card position-relative">
-                    <a href="single-product.html"><img src="~/productimage/@item.ProductPhotoPath" class="product-image-wrapper" alt="image"></a>
+                    <a href="single-product.html"><img src="~/productimage/@item.ProductPhotoPath" class="product-image-wrapper img-fluid rounded-4" alt="image"></a>
                     <div class="card-body p-0">
                         <a href="single-product.html">
                             <h3 class="card-title pt-4 m-0">@item.ProductName</h3>
@@ -46,12 +56,13 @@
         height: 283px; /* Resim yüksekliği */
         overflow: hidden; /* Resmin belirlenen boyutların dışına taşmasını engeller */
         border-radius: 15px;
-    }
-
-    .product-image-wrapper img {
-       width: 100%;
-       height: 100%;
-       object-fit: cover; /* Resmi kapsayacak şekilde ölçekler, en-boy oranını korur */
+        background-color: #F2F2F2; /* Krem rengi *
+        }
+        .product-image-wrapper img
+        {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Resmi kapsayacak şekilde ölçekler, en-boy oranını korur */
         border-radius: 15px;
-    } 
+    }
 </style>
