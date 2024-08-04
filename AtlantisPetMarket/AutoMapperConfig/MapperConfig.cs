@@ -13,12 +13,16 @@ namespace AtlantisPetMarket.AutoMapperConfig
         {
             CreateMap<ProductInsertVM, Product>();
             CreateMap<Product, ProductInsertVM>();
+
             CreateMap<ProductUpdateVM, Product>();
             CreateMap<Product, ProductUpdateVM>();
 
-            CreateMap<CategoryUpdateVM, Category>();
+            CreateMap<Product, ProductListVM>();
 
+
+            CreateMap<CategoryUpdateVM, Category>();
             CreateMap<Category, CategoryUpdateVM>();
+
             CreateMap<CategoryInsertVM, Category>();
             CreateMap<Category, CategoryInsertVM>();
             CreateMap<CartItem, CartItemViewModel>();
