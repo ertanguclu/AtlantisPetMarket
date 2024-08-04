@@ -27,7 +27,6 @@
 	<ItemGroup>
 	  <Folder Include="Areas\Writer\Data\" />
 	  <Folder Include="Areas\Writer\Views\Shared\Components\" />
-	  <Folder Include="Views\Shared\Components\RodentFoodsList\" />
 	  <Folder Include="wwwroot\categoryimage\" />
 	  <Folder Include="wwwroot\processedimage\" />
 	  <Folder Include="wwwroot\productimage\" />

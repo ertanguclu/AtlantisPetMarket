@@ -5,9 +5,9 @@ namespace AtlantisPetMarket.Controllers
 
     public class PetFoodiesController : Controller
     {
-
         public async Task<IActionResult> LoadFoods(string category)
         {
+
             if (category == "Kedi Maması")
             {
                 return ViewComponent("CatFoodsList");

@@ -19,7 +19,7 @@ namespace AtlantisPetMarket.ViewComponents.DogFoods
         public async Task<IViewComponentResult> InvokeAsync()
         {
             string categoryName = "Köpek Maması";
-            var products = await _productManager.GetAllIncludeAsync(p => p.Category.CategoryName == categoryName, p => p.Category);
+            var products = await _productManager.GetProductsByCategoryAsync(categoryName);
             var random = new Random();
             var randomProducts = products.OrderBy(x => random.Next()).Take(8).ToList();
             var model = _mapper.Map<List<ProductListVM>>(randomProducts);
