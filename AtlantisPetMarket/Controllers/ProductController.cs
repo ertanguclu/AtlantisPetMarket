@@ -17,10 +17,10 @@ namespace AtlantisPetMarket.Controllers
         private readonly ICategoryManager<AppDbContext, Category, int> _categoryManager;
         private readonly IParentCategoryManager<AppDbContext, ParentCategory, int> _parentCategoryManager;
         private readonly IMapper _mapper;
-        private readonly IValidator<ProductUpdateVM> _validator;
+        private readonly IValidator<object> _validator;
 
         public ProductController(IProductManager<AppDbContext, Product, int> productManager,
-            ICategoryManager<AppDbContext, Category, int> categoryManager, IParentCategoryManager<AppDbContext, ParentCategory, int> parentCategory, IMapper mapper, IValidator<ProductUpdateVM> validator)
+            ICategoryManager<AppDbContext, Category, int> categoryManager, IParentCategoryManager<AppDbContext, ParentCategory, int> parentCategory, IMapper mapper, IValidator<object> validator)
         {
             _productManager = productManager;
             _categoryManager = categoryManager;
