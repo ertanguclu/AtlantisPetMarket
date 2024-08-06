@@ -33,7 +33,6 @@
 	  <Folder Include="Areas\Writer\Views\Shared\Components\" />
 	  <Folder Include="wwwroot\categoryimage\" />
 	  <Folder Include="wwwroot\processedimage\" />
-	  <Folder Include="wwwroot\productimage\" />
 	</ItemGroup>
 
 </Project>
