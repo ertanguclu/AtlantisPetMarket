@@ -1,4 +1,4 @@
-﻿@model IEnumerable<EntityLayer.Models.Concrete.Product>
+﻿@model IEnumerable<AtlantisPetMarket.Models.ProductVM.ProductListVM>
 
 @{
     ViewData["Title"] = "Ürünler";
@@ -14,6 +14,7 @@
             <th>Marka</th>
             <th>Açıklama</th>
             <th>Fiyat</th>
+            <th>Sepete Ekle</th>
         </tr>
     </thead>
     <tbody>
@@ -24,6 +25,15 @@
                 <td>@product.Brand</td>
                 <td>@product.Description</td>
                 <td>@product.Price.ToString("C")</td> <!-- Para formatı -->
+                <td>
+                    <!-- Sepete Ekle Formu -->
+                    <form asp-action="CreateOrUpdate" asp-controller="CartItem" method="post">
+                        <input type="hidden" name="ProductId" value="@product.Id" />
+                        <input type="hidden" name="CartId" value="1" /> <!-- Sepet ID'sini uygun şekilde ayarlayın -->
+                        <input type="number" name="Quantity" value="1" min="1" class="form-control" />
+                        <button type="submit" class="btn btn-primary">Sepete Ekle</button>
+                    </form>
+                </td>
             </tr>
         }
     </tbody>

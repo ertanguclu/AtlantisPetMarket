@@ -21,12 +21,12 @@
                 </div>
                 <div class="form-group">
                     <label>Üst Kategori</label>
-                    <select asp-for="ParentCategoryId" class="form-select form-select-sm" aria-label=".form-select-sm example">
+                    @* <select asp-for="ParentCategoryId" class="form-select form-select-sm" aria-label=".form-select-sm example">
                         @foreach (ParentCategory pCategory in ViewBag.parentCategories)
                         {
                             <option value="@pCategory.Id">@pCategory.ParentCategoryName</option>
                         }
-                    </select>
+                    </select> *@
                 </div>
                 <div class="form-group">
                     <label>Kategori</label>
