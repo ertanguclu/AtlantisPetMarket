@@ -1,10 +1,7 @@
 ﻿using AtlantisPetMarket.Models.CartItemVM;
 using AtlantisPetMarket.Models.CartViewModel;
-using AtlantisPetMarket.Models.CategoryVM;
-using AtlantisPetMarket.Models.ProductVM;
 using AutoMapper;
 using BusinessLayer.Abstract;
-using BusinessLayer.Concrete;
 using EntityLayer.DbContexts;
 using EntityLayer.Models.Concrete;
 using FluentValidation;
@@ -58,6 +55,7 @@ namespace AtlantisPetMarket.Controllers
         public async Task<IActionResult> Create()
         {
             CartVM cartVM = new CartVM();
+
             return View(cartVM);
         }
 

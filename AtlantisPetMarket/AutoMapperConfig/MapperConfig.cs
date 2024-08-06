@@ -28,7 +28,8 @@ namespace AtlantisPetMarket.AutoMapperConfig
             CreateMap<CartItem, CartItemViewModel>();
             CreateMap<CartItemViewModel, CartItem>();
             CreateMap<CartVM, Cart>();
-            CreateMap<Cart , CartVM>();
+            CreateMap<Cart, CartVM>();
+            CreateMap<ProductListVM, CartItemViewModel>();
 
 
         }
