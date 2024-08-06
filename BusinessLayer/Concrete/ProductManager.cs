@@ -1,6 +1,7 @@
 ﻿using BusinessLayer.Abstract;
 using EntityLayer.Models.Concrete;
 using Microsoft.EntityFrameworkCore;
+using System.Linq.Expressions;
 
 namespace BusinessLayer.Concrete
 {
@@ -12,16 +13,16 @@ namespace BusinessLayer.Concrete
         {
         }
 
-        public async Task<IEnumerable<T>> GetProductsByCategoryAsync(string categoryName)
+        public async Task<IEnumerable<T>> GetProductsByCategoryAsync(Expression<Func<T, bool>>? filter, params Expression<Func<T, object>>[] include)
         {
-            IQueryable<Product> query = context.Set<Product>().Include(p => p.Category);
+            IQueryable<T> query = context.Set<T>();
 
-            if (!string.IsNullOrWhiteSpace(categoryName))
+            if (filter != null)
             {
-                query = query.Where(p => p.Category.CategoryName == categoryName);
+                query = query.Where(filter);
             }
 
-            return await query.Cast<T>().ToListAsync();
+            return await include.Aggregate(query, (current, includeProperty) => current.Include(includeProperty)).ToListAsync();
         }
     }
 }

@@ -65,7 +65,7 @@ namespace DataAccessLayer.Concrete
             IQueryable<T> query = context.Set<T>();
             if (filter != null)
             {
-                query = query.Where(filter);
+                query.Where(filter);
             }
 
             return await include.Aggregate(query, (current, includeProperty) => current.Include(includeProperty)).ToListAsync();
