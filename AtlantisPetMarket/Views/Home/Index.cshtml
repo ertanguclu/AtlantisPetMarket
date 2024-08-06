@@ -88,33 +88,33 @@
     <div class="container my-3 py-5">
         <div class="row my-5">
             <div class="col text-center">
-                <a href="#" class="categories-item">
-                    <iconify-icon class="category-icon" icon="ph:bowl-food"></iconify-icon>
-                    <h5>Kemirgen</h5>
+                <a href="/Cats/Index" class="categories-item">
+                    <iconify-icon class="category-icon" icon="ph:cat"></iconify-icon>
+                    <h5>KEDİ</h5>
                 </a>
             </div>
             <div class="col text-center">
-                <a href="#" class="categories-item">
-                    <iconify-icon class="category-icon" icon="ph:bird"></iconify-icon>
-                    <h5>KUŞ</h5>
-                </a>
-            </div>
-            <div class="col text-center">
-                <a href="#" class="categories-item">
+                <a href="/Dogs/Index" class="categories-item">
                     <iconify-icon class="category-icon" icon="ph:dog"></iconify-icon>
                     <h5>KÖPEK</h5>
                 </a>
             </div>
             <div class="col text-center">
-                <a href="#" class="categories-item">
+                <a href="/Birds/Index" class="categories-item">
+                    <iconify-icon class="category-icon" icon="ph:bird"></iconify-icon>
+                    <h5>KUŞ</h5>
+                </a>
+            </div>
+            <div class="col text-center">
+                <a href="/Fish/Index" class="categories-item">
                     <iconify-icon class="category-icon" icon="ph:fish"></iconify-icon>
                     <h5>BALIK</h5>
                 </a>
             </div>
             <div class="col text-center">
-                <a href="#" class="categories-item">
-                    <iconify-icon class="category-icon" icon="ph:cat"></iconify-icon>
-                    <h5>KEDİ</h5>
+                <a href="/Rodents/Index" class="categories-item">
+                    <iconify-icon class="category-icon" icon="ph:bowl-food"></iconify-icon>
+                    <h5>KEMİRGEN</h5>
                 </a>
             </div>
         </div>
@@ -123,7 +123,7 @@
 
 <section id="clothing" class="my-5 overflow-hidden">
     <div class="container pb-5">
-    
+
         @await Component.InvokeAsync("PetClothingList")
         <!-- / products-carousel -->
 
@@ -156,10 +156,7 @@
             </div>
         </div>
 
-        <div  id="foodsContainer">
-            
-           
-
+        <div id="foodsContainer">
         </div>
 
 
@@ -509,32 +506,32 @@
 </section>
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
 <script>
-    $(document).ready(function() {
+    $(document).ready(function () {
         // Fonksiyon: Ürünleri yükler
         function loadProducts(filter) {
             $.ajax({
                 url: '/PetFoodies/LoadFoods',
                 type: 'GET',
                 data: { category: filter },
-                success: function(data) {
+                success: function (data) {
                     $('#foodsContainer').html(data);
                 },
-                error: function(xhr, status, error) {
+                error: function (xhr, status, error) {
                     console.error('Ajax request failed:', status, error);
                 }
             });
         }
 
         // Butonlara tıklama olayları
-        $('#showAll').click(function() {
+        $('#showAll').click(function () {
             loadProducts('all');
         });
 
-        $('#showCats').click(function() {
+        $('#showCats').click(function () {
             loadProducts('Kedi Maması');
         });
 
-        $('#showDogs').click(function() {
+        $('#showDogs').click(function () {
             loadProducts('Köpek Maması');
         });
         $('#showBirds').click(function () {

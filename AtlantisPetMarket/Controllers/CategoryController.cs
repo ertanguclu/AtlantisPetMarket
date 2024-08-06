@@ -1,4 +1,4 @@
-﻿using AtlantisPetMarket.Models.CategoryVM;
+﻿ using AtlantisPetMarket.Models.CategoryVM;
 using AutoMapper;
 using BusinessLayer.Abstract;
 using EntityLayer.DbContexts;
@@ -37,7 +37,7 @@ namespace AtlantisPetMarket.Controllers
             return View();
         }
         [HttpPost]
-        public async Task<ActionResult> Create(CategoryUpdateVM insertVM)
+        public async Task<ActionResult> Create(CategoryInsertVM insertVM)
         {
 
             //var result = _validator.Validate(productVM);

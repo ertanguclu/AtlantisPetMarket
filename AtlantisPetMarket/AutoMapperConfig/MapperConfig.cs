@@ -1,4 +1,6 @@
-﻿using AtlantisPetMarket.Models.CategoryVM;
+﻿using AtlantisPetMarket.Models.CartItemVM;
+using AtlantisPetMarket.Models.CartViewModel;
+using AtlantisPetMarket.Models.CategoryVM;
 using AtlantisPetMarket.Models.ProductVM;
 using AutoMapper;
 using EntityLayer.Models.Concrete;
@@ -23,6 +25,11 @@ namespace AtlantisPetMarket.AutoMapperConfig
 
             CreateMap<CategoryInsertVM, Category>();
             CreateMap<Category, CategoryInsertVM>();
+            CreateMap<CartItem, CartItemViewModel>();
+            CreateMap<CartItemViewModel, CartItem>();
+            CreateMap<CartVM, Cart>();
+            CreateMap<Cart, CartVM>();
+            CreateMap<ProductListVM, CartItemViewModel>();
 
 
         }

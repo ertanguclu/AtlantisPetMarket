@@ -34,5 +34,6 @@ namespace AtlantisPetMarket.ViewComponents.PetClothing
                 return View(new List<ProductListVM>());
             }
         }
+        //kategorisi kıyafet olan ürünleri alma
     }
 }

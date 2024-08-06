@@ -171,6 +171,9 @@ namespace EntityLayer.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
+                    b.Property<int?>("CartId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("CreateDate")
                         .HasColumnType("datetime(6)");
 
@@ -184,6 +187,8 @@ namespace EntityLayer.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CartId");
 
                     b.HasIndex("UserId");
 
@@ -231,11 +236,44 @@ namespace EntityLayer.Migrations
 
                     b.Property<string>("ParentCategoryName")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasMaxLength(20)
+                        .HasColumnType("varchar(20)");
 
                     b.HasKey("Id");
 
                     b.ToTable("ParentCategories");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CreateDate = new DateTime(2024, 8, 3, 20, 17, 48, 251, DateTimeKind.Local).AddTicks(3595),
+                            ParentCategoryName = "Kedi"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CreateDate = new DateTime(2024, 8, 3, 20, 17, 48, 251, DateTimeKind.Local).AddTicks(3603),
+                            ParentCategoryName = "Köpek"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CreateDate = new DateTime(2024, 8, 3, 20, 17, 48, 251, DateTimeKind.Local).AddTicks(3607),
+                            ParentCategoryName = "Kuş"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            CreateDate = new DateTime(2024, 8, 3, 20, 17, 48, 251, DateTimeKind.Local).AddTicks(3611),
+                            ParentCategoryName = "Balık"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            CreateDate = new DateTime(2024, 8, 3, 20, 17, 48, 251, DateTimeKind.Local).AddTicks(3615),
+                            ParentCategoryName = "Kemirgen"
+                        });
                 });
 
             modelBuilder.Entity("EntityLayer.Models.Concrete.Product", b =>
@@ -339,19 +377,22 @@ namespace EntityLayer.Migrations
 
                     b.Property<string>("Icon")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100)");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100)");
 
                     b.Property<string>("Url")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasMaxLength(200)
+                        .HasColumnType("varchar(200)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("SocialMedias");
+                    b.ToTable("SocialMedia", (string)null);
                 });
 
             modelBuilder.Entity("EntityLayer.Models.Concrete.User", b =>
@@ -582,7 +623,7 @@ namespace EntityLayer.Migrations
             modelBuilder.Entity("EntityLayer.Models.Concrete.Cart", b =>
                 {
                     b.HasOne("EntityLayer.Models.Concrete.User", "User")
-                        .WithMany()
+                        .WithMany("Carts")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -593,7 +634,7 @@ namespace EntityLayer.Migrations
             modelBuilder.Entity("EntityLayer.Models.Concrete.CartItem", b =>
                 {
                     b.HasOne("EntityLayer.Models.Concrete.Cart", "Cart")
-                        .WithMany()
+                        .WithMany("CartItems")
                         .HasForeignKey("CartId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -622,11 +663,17 @@ namespace EntityLayer.Migrations
 
             modelBuilder.Entity("EntityLayer.Models.Concrete.Order", b =>
                 {
+                    b.HasOne("EntityLayer.Models.Concrete.Cart", "Cart")
+                        .WithMany("Orders")
+                        .HasForeignKey("CartId");
+
                     b.HasOne("EntityLayer.Models.Concrete.User", "User")
                         .WithMany("Orders")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Cart");
 
                     b.Navigation("User");
                 });
@@ -739,6 +786,13 @@ namespace EntityLayer.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("EntityLayer.Models.Concrete.Cart", b =>
+                {
+                    b.Navigation("CartItems");
+
+                    b.Navigation("Orders");
+                });
+
             modelBuilder.Entity("EntityLayer.Models.Concrete.Category", b =>
                 {
                     b.Navigation("Products");
@@ -761,6 +815,8 @@ namespace EntityLayer.Migrations
             modelBuilder.Entity("EntityLayer.Models.Concrete.User", b =>
                 {
                     b.Navigation("Addresses");
+
+                    b.Navigation("Carts");
 
                     b.Navigation("Orders");
 
