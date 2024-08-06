@@ -4,7 +4,6 @@ using BusinessLayer.Abstract;
 using EntityLayer.DbContexts;
 using EntityLayer.Models.Concrete;
 using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
 
 namespace AtlantisPetMarket.Controllers.ParentCategories
 {

@@ -1,5 +1,6 @@
 ﻿using EntityLayer.Models.Concrete;
 using Microsoft.EntityFrameworkCore;
+using System.Linq.Expressions;
 
 namespace BusinessLayer.Abstract
 {
@@ -7,6 +8,6 @@ namespace BusinessLayer.Abstract
          where TContext : DbContext, new()
         where T : Product
     {
-
+        Task<IEnumerable<T>> GetProductsByCategoryAsync(Expression<Func<T, bool>>? filter, params Expression<Func<T, object>>[] include);
     }
 }

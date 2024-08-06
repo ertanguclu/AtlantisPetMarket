@@ -1,43 +1,4 @@
-﻿@model IEnumerable<AtlantisPetMarket.Models.ProductVM.ProductListVM>
-
-@{
-    ViewData["Title"] = "Ürünler";
-    Layout = "~/Views/Shared/_HomeLayout.cshtml";
-}
-
-@* <h2>Ürünler</h2>
-
-<table class="table">
-    <thead>
-        <tr>
-            <th>Ürün Adı</th>
-            <th>Marka</th>
-            <th>Açıklama</th>
-            <th>Fiyat</th>
-            <th>Sepete Ekle</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var product in Model)
-        {
-            <tr>
-                <td>@product.ProductName</td>
-                <td>@product.Brand</td>
-                <td>@product.Description</td>
-                <td>@product.Price.ToString("C")</td> <!-- Para formatı -->
-                <td>
-                    <!-- Sepete Ekle Formu -->
-                    <form asp-action="CreateOrUpdate" asp-controller="CartItem" method="post">
-                        <input type="hidden" name="ProductId" value="@product.Id" />
-                        <input type="hidden" name="CartId" value="1" /> <!-- Sepet ID'sini uygun şekilde ayarlayın -->
-                        <input type="number" name="Quantity" value="1" min="1" class="form-control" />
-                        <button type="submit" class="btn btn-primary">Sepete Ekle</button>
-                    </form>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table> *@
+﻿@model List<ProductListVM>
 <div class="isotope-container row">
     @foreach (var item in Model)
     {
@@ -84,3 +45,4 @@
 
     }
 </div>
+
