@@ -1,4 +1,4 @@
-﻿ using AtlantisPetMarket.Models.CategoryVM;
+﻿using AtlantisPetMarket.Models.CategoryVM;
 using AutoMapper;
 using BusinessLayer.Abstract;
 using EntityLayer.DbContexts;
@@ -14,9 +14,9 @@ namespace AtlantisPetMarket.Controllers
         private readonly ICategoryManager<AppDbContext, Category, int> _categoryManager;
         private readonly IParentCategoryManager<AppDbContext, ParentCategory, int> _parentCategoryManager;
         private readonly IMapper _mapper;
-        private readonly IValidator<CategoryUpdateVM> _validator;
+        private readonly IValidator<object> _validator;
         public CategoryController(ICategoryManager<AppDbContext, Category, int> categoryManager,
-            IProductManager<AppDbContext, Product, int> productManager, IParentCategoryManager<AppDbContext, ParentCategory, int> parentCategoryManager, IMapper mapper, IValidator<CategoryUpdateVM> validator)
+            IProductManager<AppDbContext, Product, int> productManager, IParentCategoryManager<AppDbContext, ParentCategory, int> parentCategoryManager, IMapper mapper, IValidator<object> validator)
         {
             _productManager = productManager;
             _categoryManager = categoryManager;
@@ -40,12 +40,16 @@ namespace AtlantisPetMarket.Controllers
         public async Task<ActionResult> Create(CategoryInsertVM insertVM)
         {
 
-            //var result = _validator.Validate(productVM);
-            //if (!result.IsValid)
-            //{
-            //    return BadRequest(result.Errors);
+            var result = _validator.Validate(insertVM);
+            if (!result.IsValid)
+            {
+                foreach (var error in result.Errors)
+                {
+                    ModelState.AddModelError(error.PropertyName, error.ErrorMessage);
+                }
+                return View(insertVM);
 
-            //}
+            }
             var category = _mapper.Map<Category>(insertVM);
 
             if (insertVM.CategoryPhotoPath != null)
@@ -88,7 +92,7 @@ namespace AtlantisPetMarket.Controllers
                 return BadRequest();
             }
 
-            var validationResult = await _validator.ValidateAsync(categoryUpdateVM);
+            var validationResult = _validator.Validate(categoryUpdateVM);
             if (!validationResult.IsValid)
             {
                 foreach (var error in validationResult.Errors)

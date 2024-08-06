@@ -1,18 +1,29 @@
 ﻿
 using AtlantisPetMarket.Models.CategoryVM;
-using EntityLayer.Models.Concrete;
 using FluentValidation;
 
 namespace BusinessLayer.ValidationsRules
 {
-    public class CategoryValidator : AbstractValidator<CategoryInsertVM>
+    public class CategoryValidator : AbstractValidator<object>
     {
         public CategoryValidator()
         {
-            RuleFor(x => x.CategoryName).NotEmpty().WithMessage("Kategori adı boş geçilemez.");
-            RuleFor(x => x.CategoryName).MinimumLength(3).WithMessage("Kategori adı en az 3 karakterden oluşmak zorundadır.");
-            RuleFor(x => x.CategoryName).MaximumLength(50).WithMessage("Kategori adı en fazla 50 karakter olabilir.");
-            RuleFor(x => x.CategoryPhotoPath).NotEmpty().WithMessage("Kategori fotoğraf alanı boş geçilemez.");
+
+            When(x => x is CategoryInsertVM, () =>
+            {
+                RuleFor(x => ((CategoryInsertVM)x).CategoryName).NotEmpty().WithMessage("Kategori adı boş geçilemez.");
+                RuleFor(x => ((CategoryInsertVM)x).CategoryName).MinimumLength(3).WithMessage("Kategori adı en az 3 karakterden oluşmak zorundadır.");
+                RuleFor(x => ((CategoryInsertVM)x).CategoryName).MaximumLength(50).WithMessage("Kategori adı en fazla 50 karakter olabilir.");
+
+            });
+            When(x => x is CategoryUpdateVM, () =>
+            {
+
+                RuleFor(x => ((CategoryUpdateVM)x).CategoryName).NotEmpty().WithMessage("Kategori adı boş geçilemez.");
+                RuleFor(x => ((CategoryUpdateVM)x).CategoryName).MinimumLength(3).WithMessage("Kategori adı en az 3 karakterden oluşmak zorundadır.");
+                RuleFor(x => ((CategoryUpdateVM)x).CategoryName).MaximumLength(50).WithMessage("Kategori adı en fazla 50 karakter olabilir.");
+
+            });
 
         }
     }
