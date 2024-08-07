@@ -113,6 +113,23 @@ namespace AtlantisPetMarket.Controllers
             }
 
             _mapper.Map(categoryUpdateVM, category);
+            if (categoryUpdateVM.CategoryPhotoUpdate != null)
+            {
+                var resource = Directory.GetCurrentDirectory();
+                var extension = Path.GetExtension(categoryUpdateVM.CategoryPhotoUpdate.FileName);
+                var imagename = Guid.NewGuid() + extension;
+                var savelocation = Path.Combine(resource, "wwwroot", "categoryimage", imagename);
+                using (var stream = new FileStream(savelocation, FileMode.Create))
+                {
+                    await categoryUpdateVM.CategoryPhotoUpdate.CopyToAsync(stream);
+                }
+                category.CategoryPhotoPath = imagename;
+            }
+            else
+            {
+                // Eğer yeni bir resim seçilmemişse, mevcut resmi kullan
+                category.CategoryPhotoPath = categoryUpdateVM.CategoryPhotoPath;
+            }
             await _categoryManager.UpdateAsync(category);
             return RedirectToAction("Index");
         }
