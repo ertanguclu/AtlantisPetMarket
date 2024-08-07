@@ -1,12 +1,30 @@
-﻿@model IEnumerable<Product>
+﻿@model IQueryable<Product>
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_NewAdminLayout.cshtml";
 }
 
+@(Html
+    .Grid(Model)
+    .Build(columns =>
+    {
+        columns.Add(model => model.ProductName).Titled("Name");
+        columns.Add(model => model.Category.CategoryName).Titled("Surname");
+        columns.Add(model => model.ParentCategory.ParentCategoryName).Titled("Surname");
+
+    })
+    .Filterable(GridFilterCase.Lower)
+    .Using(GridFilterMode.Header)
+    .Empty("No data found")
+    .Pageable(pager =>
+    {
+        pager.RowsPerPage = 4;
+    })
+    .Sortable()
+)
 
 
-<div class="col-lg-12 grid-margin stretch-card">
+@* <div class="col-lg-12 grid-margin stretch-card">
     <div class="card">
         <div class="card-body">
             <h4 class="card-title">Ürün Listesi</h4>
@@ -68,6 +86,6 @@
             </div>
         </div>
     </div>
-</div>
+</div> *@
 
 

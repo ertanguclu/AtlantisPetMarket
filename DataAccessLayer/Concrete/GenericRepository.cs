@@ -71,5 +71,24 @@ namespace DataAccessLayer.Concrete
             return await include.Aggregate(query, (current, includeProperty) => current.Include(includeProperty)).ToListAsync();
 
         }
+        public IQueryable<T> GetAllInclude(
+            Expression<Func<T, bool>>? filter = null,
+             params Expression<Func<T, object>>[] includeProperties)
+        {
+            IQueryable<T> query = context.Set<T>();
+
+            if (filter != null)
+            {
+                query = query.Where(filter);
+            }
+
+            foreach (var includeProperty in includeProperties)
+            {
+                query = query.Include(includeProperty);
+            }
+
+            return query;
+        }
+
     }
 }

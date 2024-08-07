@@ -5,6 +5,7 @@ using EntityLayer.DbContexts;
 using EntityLayer.Models.Concrete;
 using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Globalization;
 
 namespace AtlantisPetMarket.Controllers
@@ -12,6 +13,7 @@ namespace AtlantisPetMarket.Controllers
     
     public class ProductController : Controller
     {
+        private readonly AppDbContext _context;
 
         private readonly IProductManager<AppDbContext, Product, int> _productManager;
         private readonly ICategoryManager<AppDbContext, Category, int> _categoryManager;
@@ -19,9 +21,10 @@ namespace AtlantisPetMarket.Controllers
         private readonly IMapper _mapper;
         private readonly IValidator<ProductUpdateVM> _validator;
 
-        public ProductController(IProductManager<AppDbContext, Product, int> productManager,
+        public ProductController(AppDbContext context, IProductManager<AppDbContext, Product, int> productManager,
             ICategoryManager<AppDbContext, Category, int> categoryManager, IParentCategoryManager<AppDbContext, ParentCategory, int> parentCategory, IMapper mapper, IValidator<ProductUpdateVM> validator)
         {
+            _context = context;
             _productManager = productManager;
             _categoryManager = categoryManager;
             _parentCategoryManager = parentCategory;
@@ -29,11 +32,41 @@ namespace AtlantisPetMarket.Controllers
             _validator = validator;
         }
 
-        public async Task<ActionResult<IEnumerable<Product>>> Index(int id)
+        //public async Task<ActionResult<IEnumerable<Product>>> Index(int id)
+        //{
+        //    var products = await _productManager.GetAllIncludeAsync(x => x.CategoryId == id, x => x.Category, x => x.ParentCategory);
+        //    return View(products);
+        //}
+
+        //public ActionResult<IQueryable<Product>> Index(int id)
+        //{
+        //    var productsQuery = _productManager.GetAllInclude(
+        //        x => x.CategoryId == id,
+        //        x => x.Category,
+        //        x => x.ParentCategory
+        //    ).AsNoTracking();
+
+        //    // Veritabanı sorgusunu hemen çalıştırmadan IQueryable döndürüyoruz
+        //    return View(productsQuery);
+        //}
+
+        public IActionResult Index()
         {
-            var products = await _productManager.GetAllIncludeAsync(x => x.CategoryId == id, x => x.Category, x => x.ParentCategory);
+
+            #region Metod Syntax ile Queryable Sorgu olustuma
+            var products = _context.Products
+                                .Include(p => p.Category)
+                                .Include(p=>p.ParentCategory)
+
+                                .AsNoTracking() // Çekilen datayi izleme
+                                .AsQueryable(); // Sorgu taslagi olarak ver
+
+            #endregion
+
             return View(products);
         }
+
+
         [HttpGet]
         public async Task<IActionResult> GetCategoriesByParentId(int parentCategoryId)
         {
