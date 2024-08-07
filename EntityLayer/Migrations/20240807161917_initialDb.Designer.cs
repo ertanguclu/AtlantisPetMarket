@@ -11,13 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EntityLayer.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-<<<<<<<< HEAD:EntityLayer/Migrations/20240802112752_initDb.Designer.cs
-    [Migration("20240802112752_initDb")]
-    partial class initDb
-========
-    [Migration("20240803171750_Added ParentCategories")]
-    partial class AddedParentCategories
->>>>>>>> MertDeneme:EntityLayer/Migrations/20240803171750_Added ParentCategories.Designer.cs
+    [Migration("20240807161917_initialDb")]
+    partial class initialDb
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -255,51 +250,31 @@ namespace EntityLayer.Migrations
                         new
                         {
                             Id = 1,
-<<<<<<<< HEAD:EntityLayer/Migrations/20240802112752_initDb.Designer.cs
-                            CreateDate = new DateTime(2024, 8, 2, 14, 27, 51, 672, DateTimeKind.Local).AddTicks(2876),
-========
-                            CreateDate = new DateTime(2024, 8, 3, 20, 17, 48, 251, DateTimeKind.Local).AddTicks(3595),
->>>>>>>> MertDeneme:EntityLayer/Migrations/20240803171750_Added ParentCategories.Designer.cs
+                            CreateDate = new DateTime(2024, 8, 7, 19, 19, 16, 921, DateTimeKind.Local).AddTicks(2090),
                             ParentCategoryName = "Kedi"
                         },
                         new
                         {
                             Id = 2,
-<<<<<<<< HEAD:EntityLayer/Migrations/20240802112752_initDb.Designer.cs
-                            CreateDate = new DateTime(2024, 8, 2, 14, 27, 51, 672, DateTimeKind.Local).AddTicks(2878),
-========
-                            CreateDate = new DateTime(2024, 8, 3, 20, 17, 48, 251, DateTimeKind.Local).AddTicks(3603),
->>>>>>>> MertDeneme:EntityLayer/Migrations/20240803171750_Added ParentCategories.Designer.cs
+                            CreateDate = new DateTime(2024, 8, 7, 19, 19, 16, 921, DateTimeKind.Local).AddTicks(2092),
                             ParentCategoryName = "Köpek"
                         },
                         new
                         {
                             Id = 3,
-<<<<<<<< HEAD:EntityLayer/Migrations/20240802112752_initDb.Designer.cs
-                            CreateDate = new DateTime(2024, 8, 2, 14, 27, 51, 672, DateTimeKind.Local).AddTicks(2879),
-========
-                            CreateDate = new DateTime(2024, 8, 3, 20, 17, 48, 251, DateTimeKind.Local).AddTicks(3607),
->>>>>>>> MertDeneme:EntityLayer/Migrations/20240803171750_Added ParentCategories.Designer.cs
+                            CreateDate = new DateTime(2024, 8, 7, 19, 19, 16, 921, DateTimeKind.Local).AddTicks(2094),
                             ParentCategoryName = "Kuş"
                         },
                         new
                         {
                             Id = 4,
-<<<<<<<< HEAD:EntityLayer/Migrations/20240802112752_initDb.Designer.cs
-                            CreateDate = new DateTime(2024, 8, 2, 14, 27, 51, 672, DateTimeKind.Local).AddTicks(2881),
-========
-                            CreateDate = new DateTime(2024, 8, 3, 20, 17, 48, 251, DateTimeKind.Local).AddTicks(3611),
->>>>>>>> MertDeneme:EntityLayer/Migrations/20240803171750_Added ParentCategories.Designer.cs
+                            CreateDate = new DateTime(2024, 8, 7, 19, 19, 16, 921, DateTimeKind.Local).AddTicks(2095),
                             ParentCategoryName = "Balık"
                         },
                         new
                         {
                             Id = 5,
-<<<<<<<< HEAD:EntityLayer/Migrations/20240802112752_initDb.Designer.cs
-                            CreateDate = new DateTime(2024, 8, 2, 14, 27, 51, 672, DateTimeKind.Local).AddTicks(2882),
-========
-                            CreateDate = new DateTime(2024, 8, 3, 20, 17, 48, 251, DateTimeKind.Local).AddTicks(3615),
->>>>>>>> MertDeneme:EntityLayer/Migrations/20240803171750_Added ParentCategories.Designer.cs
+                            CreateDate = new DateTime(2024, 8, 7, 19, 19, 16, 921, DateTimeKind.Local).AddTicks(2097),
                             ParentCategoryName = "Kemirgen"
                         });
                 });

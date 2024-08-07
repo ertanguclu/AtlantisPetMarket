@@ -247,51 +247,31 @@ namespace EntityLayer.Migrations
                         new
                         {
                             Id = 1,
-<<<<<<< HEAD
-                            CreateDate = new DateTime(2024, 8, 2, 14, 27, 51, 672, DateTimeKind.Local).AddTicks(2876),
-=======
-                            CreateDate = new DateTime(2024, 8, 3, 20, 17, 48, 251, DateTimeKind.Local).AddTicks(3595),
->>>>>>> MertDeneme
+                            CreateDate = new DateTime(2024, 8, 7, 19, 19, 16, 921, DateTimeKind.Local).AddTicks(2090),
                             ParentCategoryName = "Kedi"
                         },
                         new
                         {
                             Id = 2,
-<<<<<<< HEAD
-                            CreateDate = new DateTime(2024, 8, 2, 14, 27, 51, 672, DateTimeKind.Local).AddTicks(2878),
-=======
-                            CreateDate = new DateTime(2024, 8, 3, 20, 17, 48, 251, DateTimeKind.Local).AddTicks(3603),
->>>>>>> MertDeneme
+                            CreateDate = new DateTime(2024, 8, 7, 19, 19, 16, 921, DateTimeKind.Local).AddTicks(2092),
                             ParentCategoryName = "Köpek"
                         },
                         new
                         {
                             Id = 3,
-<<<<<<< HEAD
-                            CreateDate = new DateTime(2024, 8, 2, 14, 27, 51, 672, DateTimeKind.Local).AddTicks(2879),
-=======
-                            CreateDate = new DateTime(2024, 8, 3, 20, 17, 48, 251, DateTimeKind.Local).AddTicks(3607),
->>>>>>> MertDeneme
+                            CreateDate = new DateTime(2024, 8, 7, 19, 19, 16, 921, DateTimeKind.Local).AddTicks(2094),
                             ParentCategoryName = "Kuş"
                         },
                         new
                         {
                             Id = 4,
-<<<<<<< HEAD
-                            CreateDate = new DateTime(2024, 8, 2, 14, 27, 51, 672, DateTimeKind.Local).AddTicks(2881),
-=======
-                            CreateDate = new DateTime(2024, 8, 3, 20, 17, 48, 251, DateTimeKind.Local).AddTicks(3611),
->>>>>>> MertDeneme
+                            CreateDate = new DateTime(2024, 8, 7, 19, 19, 16, 921, DateTimeKind.Local).AddTicks(2095),
                             ParentCategoryName = "Balık"
                         },
                         new
                         {
                             Id = 5,
-<<<<<<< HEAD
-                            CreateDate = new DateTime(2024, 8, 2, 14, 27, 51, 672, DateTimeKind.Local).AddTicks(2882),
-=======
-                            CreateDate = new DateTime(2024, 8, 3, 20, 17, 48, 251, DateTimeKind.Local).AddTicks(3615),
->>>>>>> MertDeneme
+                            CreateDate = new DateTime(2024, 8, 7, 19, 19, 16, 921, DateTimeKind.Local).AddTicks(2097),
                             ParentCategoryName = "Kemirgen"
                         });
                 });
