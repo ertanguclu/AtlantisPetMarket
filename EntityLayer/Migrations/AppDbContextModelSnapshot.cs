@@ -19,6 +19,28 @@ namespace EntityLayer.Migrations
                 .HasAnnotation("ProductVersion", "8.0.7")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
+            modelBuilder.Entity("Cart", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreateDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<DateTime>("CreateDateTime")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int?>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Carts");
+                });
+
             modelBuilder.Entity("EntityLayer.Models.Concrete.Address", b =>
                 {
                     b.Property<int>("Id")
@@ -56,28 +78,6 @@ namespace EntityLayer.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Addresses");
-                });
-
-            modelBuilder.Entity("EntityLayer.Models.Concrete.Cart", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("CreateDate")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<DateTime>("CreateDateTime")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Carts");
                 });
 
             modelBuilder.Entity("EntityLayer.Models.Concrete.CartItem", b =>
@@ -247,31 +247,31 @@ namespace EntityLayer.Migrations
                         new
                         {
                             Id = 1,
-                            CreateDate = new DateTime(2024, 8, 3, 20, 17, 48, 251, DateTimeKind.Local).AddTicks(3595),
+                            CreateDate = new DateTime(2024, 8, 7, 21, 41, 40, 918, DateTimeKind.Local).AddTicks(4849),
                             ParentCategoryName = "Kedi"
                         },
                         new
                         {
                             Id = 2,
-                            CreateDate = new DateTime(2024, 8, 3, 20, 17, 48, 251, DateTimeKind.Local).AddTicks(3603),
+                            CreateDate = new DateTime(2024, 8, 7, 21, 41, 40, 918, DateTimeKind.Local).AddTicks(4858),
                             ParentCategoryName = "Köpek"
                         },
                         new
                         {
                             Id = 3,
-                            CreateDate = new DateTime(2024, 8, 3, 20, 17, 48, 251, DateTimeKind.Local).AddTicks(3607),
+                            CreateDate = new DateTime(2024, 8, 7, 21, 41, 40, 918, DateTimeKind.Local).AddTicks(4862),
                             ParentCategoryName = "Kuş"
                         },
                         new
                         {
                             Id = 4,
-                            CreateDate = new DateTime(2024, 8, 3, 20, 17, 48, 251, DateTimeKind.Local).AddTicks(3611),
+                            CreateDate = new DateTime(2024, 8, 7, 21, 41, 40, 918, DateTimeKind.Local).AddTicks(4867),
                             ParentCategoryName = "Balık"
                         },
                         new
                         {
                             Id = 5,
-                            CreateDate = new DateTime(2024, 8, 3, 20, 17, 48, 251, DateTimeKind.Local).AddTicks(3615),
+                            CreateDate = new DateTime(2024, 8, 7, 21, 41, 40, 918, DateTimeKind.Local).AddTicks(4872),
                             ParentCategoryName = "Kemirgen"
                         });
                 });
@@ -609,6 +609,15 @@ namespace EntityLayer.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("Cart", b =>
+                {
+                    b.HasOne("EntityLayer.Models.Concrete.User", "User")
+                        .WithMany("Carts")
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("EntityLayer.Models.Concrete.Address", b =>
                 {
                     b.HasOne("EntityLayer.Models.Concrete.User", "User")
@@ -620,20 +629,9 @@ namespace EntityLayer.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("EntityLayer.Models.Concrete.Cart", b =>
-                {
-                    b.HasOne("EntityLayer.Models.Concrete.User", "User")
-                        .WithMany("Carts")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("EntityLayer.Models.Concrete.CartItem", b =>
                 {
-                    b.HasOne("EntityLayer.Models.Concrete.Cart", "Cart")
+                    b.HasOne("Cart", "Cart")
                         .WithMany("CartItems")
                         .HasForeignKey("CartId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -663,7 +661,7 @@ namespace EntityLayer.Migrations
 
             modelBuilder.Entity("EntityLayer.Models.Concrete.Order", b =>
                 {
-                    b.HasOne("EntityLayer.Models.Concrete.Cart", "Cart")
+                    b.HasOne("Cart", "Cart")
                         .WithMany("Orders")
                         .HasForeignKey("CartId");
 
@@ -786,7 +784,7 @@ namespace EntityLayer.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("EntityLayer.Models.Concrete.Cart", b =>
+            modelBuilder.Entity("Cart", b =>
                 {
                     b.Navigation("CartItems");
 
