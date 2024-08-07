@@ -14,14 +14,16 @@ namespace AtlantisPetMarket.Controllers
         private readonly ICategoryManager<AppDbContext, Category, int> _categoryManager;
         private readonly IParentCategoryManager<AppDbContext, ParentCategory, int> _parentCategoryManager;
         private readonly IMapper _mapper;
-        private readonly IValidator<object> _validator;
+        private readonly IValidator<CategoryInsertVM> _insertValidator;
+        private readonly IValidator<CategoryUpdateVM> _updateValidator;
         public CategoryController(ICategoryManager<AppDbContext, Category, int> categoryManager,
-            IProductManager<AppDbContext, Product, int> productManager, IParentCategoryManager<AppDbContext, ParentCategory, int> parentCategoryManager, IMapper mapper, IValidator<object> validator)
+            IProductManager<AppDbContext, Product, int> productManager, IParentCategoryManager<AppDbContext, ParentCategory, int> parentCategoryManager, IMapper mapper, IValidator<CategoryInsertVM> insertValidator, IValidator<CategoryUpdateVM> updateValidator)
         {
             _productManager = productManager;
             _categoryManager = categoryManager;
             _mapper = mapper;
-            _validator = validator;
+            _insertValidator = insertValidator;
+            _updateValidator = updateValidator;
             _parentCategoryManager = parentCategoryManager;
 
         }
@@ -40,7 +42,7 @@ namespace AtlantisPetMarket.Controllers
         public async Task<ActionResult> Create(CategoryInsertVM insertVM)
         {
 
-            var result = _validator.Validate(insertVM);
+            var result = await _insertValidator.ValidateAsync(insertVM);
             if (!result.IsValid)
             {
                 foreach (var error in result.Errors)
@@ -92,14 +94,16 @@ namespace AtlantisPetMarket.Controllers
                 return BadRequest();
             }
 
-            var validationResult = _validator.Validate(categoryUpdateVM);
-            if (!validationResult.IsValid)
+
+            var result = await _updateValidator.ValidateAsync(categoryUpdateVM);
+            if (!result.IsValid)
             {
-                foreach (var error in validationResult.Errors)
+                foreach (var error in result.Errors)
                 {
                     ModelState.AddModelError(error.PropertyName, error.ErrorMessage);
                 }
                 return View(categoryUpdateVM);
+
             }
 
             var category = await _categoryManager.FindAsync(id);

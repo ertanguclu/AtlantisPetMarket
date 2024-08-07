@@ -1,7 +1,5 @@
-﻿using FluentValidation;
-using AtlantisPetMarket.Models.CartViewModel;
-using AtlantisPetMarket.Models.CartViewModel;
-
+﻿using AtlantisPetMarket.Models.CartViewModel;
+using FluentValidation;
 public class CartValidator : AbstractValidator<CartVM>
 {
     public CartValidator()

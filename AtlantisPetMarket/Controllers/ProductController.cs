@@ -54,18 +54,19 @@ namespace AtlantisPetMarket.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(ProductInsertVM productInsertVM, string price, int parentCategoryId)
         {
-            var validationResult = _validator.Validate(productInsertVM);
+            // FluentValidation ile doğrulama
+            //var validationResult = await _validator.ValidateAsync(productInsertVM);
 
-            if (!validationResult.IsValid)
-            {
-                foreach (var error in validationResult.Errors)
-                {
-                    ModelState.AddModelError(error.PropertyName, error.ErrorMessage);
-                }
+            //if (!validationResult.IsValid)
+            //{
+            //    foreach (var failure in validationResult.Errors)
+            //    {
+            //        ModelState.AddModelError(failure.PropertyName, failure.ErrorMessage);
+            //    }
 
-                ViewBag.Categories = await _categoryManager.GetAllAsync(null);
-                return View(productInsertVM);
-            }
+            //    ViewBag.Categories = await _categoryManager.GetAllAsync(c => c.ParentCategoryId == parentCategoryId);
+            //    return View(productInsertVM);
+            //}
 
             if (!decimal.TryParse(price, NumberStyles.Any, CultureInfo.InvariantCulture, out var parsedPrice))
             {
@@ -75,6 +76,8 @@ namespace AtlantisPetMarket.Controllers
             }
 
             productInsertVM.Price = parsedPrice;
+
+
 
             var product = _mapper.Map<Product>(productInsertVM);
 
@@ -117,16 +120,18 @@ namespace AtlantisPetMarket.Controllers
         [HttpPost]
         public async Task<IActionResult> Update(ProductUpdateVM productUpdateVM, string price)
         {
-            var result = _validator.Validate(productUpdateVM);
-            if (!result.IsValid)
-            {
-                foreach (var error in result.Errors)
-                {
-                    ModelState.AddModelError(error.PropertyName, error.ErrorMessage);
-                }
-                return View(productUpdateVM);
+            //var result = _validator.Validate(productUpdateVM);
+            //if (!result.IsValid)
+            //{
+            //    foreach (var error in result.Errors)
+            //    {
+            //        ModelState.AddModelError(error.PropertyName, error.ErrorMessage);
+            //    }
+            //    return View(productUpdateVM);
 
-            }
+            //}
+
+
             if (!decimal.TryParse(price, NumberStyles.Any, CultureInfo.InvariantCulture, out var parsedPrice))
             {
                 ModelState.AddModelError("Price", "Fiyat alanı geçerli bir sayı olmalıdır.");
