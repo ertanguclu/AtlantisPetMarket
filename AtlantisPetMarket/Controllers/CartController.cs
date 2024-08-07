@@ -1,10 +1,7 @@
 ﻿using AtlantisPetMarket.Models.CartItemVM;
-using AtlantisPetMarket.Models.CartVM;
-using AtlantisPetMarket.Models.CategoryVM;
-using AtlantisPetMarket.Models.ProductVM;
+using AtlantisPetMarket.Models.CartViewModel;
 using AutoMapper;
 using BusinessLayer.Abstract;
-using BusinessLayer.Concrete;
 using EntityLayer.DbContexts;
 using EntityLayer.Models.Concrete;
 using FluentValidation;
@@ -36,10 +33,10 @@ namespace AtlantisPetMarket.Controllers
         {
             // Sepeti ve ilişkili CartItem'ları getir
             var cart = await _cartManager.FindAsync(id);
-            if (cart == null)
-            {
-                return NotFound(); // Sepet bulunamazsa hata döndür
-            }
+            //if (cart == null)
+            //{
+            //    return NotFound(); // Sepet bulunamazsa hata döndür
+            //}
 
             var cartItems = await _cartItemManager.GetAllIncludeAsync(
                 x => x.CartId == id,
@@ -58,9 +55,10 @@ namespace AtlantisPetMarket.Controllers
         public async Task<IActionResult> Create()
         {
             CartVM cartVM = new CartVM();
-            return View(cartVM);
 
+            return View(cartVM);
         }
+
         [HttpPost]
         public async Task<IActionResult> Create(CartVM CartVM)
         {

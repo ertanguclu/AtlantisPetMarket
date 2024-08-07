@@ -6,7 +6,7 @@ namespace EntityLayer.Config.Concrete
 {
     public class ContactConfig : BaseConfig<Contact>
     {
-        public void Configure(EntityTypeBuilder<Address> builder)
+        public void Configure(EntityTypeBuilder<Contact> builder)
         {
             builder.HasKey(a => a.Id);
         }

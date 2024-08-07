@@ -104,7 +104,7 @@
                         <li class="nav-item">
                             <a href="index.html" class="nav-link active">Home</a>
                         </li>
-                        <li class="nav-item dropdown">
+@*                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" role="button" id="pages" data-bs-toggle="dropdown"
                                aria-expanded="false">Pages</a>
                             <ul class="dropdown-menu" aria-labelledby="pages">
@@ -180,17 +180,27 @@
                                 </li>
                             </ul>
                         </li>
+
+
+
+
+ *@                     
+
                         <li class="nav-item">
-                            <a href="shop.html" class="nav-link">Shop</a>
+                            <a href="@Url.Action("Index", "Cats")" class="nav-link">Kedi</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a href="@Url.Action("Index", "Dogs")" class="nav-link">Köpek</a>
                         </li>
                         <li class="nav-item">
-                            <a href="blog.html" class="nav-link">Blog</a>
+                            <a href="@Url.Action("Index", "Birds")" class="nav-link">Kuş</a>
                         </li>
                         <li class="nav-item">
-                            <a href="contact.html" class="nav-link">Contact</a>
+                            <a href="@Url.Action("Index", "Fish")" class="nav-link">Balık</a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link">Others</a>
+                            <a href="@Url.Action("Index", "Rodens")" class="nav-link">Kemirgen</a>
                         </li>
                         <li class="nav-item">
                             <a href="https://templatesjungle.gumroad.com/l/waggy-pet-shop-ecommerce-html-website-template" class="nav-link fw-bold text-dark" target="_blank">GET PRO</a>

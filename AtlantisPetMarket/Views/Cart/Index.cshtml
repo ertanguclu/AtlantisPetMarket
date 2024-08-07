@@ -1,4 +1,5 @@
-﻿@model AtlantisPetMarket.Models.CartVM.CartVM
+﻿@using AtlantisPetMarket.Models.CartViewModel
+@model CartVM
 
 <!DOCTYPE html>
 <html lang="en">
@@ -10,8 +11,7 @@
 <body>
     <div class="container">
         <h1>Sepetiniz</h1>
-        @if (Model != null && Model.CartItems.Any())
-        {
+        
             <table class="cart-table">
                 <thead>
                     <tr>
@@ -45,12 +45,7 @@
                     <button type="submit" class="checkout-btn">Ödeme Yap</button>
                 </form>
             </div>
-        }
-        else
-        {
-            <p>Sepetinizde ürün bulunmuyor.</p>
-        }
+      
     </div>
-    <script src="~/js/scripts.js"></script> <!-- JavaScript dosyanızı ekleyin -->
 </body>
 </html>

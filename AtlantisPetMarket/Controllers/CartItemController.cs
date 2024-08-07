@@ -1,7 +1,6 @@
 ﻿using AtlantisPetMarket.Models.CartItemVM;
 using AutoMapper;
 using BusinessLayer.Abstract;
-using BusinessLayer.Concrete;
 using EntityLayer.DbContexts;
 using EntityLayer.Models.Concrete;
 using FluentValidation;
@@ -26,10 +25,8 @@ namespace AtlantisPetMarket.Controllers
         public async Task<ActionResult<IEnumerable<CartItemViewModel>>> Index(int id)
         {
             var cartItems = await _cartItemManager.GetAllIncludeAsync(
-                x => x.Id == id,
-                x => x.ProductId,
-                x => x.Quantity,
-                x => x.CreateDate
+                x => x.CartId == id,
+                x => x.Product // Burada Product navigasyon özelliğini belirtmelisiniz
             );
 
             var cartItemVMs = _mapper.Map<IEnumerable<CartItemViewModel>>(cartItems);
@@ -37,25 +34,36 @@ namespace AtlantisPetMarket.Controllers
             return View(cartItemVMs);
         }
 
-
         [HttpPost]
-        public async Task<IActionResult> Create(CartItemViewModel cartItemVM)
+        public async Task<IActionResult> CreateOrUpdate(CartItemViewModel cartItemVM)
         {
             if (!ModelState.IsValid)
             {
                 return View(cartItemVM);
             }
-            var cartItem = _mapper.Map<CartItem>(cartItemVM);
-            await _cartItemManager.AddAsync(cartItem);
 
-            // Başarıyla ekledikten sonra kullanıcıyı uygun bir sayfaya yönlendir
-            return RedirectToAction("Index", new { cartId = cartItem.CartId });
+            var existingCartItem = await _cartItemManager.GetByAsync(x => x.ProductId == cartItemVM.ProductId && x.CartId == cartItemVM.CartId);
+
+            if (existingCartItem != null)
+            {
+                // Eğer aynı ürün zaten varsa, miktarı artır
+                existingCartItem.Quantity += cartItemVM.Quantity;
+                await _cartItemManager.UpdateAsync(existingCartItem);
+            }
+            else
+            {
+                // Yeni bir ürün ekliyorsak, normal ekleme işlemi yap
+                var cartItem = _mapper.Map<CartItem>(cartItemVM);
+                await _cartItemManager.AddAsync(cartItem);
+            }
+
+            return RedirectToAction("Index", new { id = cartItemVM.CartId });
         }
+
         private async Task<bool> CartItemExists(int id)
         {
             return await _cartItemManager.FindAsync(id) != null;
         }
-
 
         [HttpGet]
         public async Task<IActionResult> Edit(int id)
@@ -103,10 +111,8 @@ namespace AtlantisPetMarket.Controllers
                 }
             }
 
-            return RedirectToAction(nameof(Index), new { cartId = cartItem.CartId });
+            return RedirectToAction(nameof(Index), new { id = cartItem.CartId });
         }
-
-
 
         [HttpGet]
         public async Task<IActionResult> Delete(int id)
@@ -121,6 +127,8 @@ namespace AtlantisPetMarket.Controllers
             var cartItemVM = _mapper.Map<CartItemViewModel>(cartItem);
             return View(cartItemVM);
         }
+
+        [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
@@ -131,7 +139,7 @@ namespace AtlantisPetMarket.Controllers
                 await _cartItemManager.DeleteAsync(cartItem);
             }
 
-            return RedirectToAction(nameof(Index), new { cartId = cartItem.CartId });
+            return RedirectToAction(nameof(Index), new { id = cartItem.CartId });
         }
     }
 }

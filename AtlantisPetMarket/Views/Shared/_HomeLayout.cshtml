@@ -29,18 +29,20 @@
 
 <body>
 
-    @await Html.PartialAsync("SvgPartial")
+    @await Html.PartialAsync("HomeLayoutPartial/SvgPartial")
 
     <div class="preloader-wrapper">
         <div class="preloader">
         </div>
     </div>
 
-    @await Html.PartialAsync("CartModalPartial")
+    @await Html.PartialAsync("HomeLayoutPartial/CartModalPartial")
 
-    @await Html.PartialAsync("SearchPartial")
+    @await Html.PartialAsync("HomeLayoutPartial/SearchPartial")
 
-    @await Html.PartialAsync("HeaderPartial")
+    @await Html.PartialAsync("HomeLayoutPartial/HeaderPartial")
+
+  @*   @await Html.PartialAsync("HeaderPartial") *@
 
     @RenderBody()
 
@@ -169,9 +171,9 @@
         </div>
     </section> *@
 
-   @await Html.PartialAsync("FooterPartial")
+    @await Html.PartialAsync("HomeLayoutPartial/FooterPartial")
 
-   @await Html.PartialAsync("ScriptPartial")
+    @await Html.PartialAsync("HomeLayoutPartial/ScriptPartial")
 
 </body>
 

@@ -1,5 +1,4 @@
-﻿using AtlantisPetMarket.Models.CategoryVM;
-using AtlantisPetMarket.Models.ProductVM;
+﻿ using AtlantisPetMarket.Models.CategoryVM;
 using AutoMapper;
 using BusinessLayer.Abstract;
 using EntityLayer.DbContexts;
