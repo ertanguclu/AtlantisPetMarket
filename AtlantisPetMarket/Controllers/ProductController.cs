@@ -17,16 +17,18 @@ namespace AtlantisPetMarket.Controllers
         private readonly ICategoryManager<AppDbContext, Category, int> _categoryManager;
         private readonly IParentCategoryManager<AppDbContext, ParentCategory, int> _parentCategoryManager;
         private readonly IMapper _mapper;
-        private readonly IValidator<object> _validator;
+        private readonly IValidator<ProductInsertVM> _insertValidator;
+        private readonly IValidator<ProductUpdateVM> _updateValidator;
 
         public ProductController(IProductManager<AppDbContext, Product, int> productManager,
-            ICategoryManager<AppDbContext, Category, int> categoryManager, IParentCategoryManager<AppDbContext, ParentCategory, int> parentCategory, IMapper mapper, IValidator<object> validator)
+            ICategoryManager<AppDbContext, Category, int> categoryManager, IParentCategoryManager<AppDbContext, ParentCategory, int> parentCategory, IMapper mapper, IValidator<ProductInsertVM> insertValidator, IValidator<ProductUpdateVM> updateValidator)
         {
             _productManager = productManager;
             _categoryManager = categoryManager;
             _parentCategoryManager = parentCategory;
             _mapper = mapper;
-            _validator = validator;
+            _insertValidator = insertValidator;
+            _updateValidator = updateValidator;
         }
 
         public async Task<ActionResult<IEnumerable<Product>>> Index(int id)
@@ -54,19 +56,19 @@ namespace AtlantisPetMarket.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(ProductInsertVM productInsertVM, string price, int parentCategoryId)
         {
-            // FluentValidation ile doğrulama
-            //var validationResult = await _validator.ValidateAsync(productInsertVM);
 
-            //if (!validationResult.IsValid)
-            //{
-            //    foreach (var failure in validationResult.Errors)
-            //    {
-            //        ModelState.AddModelError(failure.PropertyName, failure.ErrorMessage);
-            //    }
+            var result = await _insertValidator.ValidateAsync(productInsertVM);
 
-            //    ViewBag.Categories = await _categoryManager.GetAllAsync(c => c.ParentCategoryId == parentCategoryId);
-            //    return View(productInsertVM);
-            //}
+            if (!result.IsValid)
+            {
+                foreach (var failure in result.Errors)
+                {
+                    ModelState.AddModelError(failure.PropertyName, failure.ErrorMessage);
+                }
+
+                ViewBag.Categories = await _categoryManager.GetAllAsync(c => c.ParentCategoryId == parentCategoryId);
+                return View(productInsertVM);
+            }
 
             if (!decimal.TryParse(price, NumberStyles.Any, CultureInfo.InvariantCulture, out var parsedPrice))
             {
@@ -120,16 +122,16 @@ namespace AtlantisPetMarket.Controllers
         [HttpPost]
         public async Task<IActionResult> Update(ProductUpdateVM productUpdateVM, string price)
         {
-            //var result = _validator.Validate(productUpdateVM);
-            //if (!result.IsValid)
-            //{
-            //    foreach (var error in result.Errors)
-            //    {
-            //        ModelState.AddModelError(error.PropertyName, error.ErrorMessage);
-            //    }
-            //    return View(productUpdateVM);
+            var result = _updateValidator.Validate(productUpdateVM);
+            if (!result.IsValid)
+            {
+                foreach (var error in result.Errors)
+                {
+                    ModelState.AddModelError(error.PropertyName, error.ErrorMessage);
+                }
+                return View(productUpdateVM);
 
-            //}
+            }
 
 
             if (!decimal.TryParse(price, NumberStyles.Any, CultureInfo.InvariantCulture, out var parsedPrice))
