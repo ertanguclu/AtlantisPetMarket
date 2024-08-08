@@ -1,11 +1,8 @@
-﻿using AtlantisPetMarket.Models.CartItemVM;
+﻿using BusinessLayer.Models.CartItemVM;
 using EntityLayer.Models.Concrete;
 
-//using AtlantisPetMarket.Models.OrderVM;
-using System;
-using System.Collections.Generic;
 
-namespace AtlantisPetMarket.Models.CartViewModel
+namespace BusinessLayer.Models.CartViewModel
 {
     public class CartVM
     {

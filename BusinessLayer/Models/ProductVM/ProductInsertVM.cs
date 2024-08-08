@@ -1,4 +1,6 @@
-﻿namespace AtlantisPetMarket.Models.ProductVM
+﻿using Microsoft.AspNetCore.Http;
+
+namespace BusinessLayer.Models.ProductVM
 {
     public class ProductInsertVM
     {

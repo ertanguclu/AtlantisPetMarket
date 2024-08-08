@@ -1,6 +1,6 @@
-﻿using AtlantisPetMarket.Models.ProductVM;
-using AutoMapper;
+﻿using AutoMapper;
 using BusinessLayer.Abstract;
+using BusinessLayer.Models.ProductVM;
 using EntityLayer.DbContexts;
 using EntityLayer.Models.Concrete;
 using FluentValidation;
@@ -34,7 +34,8 @@ namespace AtlantisPetMarket.Controllers
         public async Task<ActionResult<IEnumerable<Product>>> Index(int id)
         {
             var products = await _productManager.GetAllIncludeAsync(x => x.CategoryId == id, x => x.Category, x => x.ParentCategory);
-            return View(products);
+            var vmProducts = _mapper.Map<IEnumerable<ProductListVM>>(products);
+            return View(vmProducts);
         }
         [HttpGet]
         public async Task<IActionResult> GetCategoriesByParentId(int parentCategoryId)

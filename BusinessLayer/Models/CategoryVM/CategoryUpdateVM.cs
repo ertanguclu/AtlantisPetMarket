@@ -1,4 +1,6 @@
-﻿namespace AtlantisPetMarket.Models.CategoryVM
+﻿using Microsoft.AspNetCore.Http;
+
+namespace BusinessLayer.Models.CategoryVM
 {
     public class CategoryUpdateVM
     {

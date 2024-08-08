@@ -1,6 +1,6 @@
-﻿using AtlantisPetMarket.Models.CategoryVM;
-using AutoMapper;
+﻿using AutoMapper;
 using BusinessLayer.Abstract;
+using BusinessLayer.Models.CategoryVM;
 using EntityLayer.DbContexts;
 using EntityLayer.Models.Concrete;
 using FluentValidation;

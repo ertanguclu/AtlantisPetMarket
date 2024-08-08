@@ -1,6 +1,6 @@
-﻿using AtlantisPetMarket.Models.CartItemVM;
-using AutoMapper;
+﻿using AutoMapper;
 using BusinessLayer.Abstract;
+using BusinessLayer.Models.CartItemVM;
 using EntityLayer.DbContexts;
 using EntityLayer.Models.Concrete;
 using FluentValidation;

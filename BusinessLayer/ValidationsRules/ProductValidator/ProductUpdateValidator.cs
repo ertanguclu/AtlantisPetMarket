@@ -1,7 +1,7 @@
-﻿using AtlantisPetMarket.Models.ProductVM;
+﻿using BusinessLayer.Models.ProductVM;
 using FluentValidation;
 
-namespace AtlantisPetMarket.ValidationsRules.ProductValidator
+namespace BusinessLayer.ValidationsRules.ProductValidator
 {
     public class ProductUpdateValidator : AbstractValidator<ProductUpdateVM>
     {

@@ -1,7 +1,8 @@
 ﻿using EntityLayer.Models.Concrete;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
-namespace AtlantisPetMarket.Models.ProductVM
+namespace BusinessLayer.Models.ProductVM
 {
     public class ProductUpdateVM
     {

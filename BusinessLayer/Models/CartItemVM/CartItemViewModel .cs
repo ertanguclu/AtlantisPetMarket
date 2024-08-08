@@ -1,6 +1,6 @@
 ﻿using EntityLayer.Models.Concrete;
 
-namespace AtlantisPetMarket.Models.CartItemVM
+namespace BusinessLayer.Models.CartItemVM
 {
     public class CartItemViewModel
     {

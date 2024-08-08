@@ -1,13 +1,15 @@
-using AtlantisPetMarket.AutoMapperConfig;
 using BusinessLayer.Abstract;
+using BusinessLayer.AutoMapperConfig;
 using BusinessLayer.Concrete;
+using BusinessLayer.Models.CategoryVM;
+using BusinessLayer.Models.ProductVM;
+using BusinessLayer.ValidationsRules.CategoryValidator;
+using BusinessLayer.ValidationsRules.ProductValidator;
 using EntityLayer.DbContexts;
 using EntityLayer.Models.Concrete;
 using FluentValidation;
-using FluentValidation.AspNetCore;
 using Microsoft.EntityFrameworkCore;
 using System.Globalization;
-using System.Reflection;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -32,9 +34,15 @@ builder.Services.AddAutoMapper(typeof(MapperConfig));
 builder.Services.AddControllersWithViews();
 builder.Services.AddControllersWithViews(options => options.SuppressImplicitRequiredAttributeForNonNullableReferenceTypes = true);
 
-// FluentValidation
-builder.Services.AddFluentValidationClientsideAdapters();
-builder.Services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
+//FluentValidation
+//builder.Services.AddFluentValidationClientsideAdapters();
+//builder.Services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
+builder.Services.AddTransient<IValidator<ProductInsertVM>, ProductInsertValidator>();
+builder.Services.AddTransient<IValidator<ProductUpdateVM>, ProductUpdateValidator>();
+builder.Services.AddTransient<IValidator<CategoryUpdateVM>, CategoryUpdateValidator>();
+builder.Services.AddTransient<IValidator<CategoryInsertVM>, CategoryInsertValidator>();
+
+
 
 
 

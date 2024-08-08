@@ -1,4 +1,4 @@
-﻿using AtlantisPetMarket.Models.CartViewModel;
+﻿using BusinessLayer.Models.CartViewModel;
 using FluentValidation;
 public class CartValidator : AbstractValidator<CartVM>
 {
