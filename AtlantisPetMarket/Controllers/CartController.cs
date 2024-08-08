@@ -1,5 +1,6 @@
 ﻿using AtlantisPetMarket.Models.CartItemVM;
 using AtlantisPetMarket.Models.CartViewModel;
+using AtlantisPetMarket.Models.ProductVM;
 using AutoMapper;
 using BusinessLayer.Abstract;
 using EntityLayer.DbContexts;
@@ -37,43 +38,61 @@ namespace AtlantisPetMarket.Controllers
                 x => x.Product
             );
 
-            var cartVM = _mapper.Map<CartVM>(cart);
-            cartVM.CartItems = _mapper.Map<IEnumerable<CartItemViewModel>>(cartItems);
+            var cartItemVMs = new List<CartItemViewModel>();
+            foreach (var item in cartItems)
+            {
+                var cartItemVM = new CartItemViewModel
+                {
+                    ProductId = item.Product.Id,
+                    ProductName = item.Product.ProductName,
+                    Quantity = item.Quantity,
+                    Price = item.Product.Price,
+                };
+                cartItemVMs.Add(cartItemVM);
+            }
+
+            var cartVM = _mapper.Map<ProductCartVM>(cart);
+            cartVM.CartItems = cartItemVMs; 
 
             return View(cartVM);
         }
+
 
         [HttpGet]
         public async Task<IActionResult> Create()
         {
-            CartVM cartVM = new CartVM();
-            return View(cartVM);
+            ProductCartVM productCartVM = new ProductCartVM();
+            return View(productCartVM);
         }
+
 
         [HttpPost]
-        public async Task<IActionResult> Create(CartVM CartVM)
+        public async Task<IActionResult> Create(ProductCartVM productCartVM)
         {
-            // ModelState validasyonunu kontrol et
-            if (!ModelState.IsValid)
-            {
-                return View(CartVM);
-            }
+            var existingCart = await _cartManager.FindAsync(productCartVM.CartId);
 
-            // FluentValidation ile ek doğrulama yap
-            var validationResult = _validator.Validate(CartVM);
-            if (!validationResult.IsValid)
+            if (existingCart == null)
             {
-                foreach (var error in validationResult.Errors)
+                var newCart = new Cart
                 {
-                    ModelState.AddModelError(error.PropertyName, error.ErrorMessage);
-                }
-                return View(CartVM);
+                    
+                };
+
+                await _cartManager.AddAsync(newCart);
+                productCartVM.CartId = newCart.Id;
             }
 
-            var cart = _mapper.Map<Cart>(CartVM);
-            await _cartManager.AddAsync(cart);
+            var cartItem = new CartItem
+            {
+                CartId = productCartVM.CartId,
+                ProductId = productCartVM.ProductId,
+                Quantity = productCartVM.Quantity
+            };
 
-            return RedirectToAction("Index");
+            await _cartItemManager.AddAsync(cartItem);
+
+            return RedirectToAction("Index", new { id = productCartVM.CartId });
         }
+
     }
 }

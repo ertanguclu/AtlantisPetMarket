@@ -19,6 +19,9 @@ namespace AtlantisPetMarket.AutoMapperConfig
             CreateMap<Product, ProductListVM>();
 
             CreateMap<Product, ProductListVM>();
+            CreateMap<CartVM, ProductListVM>().ReverseMap();
+            CreateMap<Cart, ProductCartVM>().ReverseMap();
+            CreateMap<Product, ProductCartVM>().ReverseMap();
 
 
             CreateMap<CategoryUpdateVM, Category>();

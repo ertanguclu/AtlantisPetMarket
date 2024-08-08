@@ -1,4 +1,5 @@
-﻿using AtlantisPetMarket.Models.ProductVM;
+﻿using AtlantisPetMarket.Models.CartViewModel;
+using AtlantisPetMarket.Models.ProductVM;
 using AutoMapper;
 using BusinessLayer.Abstract;
 using BusinessLayer.Concrete;
@@ -34,7 +35,7 @@ namespace AtlantisPetMarket.Controllers.ParentCategories
             }
 
             var products = await _productManager.GetAllAsync(p => p.ParentCategoryId == birdCategory.Id);
-            var birdViewModel = _mapper.Map<IEnumerable<ProductListVM>>(products);
+            var birdViewModel = _mapper.Map<IEnumerable<ProductCartVM>>(products);
 
             return View(birdViewModel);
         }

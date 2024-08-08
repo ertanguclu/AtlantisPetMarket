@@ -1,5 +1,5 @@
 ﻿@using AtlantisPetMarket.Models.CartViewModel
-@model CartVM
+@model ProductCartVM
 
 <!DOCTYPE html>
 <html lang="en">
@@ -26,10 +26,10 @@
                     @foreach (var item in Model.CartItems)
                     {
                         <tr>
-                            <td>@item.Product.ProductName</td> <!-- Ürün Adı -->
+                            <td>@item.ProductName</td> <!-- Ürün Adı -->
                             <td>@item.Quantity</td> <!-- Miktar -->
-                            <td>@item.Product.Price.ToString("C")</td> <!-- Fiyat -->
-                            <td>@(item.Quantity * item.Product.Price).ToString("C")</td> <!-- Toplam Fiyat -->
+                            <td>@item.Price.ToString("C")</td> <!-- Fiyat -->
+                            <td>@(item.Quantity * item.Price).ToString("C")</td> <!-- Toplam Fiyat -->
                             <td>
                                 <form asp-action="RemoveFromCart" asp-route-id="@item.Id" method="post">
                                     <button type="submit" class="remove-btn">Kaldır</button>
@@ -40,7 +40,7 @@
                 </tbody>
             </table>
             <div class="cart-summary">
-                <p><strong>Toplam Tutar:</strong> @Model.CartItems.Sum(i => i.Quantity * i.Product.Price).ToString("C")</p>
+                <p><strong>Toplam Tutar:</strong> @Model.CartItems.Sum(i => i.Quantity * i.Price).ToString("C")</p>
                 <form asp-action="Checkout" method="post">
                     <button type="submit" class="checkout-btn">Ödeme Yap</button>
                 </form>
