@@ -1,6 +1,9 @@
 ﻿@using AtlantisPetMarket.Models.CartViewModel
 @model ProductCartVM
-
+@{
+    ViewData["Title"] = "Ürünler";
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
+}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -31,7 +34,7 @@
                             <td>@item.Price.ToString("C")</td> 
                             <td>@(item.Quantity * item.Price).ToString("C")</td> 
                             <td>
-                            <form asp-action="Delete" asp-route-cartItemId="@item.Id" asp-route-cartId="@Model.CartId" method="post">
+                            <form asp-action="Delete" asp-route-cartItemId="@item.Id" asp-route-cartId="@item.CartId" method="post">
                                 <button type="submit" class="remove-btn">Kaldır</button>
                             </form>
 

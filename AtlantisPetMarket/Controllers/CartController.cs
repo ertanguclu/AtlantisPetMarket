@@ -16,14 +16,14 @@ namespace AtlantisPetMarket.Controllers
         private readonly ICartManager<AppDbContext, Cart, int> _cartManager;
         private readonly ICartItemManager<AppDbContext, CartItem, int> _cartItemManager;
         private readonly IMapper _mapper;
-        private readonly IValidator<CartVM> _validator;
+        //private readonly IValidator<CartVM> _validator;
 
         public CartController(ICartManager<AppDbContext, Cart, int> cartManager, ICartItemManager<AppDbContext, CartItem, int> cartItemManager, IMapper mapper, IValidator<CartVM> validator)
         {
             _cartManager = cartManager;
             _cartItemManager = cartItemManager;
             _mapper = mapper;
-            _validator = validator;
+            //_validator = validator;
         }
 
         public async Task<IActionResult> Index(int id)
@@ -48,6 +48,8 @@ namespace AtlantisPetMarket.Controllers
                     ProductName = item.Product.ProductName,
                     Quantity = item.Quantity,
                     Price = item.Product.Price,
+                    CartId = item.CartId,  
+                    Id = item.Id           
                 };
                 cartItemVMs.Add(cartItemVM);
             }
@@ -115,7 +117,6 @@ namespace AtlantisPetMarket.Controllers
 
             await _cartItemManager.DeleteAsync(cartItem);
 
-            // Eğer sepetin içindeki tüm öğeler silindiyse, sepeti de silebilirsiniz.
             var remainingItems = await _cartItemManager.GetAllIncludeAsync(x => x.CartId == cartId);
             if (!remainingItems.Any())
             {
@@ -124,9 +125,16 @@ namespace AtlantisPetMarket.Controllers
                 {
                     await _cartManager.DeleteAsync(cart);
                 }
+                return RedirectToAction("EmptyCart");
             }
 
             return RedirectToAction("Index", new { id = cartId });
+        }
+
+        public async Task <IActionResult> EmptyCart()
+        {
+            
+            return View();
         }
 
     }
