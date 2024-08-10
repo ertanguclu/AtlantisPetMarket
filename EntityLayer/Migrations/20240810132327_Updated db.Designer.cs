@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EntityLayer.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240807184146_Create new database.")]
-    partial class Createnewdatabase
+    [Migration("20240810132327_Updated db")]
+    partial class Updateddb
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -250,31 +250,31 @@ namespace EntityLayer.Migrations
                         new
                         {
                             Id = 1,
-                            CreateDate = new DateTime(2024, 8, 7, 21, 41, 40, 918, DateTimeKind.Local).AddTicks(4849),
+                            CreateDate = new DateTime(2024, 8, 10, 16, 23, 25, 517, DateTimeKind.Local).AddTicks(9323),
                             ParentCategoryName = "Kedi"
                         },
                         new
                         {
                             Id = 2,
-                            CreateDate = new DateTime(2024, 8, 7, 21, 41, 40, 918, DateTimeKind.Local).AddTicks(4858),
+                            CreateDate = new DateTime(2024, 8, 10, 16, 23, 25, 517, DateTimeKind.Local).AddTicks(9330),
                             ParentCategoryName = "Köpek"
                         },
                         new
                         {
                             Id = 3,
-                            CreateDate = new DateTime(2024, 8, 7, 21, 41, 40, 918, DateTimeKind.Local).AddTicks(4862),
+                            CreateDate = new DateTime(2024, 8, 10, 16, 23, 25, 517, DateTimeKind.Local).AddTicks(9334),
                             ParentCategoryName = "Kuş"
                         },
                         new
                         {
                             Id = 4,
-                            CreateDate = new DateTime(2024, 8, 7, 21, 41, 40, 918, DateTimeKind.Local).AddTicks(4867),
+                            CreateDate = new DateTime(2024, 8, 10, 16, 23, 25, 517, DateTimeKind.Local).AddTicks(9338),
                             ParentCategoryName = "Balık"
                         },
                         new
                         {
                             Id = 5,
-                            CreateDate = new DateTime(2024, 8, 7, 21, 41, 40, 918, DateTimeKind.Local).AddTicks(4872),
+                            CreateDate = new DateTime(2024, 8, 10, 16, 23, 25, 517, DateTimeKind.Local).AddTicks(9342),
                             ParentCategoryName = "Kemirgen"
                         });
                 });

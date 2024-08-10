@@ -7,6 +7,7 @@ using EntityLayer.DbContexts;
 using EntityLayer.Models.Concrete;
 using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace AtlantisPetMarket.Controllers
 {
@@ -69,17 +70,25 @@ namespace AtlantisPetMarket.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(ProductCartVM productCartVM)
         {
-            var existingCart = await _cartManager.FindAsync(productCartVM.CartId);
+            
+            var userId = User.Identity.IsAuthenticated ? Convert.ToInt32(User.FindFirstValue(ClaimTypes.NameIdentifier)) : -1;
+
+            
+            var existingCart = await _cartManager.GetCartByUserIdAsync(userId);
 
             if (existingCart == null)
             {
                 var newCart = new Cart
                 {
-                    
+                    UserId = userId 
                 };
 
                 await _cartManager.AddAsync(newCart);
                 productCartVM.CartId = newCart.Id;
+            }
+            else
+            {
+                productCartVM.CartId = existingCart.Id;
             }
 
             var cartItem = new CartItem
@@ -92,6 +101,32 @@ namespace AtlantisPetMarket.Controllers
             await _cartItemManager.AddAsync(cartItem);
 
             return RedirectToAction("Index", new { id = productCartVM.CartId });
+        }
+
+
+        [HttpPost]
+        public async Task<IActionResult> Delete(int cartItemId, int cartId)
+        {
+            var cartItem = await _cartItemManager.FindAsync(cartItemId);
+            if (cartItem == null)
+            {
+                return NotFound();
+            }
+
+            await _cartItemManager.DeleteAsync(cartItem);
+
+            // Eğer sepetin içindeki tüm öğeler silindiyse, sepeti de silebilirsiniz.
+            var remainingItems = await _cartItemManager.GetAllIncludeAsync(x => x.CartId == cartId);
+            if (!remainingItems.Any())
+            {
+                var cart = await _cartManager.FindAsync(cartId);
+                if (cart != null)
+                {
+                    await _cartManager.DeleteAsync(cart);
+                }
+            }
+
+            return RedirectToAction("Index", new { id = cartId });
         }
 
     }
