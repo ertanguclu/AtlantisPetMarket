@@ -1,5 +1,5 @@
-﻿using AtlantisPetMarket.Models.CartViewModel;
-using AtlantisPetMarket.Models.ProductVM;
+﻿using BusinessLayer.Models.CartViewModel;
+using BusinessLayer.Models.ProductVM;
 using AutoMapper;
 using BusinessLayer.Abstract;
 using BusinessLayer.Models.ProductVM;

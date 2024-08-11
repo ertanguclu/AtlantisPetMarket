@@ -1,7 +1,7 @@
 ﻿using BusinessLayer.Models.CartItemVM;
 using EntityLayer.Models.Concrete;
 
-using AtlantisPetMarket.Models.CartItemVM;
+using BusinessLayer.Models.CartItemVM;
 using System;
 using System.Collections.Generic;
 //using AtlantisPetMarket.Models.OrderVM;

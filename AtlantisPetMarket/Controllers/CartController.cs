@@ -1,6 +1,6 @@
-﻿using AtlantisPetMarket.Models.CartItemVM;
-using AtlantisPetMarket.Models.CartViewModel;
-using AtlantisPetMarket.Models.ProductVM;
+﻿using BusinessLayer.Models.CartItemVM;
+using BusinessLayer.Models.CartViewModel;
+using BusinessLayer.Models.ProductVM;
 using AutoMapper;
 using BusinessLayer.Abstract;
 using EntityLayer.DbContexts;
@@ -18,7 +18,7 @@ namespace AtlantisPetMarket.Controllers
         private readonly IMapper _mapper;
         //private readonly IValidator<CartVM> _validator;
 
-        public CartController(ICartManager<AppDbContext, Cart, int> cartManager, ICartItemManager<AppDbContext, CartItem, int> cartItemManager, IMapper mapper, IValidator<CartVM> validator)
+        public CartController(ICartManager<AppDbContext, Cart, int> cartManager, ICartItemManager<AppDbContext, CartItem, int> cartItemManager, IMapper mapper)
         {
             _cartManager = cartManager;
             _cartItemManager = cartItemManager;

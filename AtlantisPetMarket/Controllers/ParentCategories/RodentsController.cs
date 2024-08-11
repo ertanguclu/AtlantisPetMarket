@@ -1,4 +1,4 @@
-﻿using AtlantisPetMarket.Models.ProductVM;
+﻿using BusinessLayer.Models.ProductVM;
 using AutoMapper;
 using BusinessLayer.Abstract;
 using BusinessLayer.Concrete;

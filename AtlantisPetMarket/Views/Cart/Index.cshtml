@@ -1,4 +1,4 @@
-﻿@using AtlantisPetMarket.Models.CartViewModel
+﻿﻿@using BusinessLayer.Models.CartViewModel
 @model ProductCartVM
 @{
     ViewData["Title"] = "Ürünler";
@@ -14,42 +14,42 @@
 <body>
     <div class="container">
         <h1>Sepetiniz</h1>
-        
-            <table class="cart-table">
-                <thead>
+
+        <table class="cart-table">
+            <thead>
+                <tr>
+                    <th>Ürün Adı</th>
+                    <th>Miktar</th>
+                    <th>Fiyat</th>
+                    <th>Toplam</th>
+                    <th>İşlem</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.CartItems)
+                {
                     <tr>
-                        <th>Ürün Adı</th>
-                        <th>Miktar</th>
-                        <th>Fiyat</th>
-                        <th>Toplam</th>
-                        <th>İşlem</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var item in Model.CartItems)
-                    {
-                        <tr>
-                            <td>@item.ProductName</td> 
-                            <td>@item.Quantity</td> 
-                            <td>@item.Price.ToString("C")</td> 
-                            <td>@(item.Quantity * item.Price).ToString("C")</td> 
-                            <td>
+                        <td>@item.ProductName</td>
+                        <td>@item.Quantity</td>
+                        <td>@item.Price.ToString("C")</td>
+                        <td>@(item.Quantity * item.Price).ToString("C")</td>
+                        <td>
                             <form asp-action="Delete" asp-route-cartItemId="@item.Id" asp-route-cartId="@item.CartId" method="post">
                                 <button type="submit" class="remove-btn">Kaldır</button>
                             </form>
 
-                            </td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
-            <div class="cart-summary">
-                <p><strong>Toplam Tutar:</strong> @Model.CartItems.Sum(i => i.Quantity * i.Price).ToString("C")</p>
-                <form asp-action="Checkout" method="post">
-                    <button type="submit" class="checkout-btn">Ödeme Yap</button>
-                </form>
-            </div>
-      
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <div class="cart-summary">
+            <p><strong>Toplam Tutar:</strong> @Model.CartItems.Sum(i => i.Quantity * i.Price).ToString("C")</p>
+            <form asp-action="Checkout" method="post">
+                <button type="submit" class="checkout-btn">Ödeme Yap</button>
+            </form>
+        </div>
+
     </div>
 </body>
 </html>
