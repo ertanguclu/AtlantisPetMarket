@@ -1,13 +1,9 @@
-﻿using BusinessLayer.Models.CartViewModel;
-using BusinessLayer.Models.ProductVM;
-using AutoMapper;
+﻿using AutoMapper;
 using BusinessLayer.Abstract;
-using BusinessLayer.Models.ProductVM;
-using BusinessLayer.Concrete;
+using BusinessLayer.Models.CartViewModel;
 using EntityLayer.DbContexts;
 using EntityLayer.Models.Concrete;
 using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
 
 namespace AtlantisPetMarket.Controllers.ParentCategories
 {
