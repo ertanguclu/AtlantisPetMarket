@@ -8,8 +8,8 @@ public class CartValidator : AbstractValidator<CartVM>
             .GreaterThan(0)
             .WithMessage("UserId must be greater than 0");
 
-        RuleFor(cart => cart.CreateDateTime)
-            .LessThanOrEqualTo(DateTime.Now)
-            .WithMessage("CreateDateTime cannot be in the future");
+        //RuleFor(cart => cart.CreateDateTime)
+        //    .LessThanOrEqualTo(DateTime.Now)
+        //    .WithMessage("CreateDateTime cannot be in the future");
     }
 }

@@ -14,7 +14,7 @@ namespace EntityLayer.Config.Concrete
             builder.Property(p => p.CategoryPhotoPath).IsRequired();
             builder.Property(p => p.ParentCategoryId).IsRequired();
 
-
+            //category resim silinecek
 
 
         }

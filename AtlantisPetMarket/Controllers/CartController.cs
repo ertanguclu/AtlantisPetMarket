@@ -1,11 +1,13 @@
-﻿using AutoMapper;
-using BusinessLayer.Abstract;
-using BusinessLayer.Models.CartItemVM;
+﻿using BusinessLayer.Models.CartItemVM;
 using BusinessLayer.Models.CartViewModel;
+using BusinessLayer.Models.ProductVM;
+using AutoMapper;
+using BusinessLayer.Abstract;
 using EntityLayer.DbContexts;
 using EntityLayer.Models.Concrete;
 using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace AtlantisPetMarket.Controllers
 {
@@ -14,83 +16,126 @@ namespace AtlantisPetMarket.Controllers
         private readonly ICartManager<AppDbContext, Cart, int> _cartManager;
         private readonly ICartItemManager<AppDbContext, CartItem, int> _cartItemManager;
         private readonly IMapper _mapper;
-        private readonly IValidator<CartVM> _validator;
-        public CartController(ICartManager<AppDbContext, Cart, int> cartManager, ICartItemManager<AppDbContext, CartItem, int> cartItemManager, IMapper mapper, IValidator<CartVM> validator)
+        //private readonly IValidator<CartVM> _validator;
+
+        public CartController(ICartManager<AppDbContext, Cart, int> cartManager, ICartItemManager<AppDbContext, CartItem, int> cartItemManager, IMapper mapper)
         {
             _cartManager = cartManager;
             _cartItemManager = cartItemManager;
             _mapper = mapper;
-            _validator = validator;
+            //_validator = validator;
         }
-        //public async Task<ActionResult<IEnumerable<Cart>>> Index(int id)
-        //{
-        //    var carts = await _cartManager.GetAllIncludeAsync(x => x.Id == id, x => x.CreateDateTime, x => x.UserId);
-        //    return View(carts);
-        //}
-
 
         public async Task<IActionResult> Index(int id)
         {
-            // Sepeti ve ilişkili CartItem'ları getir
             var cart = await _cartManager.FindAsync(id);
-            //if (cart == null)
-            //{
-            //    return NotFound(); // Sepet bulunamazsa hata döndür
-            //}
+            if (cart == null)
+            {
+                return NotFound();
+            }
 
             var cartItems = await _cartItemManager.GetAllIncludeAsync(
                 x => x.CartId == id,
-                x => x.Product // Sadece navigation property'e include
+                x => x.Product
             );
 
-            // Sepet ve CartItem'ları ViewModel'e dönüştür
-            var cartVM = _mapper.Map<CartVM>(cart);
-            cartVM.CartItems = _mapper.Map<IEnumerable<CartItemViewModel>>(cartItems);
+            var cartItemVMs = new List<CartItemViewModel>();
+            foreach (var item in cartItems)
+            {
+                var cartItemVM = new CartItemViewModel
+                {
+                    ProductId = item.Product.Id,
+                    ProductName = item.Product.ProductName,
+                    Quantity = item.Quantity,
+                    Price = item.Product.Price,
+                    CartId = item.CartId,  
+                    Id = item.Id           
+                };
+                cartItemVMs.Add(cartItemVM);
+            }
 
-            // View'e gönder
+            var cartVM = _mapper.Map<ProductCartVM>(cart);
+            cartVM.CartItems = cartItemVMs; 
+
             return View(cartVM);
         }
+
 
         [HttpGet]
         public async Task<IActionResult> Create()
         {
-            CartVM cartVM = new CartVM();
-
-            return View(cartVM);
+            ProductCartVM productCartVM = new ProductCartVM();
+            return View(productCartVM);
         }
+
 
         [HttpPost]
-        public async Task<IActionResult> Create(CartVM CartVM)
+        public async Task<IActionResult> Create(ProductCartVM productCartVM)
         {
-            if (!ModelState.IsValid)
-            {
-                // Model geçerli değilse hata mesajlarını göster
-                return View(CartVM);
-            }
+            
+            var userId = User.Identity.IsAuthenticated ? Convert.ToInt32(User.FindFirstValue(ClaimTypes.NameIdentifier)) : -1;
 
-            // Model doğrulaması
-            var validationResult = _validator.Validate(CartVM);
-            if (!validationResult.IsValid)
+            
+            var existingCart = await _cartManager.GetCartByUserIdAsync(userId);
+
+            if (existingCart == null)
             {
-                foreach (var error in validationResult.Errors)
+                var newCart = new Cart
                 {
-                    ModelState.AddModelError(error.PropertyName, error.ErrorMessage);
-                }
+                    UserId = userId 
+                };
 
-                // Kategorileri veya diğer gerekli verileri yeniden gönder
-                return View(CartVM);
+                await _cartManager.AddAsync(newCart);
+                productCartVM.CartId = newCart.Id;
+            }
+            else
+            {
+                productCartVM.CartId = existingCart.Id;
             }
 
-            // AutoMapper ile CartInsertVM'yi Cart entity'sine dönüştür
-            var cart = _mapper.Map<Cart>(CartVM);
+            var cartItem = new CartItem
+            {
+                CartId = productCartVM.CartId,
+                ProductId = productCartVM.ProductId,
+                Quantity = productCartVM.Quantity
+            };
 
-            // Sepeti veritabanına ekle
-            await _cartManager.AddAsync(cart);
+            await _cartItemManager.AddAsync(cartItem);
 
-            // Başarıyla ekledikten sonra kullanıcıyı uygun bir sayfaya yönlendir
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", new { id = productCartVM.CartId });
         }
 
+
+        [HttpPost]
+        public async Task<IActionResult> Delete(int cartItemId, int cartId)
+        {
+            var cartItem = await _cartItemManager.FindAsync(cartItemId);
+            if (cartItem == null)
+            {
+                return NotFound();
+            }
+
+            await _cartItemManager.DeleteAsync(cartItem);
+
+            var remainingItems = await _cartItemManager.GetAllIncludeAsync(x => x.CartId == cartId);
+            if (!remainingItems.Any())
+            {
+                var cart = await _cartManager.FindAsync(cartId);
+                if (cart != null)
+                {
+                    await _cartManager.DeleteAsync(cart);
+                }
+                return RedirectToAction("EmptyCart");
+            }
+
+            return RedirectToAction("Index", new { id = cartId });
+        }
+
+        public async Task <IActionResult> EmptyCart()
+        {
+            
+            return View();
+        }
 
     }
 }

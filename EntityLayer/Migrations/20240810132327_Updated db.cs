@@ -9,7 +9,7 @@ using MySql.EntityFrameworkCore.Metadata;
 namespace EntityLayer.Migrations
 {
     /// <inheritdoc />
-    public partial class AddedParentCategories : Migration
+    public partial class Updateddb : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -261,7 +261,7 @@ namespace EntityLayer.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
                     CreateDateTime = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    UserId = table.Column<int>(type: "int", nullable: false),
+                    UserId = table.Column<int>(type: "int", nullable: true),
                     CreateDate = table.Column<DateTime>(type: "datetime(6)", nullable: false)
                 },
                 constraints: table =>
@@ -271,8 +271,7 @@ namespace EntityLayer.Migrations
                         name: "FK_Carts_AspNetUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 })
                 .Annotation("MySQL:Charset", "utf8mb4");
 
@@ -459,11 +458,11 @@ namespace EntityLayer.Migrations
                 columns: new[] { "Id", "CreateDate", "ParentCategoryName" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2024, 8, 3, 20, 17, 48, 251, DateTimeKind.Local).AddTicks(3595), "Kedi" },
-                    { 2, new DateTime(2024, 8, 3, 20, 17, 48, 251, DateTimeKind.Local).AddTicks(3603), "Köpek" },
-                    { 3, new DateTime(2024, 8, 3, 20, 17, 48, 251, DateTimeKind.Local).AddTicks(3607), "Kuş" },
-                    { 4, new DateTime(2024, 8, 3, 20, 17, 48, 251, DateTimeKind.Local).AddTicks(3611), "Balık" },
-                    { 5, new DateTime(2024, 8, 3, 20, 17, 48, 251, DateTimeKind.Local).AddTicks(3615), "Kemirgen" }
+                    { 1, new DateTime(2024, 8, 10, 16, 23, 25, 517, DateTimeKind.Local).AddTicks(9323), "Kedi" },
+                    { 2, new DateTime(2024, 8, 10, 16, 23, 25, 517, DateTimeKind.Local).AddTicks(9330), "Köpek" },
+                    { 3, new DateTime(2024, 8, 10, 16, 23, 25, 517, DateTimeKind.Local).AddTicks(9334), "Kuş" },
+                    { 4, new DateTime(2024, 8, 10, 16, 23, 25, 517, DateTimeKind.Local).AddTicks(9338), "Balık" },
+                    { 5, new DateTime(2024, 8, 10, 16, 23, 25, 517, DateTimeKind.Local).AddTicks(9342), "Kemirgen" }
                 });
 
             migrationBuilder.CreateIndex(

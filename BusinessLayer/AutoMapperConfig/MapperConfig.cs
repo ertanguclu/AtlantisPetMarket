@@ -1,8 +1,8 @@
-﻿using AutoMapper;
-using BusinessLayer.Models.CartItemVM;
+﻿using BusinessLayer.Models.CartItemVM;
 using BusinessLayer.Models.CartViewModel;
 using BusinessLayer.Models.CategoryVM;
 using BusinessLayer.Models.ProductVM;
+using AutoMapper;
 using EntityLayer.Models.Concrete;
 
 namespace BusinessLayer.AutoMapperConfig
@@ -11,17 +11,28 @@ namespace BusinessLayer.AutoMapperConfig
     {
         public MapperConfig()
         {
-            CreateMap<Product, ProductInsertVM>().ReverseMap();
-            CreateMap<Product, ProductUpdateVM>().ReverseMap();
-            CreateMap<Product, ProductListVM>().ReverseMap();
+            CreateMap<ProductInsertVM, Product>();
+            CreateMap<Product, ProductInsertVM>();
 
-            CreateMap<Category, CategoryUpdateVM>().ReverseMap();
-            CreateMap<Category, CategoryInsertVM>().ReverseMap();
+            CreateMap<ProductUpdateVM, Product>();
+            CreateMap<Product, ProductUpdateVM>();
+            CreateMap<Product, ProductListVM>();
 
-            CreateMap<CartItem, CartItemViewModel>().ReverseMap();
+            CreateMap<Product, ProductListVM>();
+            CreateMap<CartVM, ProductListVM>().ReverseMap();
+            CreateMap<Cart, ProductCartVM>().ReverseMap();
+            CreateMap<Product, ProductCartVM>().ReverseMap();
 
-            CreateMap<Cart, CartVM>().ReverseMap();
 
+            CreateMap<CategoryUpdateVM, Category>();
+            CreateMap<Category, CategoryUpdateVM>();
+
+            CreateMap<CategoryInsertVM, Category>();
+            CreateMap<Category, CategoryInsertVM>();
+            CreateMap<CartItem, CartItemViewModel>();
+            CreateMap<CartItemViewModel, CartItem>();
+            CreateMap<CartVM, Cart>();
+            CreateMap<Cart, CartVM>();
             CreateMap<ProductListVM, CartItemViewModel>();
 
 
