@@ -1,76 +1,49 @@
-﻿@model IEnumerable<ProductListVM>
+﻿@model IEnumerable<AtlantisPetMarket.Models.ProductVM.ProductListVM>
 
 @{
     ViewData["Title"] = "Ürünler";
     Layout = "~/Views/Shared/_HomeLayout.cshtml";
 }
 
-@* <h2>Ürünler</h2>
-
-<table class="table">
-    <thead>
-        <tr>
-            <th>Ürün Adı</th>
-            <th>Marka</th>
-            <th>Açıklama</th>
-            <th>Fiyat</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var product in Model)
+<div class="container">
+    <div class="isotope-container row">
+        @foreach (var item in Model)
         {
-            <tr>
-                <td>@product.ProductName</td>
-                <td>@product.Brand</td>
-                <td>@product.Description</td>
-                <td>@product.Price.ToString("C")</td> <!-- Para formatı -->
-            </tr>
-        }
-    </tbody>
-</table> *@
-<div class="isotope-container row">
-    @foreach (var item in Model)
-    {
-
-        <div class="item cat col-md-4 col-lg-3 my-4">
-            <!-- <div class="z-1 position-absolute rounded-3 m-3 px-3 border border-dark-subtle">
-              New
-            </div> -->
-            <div class="card position-relative">
-                <a href="single-product.html"><img src="~/waggypetshop/images/item9.jpg" class="img-fluid rounded-4" alt="image"></a>
-                <div class="card-body p-0">
+            <div class="item cat col-md-4 col-lg-3 my-4">
+                <div class="card position-relative">
                     <a href="single-product.html">
-                        <h3 class="card-title pt-4 m-0">@item.ProductName</h3>
+                        <img src="@item.ProductPhotoPath" class="img-fluid rounded-4" alt="image">
                     </a>
+                    <div class="card-body p-0">
+                        <a href="single-product.html">
+                            <h3 class="card-title pt-4 m-0">@item.ProductName</h3>
+                        </a>
 
-                    <div class="card-text">
-                        <span class="rating secondary-font">
-                            <iconify-icon icon="clarity:star-solid" class="text-primary"></iconify-icon>
-                            <iconify-icon icon="clarity:star-solid" class="text-primary"></iconify-icon>
-                            <iconify-icon icon="clarity:star-solid" class="text-primary"></iconify-icon>
-                            <iconify-icon icon="clarity:star-solid" class="text-primary"></iconify-icon>
-                            <iconify-icon icon="clarity:star-solid" class="text-primary"></iconify-icon>
-                            5.0
-                        </span>
+                        <div class="card-text">
+                            <span class="rating secondary-font">
+                                <iconify-icon icon="clarity:star-solid" class="text-primary"></iconify-icon>
+                                <iconify-icon icon="clarity:star-solid" class="text-primary"></iconify-icon>
+                                <iconify-icon icon="clarity:star-solid" class="text-primary"></iconify-icon>
+                                <iconify-icon icon="clarity:star-solid" class="text-primary"></iconify-icon>
+                                <iconify-icon icon="clarity:star-solid" class="text-primary"></iconify-icon>
+                                5.0
+                            </span>
 
-                        <h3 class="secondary-font text-primary">@item.Price</h3>
+                            <h3 class="secondary-font text-primary">@item.Price</h3>
 
-                        <div class="d-flex flex-wrap mt-3">
-                            <a href="#" class="btn-cart me-3 px-4 pt-3 pb-3">
-                                <h5 class="text-uppercase m-0">Add to Cart</h5>
-                            </a>
-                            <a href="#" class="btn-wishlist px-4 pt-3 ">
-                                <iconify-icon icon="fluent:heart-28-filled" class="fs-5"></iconify-icon>
-                            </a>
+                            <div class="d-flex flex-wrap mt-3">
+                                <form asp-controller="CartItem" asp-action="CreateOrUpdate" method="post">
+                                    <button type="submit" class="btn-cart px-4 py-3">
+                                        <h5 class="text-uppercase m-0">Add to Cart</h5>
+                                    </button>
+                                </form>
+
+
+                            </div>
                         </div>
-
-
                     </div>
-
                 </div>
             </div>
-        </div>
-
-
-    }
+        }
+    </div>
 </div>

@@ -32,7 +32,6 @@
 	  <Folder Include="Areas\Writer\Data\" />
 	  <Folder Include="wwwroot\categoryimage\" />
 	  <Folder Include="wwwroot\processedimage\" />
-	  <Folder Include="wwwroot\productimage\" />
 	</ItemGroup>
 
 </Project>

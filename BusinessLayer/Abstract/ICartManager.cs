@@ -7,5 +7,6 @@ namespace BusinessLayer.Abstract
         where TContext : DbContext, new()
         where T : Cart
     {
+        Task<Cart?> GetCartByUserIdAsync(int userId);
     }
 }
