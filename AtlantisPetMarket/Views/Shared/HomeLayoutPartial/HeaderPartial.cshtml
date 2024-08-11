@@ -4,7 +4,7 @@
 
             <div class="col-sm-4 col-lg-3 text-center text-sm-start">
                 <div class="main-logo">
-                    <a href="index.html">
+                    <a href="/Home/Index/">
                         <img src="~/waggypetshop/images/logo.png" alt="logo" class="img-fluid">
                     </a>
                 </div>
@@ -23,19 +23,7 @@
                 </div>
             </div>
 
-            <div class="col-sm-8 col-lg-4 d-flex justify-content-end gap-5 align-items-center mt-4 mt-sm-0 justify-content-center justify-content-sm-end">
-                <div class="support-box text-end d-none d-xl-block">
-                    <span class="fs-6 secondary-font text-muted">Phone</span>
-                    <h5 class="mb-0">+980-34984089</h5>
-                </div>
-                <div class="support-box text-end d-none d-xl-block">
-                    <span class="fs-6 secondary-font text-muted">Email</span>
-                    <h5 class="mb-0">waggy@gmail.com</h5>
-                </div>
-
-
-
-            </div>
+            @await Component.InvokeAsync("HeaderContactList")
         </div>
     </div>
 
@@ -102,7 +90,7 @@
 
                     <ul class="navbar-nav menu-list list-unstyled d-flex gap-md-3 mb-0">
                         <li class="nav-item">
-                            <a href="index.html" class="nav-link active">Home</a>
+                            <a style="font-size:17px" href="/Home/Index/" class="nav-link active">Home</a>
                         </li>
 @*                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" role="button" id="pages" data-bs-toggle="dropdown"
@@ -187,20 +175,20 @@
  *@                     
 
                         <li class="nav-item">
-                            <a href="/Cats/Index" class="nav-link">Kedi</a>
+                            <a style="font-size:17px" href="/Cats/Index" class="nav-link">Kedi</a>
                         </li>
 
                         <li class="nav-item">
-                            <a href="/Dogs/Index" class="nav-link">Köpek</a>
+                            <a style="font-size:17px" href="/Dogs/Index" class="nav-link">Köpek</a>
                         </li>
                         <li class="nav-item">
-                            <a href="/Birds/Index"  class="nav-link">Kuş</a>
+                            <a style="font-size:17px" href="/Birds/Index" class="nav-link">Kuş</a>
                         </li>
                         <li class="nav-item">
-                            <a href="/Fish/Index" class="nav-link">Balık</a>
+                            <a style="font-size:17px" href="/Fish/Index" class="nav-link">Balık</a>
                         </li>
                         <li class="nav-item">
-                            <a href="/Rodents/Index" class="nav-link">Kemirgen</a>
+                            <a style="font-size:17px" href="/Rodents/Index" class="nav-link">Kemirgen</a>
                         </li>
                     </ul>
 

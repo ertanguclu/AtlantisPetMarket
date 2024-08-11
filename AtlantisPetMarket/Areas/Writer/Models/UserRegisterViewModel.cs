@@ -8,8 +8,7 @@ namespace AtlantisPetMarket.Areas.Writer.Models
         public string Name { get; set; }
         [Required(ErrorMessage = "Lütfen soyadınızı girin")]
         public string Surname { get; set; }
-        //[Required(ErrorMessage = "Lütfen resim url değeri girin")]
-        //public string ImageUrl { get; set; }
+
         [Required(ErrorMessage = "Lütfen kullanıcı adınızı girin")]
         public string UserName { get; set; }
         [Required(ErrorMessage = "Lütfen şifrenizi girin")]
