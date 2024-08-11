@@ -10,13 +10,14 @@ namespace EntityLayer.Config.Concrete
         {
             base.Configure(builder);
 
-            builder.Property(p => p.ProductName).HasMaxLength(50);
-            builder.Property(p => p.Description).HasMaxLength(150);
-            builder.Property(k => k.Price).HasPrecision(18, 2);
-
-            builder.Property(u => u.ProductName).IsRequired();
-            builder.Property(u => u.Brand).IsRequired();
-            builder.Property(u => u.Price).IsRequired();
+            builder.Property(p => p.ProductName).IsRequired().HasMaxLength(50);
+            builder.Property(p => p.Brand).IsRequired().HasMaxLength(50);
+            builder.Property(p => p.Description).IsRequired().HasMaxLength(150);
+            builder.Property(k => k.Price).IsRequired().HasPrecision(18, 2);
+            builder.Property(p => p.ProductCode).IsRequired().HasMaxLength(50);
+            builder.Property(p => p.StockQuantity).IsRequired();
+            builder.Property(p => p.ProductPhotoPath).IsRequired();
+            builder.Property(p => p.Color).HasMaxLength(50);
 
 
 

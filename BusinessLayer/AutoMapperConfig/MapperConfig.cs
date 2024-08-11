@@ -11,8 +11,7 @@ namespace BusinessLayer.AutoMapperConfig
     {
         public MapperConfig()
         {
-            CreateMap<Product, ProductInsertVM>();
-            CreateMap<ProductInsertVM, Product>();
+            CreateMap<Product, ProductInsertVM>().ReverseMap();
             CreateMap<Product, ProductUpdateVM>().ReverseMap();
             CreateMap<Product, ProductListVM>().ReverseMap();
 
