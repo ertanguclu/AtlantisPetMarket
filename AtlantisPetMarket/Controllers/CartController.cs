@@ -1,12 +1,11 @@
-﻿using BusinessLayer.Models.CartItemVM;
-using BusinessLayer.Models.CartViewModel;
-using BusinessLayer.Models.ProductVM;
-using AutoMapper;
+﻿using AutoMapper;
 using BusinessLayer.Abstract;
+using BusinessLayer.Models.CartItemVM;
+using BusinessLayer.Models.CartViewModel;
 using EntityLayer.DbContexts;
 using EntityLayer.Models.Concrete;
-using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis;
 using System.Security.Claims;
 
 namespace AtlantisPetMarket.Controllers
@@ -48,14 +47,14 @@ namespace AtlantisPetMarket.Controllers
                     ProductName = item.Product.ProductName,
                     Quantity = item.Quantity,
                     Price = item.Product.Price,
-                    CartId = item.CartId,  
-                    Id = item.Id           
+                    CartId = item.CartId,
+                    Id = item.Id
                 };
                 cartItemVMs.Add(cartItemVM);
             }
 
             var cartVM = _mapper.Map<ProductCartVM>(cart);
-            cartVM.CartItems = cartItemVMs; 
+            cartVM.CartItems = cartItemVMs;
 
             return View(cartVM);
         }
@@ -67,22 +66,20 @@ namespace AtlantisPetMarket.Controllers
             ProductCartVM productCartVM = new ProductCartVM();
             return View(productCartVM);
         }
-
-
         [HttpPost]
         public async Task<IActionResult> Create(ProductCartVM productCartVM)
         {
-            
+
             var userId = User.Identity.IsAuthenticated ? Convert.ToInt32(User.FindFirstValue(ClaimTypes.NameIdentifier)) : -1;
 
-            
+
             var existingCart = await _cartManager.GetCartByUserIdAsync(userId);
 
             if (existingCart == null)
             {
                 var newCart = new Cart
                 {
-                    UserId = userId 
+                    UserId = userId
                 };
 
                 await _cartManager.AddAsync(newCart);
@@ -131,11 +128,12 @@ namespace AtlantisPetMarket.Controllers
             return RedirectToAction("Index", new { id = cartId });
         }
 
-        public async Task <IActionResult> EmptyCart()
+        public async Task<IActionResult> EmptyCart()
         {
-            
+
             return View();
         }
+
 
     }
 }
