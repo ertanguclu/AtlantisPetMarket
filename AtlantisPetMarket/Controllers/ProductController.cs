@@ -68,7 +68,7 @@ namespace AtlantisPetMarket.Controllers
             //                    .Include(p => p.ParentCategory)
 
             //                    .AsNoTracking() // Çekilen datayi izleme
-            //                    .AsQueryable(); // Sorgu taslagi olarak ver
+            //                    .AsQueryable(); // Sorgu taslagi olarak ver.
 
 
             //var products = _productManager.GetAllInclude(p=>p.Category,p=>p.ParentCategory);
