@@ -11,7 +11,6 @@ namespace EntityLayer.Config.Concrete
             base.Configure(builder);
 
             builder.Property(p => p.CategoryName).IsRequired().HasMaxLength(50);
-            builder.Property(p => p.CategoryPhotoPath).IsRequired();
             builder.Property(p => p.ParentCategoryId).IsRequired();
 
             //category resim silinecek
