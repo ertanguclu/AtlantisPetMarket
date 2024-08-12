@@ -1,25 +1,19 @@
-﻿using EntityLayer.Models.Concrete;
-using Microsoft.EntityFrameworkCore;
+﻿using EntityLayer.Config.Abstract;
+using EntityLayer.Models.Concrete;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace EntityLayer.Config.Concrete
 {
-    public class SocialMediaConfig : IEntityTypeConfiguration<SocialMedia>
+    public class SocialMediaConfig : BaseConfig<SocialMedia>
     {
-        public void Configure(EntityTypeBuilder<SocialMedia> builder)
+        public override void Configure(EntityTypeBuilder<SocialMedia> builder)
         {
-            // Tablo adı
-            builder.ToTable("SocialMedia");
-
-            // Birincil anahtar
-            builder.HasKey(a => a.Id);
-
-            
+            base.Configure(builder);
 
             // Kolon konfigürasyonları
             builder.Property(sm => sm.Name)
                 .IsRequired()   // Zorunlu kolon
-                .HasMaxLength(100); // Maksimum uzunluk
+                .HasMaxLength(20); // Maksimum uzunluk
 
             builder.Property(sm => sm.Url)
                 .IsRequired()   // Zorunlu kolon

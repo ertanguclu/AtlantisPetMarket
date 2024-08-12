@@ -1,6 +1,10 @@
-using AtlantisPetMarket.AutoMapperConfig;
 using BusinessLayer.Abstract;
+using BusinessLayer.AutoMapperConfig;
 using BusinessLayer.Concrete;
+using BusinessLayer.Models.CategoryVM;
+using BusinessLayer.Models.ProductVM;
+using BusinessLayer.ValidationsRules.CategoryValidator;
+using BusinessLayer.ValidationsRules.ProductValidator;
 using EntityLayer.DbContexts;
 using EntityLayer.Models.Concrete;
 using FluentValidation;
@@ -24,6 +28,8 @@ builder.Services.AddScoped<IContactManager<AppDbContext, Contact, int>, ContactM
 builder.Services.AddScoped<ISocialMediaManager<AppDbContext, SocialMedia, int>, SocialMediaManager<AppDbContext, SocialMedia, int>>();
 builder.Services.AddScoped<ICartManager<AppDbContext, Cart, int>, CartManager<AppDbContext, Cart, int>>();
 builder.Services.AddScoped<ICartItemManager<AppDbContext, CartItem, int>, CartItemManager<AppDbContext, CartItem, int>>();
+builder.Services.AddScoped<IOrderManager<AppDbContext, Order, int>, OrderManager<AppDbContext, Order, int>>();
+builder.Services.AddScoped<IOrderItemManager<AppDbContext, OrderItem, int>, OrderItemManager<AppDbContext, OrderItem, int>>();
 
 
 // AutoMapper
@@ -32,10 +38,14 @@ builder.Services.AddAutoMapper(typeof(MapperConfig));
 builder.Services.AddControllersWithViews();
 builder.Services.AddControllersWithViews(options => options.SuppressImplicitRequiredAttributeForNonNullableReferenceTypes = true);
 
-// FluentValidation
-
+//FluentValidation
 builder.Services.AddFluentValidationClientsideAdapters();
 builder.Services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
+builder.Services.AddTransient<IValidator<ProductInsertVM>, ProductInsertValidator>();
+builder.Services.AddTransient<IValidator<ProductUpdateVM>, ProductUpdateValidator>();
+builder.Services.AddTransient<IValidator<CategoryUpdateVM>, CategoryUpdateValidator>();
+builder.Services.AddTransient<IValidator<CategoryInsertVM>, CategoryInsertValidator>();
+
 
 
 

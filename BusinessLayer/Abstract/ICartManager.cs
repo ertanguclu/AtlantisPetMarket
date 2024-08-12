@@ -1,5 +1,6 @@
 ﻿using EntityLayer.Models.Concrete;
 using Microsoft.EntityFrameworkCore;
+using System.Linq.Expressions;
 
 namespace BusinessLayer.Abstract
 {
@@ -7,5 +8,6 @@ namespace BusinessLayer.Abstract
         where TContext : DbContext, new()
         where T : Cart
     {
+        Task<Cart?> GetCartByUserIdAsync(int userId);
     }
 }

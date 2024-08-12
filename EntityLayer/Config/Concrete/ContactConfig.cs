@@ -6,9 +6,13 @@ namespace EntityLayer.Config.Concrete
 {
     public class ContactConfig : BaseConfig<Contact>
     {
-        public void Configure(EntityTypeBuilder<Contact> builder)
+        public override void Configure(EntityTypeBuilder<Contact> builder)
         {
-            builder.HasKey(a => a.Id);
+            base.Configure(builder);
+            builder.Property(x => x.SellerName).IsRequired().HasMaxLength(50);
+            builder.Property(x => x.Phone).IsRequired().HasMaxLength(15);
+            builder.Property(x => x.Email).IsRequired().HasMaxLength(50);
+            builder.Property(x => x.Address).IsRequired().HasMaxLength(250);
         }
     }
 }

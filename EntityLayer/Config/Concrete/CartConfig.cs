@@ -1,13 +1,12 @@
-﻿using EntityLayer.Models.Concrete;
+﻿using EntityLayer.Config.Abstract;
+using EntityLayer.Models.Concrete;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Microsoft.EntityFrameworkCore;
-using EntityLayer.Config.Abstract;
 
 public class CartConfig : BaseConfig<Cart>
 {
-    public void Configure(EntityTypeBuilder<Cart> builder)
+    public override void Configure(EntityTypeBuilder<Cart> builder)
     {
-        builder.HasKey(c => c.Id);
+        base.Configure(builder);
         builder.Property(c => c.UserId).IsRequired();
         builder.Property(c => c.CreateDateTime).IsRequired();
     }

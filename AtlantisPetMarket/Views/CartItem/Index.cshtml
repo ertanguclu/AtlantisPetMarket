@@ -1,4 +1,4 @@
-﻿@model IEnumerable<AtlantisPetMarket.Models.CartItemVM.CartItemViewModel>
+﻿@model IEnumerable<CartItemViewModel>
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_HomeLayout.cshtml";
@@ -21,10 +21,10 @@
             @foreach (var item in Model)
             {
                 <tr>
-                    <td>@item.Product?.ProductName</td> <!-- Ürün Adı -->
-                    <td>@item.Quantity</td> <!-- Miktar -->
-                    <td>@item.Product?.Price.ToString("C")</td> <!-- Fiyat -->
-                    <td>@(item.Quantity * item.Product?.Price).ToString("C")</td> <!-- Toplam -->
+                    <td>@item.Product.ProductName</td> 
+                    <td>@item.Quantity</td> 
+                    <td>@item.Product.Price.ToString("C")</td> 
+                    <td>@(item.Quantity * item.Product.Price).ToString("C")</td> 
                     <td>
                         <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-primary">Düzenle</a>
                         <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Sil</a>

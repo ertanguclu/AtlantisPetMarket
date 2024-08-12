@@ -1,7 +1,6 @@
-﻿using EntityLayer.Models.Concrete;
+﻿using EntityLayer.Config.Abstract;
+using EntityLayer.Models.Concrete;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Microsoft.EntityFrameworkCore;
-using EntityLayer.Config.Abstract;
 
 public class AddressConfig : BaseConfig<Address>
 {
