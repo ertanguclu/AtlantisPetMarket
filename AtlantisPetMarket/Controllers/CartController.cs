@@ -70,10 +70,12 @@ namespace AtlantisPetMarket.Controllers
         {
             var userId = User.Identity.IsAuthenticated ? Convert.ToInt32(User.FindFirstValue(ClaimTypes.NameIdentifier)) : -1;
 
+            // Sepeti kontrol et
             var existingCart = await _cartManager.GetCartByUserIdAsync(userId);
 
             if (existingCart == null)
             {
+                // Yeni bir sepet oluştur
                 var newCart = _mapper.Map<Cart>(productCartVM);
                 newCart.UserId = userId;
 
@@ -85,17 +87,35 @@ namespace AtlantisPetMarket.Controllers
                 productCartVM.CartId = existingCart.Id;
             }
 
-            var cartItem = _mapper.Map<CartItem>(productCartVM);
+            // Aynı ürünün sepette olup olmadığını kontrol et
+            var existingCartItem = await _cartItemManager.GetByConditionAsync(
+                x => x.CartId == productCartVM.CartId && x.ProductId == productCartVM.ProductId);
 
-            await _cartItemManager.AddAsync(cartItem);
+            if (existingCartItem != null)
+            {
+                // Ürün zaten sepette, miktarı artır
+                existingCartItem.Quantity += productCartVM.Quantity;
+                await _cartItemManager.UpdateAsync(existingCartItem);
+            }
+            else
+            {
+                // Ürün sepette değil, yeni bir CartItem ekle
+                var cartItem = _mapper.Map<CartItem>(productCartVM);
+                await _cartItemManager.AddAsync(cartItem);
+            }
+
+            // Cookie işlemleri
             Response.Cookies.Append("CartId", productCartVM.CartId.ToString(), new CookieOptions
             {
-                Expires = DateTimeOffset.UtcNow.AddHours(1), // Cookie'nin geçerlilik süresi
-                HttpOnly = true // Cookie'ye sadece sunucu tarafından erişilebilir
+                Expires = DateTimeOffset.UtcNow.AddHours(1),
+                HttpOnly = true,
+                Secure = true
             });
 
             return RedirectToAction("Index", new { id = productCartVM.CartId });
         }
+
+
 
 
         [HttpPost]
@@ -123,6 +143,49 @@ namespace AtlantisPetMarket.Controllers
 
             return RedirectToAction("Index", new { id = cartId });
         }
+
+
+        [HttpPost]
+        public async Task<IActionResult> IncreaseQuantity(int cartItemId)
+        {
+            var cartItem = await _cartItemManager.FindAsync(cartItemId);
+            if (cartItem == null)
+            {
+                return NotFound();
+            }
+
+            cartItem.Quantity += 1; // Miktarı bir artır
+            await _cartItemManager.UpdateAsync(cartItem);
+
+            return RedirectToAction("Index", new { id = cartItem.CartId });
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> DecreaseQuantity(int cartItemId)
+        {
+            var cartItem = await _cartItemManager.FindAsync(cartItemId);
+            if (cartItem == null)
+            {
+                return NotFound();
+            }
+
+            if (cartItem.Quantity > 1)
+            {
+                cartItem.Quantity -= 1; 
+                await _cartItemManager.UpdateAsync(cartItem);
+            }
+            else
+            {
+                
+                await _cartItemManager.DeleteAsync(cartItem);
+            }
+
+            return RedirectToAction("Index", new { id = cartItem.CartId });
+        }
+
+
+
+
 
         public async Task<IActionResult> EmptyCart()
         {

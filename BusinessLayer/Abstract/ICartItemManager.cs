@@ -1,5 +1,8 @@
 ﻿using EntityLayer.Models.Concrete;
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.Linq.Expressions;
+using System.Threading.Tasks;
 
 namespace BusinessLayer.Abstract
 {
@@ -7,5 +10,6 @@ namespace BusinessLayer.Abstract
         where TContext : DbContext, new()
         where T : CartItem
     {
+        Task<CartItem?> GetByConditionAsync(Expression<Func<CartItem, bool>> predicate);
     }
 }

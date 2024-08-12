@@ -22,5 +22,7 @@ namespace BusinessLayer.Concrete
             return await _context.Set<Cart>()
                 .FirstOrDefaultAsync(c => c.UserId == userId);
         }
+
+     
     }
 }
