@@ -4,7 +4,7 @@
 
             <div class="col-sm-4 col-lg-3 text-center text-sm-start">
                 <div class="main-logo">
-                    <a href="/Home/Index/">
+                    <a href="/Home/Index">
                         <img src="~/waggypetshop/images/petshop2.png" alt="logo" class="img-fluid">
                     </a>
                 </div>
@@ -90,7 +90,7 @@
 
                     <ul class="navbar-nav menu-list list-unstyled d-flex gap-md-3 mb-0">
                         <li class="nav-item">
-                            <a style="font-size:17px" href="/Home/Index/" class="nav-link active">Home</a>
+                            <a style="font-size:17px" href="/Home/Index" class="nav-link active">Home</a>
                         </li>
 @*                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" role="button" id="pages" data-bs-toggle="dropdown"
@@ -177,7 +177,27 @@
                         <li class="nav-item">
                             <a style="font-size:17px" href="/Cats/Index" class="nav-link">Kedi</a>
                         </li>
-
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" style="font-size:17px" role="button" id="pages" data-bs-toggle="dropdown"
+                               aria-expanded="false">Kedi</a>
+                            <ul class="dropdown-menu" aria-labelledby="pages">
+                                <li>
+                                    <a href="about.html" class="dropdown-item">
+                                        Mama
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="about.html" class="dropdown-item">
+                                        Oyuncak
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="about.html" class="dropdown-item">
+                                        Aksesuar
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
                         <li class="nav-item">
                             <a style="font-size:17px" href="/Dogs/Index" class="nav-link">Köpek</a>
                         </li>
@@ -195,15 +215,15 @@
                     <div class="d-none d-lg-flex align-items-end">
                         <ul class="d-flex justify-content-end list-unstyled m-0">
                             <li>
-                                <a href="account.html" class="mx-3">
+                                <a href="/Writer/Login/Index" class="mx-3">
                                     <iconify-icon icon="healthicons:person" class="fs-4"></iconify-icon>
                                 </a>
                             </li>
-                            <li>
+@*                             <li>
                                 <a href="wishlist.html" class="mx-3">
                                     <iconify-icon icon="mdi:heart" class="fs-4"></iconify-icon>
                                 </a>
-                            </li>
+                            </li> *@
 
                             <li class="">
                                 <a href="#" class="mx-3" data-bs-toggle="offcanvas" data-bs-target="#offcanvasCart"
