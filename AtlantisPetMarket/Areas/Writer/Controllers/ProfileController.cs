@@ -9,9 +9,9 @@ namespace AtlantisPetMarket.Areas.Writer.Controllers
     [Route("Writer/[controller]/[action]")]
     public class ProfileController : Controller
     {
-        private readonly UserManager<MyUser> _userManager;
+        private readonly UserManager<User> _userManager;
 
-        public ProfileController(UserManager<MyUser> userManager)
+        public ProfileController(UserManager<User> userManager)
         {
             _userManager = userManager;
         }

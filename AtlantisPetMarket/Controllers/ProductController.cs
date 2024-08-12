@@ -1,90 +1,123 @@
 ﻿using AtlantisPetMarket.Models.ProductVM;
-using AtlantisPetMarket.ValidationsRules;
 using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using BusinessLayer.Abstract;
 using EntityLayer.DbContexts;
 using EntityLayer.Models.Concrete;
 using FluentValidation;
-using FluentValidation.Results;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Globalization;
-using System.Linq.Expressions;
-
 
 namespace AtlantisPetMarket.Controllers
 {
 
     public class ProductController : Controller
     {
+        private readonly AppDbContext _context;
 
         private readonly IProductManager<AppDbContext, Product, int> _productManager;
         private readonly ICategoryManager<AppDbContext, Category, int> _categoryManager;
+        private readonly IParentCategoryManager<AppDbContext, ParentCategory, int> _parentCategoryManager;
         private readonly IMapper _mapper;
         private readonly IValidator<ProductUpdateVM> _validator;
-        public ProductController(IProductManager<AppDbContext, Product, int> productManager,
-            ICategoryManager<AppDbContext, Category, int> categoryManager, IMapper mapper, IValidator<ProductUpdateVM> validator)
+
+        public ProductController(AppDbContext context, IProductManager<AppDbContext, Product, int> productManager,
+            ICategoryManager<AppDbContext, Category, int> categoryManager, IParentCategoryManager<AppDbContext, ParentCategory, int> parentCategory, IMapper mapper, IValidator<ProductUpdateVM> validator)
         {
+            _context = context;
             _productManager = productManager;
             _categoryManager = categoryManager;
+            _parentCategoryManager = parentCategory;
             _mapper = mapper;
             _validator = validator;
         }
 
-        public async Task<ActionResult<IEnumerable<Product>>> Index(int id)
-        {
-            var products = await _productManager.GetAllIncludeAsync(x => x.CategoryId == id, x => x.Category);
-            return View(products);
-        }
-        //public async Task<IEnumerable<Category>> GetAllAsync(Expression<Func<Category, bool>> filter = null)
+        //public async Task<ActionResult<IEnumerable<Product>>> Index(int id)
         //{
-        //    if (filter != null)
-        //    {
-        //        return await _context.Categories.Where(filter).ToListAsync();
-        //    }
-        //    else
-        //    {
-        //        return await _context.Categories.ToListAsync();
-        //    }
+        //    var products = await _productManager.GetAllIncludeAsync(x => x.CategoryId == id, x => x.Category, x => x.ParentCategory);
+        //    return View(products);
         //}
+
+        //public ActionResult<IQueryable<Product>> Index(int id)
+        //{
+        //    var productsQuery = _productManager.GetAllInclude(
+        //        x => x.CategoryId == id,
+        //        x => x.Category,
+        //        x => x.ParentCategory
+        //    ).AsNoTracking();
+
+        //    // Veritabanı sorgusunu hemen çalıştırmadan IQueryable döndürüyoruz
+        //    return View(productsQuery);
+        //}
+
+        public IActionResult Index()
+        {
+
+            //#region Metod Syntax ile Queryable Sorgu olustuma
+            //var products = _context.Products
+            //                    .Include(p => p.Category)
+            //                    .Include(p => p.ParentCategory)
+
+            //                    .AsNoTracking() // Çekilen datayi izleme
+            //                    .AsQueryable(); // Sorgu taslagi olarak ver
+
+
+            //var products = _productManager.GetAllInclude(p=>p.Category,p=>p.ParentCategory);
+
+            //var products = _productManager.GetProducts();
+            //var productsvm = _mapper.Map<ProductListVM>(products);
+            var productsVM = _productManager.GetProducts()
+                                .ProjectTo<ProductListVM>(_mapper.ConfigurationProvider);
+
+            return View(productsVM);
+
+
+        }
 
 
 
         [HttpGet]
-        public IActionResult Create()
+        public async Task<IActionResult> GetCategoriesByParentId(int parentCategoryId)
         {
-            return View();
+            var categories = await _categoryManager.GetAllAsync(c => c.ParentCategoryId == parentCategoryId);
+            return Json(categories);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Create()
+        {
+            ProductInsertVM proudctInsertVM = new ProductInsertVM();
+            ViewBag.categories = await _categoryManager.GetAllAsync(null);
+            ViewBag.parentCategories = await _parentCategoryManager.GetAllAsync(null);
+            return View(proudctInsertVM);
+
         }
 
         [HttpPost]
         public async Task<IActionResult> Create(ProductInsertVM productVM, string price, int parentCategoryId)
         {
-            if (!decimal.TryParse(price, NumberStyles.Any, CultureInfo.InvariantCulture, out var parsedPrice))
-            {
-                ModelState.AddModelError("Price", "Fiyat alanı geçerli bir sayı olmalıdır.");
-                ViewBag.Categories = await _categoryManager.GetAllAsync(c => c.ParentCategoryId == parentCategoryId);
-                return View(productVM);
-            }
 
             productVM.Price = parsedPrice;
 
-            // Doğrulama
-            var validator = new ProductValidatorInsert();
-            ValidationResult results = await validator.ValidateAsync(productVM);
+            //}
+            var product = _mapper.Map<Product>(productVM);
 
-            if (!results.IsValid)
+            if (productVM.ProductPhotoPath != null)
             {
-                foreach (var failure in results.Errors)
+                var resource = Directory.GetCurrentDirectory();
+                var extension = Path.GetExtension(productVM.ProductPhotoPath.FileName);
+                var imagename = Guid.NewGuid() + extension;
+                var savelocation = Path.Combine(resource, "wwwroot", "productimage", imagename);
+                using (var stream = new FileStream(savelocation, FileMode.Create))
                 {
-                    ModelState.AddModelError(failure.PropertyName, failure.ErrorMessage);
+                    await productVM.ProductPhotoPath.CopyToAsync(stream);
                 }
-                ViewBag.Categories = await _categoryManager.GetAllAsync(c => c.ParentCategoryId == parentCategoryId);
-                return View(productVM);
+                product.ProductPhotoPath = imagename;
             }
 
-            var product = _mapper.Map<Product>(productVM);
             await _productManager.AddAsync(product);
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("Index");
         }
 
 
@@ -98,61 +131,37 @@ namespace AtlantisPetMarket.Controllers
                 return NotFound();
             }
             var viewModel = _mapper.Map<ProductUpdateVM>(product);
-
-            // ParentCategoryId'yi kontrol edin ve eğer null ise, product'dan alın
-            int effectiveParentCategoryId = parentCategoryId ?? product.ParentCategoryId;
-
-            ViewBag.Categories = await _categoryManager.GetAllAsync(c => c.ParentCategoryId == effectiveParentCategoryId);
-            ViewBag.ParentCategoryId = effectiveParentCategoryId; // ParentCategoryId'yi ViewBag'e ekleyin
+            ViewBag.Categories = await _categoryManager.GetAllAsync(null);
 
             Category category = await _categoryManager.FindAsync(product.CategoryId);
             ViewBag.CategoryName = category.CategoryName;
+            ViewBag.ParentCategories = await _parentCategoryManager.GetAllAsync(null);
+            ParentCategory parentCategory = await _parentCategoryManager.FindAsync(product.ParentCategoryId);
+            ViewBag.ParentCategoryName = parentCategory.ParentCategoryName;
+
             return View(viewModel);
+
         }
-
-
-
         [HttpPost]
-        public async Task<IActionResult> Update(ProductUpdateVM model, string price, int parentCategoryId)
+        public async Task<IActionResult> Update(ProductUpdateVM productUpdateVM, int id)
         {
-            if (!decimal.TryParse(price, NumberStyles.Any, CultureInfo.InvariantCulture, out var parsedPrice))
-            {
-                ModelState.AddModelError("Price", "Fiyat alanı geçerli bir sayı olmalıdır.");
-                ViewBag.Categories = await _categoryManager.GetAllAsync(c => c.ParentCategoryId == parentCategoryId);
-                ViewBag.ParentCategoryId = parentCategoryId; // ParentCategoryId'yi ViewBag'e ekleyin
-                return View(model);
-            }
 
-            model.Price = parsedPrice;
-
-            // Doğrulama
-            ValidationResult results = await _validator.ValidateAsync(model);
-
-            if (!results.IsValid)
-            {
-                foreach (var failure in results.Errors)
-                {
-                    ModelState.AddModelError(failure.PropertyName, failure.ErrorMessage);
-                }
-                ViewBag.Categories = await _categoryManager.GetAllAsync(c => c.ParentCategoryId == parentCategoryId);
-                ViewBag.ParentCategoryId = parentCategoryId; // ParentCategoryId'yi ViewBag'e ekleyin
-                return View(model);
-            }
-
-            var product = await _productManager.FindAsync(model.Id);
+            var product = await _productManager.FindAsync(id);
             if (product == null)
             {
-                return NotFound();
+                // Eğer yeni bir resim seçilmemişse, mevcut resmi kullan
+                product.ProductPhotoPath = productUpdateVM.ProductPhotoPath;
             }
-
-            product = _mapper.Map(model, product);
+            //var result = _validator.Validate(productUpdateVM);
+            //if (!result.IsValid)
+            //{
+            //    return BadRequest(result.Errors);
+            //}
+            _mapper.Map(productUpdateVM, product);
             await _productManager.UpdateAsync(product);
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("Index");
+
         }
-
-
-
-
         [HttpPost]
         public async Task<IActionResult> Delete(int id)
         {

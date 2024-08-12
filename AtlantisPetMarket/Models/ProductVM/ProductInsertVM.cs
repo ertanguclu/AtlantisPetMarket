@@ -8,7 +8,7 @@
         public decimal Price { get; set; }
         public string ProductCode { get; set; }
         public int StockQuantity { get; set; }
-        public string ProductPhotoPath { get; set; }
+        public IFormFile ProductPhotoPath { get; set; }
 
         public string? Color { get; set; }
         public int CategoryId { get; set; }

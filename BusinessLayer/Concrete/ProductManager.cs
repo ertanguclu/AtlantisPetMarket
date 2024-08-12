@@ -1,6 +1,7 @@
 ﻿using BusinessLayer.Abstract;
 using EntityLayer.Models.Concrete;
 using Microsoft.EntityFrameworkCore;
+using System.Linq.Expressions;
 
 namespace BusinessLayer.Concrete
 {
@@ -11,5 +12,29 @@ namespace BusinessLayer.Concrete
         public ProductManager(TContext context) : base(context)
         {
         }
+
+        public async Task<IEnumerable<T>> GetProductsByCategoryAsync(Expression<Func<T, bool>>? filter, params Expression<Func<T, object>>[] include)
+        {
+            IQueryable<T> query = context.Set<T>();
+
+            if (filter != null)
+            {
+                query = query.Where(filter);
+            }
+
+            return await include.Aggregate(query, (current, includeProperty) => current.Include(includeProperty)).ToListAsync();
+        }
+
+        public IQueryable<Product> GetProducts()
+        {
+            var products = context.Set<Product>()
+                    .Include(p => p.Category)
+                    .Include(p => p.ParentCategory)
+
+                    .AsNoTracking() // Çekilen datayi izleme
+                    .AsQueryable(); // Sorgu taslagi olarak ver
+            return products;
+        }
+
     }
 }

@@ -1,6 +1,4 @@
 using AtlantisPetMarket.AutoMapperConfig;
-using AtlantisPetMarket.Models.ProductVM;
-using AtlantisPetMarket.ValidationsRules;
 using BusinessLayer.Abstract;
 using BusinessLayer.Concrete;
 using EntityLayer.DbContexts;
@@ -21,6 +19,12 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 // Managers and services
 builder.Services.AddScoped<IProductManager<AppDbContext, Product, int>, ProductManager<AppDbContext, Product, int>>();
 builder.Services.AddScoped<ICategoryManager<AppDbContext, Category, int>, CategoryManager<AppDbContext, Category, int>>();
+builder.Services.AddScoped<IParentCategoryManager<AppDbContext, ParentCategory, int>, ParentCategoryManager<AppDbContext, ParentCategory, int>>();
+builder.Services.AddScoped<IContactManager<AppDbContext, Contact, int>, ContactManager<AppDbContext, Contact, int>>();
+builder.Services.AddScoped<ISocialMediaManager<AppDbContext, SocialMedia, int>, SocialMediaManager<AppDbContext, SocialMedia, int>>();
+builder.Services.AddScoped<ICartManager<AppDbContext, Cart, int>, CartManager<AppDbContext, Cart, int>>();
+builder.Services.AddScoped<ICartItemManager<AppDbContext, CartItem, int>, CartItemManager<AppDbContext, CartItem, int>>();
+
 
 // AutoMapper
 builder.Services.AddAutoMapper(typeof(MapperConfig));
@@ -29,14 +33,14 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddControllersWithViews(options => options.SuppressImplicitRequiredAttributeForNonNullableReferenceTypes = true);
 
 // FluentValidation
-builder.Services.AddScoped<IValidator<ProductUpdateVM>, ProductValidator>();
+
 builder.Services.AddFluentValidationClientsideAdapters();
 builder.Services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
 
 
 
 // Identity
-builder.Services.AddIdentity<MyUser, UserRole>()
+builder.Services.AddIdentity<User, UserRole>()
     .AddEntityFrameworkStores<AppDbContext>();
 
 var app = builder.Build();
@@ -44,13 +48,6 @@ var app = builder.Build();
 var cultureInfo = new CultureInfo("tr-TR");
 CultureInfo.DefaultThreadCurrentCulture = cultureInfo;
 CultureInfo.DefaultThreadCurrentUICulture = cultureInfo;
-
-app.UseRequestLocalization(new RequestLocalizationOptions
-{
-    DefaultRequestCulture = new Microsoft.AspNetCore.Localization.RequestCulture(cultureInfo),
-    SupportedCultures = new List<CultureInfo> { cultureInfo },
-    SupportedUICultures = new List<CultureInfo> { cultureInfo }
-});
 
 // Configure the HTTP request pipeline
 if (!app.Environment.IsDevelopment())
@@ -65,14 +62,17 @@ app.UseRouting();
 app.UseAuthentication(); // Add authentication middleware
 app.UseAuthorization();
 
+
 app.MapControllerRoute(
     name: "areas",
     pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
 );
-
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{controller=Home}/{action=Index}/{id?}"
+);
+
+
 
 
 

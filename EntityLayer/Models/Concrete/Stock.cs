@@ -20,6 +20,5 @@
 //        public int Quantity { get; set; }
 //        public string Unit { get; set; }
 //        public List<Category> Categories { get; set; }
-//        public List<Photo> Photos { get; set; }
 //    }
 //}

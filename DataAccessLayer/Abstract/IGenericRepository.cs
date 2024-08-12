@@ -28,9 +28,15 @@ namespace DataAccessLayer.Abstract
 
 
         public Task<IEnumerable<T>> GetAllIncludeAsync(
-            Expression<Func<T, bool>>? filter, // Burasi sorgu icin gerekli predicate
+            Expression<Func<T, bool>>? filter,
             params Expression<Func<T, object>>[] include); // join atilacak entity'lerin listesi);
         //Belirtilen filtre koşulunu ve ilişkili nesneleri (include listesi) kullanarak T tipindeki nesneleri asenkron olarak getirmek için kullanılır.
         //Bu genellikle ilişkili tablolarda (join işlemleri) veri almak için kullanılır. Sonuç olarak IEnumerable<T> döner.
+
+
+        public IQueryable<T> GetAllInclude(
+            Expression<Func<T, bool>>? filter = null,
+            params Expression<Func<T, object>>[] includeProperties);
+
     }
 }

@@ -19,6 +19,95 @@ namespace EntityLayer.Migrations
                 .HasAnnotation("ProductVersion", "8.0.7")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
+            modelBuilder.Entity("EntityLayer.Models.Concrete.Address", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("City")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+                        .HasColumnType("varchar(50)");
+
+                    b.Property<string>("Country")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<DateTime>("CreateDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("PostalCode")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("State")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Street")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Addresses");
+                });
+
+            modelBuilder.Entity("EntityLayer.Models.Concrete.Cart", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreateDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<DateTime>("CreateDateTime")
+                        .HasColumnType("datetime(6)");
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+                    b.HasIndex("MyUserId1");
+
+                    b.HasIndex("UserId");
+                    b.ToTable("Carts");
+                    b.ToTable("Categories");
+                });
+
+            modelBuilder.Entity("EntityLayer.Models.Concrete.CartItem", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<int>("CartId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreateDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CartId");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("CartItems");
+                });
+
             modelBuilder.Entity("EntityLayer.Models.Concrete.Category", b =>
                 {
                     b.Property<int>("Id")
@@ -27,7 +116,8 @@ namespace EntityLayer.Migrations
 
                     b.Property<string>("CategoryName")
                         .IsRequired()
-                        .HasColumnType("varchar(255)");
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)");
 
                     b.Property<string>("CategoryPhotoPath")
                         .IsRequired()
@@ -36,28 +126,276 @@ namespace EntityLayer.Migrations
                     b.Property<DateTime>("CreateDate")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<string>("MyUserId")
-                        .HasColumnType("longtext");
-
-                    b.Property<int?>("MyUserId1")
-                        .HasColumnType("int");
-
                     b.Property<int>("ParentCategoryId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("MyUserId1");
-
                     b.HasIndex("ParentCategoryId");
-
-                    b.HasIndex("CategoryName", "ParentCategoryId")
-                        .IsUnique();
 
                     b.ToTable("Categories");
                 });
 
-            modelBuilder.Entity("EntityLayer.Models.Concrete.MyUser", b =>
+            modelBuilder.Entity("EntityLayer.Models.Concrete.Contact", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<DateTime>("CreateDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Phone")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("SellerName")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Contacts");
+                });
+
+            modelBuilder.Entity("EntityLayer.Models.Concrete.Order", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<int?>("CartId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreateDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<decimal>("OrderAmount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<DateTime>("OrderDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CartId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Orders");
+                });
+
+            modelBuilder.Entity("EntityLayer.Models.Concrete.OrderItem", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreateDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int>("OrderId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("UnitPrice")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("OrderId");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("OrderItems");
+                });
+
+            modelBuilder.Entity("EntityLayer.Models.Concrete.ParentCategory", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreateDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("ParentCategoryName")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("varchar(20)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ParentCategories");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CreateDate = new DateTime(2024, 8, 7, 19, 19, 16, 921, DateTimeKind.Local).AddTicks(2090),
+                            ParentCategoryName = "Kedi"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CreateDate = new DateTime(2024, 8, 7, 19, 19, 16, 921, DateTimeKind.Local).AddTicks(2092),
+                            ParentCategoryName = "Köpek"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CreateDate = new DateTime(2024, 8, 7, 19, 19, 16, 921, DateTimeKind.Local).AddTicks(2094),
+                            ParentCategoryName = "Kuş"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            CreateDate = new DateTime(2024, 8, 7, 19, 19, 16, 921, DateTimeKind.Local).AddTicks(2095),
+                            ParentCategoryName = "Balık"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            CreateDate = new DateTime(2024, 8, 7, 19, 19, 16, 921, DateTimeKind.Local).AddTicks(2097),
+                            ParentCategoryName = "Kemirgen"
+                        });
+                });
+
+            modelBuilder.Entity("EntityLayer.Models.Concrete.Product", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("Brand")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Color")
+                        .HasColumnType("longtext");
+
+                    b.Property<DateTime>("CreateDate")
+                        .HasColumnType("datetime(6)");
+
+                        .HasMaxLength(150)
+                        .HasColumnType("varchar(150)");
+                        .HasMaxLength(150)
+                        .HasColumnType("varchar(150)");
+
+                    b.Property<int>("ParentCategoryId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("ProductCode")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)");
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("ProductPhotoPath")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<int>("StockQuantity")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CategoryId");
+
+                    b.HasIndex("ParentCategoryId");
+
+                    b.ToTable("Products");
+                });
+
+            modelBuilder.Entity("EntityLayer.Models.Concrete.Review", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("Comment")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<DateTime>("CreateDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Rating")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("ReviewDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Reviews");
+                });
+
+            modelBuilder.Entity("EntityLayer.Models.Concrete.SocialMedia", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreateDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("Icon")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100)");
+
+                    b.Property<string>("Url")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("varchar(200)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("SocialMedia", (string)null);
+                });
+
+            modelBuilder.Entity("EntityLayer.Models.Concrete.User", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -69,21 +407,21 @@ namespace EntityLayer.Migrations
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
 
-                    b.Property<bool?>("Cinsiyet")
-                        .HasColumnType("tinyint(1)");
+                    b.Property<DateTime?>("BirthDate")
+                        .HasColumnType("datetime(6)");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
                         .HasColumnType("longtext");
-
-                    b.Property<DateTime?>("DogumTarihi")
-                        .HasColumnType("datetime(6)");
 
                     b.Property<string>("Email")
                         .HasMaxLength(256)
                         .HasColumnType("varchar(256)");
 
                     b.Property<bool>("EmailConfirmed")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<bool?>("Gender")
                         .HasColumnType("tinyint(1)");
 
                     b.Property<string>("ImagePath")
@@ -143,93 +481,6 @@ namespace EntityLayer.Migrations
                         .HasDatabaseName("UserNameIndex");
 
                     b.ToTable("AspNetUsers", (string)null);
-                });
-
-            modelBuilder.Entity("EntityLayer.Models.Concrete.ParentCategory", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("CreateDate")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<string>("MyUserId")
-                        .HasColumnType("longtext");
-
-                    b.Property<int?>("MyUserId1")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ParentCategoryName")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("MyUserId1");
-
-                    b.ToTable("ParentCategories");
-                });
-
-            modelBuilder.Entity("EntityLayer.Models.Concrete.Product", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<string>("Brand")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<int>("CategoryId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Color")
-                        .HasColumnType("longtext");
-
-                    b.Property<DateTime>("CreateDate")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("MyUserId")
-                        .HasColumnType("longtext");
-
-                    b.Property<int?>("MyUserId1")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ParentCategoryId")
-                        .HasColumnType("int");
-
-                    b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<string>("ProductCode")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("ProductName")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("ProductPhotoPath")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<int>("StockQuantity")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CategoryId");
-
-                    b.HasIndex("MyUserId1");
-
-                    b.HasIndex("ParentCategoryId");
-
-                    b.ToTable("Products");
                 });
 
             modelBuilder.Entity("EntityLayer.Models.Concrete.UserRole", b =>
@@ -358,30 +609,92 @@ namespace EntityLayer.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("EntityLayer.Models.Concrete.Address", b =>
+                {
+                    b.HasOne("EntityLayer.Models.Concrete.User", "User")
+                        .WithMany("Addresses")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("EntityLayer.Models.Concrete.Cart", b =>
+                {
+                    b.HasOne("EntityLayer.Models.Concrete.User", "User")
+                        .WithMany("Carts")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("EntityLayer.Models.Concrete.CartItem", b =>
+                {
+                    b.HasOne("EntityLayer.Models.Concrete.Cart", "Cart")
+                        .WithMany("CartItems")
+                        .HasForeignKey("CartId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("EntityLayer.Models.Concrete.Product", "Product")
+                        .WithMany("CardItems")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Cart");
+
+                    b.Navigation("Product");
+                });
+
             modelBuilder.Entity("EntityLayer.Models.Concrete.Category", b =>
                 {
-                    b.HasOne("EntityLayer.Models.Concrete.MyUser", "MyUser")
-                        .WithMany()
-                        .HasForeignKey("MyUserId1");
-
                     b.HasOne("EntityLayer.Models.Concrete.ParentCategory", "ParentCategory")
                         .WithMany("Categories")
                         .HasForeignKey("ParentCategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("MyUser");
-
                     b.Navigation("ParentCategory");
                 });
 
-            modelBuilder.Entity("EntityLayer.Models.Concrete.ParentCategory", b =>
+            modelBuilder.Entity("EntityLayer.Models.Concrete.Order", b =>
                 {
-                    b.HasOne("EntityLayer.Models.Concrete.MyUser", "MyUser")
-                        .WithMany()
-                        .HasForeignKey("MyUserId1");
+                    b.HasOne("EntityLayer.Models.Concrete.Cart", "Cart")
+                        .WithMany("Orders")
+                        .HasForeignKey("CartId");
 
-                    b.Navigation("MyUser");
+                    b.HasOne("EntityLayer.Models.Concrete.User", "User")
+                        .WithMany("Orders")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Cart");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("EntityLayer.Models.Concrete.OrderItem", b =>
+                {
+                    b.HasOne("EntityLayer.Models.Concrete.Order", "Order")
+                        .WithMany()
+                        .HasForeignKey("OrderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("EntityLayer.Models.Concrete.Product", "Product")
+                        .WithMany("OrderItems")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Order");
+
+                    b.Navigation("Product");
                 });
 
             modelBuilder.Entity("EntityLayer.Models.Concrete.Product", b =>
@@ -392,10 +705,6 @@ namespace EntityLayer.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("EntityLayer.Models.Concrete.MyUser", "MyUser")
-                        .WithMany()
-                        .HasForeignKey("MyUserId1");
-
                     b.HasOne("EntityLayer.Models.Concrete.ParentCategory", "ParentCategory")
                         .WithMany()
                         .HasForeignKey("ParentCategoryId")
@@ -404,9 +713,26 @@ namespace EntityLayer.Migrations
 
                     b.Navigation("Category");
 
-                    b.Navigation("MyUser");
-
                     b.Navigation("ParentCategory");
+                });
+
+            modelBuilder.Entity("EntityLayer.Models.Concrete.Review", b =>
+                {
+                    b.HasOne("EntityLayer.Models.Concrete.Product", "Product")
+                        .WithMany("Reviews")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("EntityLayer.Models.Concrete.User", "User")
+                        .WithMany("Reviews")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Product");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
@@ -420,7 +746,7 @@ namespace EntityLayer.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<int>", b =>
                 {
-                    b.HasOne("EntityLayer.Models.Concrete.MyUser", null)
+                    b.HasOne("EntityLayer.Models.Concrete.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -429,7 +755,7 @@ namespace EntityLayer.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<int>", b =>
                 {
-                    b.HasOne("EntityLayer.Models.Concrete.MyUser", null)
+                    b.HasOne("EntityLayer.Models.Concrete.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -444,7 +770,7 @@ namespace EntityLayer.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("EntityLayer.Models.Concrete.MyUser", null)
+                    b.HasOne("EntityLayer.Models.Concrete.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -453,11 +779,18 @@ namespace EntityLayer.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<int>", b =>
                 {
-                    b.HasOne("EntityLayer.Models.Concrete.MyUser", null)
+                    b.HasOne("EntityLayer.Models.Concrete.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("EntityLayer.Models.Concrete.Cart", b =>
+                {
+                    b.Navigation("CartItems");
+
+                    b.Navigation("Orders");
                 });
 
             modelBuilder.Entity("EntityLayer.Models.Concrete.Category", b =>
@@ -468,6 +801,26 @@ namespace EntityLayer.Migrations
             modelBuilder.Entity("EntityLayer.Models.Concrete.ParentCategory", b =>
                 {
                     b.Navigation("Categories");
+                });
+
+            modelBuilder.Entity("EntityLayer.Models.Concrete.Product", b =>
+                {
+                    b.Navigation("CardItems");
+
+                    b.Navigation("OrderItems");
+
+                    b.Navigation("Reviews");
+                });
+
+            modelBuilder.Entity("EntityLayer.Models.Concrete.User", b =>
+                {
+                    b.Navigation("Addresses");
+
+                    b.Navigation("Carts");
+
+                    b.Navigation("Orders");
+
+                    b.Navigation("Reviews");
                 });
 #pragma warning restore 612, 618
         }
