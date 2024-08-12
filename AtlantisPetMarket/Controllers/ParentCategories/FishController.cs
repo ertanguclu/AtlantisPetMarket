@@ -6,6 +6,7 @@ using EntityLayer.DbContexts;
 using EntityLayer.Models.Concrete;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
+using BusinessLayer.Models.CartViewModel;
 
 namespace AtlantisPetMarket.Controllers.ParentCategories
 {
@@ -33,7 +34,7 @@ namespace AtlantisPetMarket.Controllers.ParentCategories
             }
 
             var products = await _productManager.GetAllAsync(p => p.ParentCategoryId == fishCategory.Id);
-            var fishViewModel = _mapper.Map<IEnumerable<ProductListVM>>(products);
+            var fishViewModel = _mapper.Map<IEnumerable<ProductCartVM>>(products);
 
             return View(fishViewModel);
         }

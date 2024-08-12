@@ -1,4 +1,5 @@
-﻿@model IEnumerable<BusinessLayer.Models.ProductVM.ProductListVM>
+﻿@model IEnumerable<BusinessLayer.Models.CartViewModel.ProductCartVM>
+
 
 @{
     ViewData["Title"] = "Ürünler";
@@ -32,11 +33,17 @@
                             <h3 class="secondary-font text-primary">@item.Price</h3>
 
                             <div class="d-flex flex-wrap mt-3">
-                                <form asp-controller="CartItem" asp-action="CreateOrUpdate" method="post">
+                                <form asp-controller="Cart" asp-action="Create" asp-route-id="@item.Id" method="post">
+                                    <input type="hidden" name="ProductId" value="@item.Id" />
+                                    <input type="hidden" name="Quantity" value="1" /> <!-- Varsayılan olarak 1 ekleniyor -->
                                     <button type="submit" class="btn-cart px-4 py-3">
                                         <h5 class="text-uppercase m-0">Add to Cart</h5>
                                     </button>
                                 </form>
+
+
+
+
                             </div>
                         </div>
                     </div>

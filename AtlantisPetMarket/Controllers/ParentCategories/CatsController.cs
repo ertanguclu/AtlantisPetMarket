@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using BusinessLayer.Abstract;
+using BusinessLayer.Models.CartViewModel;
 using BusinessLayer.Models.ProductVM;
 using EntityLayer.DbContexts;
 using EntityLayer.Models.Concrete;
@@ -30,7 +31,7 @@ namespace AtlantisPetMarket.Controllers.ParentCategories
             }
 
             var products = await _productManager.GetAllAsync(p => p.ParentCategoryId == catCategory.Id);
-            var catsViewModel = _mapper.Map<IEnumerable<ProductListVM>>(products);
+            var catsViewModel = _mapper.Map<IEnumerable<ProductCartVM>>(products);
 
             return View(catsViewModel);
         }
