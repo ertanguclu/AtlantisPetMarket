@@ -57,7 +57,7 @@ namespace AtlantisPetMarket.Controllers
             //var birdViewModel = _mapper.Map<IEnumerable<ProductCartVM>>(products);
 
             var cartVM = _mapper.Map<ProductCartVM>(cart);
-            cartVM.CartItems = cartItemVMs; 
+            cartVM.CartItems = cartItemVMs;
 
             return View(cartVM);
         }
@@ -74,18 +74,14 @@ namespace AtlantisPetMarket.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(ProductCartVM productCartVM)
         {
-            
             var userId = User.Identity.IsAuthenticated ? Convert.ToInt32(User.FindFirstValue(ClaimTypes.NameIdentifier)) : -1;
 
-            
             var existingCart = await _cartManager.GetCartByUserIdAsync(userId);
 
             if (existingCart == null)
             {
-                var newCart = new Cart
-                {
-                    UserId = userId 
-                };
+                var newCart = _mapper.Map<Cart>(productCartVM);
+                newCart.UserId = userId;
 
                 await _cartManager.AddAsync(newCart);
                 productCartVM.CartId = newCart.Id;
@@ -95,12 +91,7 @@ namespace AtlantisPetMarket.Controllers
                 productCartVM.CartId = existingCart.Id;
             }
 
-            var cartItem = new CartItem
-            {
-                CartId = productCartVM.CartId,
-                ProductId = productCartVM.ProductId,
-                Quantity = productCartVM.Quantity
-            };
+            var cartItem = _mapper.Map<CartItem>(productCartVM);
 
             await _cartItemManager.AddAsync(cartItem);
 
@@ -133,9 +124,9 @@ namespace AtlantisPetMarket.Controllers
             return RedirectToAction("Index", new { id = cartId });
         }
 
-        public async Task <IActionResult> EmptyCart()
+        public async Task<IActionResult> EmptyCart()
         {
-            
+
             return View();
         }
 
