@@ -29,10 +29,10 @@
                 @foreach (var item in Model.CartItems)
                 {
                     <tr>
-                        <td>@item.ProductName</td>
+                        <td>@item.Product.ProductName</td>
                         <td>@item.Quantity</td>
-                        <td>@item.Price.ToString("C")</td>
-                        <td>@(item.Quantity * item.Price).ToString("C")</td>
+                        <td>@item.Product.Price</td>
+                        <td>@(item.Quantity * item.Product.Price)</td>
                         <td>
                             <form asp-action="Delete" asp-route-cartItemId="@item.Id" asp-route-cartId="@item.CartId" method="post">
                                 <button type="submit" class="remove-btn">Kaldır</button>
@@ -44,7 +44,7 @@
             </tbody>
         </table>
         <div class="cart-summary">
-            <p><strong>Toplam Tutar:</strong> @Model.CartItems.Sum(i => i.Quantity * i.Price).ToString("C")</p>
+            <p><strong>Toplam Tutar:</strong> @Model.CartItems.Sum(i => i.Quantity * i.Product.Price)</p>
             <form asp-action="Checkout" method="post">
                 <button type="submit" class="checkout-btn">Ödeme Yap</button>
             </form>

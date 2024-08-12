@@ -39,20 +39,22 @@ namespace AtlantisPetMarket.Controllers
                 x => x.Product
             );
 
-            var cartItemVMs = new List<CartItemViewModel>();
-            foreach (var item in cartItems)
-            {
-                var cartItemVM = new CartItemViewModel
-                {
-                    ProductId = item.Product.Id,
-                    ProductName = item.Product.ProductName,
-                    Quantity = item.Quantity,
-                    Price = item.Product.Price,
-                    CartId = item.CartId,  
-                    Id = item.Id           
-                };
-                cartItemVMs.Add(cartItemVM);
-            }
+            //var cartItemVMs = new List<CartItemViewModel>();
+            //foreach (var item in cartItems)
+            //{
+            //    var cartItemVM = new CartItemViewModel
+            //    {
+            //        ProductId = item.Product.Id,
+            //        ProductName = item.Product.ProductName,
+            //        Quantity = item.Quantity,
+            //        Price = item.Product.Price,
+            //        CartId = item.CartId,  
+            //        Id = item.Id           
+            //    };
+            //    cartItemVMs.Add(cartItemVM);
+            //}
+            var cartItemVMs = _mapper.Map<List<CartItemViewModel>>(cartItems);
+            //var birdViewModel = _mapper.Map<IEnumerable<ProductCartVM>>(products);
 
             var cartVM = _mapper.Map<ProductCartVM>(cart);
             cartVM.CartItems = cartItemVMs; 
