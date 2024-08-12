@@ -154,7 +154,7 @@ namespace AtlantisPetMarket.Controllers
                 return NotFound();
             }
 
-            cartItem.Quantity += 1; // Miktarı bir artır
+            cartItem.Quantity += 1; 
             await _cartItemManager.UpdateAsync(cartItem);
 
             return RedirectToAction("Index", new { id = cartItem.CartId });
