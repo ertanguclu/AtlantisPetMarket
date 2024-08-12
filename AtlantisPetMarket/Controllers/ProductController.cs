@@ -98,7 +98,9 @@ namespace AtlantisPetMarket.Controllers
         public async Task<IActionResult> Create(ProductInsertVM productVM, string price, int parentCategoryId)
         {
 
-            productVM.Price = parsedPrice;
+
+
+            //productVM.Price = parsedPrice;
 
             //}
             var product = _mapper.Map<Product>(productVM);
