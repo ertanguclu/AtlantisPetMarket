@@ -14,7 +14,7 @@ namespace AtlantisPetMarket.Controllers
 
     public class ProductController : Controller
     {
-        private readonly AppDbContext _context;
+      
 
         private readonly IProductManager<AppDbContext, Product, int> _productManager;
         private readonly ICategoryManager<AppDbContext, Category, int> _categoryManager;
@@ -26,7 +26,7 @@ namespace AtlantisPetMarket.Controllers
         public ProductController(IProductManager<AppDbContext, Product, int> productManager,
             ICategoryManager<AppDbContext, Category, int> categoryManager, IParentCategoryManager<AppDbContext, ParentCategory, int> parentCategory, IMapper mapper, IValidator<ProductInsertVM> insertValidator, IValidator<ProductUpdateVM> updateValidator)
         {
-            _context = context;
+            
             _productManager = productManager;
             _categoryManager = categoryManager;
             _parentCategoryManager = parentCategory;
@@ -55,9 +55,12 @@ namespace AtlantisPetMarket.Controllers
 
         public IActionResult Index()
         {
-            var products = await _productManager.GetAllIncludeAsync(x => x.CategoryId == id, x => x.Category, x => x.ParentCategory);
-            var vmProducts = _mapper.Map<IEnumerable<ProductListVM>>(products);
-            return View(vmProducts);
+            //var products = await _productManager.GetAllIncludeAsync(x => x.CategoryId == id, x => x.Category, x => x.ParentCategory);
+            //var vmProducts = _mapper.Map<IEnumerable<ProductListVM>>(products);
+            //return View(vmProducts);
+
+
+
 
             //#region Metod Syntax ile Queryable Sorgu olustuma
             //var products = _context.Products
@@ -192,21 +195,27 @@ namespace AtlantisPetMarket.Controllers
 
             productUpdateVM.Price = parsedPrice;
 
-            var product = await _productManager.FindAsync(id);
-            if (product == null)
+            var product = _mapper.Map<Product>(productUpdateVM);
+            if (productUpdateVM.ProductPhotoUpdate != null)
+            {
+                var resource = Directory.GetCurrentDirectory();
+                var extension = Path.GetExtension(productUpdateVM.ProductPhotoUpdate.FileName);
+                var imagename = Guid.NewGuid() + extension;
+                var savelocation = Path.Combine(resource, "wwwroot", "productimage", imagename);
+                using (var stream = new FileStream(savelocation, FileMode.Create))
+                {
+                    await productUpdateVM.ProductPhotoUpdate.CopyToAsync(stream);
+                }
+                product.ProductPhotoPath = imagename;
+            }
+            else
             {
                 // Eğer yeni bir resim seçilmemişse, mevcut resmi kullan
                 product.ProductPhotoPath = productUpdateVM.ProductPhotoPath;
             }
-            //var result = _validator.Validate(productUpdateVM);
-            //if (!result.IsValid)
-            //{
-            //    return BadRequest(result.Errors);
-            //}
-            _mapper.Map(productUpdateVM, product);
             await _productManager.UpdateAsync(product);
-            return RedirectToAction("Index");
 
+            return RedirectToAction(nameof(Index));
         }
         [HttpPost]
         public async Task<IActionResult> Delete(int id)
