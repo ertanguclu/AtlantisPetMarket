@@ -3,11 +3,11 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore;
 using EntityLayer.Config.Abstract;
 
-public class CategoryConfig : BaseConfig<Category>
+public class AddressConfig : BaseConfig<Address>
 {
-    public void Configure(EntityTypeBuilder<Address> builder)
+    public override void Configure(EntityTypeBuilder<Address> builder)
     {
-        builder.HasKey(a => a.Id);
+        base.Configure(builder);
         builder.Property(a => a.Street).IsRequired().HasMaxLength(255);
         builder.Property(a => a.City).IsRequired().HasMaxLength(100);
         builder.Property(a => a.State).HasMaxLength(100);

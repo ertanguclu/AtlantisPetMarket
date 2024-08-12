@@ -24,5 +24,17 @@ namespace BusinessLayer.Concrete
 
             return await include.Aggregate(query, (current, includeProperty) => current.Include(includeProperty)).ToListAsync();
         }
+
+        public IQueryable<Product> GetProducts()
+        {
+            var products = context.Set<Product>()
+                    .Include(p => p.Category)
+                    .Include(p => p.ParentCategory)
+
+                    .AsNoTracking() // Çekilen datayi izleme
+                    .AsQueryable(); // Sorgu taslagi olarak ver
+            return products;
+        }
+
     }
 }

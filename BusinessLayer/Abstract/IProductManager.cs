@@ -9,5 +9,9 @@ namespace BusinessLayer.Abstract
         where T : Product
     {
         Task<IEnumerable<T>> GetProductsByCategoryAsync(Expression<Func<T, bool>>? filter, params Expression<Func<T, object>>[] include);
+        public IQueryable<Product> GetProducts();
+
     }
+
+
 }

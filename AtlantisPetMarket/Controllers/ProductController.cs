@@ -1,5 +1,6 @@
 ﻿using AtlantisPetMarket.Models.ProductVM;
 using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using BusinessLayer.Abstract;
 using EntityLayer.DbContexts;
 using EntityLayer.Models.Concrete;
@@ -10,7 +11,7 @@ using System.Globalization;
 
 namespace AtlantisPetMarket.Controllers
 {
-    
+
     public class ProductController : Controller
     {
         private readonly AppDbContext _context;
@@ -53,18 +54,27 @@ namespace AtlantisPetMarket.Controllers
         public IActionResult Index()
         {
 
-            #region Metod Syntax ile Queryable Sorgu olustuma
-            var products = _context.Products
-                                .Include(p => p.Category)
-                                .Include(p=>p.ParentCategory)
+            //#region Metod Syntax ile Queryable Sorgu olustuma
+            //var products = _context.Products
+            //                    .Include(p => p.Category)
+            //                    .Include(p => p.ParentCategory)
 
-                                .AsNoTracking() // Çekilen datayi izleme
-                                .AsQueryable(); // Sorgu taslagi olarak ver
+            //                    .AsNoTracking() // Çekilen datayi izleme
+            //                    .AsQueryable(); // Sorgu taslagi olarak ver
 
-            #endregion
 
-            return View(products);
+            //var products = _productManager.GetAllInclude(p=>p.Category,p=>p.ParentCategory);
+
+            //var products = _productManager.GetProducts();
+            //var productsvm = _mapper.Map<ProductListVM>(products);
+            var productsVM = _productManager.GetProducts()
+                                .ProjectTo<ProductListVM>(_mapper.ConfigurationProvider);
+
+            return View(productsVM);
+
+
         }
+
 
 
         [HttpGet]
