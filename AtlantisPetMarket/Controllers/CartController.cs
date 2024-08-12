@@ -28,38 +28,32 @@ namespace AtlantisPetMarket.Controllers
 
         public async Task<IActionResult> Index(int id)
         {
-            var cart = await _cartManager.FindAsync(id);
-            if (cart == null)
+            // Cookie'den gelen CartId'yi al
+            var cartIdFromCookie = Request.Cookies["CartId"];
+
+            if (!string.IsNullOrEmpty(cartIdFromCookie) && int.TryParse(cartIdFromCookie, out var cartIdFromCookieInt))
             {
-                return NotFound();
+                // Cookie'den gelen CartId ile sepeti al
+                var cart = await _cartManager.FindAsync(cartIdFromCookieInt);
+
+                if (cart != null)
+                {
+                    // Sepet var, işleme devam et
+                    var cartItems = await _cartItemManager.GetAllIncludeAsync(
+                        x => x.CartId == cartIdFromCookieInt,
+                        x => x.Product
+                    );
+
+                    var cartItemVMs = _mapper.Map<List<CartItemViewModel>>(cartItems);
+                    var cartVM = _mapper.Map<ProductCartVM>(cart);
+                    cartVM.CartItems = cartItemVMs;
+
+                    return View(cartVM);
+                }
             }
 
-            var cartItems = await _cartItemManager.GetAllIncludeAsync(
-                x => x.CartId == id,
-                x => x.Product
-            );
-
-            //var cartItemVMs = new List<CartItemViewModel>();
-            //foreach (var item in cartItems)
-            //{
-            //    var cartItemVM = new CartItemViewModel
-            //    {
-            //        ProductId = item.Product.Id,
-            //        ProductName = item.Product.ProductName,
-            //        Quantity = item.Quantity,
-            //        Price = item.Product.Price,
-            //        CartId = item.CartId,  
-            //        Id = item.Id           
-            //    };
-            //    cartItemVMs.Add(cartItemVM);
-            //}
-            var cartItemVMs = _mapper.Map<List<CartItemViewModel>>(cartItems);
-            //var birdViewModel = _mapper.Map<IEnumerable<ProductCartVM>>(products);
-
-            var cartVM = _mapper.Map<ProductCartVM>(cart);
-            cartVM.CartItems = cartItemVMs;
-
-            return View(cartVM);
+            // Cookie'den gelen CartId geçerli değilse veya sepet bulunamadıysa
+            return RedirectToAction("EmptyCart");
         }
 
 
@@ -94,6 +88,11 @@ namespace AtlantisPetMarket.Controllers
             var cartItem = _mapper.Map<CartItem>(productCartVM);
 
             await _cartItemManager.AddAsync(cartItem);
+            Response.Cookies.Append("CartId", productCartVM.CartId.ToString(), new CookieOptions
+            {
+                Expires = DateTimeOffset.UtcNow.AddHours(1), // Cookie'nin geçerlilik süresi
+                HttpOnly = true // Cookie'ye sadece sunucu tarafından erişilebilir
+            });
 
             return RedirectToAction("Index", new { id = productCartVM.CartId });
         }
@@ -118,6 +117,7 @@ namespace AtlantisPetMarket.Controllers
                 {
                     await _cartManager.DeleteAsync(cart);
                 }
+                Response.Cookies.Delete("CartId");
                 return RedirectToAction("EmptyCart");
             }
 
