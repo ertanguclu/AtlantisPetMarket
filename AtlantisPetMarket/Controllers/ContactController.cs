@@ -31,15 +31,21 @@ namespace AtlantisPetMarket.Controllers
         [HttpGet]
         public async Task<IActionResult> Create()
         {
-            ContactInsertVM contactVM = new ContactInsertVM();
-
-            return View(contactVM);
-
+            return View();
         }
         [HttpPost]
-        public async Task<IActionResult> Create(Contact contact)
+        public async Task<IActionResult> Create(ContactInsertVM contactInsertVM)
         {
-
+            var result = await _insertValidator.ValidateAsync(contactInsertVM);
+            if (!result.IsValid)
+            {
+                foreach (var error in result.Errors)
+                {
+                    ModelState.AddModelError(error.PropertyName, error.ErrorMessage);
+                }
+                return View(contactInsertVM);
+            }
+            var contact = _mapper.Map<Contact>(contactInsertVM);
             await _contactManager.AddAsync(contact);
             return RedirectToAction("Index");
 
@@ -58,6 +64,15 @@ namespace AtlantisPetMarket.Controllers
         [HttpPost]
         public async Task<IActionResult> Update(ContactUpdateVM contactUpdateVM)
         {
+            var result = await _updateValidator.ValidateAsync(contactUpdateVM);
+            if (!result.IsValid)
+            {
+                foreach (var error in result.Errors)
+                {
+                    ModelState.AddModelError(error.PropertyName, error.ErrorMessage);
+                }
+                return View(contactUpdateVM);
+            }
             var contact = _mapper.Map<Contact>(contactUpdateVM);
             await _contactManager.UpdateAsync(contact);
             return RedirectToAction("Index");
