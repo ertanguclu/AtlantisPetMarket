@@ -39,6 +39,7 @@ namespace AtlantisPetMarket.Controllers
             ViewBag.parentCategories = await _parentCategoryManager.GetAllAsync(null);
             return View();
         }
+
         [HttpPost]
         public async Task<ActionResult> Create(CategoryInsertVM insertVM)
         {
@@ -54,22 +55,6 @@ namespace AtlantisPetMarket.Controllers
 
             }
             var category = _mapper.Map<Category>(insertVM);
-
-            if (insertVM.CategoryPhotoPath != null)
-            {
-                var resource = Directory.GetCurrentDirectory();
-                var extension = Path.GetExtension(insertVM.CategoryPhotoPath.FileName);
-                var imageName = Guid.NewGuid() + extension;
-                var saveLocation = Path.Combine(resource, "wwwroot", "categoryimage", imageName);
-
-                using (var stream = new FileStream(saveLocation, FileMode.Create))
-                {
-                    await insertVM.CategoryPhotoPath.CopyToAsync(stream);
-                }
-
-                // Dosya adını ImagePath alanına atayın
-                category.CategoryPhotoPath = imageName;
-            }
 
             await _categoryManager.AddAsync(category);
             return RedirectToAction("Index");
@@ -114,23 +99,6 @@ namespace AtlantisPetMarket.Controllers
             }
 
             _mapper.Map(categoryUpdateVM, category);
-            if (categoryUpdateVM.CategoryPhotoUpdate != null)
-            {
-                var resource = Directory.GetCurrentDirectory();
-                var extension = Path.GetExtension(categoryUpdateVM.CategoryPhotoUpdate.FileName);
-                var imagename = Guid.NewGuid() + extension;
-                var savelocation = Path.Combine(resource, "wwwroot", "categoryimage", imagename);
-                using (var stream = new FileStream(savelocation, FileMode.Create))
-                {
-                    await categoryUpdateVM.CategoryPhotoUpdate.CopyToAsync(stream);
-                }
-                category.CategoryPhotoPath = imagename;
-            }
-            else
-            {
-                // Eğer yeni bir resim seçilmemişse, mevcut resmi kullan
-                category.CategoryPhotoPath = categoryUpdateVM.CategoryPhotoPath;
-            }
             await _categoryManager.UpdateAsync(category);
             return RedirectToAction("Index");
         }

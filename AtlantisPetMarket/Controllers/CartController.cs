@@ -1,12 +1,11 @@
-﻿using BusinessLayer.Models.CartItemVM;
-using BusinessLayer.Models.CartViewModel;
-using BusinessLayer.Models.ProductVM;
-using AutoMapper;
+﻿using AutoMapper;
 using BusinessLayer.Abstract;
+using BusinessLayer.Models.CartItemVM;
+using BusinessLayer.Models.CartViewModel;
 using EntityLayer.DbContexts;
 using EntityLayer.Models.Concrete;
-using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis;
 using System.Security.Claims;
 
 namespace AtlantisPetMarket.Controllers
@@ -63,8 +62,6 @@ namespace AtlantisPetMarket.Controllers
             ProductCartVM productCartVM = new ProductCartVM();
             return View(productCartVM);
         }
-
-
         [HttpPost]
         public async Task<IActionResult> Create(ProductCartVM productCartVM)
         {
@@ -192,6 +189,7 @@ namespace AtlantisPetMarket.Controllers
 
             return View();
         }
+
 
     }
 }

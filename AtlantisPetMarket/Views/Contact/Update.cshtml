@@ -1,4 +1,4 @@
-﻿@model Contact
+﻿@model ContactUpdateVM
 @{
     ViewData["Title"] = "Update";
     Layout = "~/Views/Shared/_NewAdminLayout.cshtml";
@@ -9,9 +9,10 @@
             <h4>İletişim Güncelle</h4>
             <br />
             <form class="forms-sample" asp-action="Update" asp-controller="Contact" method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <input type="hidden" asp-for="Id" />
                 <div class="form-group">
-                    <label class="control-label">SAtıcı Adı</label>
+                    <label class="control-label">Satıcı Adı</label>
                     <input asp-for="SellerName" class="form-control" />
                     <span asp-validation-for="SellerName" class="text-danger"></span>
                 </div>
@@ -35,4 +36,12 @@
         </div>
     </div>
 </div>
+@section Scripts {
+    @{
+
+        <script src="~/lib/jquery/dist/jquery.min.js"></script>
+        <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+        <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+    }
+}
 

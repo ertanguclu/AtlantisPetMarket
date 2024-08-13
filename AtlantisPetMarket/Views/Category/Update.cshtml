@@ -2,61 +2,45 @@
 
 @{
     ViewData["Title"] = "Update Category";
+    Layout = "~/Views/Shared/_NewAdminLayout.cshtml";
 }
 
-<h2>Update Category</h2>
+<div class="col-12 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <h4>Ürün Güncelle</h4>
+            <br />
+            <form class="forms-sample" asp-action="Update" asp-controller="Category" method="post" enctype="multipart/form-data">
+                <label>Üst Kategori</label>
+                <div>
+                    <select asp-for="ParentCategoryId" class="form-select form-select-sm" aria-label=".form-select-sm example">
+                        @foreach (ParentCategory pcategory in ViewBag.pCategories)
+                        {
+                            @if (pcategory.ParentCategoryName == ViewBag.ParentCategoryName)
+                            {
+                                <option value="@pcategory.Id" selected>@pcategory.ParentCategoryName</option>
+                            }
+                            else
+                            {
+                                <option value="@pcategory.Id">
+                                    @pcategory.ParentCategoryName
+                                </option>
 
-<form asp-action="Update" method="post" enctype="multipart/form-data">
-    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-    <div class="form-group">
-        <label asp-for="CategoryName" class="control-label"></label>
-        <input asp-for="CategoryName" class="form-control" />
-        <span asp-validation-for="CategoryName" class="text-danger"></span>
-    </div>
-
-   @*  <div class="form-group">
-        <label asp-for="CategoryPhotoPath" class="control-label"></label>
-        <input type="file" asp-for="CategoryPhotoPath" class="form-control" />
-        <span asp-validation-for="CategoryPhotoPath" class="text-danger"></span>
-    </div> *@
-    <div class="form-group">
-        <label class="control-label">Resim</label>
-        <input type="file" asp-for="CategoryPhotoUpdate" class="file-upload-default" style="display: none;">
-        <div class="input-group col-xs-12">
-            <input type="text" class="form-control file-upload-info" value="@Model.CategoryPhotoPath" readonly>
-            <span class="input-group-append">
-                <button class="file-upload-browse btn btn-primary" type="button">Yükle</button>
-            </span>
+                            }
+                        }
+                    </select>
+                    <span asp-validation-for="ParentCategoryId" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Kategori Adı</label>
+                    <input asp-for="CategoryName" class="form-control" />
+                    <span asp-validation-for="CategoryName" class="text-danger"></span>
+                </div>
+                <button type="submit" class="btn btn-primary mr-2">Güncelle</button>
+            </form>
         </div>
-        <input type="hidden" asp-for="CategoryPhotoPath" />
-        <span asp-validation-for="CategoryPhotoUpdate" class="text-danger"></span>
     </div>
-
-    <label>Üst Kategori</label>
-    <div>
-        <select asp-for="ParentCategoryId" class="form-select form-select-sm" aria-label=".form-select-sm example">
-            @foreach (ParentCategory pcategory in ViewBag.pCategories)
-            {
-                @if (pcategory.ParentCategoryName == ViewBag.ParentCategoryName)
-                {
-                    <option value="@pcategory.Id" selected>@pcategory.ParentCategoryName</option>
-                }
-                else
-                {
-                    <option value="@pcategory.Id">
-                        @pcategory.ParentCategoryName
-                    </option>
-
-                }
-            }
-        </select>
-        <span asp-validation-for="ParentCategoryId" class="text-danger"></span>
-    </div>
-
-    <div class="form-group">
-        <input type="submit" value="Update" class="btn btn-primary" />
-    </div>
-</form>
+</div>
 
 @section Scripts {
     @{

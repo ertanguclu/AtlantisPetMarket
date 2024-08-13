@@ -1,8 +1,9 @@
-﻿using BusinessLayer.Models.CartItemVM;
+﻿using AutoMapper;
+using BusinessLayer.Models.CartItemVM;
 using BusinessLayer.Models.CartViewModel;
 using BusinessLayer.Models.CategoryVM;
+using BusinessLayer.Models.ContactVM;
 using BusinessLayer.Models.ProductVM;
-using AutoMapper;
 using EntityLayer.Models.Concrete;
 
 namespace BusinessLayer.AutoMapperConfig
@@ -11,11 +12,9 @@ namespace BusinessLayer.AutoMapperConfig
     {
         public MapperConfig()
         {
-            CreateMap<ProductInsertVM, Product>();
-            CreateMap<Product, ProductInsertVM>();
+            CreateMap<Product, ProductInsertVM>().ReverseMap();
 
-            CreateMap<ProductUpdateVM, Product>();
-            CreateMap<Product, ProductUpdateVM>();
+            CreateMap<Product, ProductUpdateVM>().ReverseMap();
             CreateMap<Product, ProductListVM>();
 
             CreateMap<Product, ProductListVM>().ReverseMap();
@@ -24,17 +23,17 @@ namespace BusinessLayer.AutoMapperConfig
             CreateMap<Product, ProductCartVM>().ReverseMap();
             CreateMap<CartItem, ProductCartVM>().ReverseMap();
 
+            CreateMap<Category, CategoryUpdateVM>().ReverseMap();
 
-            CreateMap<CategoryUpdateVM, Category>();
-            CreateMap<Category, CategoryUpdateVM>();
+            CreateMap<Category, CategoryInsertVM>().ReverseMap();
+            CreateMap<CartItem, CartItemViewModel>().ReverseMap();
 
-            CreateMap<CategoryInsertVM, Category>();
-            CreateMap<Category, CategoryInsertVM>();
-            CreateMap<CartItem, CartItemViewModel>();
-            CreateMap<CartItemViewModel, CartItem>();
-            CreateMap<CartVM, Cart>();
-            CreateMap<Cart, CartVM>();
+            CreateMap<Cart, CartVM>().ReverseMap();
             CreateMap<ProductListVM, CartItemViewModel>();
+
+            CreateMap<Contact, ContactListVM>();
+            CreateMap<Contact, ContactInsertVM>().ReverseMap();
+            CreateMap<Contact, ContactUpdateVM>().ReverseMap();
 
 
         }
