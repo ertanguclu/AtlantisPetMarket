@@ -47,11 +47,9 @@ namespace AtlantisPetMarket.Controllers
         [HttpGet]
         public async Task<IActionResult> Create()
         {
-            ProductInsertVM proudctInsertVM = new ProductInsertVM();
             ViewBag.categories = await _categoryManager.GetAllAsync(null);
             ViewBag.parentCategories = await _parentCategoryManager.GetAllAsync(null);
-            return View(proudctInsertVM);
-
+            return View();
         }
 
         [HttpPost]
@@ -68,6 +66,7 @@ namespace AtlantisPetMarket.Controllers
                 }
 
                 ViewBag.Categories = await _categoryManager.GetAllAsync(c => c.ParentCategoryId == parentCategoryId);
+                ViewBag.parentCategories = await _parentCategoryManager.GetAllAsync(null);
                 return View(productInsertVM);
             }
 
