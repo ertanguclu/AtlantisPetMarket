@@ -34,6 +34,7 @@
                     <select asp-for="CategoryId" class="form-select form-select-sm" aria-label=".form-select-sm example">
                         <option value="">Öncelikle Bir Üst Kategori Seçin</option>
                     </select>
+                    <span asp-validation-for="CategoryId" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label class="control-label">Açıklama</label>

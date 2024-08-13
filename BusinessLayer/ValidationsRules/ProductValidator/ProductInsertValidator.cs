@@ -41,6 +41,11 @@ namespace BusinessLayer.ValidationsRules.ProductValidator
 
             RuleFor(x => x.Color)
                     .MaximumLength(50).WithMessage("Renk alanı en fazla 50 karakter olabilir.");
+
+            RuleFor(x => x.CategoryId)
+                    .NotEmpty().WithMessage("Kategori boş geçilemez");
         }
+
+
     }
 }
