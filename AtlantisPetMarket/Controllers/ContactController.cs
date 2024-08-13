@@ -3,6 +3,7 @@ using BusinessLayer.Abstract;
 using BusinessLayer.Models.ContactVM;
 using EntityLayer.DbContexts;
 using EntityLayer.Models.Concrete;
+using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AtlantisPetMarket.Controllers
@@ -11,10 +12,15 @@ namespace AtlantisPetMarket.Controllers
     {
         private readonly IContactManager<AppDbContext, Contact, int> _contactManager;
         private readonly IMapper _mapper;
-        public ContactController(IContactManager<AppDbContext, Contact, int> contactManager, IMapper mapper)
+        private readonly IValidator<ContactInsertVM> _insertValidator;
+        private readonly IValidator<ContactUpdateVM> _updateValidator;
+
+        public ContactController(IContactManager<AppDbContext, Contact, int> contactManager, IMapper mapper, IValidator<ContactInsertVM> insertValidator, IValidator<ContactUpdateVM> updateValidator)
         {
             _contactManager = contactManager;
             _mapper = mapper;
+            _insertValidator = insertValidator;
+            _updateValidator = updateValidator;
         }
         public async Task<ActionResult<IEnumerable<Contact>>> Index()
         {
