@@ -14,7 +14,7 @@
                 <div class="search-bar border rounded-2 px-3 border-dark-subtle">
                     <form id="search-form" class="text-center d-flex align-items-center" action="" method="post">
                         <input type="text" class="form-control border-0 bg-transparent"
-                               placeholder="Search for more than 10,000 products" />
+                               placeholder="200'den fazla üründe arama yapın" />
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                             <path fill="currentColor"
                                   d="M21.71 20.29L18 16.61A9 9 0 1 0 16.61 18l3.68 3.68a1 1 0 0 0 1.42 0a1 1 0 0 0 0-1.39ZM11 18a7 7 0 1 1 7-7a7 7 0 0 1-7 7Z" />
@@ -181,21 +181,17 @@
                             <a class="nav-link dropdown-toggle" style="font-size:17px" role="button" id="pages" data-bs-toggle="dropdown"
                                aria-expanded="false">Kedi</a>
                             <ul class="dropdown-menu" aria-labelledby="pages">
-                                <li>
-                                    <a href="about.html" class="dropdown-item">
-                                        Mama
+                                <li class="dropdown-submenu">
+                                    <a href="#" class="dropdown-item">
+                                        Mama<span class="badge bg-success text-dark ms-2">-></span>
                                     </a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="wet-food.html" class="dropdown-item">Yaş Mama</a></li>
+                                        <li><a href="dry-food.html" class="dropdown-item">Kuru Mama</a></li>
+                                    </ul>
                                 </li>
-                                <li>
-                                    <a href="about.html" class="dropdown-item">
-                                        Oyuncak
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="about.html" class="dropdown-item">
-                                        Aksesuar
-                                    </a>
-                                </li>
+                                <li><a href="toys.html" class="dropdown-item">Oyuncak</a></li>
+                                <li><a href="accessories.html" class="dropdown-item">Aksesuar</a></li>
                             </ul>
                         </li>
                         <li class="nav-item">
@@ -248,3 +244,20 @@
 
     </div>
 </header>
+<style>
+    /* Alt menü için gerekli düzenlemeler */
+    .dropdown-submenu {
+        position: relative;
+    }
+
+        .dropdown-submenu > .dropdown-menu {
+            top: 0;
+            left: 100%;
+            margin-top: -6px;
+            display: none;
+        }
+
+        .dropdown-submenu:hover > .dropdown-menu {
+            display: block;
+        }
+</style>
