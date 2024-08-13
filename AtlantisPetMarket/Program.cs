@@ -2,8 +2,10 @@ using BusinessLayer.Abstract;
 using BusinessLayer.AutoMapperConfig;
 using BusinessLayer.Concrete;
 using BusinessLayer.Models.CategoryVM;
+using BusinessLayer.Models.ContactVM;
 using BusinessLayer.Models.ProductVM;
 using BusinessLayer.ValidationsRules.CategoryValidator;
+using BusinessLayer.ValidationsRules.ContactValidator;
 using BusinessLayer.ValidationsRules.ProductValidator;
 using EntityLayer.DbContexts;
 using EntityLayer.Models.Concrete;
@@ -45,6 +47,8 @@ builder.Services.AddTransient<IValidator<ProductInsertVM>, ProductInsertValidato
 builder.Services.AddTransient<IValidator<ProductUpdateVM>, ProductUpdateValidator>();
 builder.Services.AddTransient<IValidator<CategoryUpdateVM>, CategoryUpdateValidator>();
 builder.Services.AddTransient<IValidator<CategoryInsertVM>, CategoryInsertValidator>();
+builder.Services.AddTransient<IValidator<ContactInsertVM>, ContactInsertValidator>();
+builder.Services.AddTransient<IValidator<ContactUpdateVM>, ContactUpdateValidator>();
 
 
 
