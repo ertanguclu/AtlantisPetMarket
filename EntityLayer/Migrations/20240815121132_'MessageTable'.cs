@@ -4,12 +4,10 @@ using MySql.EntityFrameworkCore.Metadata;
 
 #nullable disable
 
-#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
-
 namespace EntityLayer.Migrations
 {
     /// <inheritdoc />
-    public partial class Updateddb : Migration
+    public partial class MessageTable : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -86,12 +84,32 @@ namespace EntityLayer.Migrations
                 .Annotation("MySQL:Charset", "utf8mb4");
 
             migrationBuilder.CreateTable(
+                name: "Messages",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
+                    Sender = table.Column<string>(type: "longtext", nullable: false),
+                    Receiver = table.Column<string>(type: "longtext", nullable: false),
+                    SenderName = table.Column<string>(type: "longtext", nullable: false),
+                    ReceiverName = table.Column<string>(type: "longtext", nullable: false),
+                    Subject = table.Column<string>(type: "longtext", nullable: false),
+                    MessageContent = table.Column<string>(type: "longtext", nullable: false),
+                    CreateDate = table.Column<DateTime>(type: "datetime(6)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Messages", x => x.Id);
+                })
+                .Annotation("MySQL:Charset", "utf8mb4");
+
+            migrationBuilder.CreateTable(
                 name: "ParentCategories",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
-                    ParentCategoryName = table.Column<string>(type: "varchar(20)", maxLength: 20, nullable: false),
+                    ParentCategoryName = table.Column<string>(type: "longtext", nullable: false),
                     CreateDate = table.Column<DateTime>(type: "datetime(6)", nullable: false)
                 },
                 constraints: table =>
@@ -101,19 +119,19 @@ namespace EntityLayer.Migrations
                 .Annotation("MySQL:Charset", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "SocialMedia",
+                name: "SocialMedias",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false),
-                    Url = table.Column<string>(type: "varchar(200)", maxLength: 200, nullable: false),
-                    Icon = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false),
+                    Name = table.Column<string>(type: "longtext", nullable: false),
+                    Url = table.Column<string>(type: "longtext", nullable: false),
+                    Icon = table.Column<string>(type: "longtext", nullable: false),
                     CreateDate = table.Column<DateTime>(type: "datetime(6)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_SocialMedia", x => x.Id);
+                    table.PrimaryKey("PK_SocialMedias", x => x.Id);
                 })
                 .Annotation("MySQL:Charset", "utf8mb4");
 
@@ -281,8 +299,7 @@ namespace EntityLayer.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
-                    CategoryName = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: false),
-                    CategoryPhotoPath = table.Column<string>(type: "longtext", nullable: false),
+                    CategoryName = table.Column<string>(type: "varchar(255)", nullable: false),
                     ParentCategoryId = table.Column<int>(type: "int", nullable: false),
                     CreateDate = table.Column<DateTime>(type: "datetime(6)", nullable: false)
                 },
@@ -333,10 +350,10 @@ namespace EntityLayer.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
-                    Brand = table.Column<string>(type: "longtext", nullable: false),
-                    ProductName = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: false),
-                    Description = table.Column<string>(type: "varchar(150)", maxLength: 150, nullable: false),
-                    Price = table.Column<decimal>(type: "decimal(18,2)", precision: 18, scale: 2, nullable: false),
+                    Brand = table.Column<string>(type: "longtext", nullable: true),
+                    ProductName = table.Column<string>(type: "longtext", nullable: false),
+                    Description = table.Column<string>(type: "longtext", nullable: true),
+                    Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     ProductCode = table.Column<string>(type: "longtext", nullable: false),
                     StockQuantity = table.Column<int>(type: "int", nullable: false),
                     ProductPhotoPath = table.Column<string>(type: "longtext", nullable: false),
@@ -453,18 +470,6 @@ namespace EntityLayer.Migrations
                 })
                 .Annotation("MySQL:Charset", "utf8mb4");
 
-            migrationBuilder.InsertData(
-                table: "ParentCategories",
-                columns: new[] { "Id", "CreateDate", "ParentCategoryName" },
-                values: new object[,]
-                {
-                    { 1, new DateTime(2024, 8, 10, 16, 23, 25, 517, DateTimeKind.Local).AddTicks(9323), "Kedi" },
-                    { 2, new DateTime(2024, 8, 10, 16, 23, 25, 517, DateTimeKind.Local).AddTicks(9330), "Köpek" },
-                    { 3, new DateTime(2024, 8, 10, 16, 23, 25, 517, DateTimeKind.Local).AddTicks(9334), "Kuş" },
-                    { 4, new DateTime(2024, 8, 10, 16, 23, 25, 517, DateTimeKind.Local).AddTicks(9338), "Balık" },
-                    { 5, new DateTime(2024, 8, 10, 16, 23, 25, 517, DateTimeKind.Local).AddTicks(9342), "Kemirgen" }
-                });
-
             migrationBuilder.CreateIndex(
                 name: "IX_Addresses_UserId",
                 table: "Addresses",
@@ -521,6 +526,12 @@ namespace EntityLayer.Migrations
                 name: "IX_Carts_UserId",
                 table: "Carts",
                 column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Categories_CategoryName_ParentCategoryId",
+                table: "Categories",
+                columns: new[] { "CategoryName", "ParentCategoryId" },
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Categories_ParentCategoryId",
@@ -596,13 +607,16 @@ namespace EntityLayer.Migrations
                 name: "Contacts");
 
             migrationBuilder.DropTable(
+                name: "Messages");
+
+            migrationBuilder.DropTable(
                 name: "OrderItems");
 
             migrationBuilder.DropTable(
                 name: "Reviews");
 
             migrationBuilder.DropTable(
-                name: "SocialMedia");
+                name: "SocialMedias");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");

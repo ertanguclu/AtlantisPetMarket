@@ -11,6 +11,7 @@ using EntityLayer.DbContexts;
 using EntityLayer.Models.Concrete;
 using FluentValidation;
 using FluentValidation.AspNetCore;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System.Globalization;
 using System.Reflection;
@@ -32,6 +33,7 @@ builder.Services.AddScoped<ICartManager<AppDbContext, Cart, int>, CartManager<Ap
 builder.Services.AddScoped<ICartItemManager<AppDbContext, CartItem, int>, CartItemManager<AppDbContext, CartItem, int>>();
 builder.Services.AddScoped<IOrderManager<AppDbContext, Order, int>, OrderManager<AppDbContext, Order, int>>();
 builder.Services.AddScoped<IOrderItemManager<AppDbContext, OrderItem, int>, OrderItemManager<AppDbContext, OrderItem, int>>();
+builder.Services.AddScoped<IMessageManager<AppDbContext, Message, int>, MessageManager<AppDbContext, Message, int>>();
 
 
 // AutoMapper
@@ -54,8 +56,12 @@ builder.Services.AddTransient<IValidator<ContactUpdateVM>, ContactUpdateValidato
 
 
 // Identity
+//builder.Services.AddIdentity<User, UserRole>()
+//    .AddEntityFrameworkStores<AppDbContext>();
 builder.Services.AddIdentity<User, UserRole>()
-    .AddEntityFrameworkStores<AppDbContext>();
+        .AddEntityFrameworkStores<AppDbContext>()
+        .AddDefaultTokenProviders();
+
 
 var app = builder.Build();
 

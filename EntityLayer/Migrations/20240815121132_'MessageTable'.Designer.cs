@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EntityLayer.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240810132327_Updated db")]
-    partial class Updateddb
+    [Migration("20240815121132_'MessageTable'")]
+    partial class MessageTable
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -118,12 +118,7 @@ namespace EntityLayer.Migrations
 
                     b.Property<string>("CategoryName")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("varchar(50)");
-
-                    b.Property<string>("CategoryPhotoPath")
-                        .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasColumnType("varchar(255)");
 
                     b.Property<DateTime>("CreateDate")
                         .HasColumnType("datetime(6)");
@@ -134,6 +129,9 @@ namespace EntityLayer.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("ParentCategoryId");
+
+                    b.HasIndex("CategoryName", "ParentCategoryId")
+                        .IsUnique();
 
                     b.ToTable("Categories");
                 });
@@ -166,6 +164,44 @@ namespace EntityLayer.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Contacts");
+                });
+
+            modelBuilder.Entity("EntityLayer.Models.Concrete.Message", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreateDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("MessageContent")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Receiver")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("ReceiverName")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Sender")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("SenderName")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Subject")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Messages");
                 });
 
             modelBuilder.Entity("EntityLayer.Models.Concrete.Order", b =>
@@ -239,44 +275,11 @@ namespace EntityLayer.Migrations
 
                     b.Property<string>("ParentCategoryName")
                         .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("varchar(20)");
+                        .HasColumnType("longtext");
 
                     b.HasKey("Id");
 
                     b.ToTable("ParentCategories");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            CreateDate = new DateTime(2024, 8, 10, 16, 23, 25, 517, DateTimeKind.Local).AddTicks(9323),
-                            ParentCategoryName = "Kedi"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            CreateDate = new DateTime(2024, 8, 10, 16, 23, 25, 517, DateTimeKind.Local).AddTicks(9330),
-                            ParentCategoryName = "Köpek"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            CreateDate = new DateTime(2024, 8, 10, 16, 23, 25, 517, DateTimeKind.Local).AddTicks(9334),
-                            ParentCategoryName = "Kuş"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            CreateDate = new DateTime(2024, 8, 10, 16, 23, 25, 517, DateTimeKind.Local).AddTicks(9338),
-                            ParentCategoryName = "Balık"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            CreateDate = new DateTime(2024, 8, 10, 16, 23, 25, 517, DateTimeKind.Local).AddTicks(9342),
-                            ParentCategoryName = "Kemirgen"
-                        });
                 });
 
             modelBuilder.Entity("EntityLayer.Models.Concrete.Product", b =>
@@ -286,7 +289,6 @@ namespace EntityLayer.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Brand")
-                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<int>("CategoryId")
@@ -299,15 +301,12 @@ namespace EntityLayer.Migrations
                         .HasColumnType("datetime(6)");
 
                     b.Property<string>("Description")
-                        .IsRequired()
-                        .HasMaxLength(150)
-                        .HasColumnType("varchar(150)");
+                        .HasColumnType("longtext");
 
                     b.Property<int>("ParentCategoryId")
                         .HasColumnType("int");
 
                     b.Property<decimal>("Price")
-                        .HasPrecision(18, 2)
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("ProductCode")
@@ -316,8 +315,7 @@ namespace EntityLayer.Migrations
 
                     b.Property<string>("ProductName")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("varchar(50)");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("ProductPhotoPath")
                         .IsRequired()
@@ -380,22 +378,19 @@ namespace EntityLayer.Migrations
 
                     b.Property<string>("Icon")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("varchar(100)");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("varchar(100)");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("Url")
                         .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("varchar(200)");
+                        .HasColumnType("longtext");
 
                     b.HasKey("Id");
 
-                    b.ToTable("SocialMedia", (string)null);
+                    b.ToTable("SocialMedias");
                 });
 
             modelBuilder.Entity("EntityLayer.Models.Concrete.User", b =>
