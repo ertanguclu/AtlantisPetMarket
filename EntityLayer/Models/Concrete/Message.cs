@@ -12,5 +12,6 @@ namespace EntityLayer.Models.Concrete
         public string Subject { get; set; }
         public string MessageContent { get; set; }
 
+
     }
 }

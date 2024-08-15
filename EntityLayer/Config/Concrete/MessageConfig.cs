@@ -16,8 +16,6 @@ namespace EntityLayer.Config.Concrete
             builder.Property(m => m.Subject).IsRequired().HasMaxLength(20);
             builder.Property(m => m.MessageContent).IsRequired().HasMaxLength(500);
 
-
-
         }
     }
 }
