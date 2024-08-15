@@ -8,10 +8,9 @@
 <h1>Mesaj Detayları</h1>
 <br />
 <form class="form-group">
-    <input type="hidden" asp-for="Id" class="form-control" readonly />
-    <label asp-for="SenderName" class="form-label"></label>
+    <label class="form-label">Gönderen Adı</label>
     <input asp-for="SenderName" class="form-control" readonly />
-    <label asp-for="Sender" class="form-label"></label>
+    <label class="form-label">Gönderen Mail</label>
     @if (isAdmin)
     {
         <input type="text" class="form-control" value="Atlantis Pet Market" readonly />
@@ -20,6 +19,6 @@
     {
         <input asp-for="Sender" class="form-control" readonly />
     }
-    <label asp-for="MessageContent" class="form-label"></label>
+    <label class="form-label">Mesaj</label>
     <textarea asp-for="MessageContent" class="form-control" rows="10" readonly></textarea>
 </form>

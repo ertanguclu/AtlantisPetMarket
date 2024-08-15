@@ -27,8 +27,8 @@
                                 <td>@item.Subject</td>
                                 <td>@item.ReceiverName</td>
                                 <td>@(((DateTime)item.CreateDate).ToString("dd-MMM-yyyy"))</td>
-                                <td><a href="/Writer/Message/DeleteSenderMessage/@item.Id" class="btn btn-outline-danger">Sil</a></td>
-                                <td><a href="/Writer/Message/ReceiverMessageDetails/@item.Id" class="btn btn-outline-primary">Mesajı Gör</a></td>
+                                <td><a asp-controller="Message" asp-action="DeleteSenderMessage" asp-route-Id="@item.Id" class="btn btn-outline-danger">Sil</a></td>
+                                <td><a asp-controller="Message" asp-action="ReceiverMessageDetails" asp-route-Id="@item.Id" class="btn btn-outline-primary">Mesajı Gör</a></td>
                             </tr>
                         }
                     </tbody>
