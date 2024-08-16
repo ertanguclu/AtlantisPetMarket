@@ -1,0 +1,24 @@
+﻿@model Message
+@{
+    ViewData["Title"] = "MessageDetails";
+    Layout = "~/Views/Shared/_WriterLayout.cshtml";
+    var isAdmin = ViewData["IsAdmin"] as bool? ?? false;
+}
+
+<h1>Mesaj Detayları</h1>
+<br />
+<form class="form-group">
+    <label class="form-label">Gönderen Adı</label>
+    <input asp-for="SenderName" class="form-control" readonly />
+    <label class="form-label">Gönderen Mail</label>
+    @if (isAdmin)
+    {
+        <input type="text" class="form-control" value="Atlantis Pet Market" readonly />
+    }
+    else
+    {
+        <input asp-for="Sender" class="form-control" readonly />
+    }
+    <label class="form-label">Mesaj</label>
+    <textarea asp-for="MessageContent" class="form-control" rows="10" readonly></textarea>
+</form>

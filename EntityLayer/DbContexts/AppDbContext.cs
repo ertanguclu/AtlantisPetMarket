@@ -1,7 +1,6 @@
 ﻿using EntityLayer.Models.Concrete;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using System.Reflection;
 
 namespace EntityLayer.DbContexts
 {
@@ -19,11 +18,7 @@ namespace EntityLayer.DbContexts
         public DbSet<Address> Addresses { get; set; }
         public DbSet<Contact> Contacts { get; set; }
         public DbSet<SocialMedia> SocialMedias { get; set; }
-
-
-        //public DbSet<Photo> Photos { get; set; }
-        //public DbSet<Stock> Stocks { get; set; }
-
+        public DbSet<Message> Messages { get; set; }
 
         public AppDbContext()
         {

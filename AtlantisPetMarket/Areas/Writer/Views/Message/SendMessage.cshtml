@@ -1,0 +1,40 @@
+﻿@model Message
+@{
+    ViewData["Title"] = "SendMessage";
+    Layout = "~/Views/Shared/_WriterLayout.cshtml";
+    bool isAdmin = User.IsInRole("Admin");
+    var adminEmail = ViewBag.ReceiverEmail as string;
+}
+
+<h4>Yeni Mesaj Gönder</h4>
+<br />
+<form asp-controller="Message" asp-action="SendMessage" method="post">
+    @if (!isAdmin)
+    {
+        <!-- Kullanıcı admin değilse alıcı adı Atlantis Pet Market olarak gösteriliyor -->
+        <div class="form-group">
+            <label>Alıcı Adı</label>
+            <input type="text" class="form-control" value="Atlantis Pet Market" readonly />
+            <!-- Admin e-posta adresini gizli bir alanla gönderiyoruz -->
+            <input type="hidden" asp-for="Receiver" value="@adminEmail" />
+        </div>
+    }
+    else
+    {
+        <!-- Kullanıcı adminse alıcı emailini manuel girebilir -->
+        <div class="form-group">
+            <label asp-for="Receiver">Alıcı Mail</label>
+            <input asp-for="Receiver" class="form-control" />
+        </div>
+    }
+    <div class="form-group">
+        <label asp-for="Subject">Konu</label>
+        <input asp-for="Subject" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="MessageContent">Mesaj</label>
+        <textarea asp-for="MessageContent" class="form-control" rows="3"></textarea>
+    </div>
+    <button type="submit" class="btn btn-outline-primary">Gönder</button>
+</form>
+

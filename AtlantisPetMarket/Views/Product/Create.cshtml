@@ -34,6 +34,7 @@
                     <select asp-for="CategoryId" class="form-select form-select-sm" aria-label=".form-select-sm example">
                         <option value="">Öncelikle Bir Üst Kategori Seçin</option>
                     </select>
+                    <span asp-validation-for="CategoryId" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label class="control-label">Açıklama</label>
@@ -44,12 +45,7 @@
                     <label class="control-label">Fiyat</label>
                     <input asp-for="Price" class="form-control" />
                     <span asp-validation-for="Price" class="text-danger"></span>
-@*                 </div>
-                <div class="form-group">
-                    <label class="control-label">İndirimli Fiyat</label>
-                    <input asp-for="Price" class="form-control" />
-                    <span asp-validation-for="Price" class="text-danger"></span>
-                </div> *@
+                </div>
                 <div class="form-group">
                     <label class="control-label">Ürün Kodu</label>
                     <input asp-for="ProductCode" class="form-control" />
@@ -62,7 +58,7 @@
                 </div>
                 <div class="form-group">
                     <label>Resim Yükle</label>
-                    <input type="file" asp-for="ProductPhotoPath" class="file-upload-default" style="display: none;" required>
+                    <input type="file" asp-for="ProductPhotoPath" class="file-upload-default" style="display: none;">
                     <div class="input-group col-xs-12">
                         <input type="text" class="form-control file-upload-info" disabled placeholder="Resim Seçiniz">
                         <span class="input-group-append">
@@ -150,25 +146,4 @@
             });
         });
     </script>
-    <script>
-        document.querySelector('.file-upload-browse').addEventListener('click', function () {
-            var fileInput = document.querySelector('.file-upload-default');
-            fileInput.click();
-        });
-
-        document.querySelector('.file-upload-default').addEventListener('change', function () {
-            var filePath = this.value.split('\\').pop();
-            document.querySelector('.file-upload-info').value = filePath;
-        });
-
-        document.querySelector('form').addEventListener('submit', function (event) {
-            var fileInput = document.querySelector('.file-upload-default');
-            if (!fileInput.value) {
-                alert("Lütfen bir resim seçiniz.");
-                event.preventDefault();
-            }
-        });
-    </script>
-
 }
-
