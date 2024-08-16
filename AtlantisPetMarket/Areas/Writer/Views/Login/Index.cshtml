@@ -1,67 +1,69 @@
-﻿@model AtlantisPetMarket.Areas.Writer.Models.UserLoginViewModel
+﻿@model UserLoginViewModel
 @{
     Layout = null;
 }
 
-<!doctype html>
-<html lang="en">
 <head>
-    <title>Giriş Paneli</title>
+    <title>Giriş</title>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet">
-
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-
-    <link rel="stylesheet" href="~/login-form-14/css/style.css">
-
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="author" content="">
+    <meta name="keywords" content="">
+    <meta name="description" content="">
 </head>
+
+
+<link rel="stylesheet" href="~/waggypetshop/css/swiper.css" />
+<link rel="stylesheet" href="~/waggypetshop/css/bootstrap.css" />
+
+<link rel="stylesheet" type="text/css" href="~/waggypetshop/css/vendor.css">
+<link rel="stylesheet" type="text/css" href="~/waggypetshop/style.css">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chilanka&family=Montserrat:wght@300;400;500&display=swap"
+      rel="stylesheet">
+
+
 <body>
-    <section class="ftco-section">
-        <div class="container">
-            <div class="row justify-content-center">
-            </div>
-            <div class="row justify-content-center">
-                <div class="col-md-12 col-lg-10">
-                    <div class="wrap d-md-flex">
-                        <div class="img" style="background-image: url(/login-form-14/images/baykus3.jpg)">
+    <section id="register">
+        <img src="/waggypetshop/images/background-img.png" alt="Arka Plan" style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: -1; object-fit: cover;">
+        <div class="container ">
+            <div class="row my-5 py-5">
+                <div class="offset-md-3 col-md-6 my-5 ">
+                    <header class="text-center">
+                        <img src="/waggypetshop/images/petshoplog.png" alt="Logo" id="logo">
+                    </header>
+                    <form asp-controller="Login" asp-action="Index" method="post">
+                        <div class="mb-3">
+                            <label class="label" asp-for="Username">Kullanıcı Adı</label>
+                            <input type="text" class="form-control form-control-lg" id="exampleInputEmail1" asp-for="Username" placeholder="Kullanıcı Adı">
                         </div>
-                        <div class="login-wrap p-4 p-md-5">
-                            <div class="d-flex">
-                                <div class="w-100">
-                                    <h3 class="mb-4">Giriş</h3>
-                                </div>
-                            </div>
-                            <form action="#" class="signin-form" method="post">
-                                <div class="form-group mb-3">
-                                    <label class="label" asp-for="Username">Kullanıcı Adı</label>
-                                    <input type="text" class="form-control form-control-lg" id="exampleInputEmail1" asp-for="Username" placeholder="Kullancı Adı">                          
-                                </div>
-                                <div class="form-group mb-3">
-                                    <label class="label" asp-for="Password">ŞİFRE</label>
-                                    <input type="password" class="form-control form-control-lg" id="exampleInputPassword1" asp-for="Password" placeholder="Şifre">
-                                </div>
-                                @Html.ValidationSummary()
-                                <div class="form-group">
-                                    <button class="form-control btn btn-primary rounded submit px-3">Giriş Yap</button>
-                                </div>
-                            </form>
-                            <p class="text-center">Üye değil misiniz? <a href="/Writer/Register/Index/">Kayıt Ol</a></p>
+                        <div class="mb-3">
+                            <label class="label" asp-for="Password">Şifre</label>
+                            <input type="password" class="form-control form-control-lg" id="exampleInputPassword1" asp-for="Password" placeholder="Şifre">
+                        </div>                   
+                        @Html.ValidationSummary()
+                        <div class="mb-3">
+                            <button type="submit" class="btn btn-primary rounded submit px-3 d-flex justify-content-center align-items-center" style="width: 100%;">Giriş Yap</button>
                         </div>
-                    </div>
+                        <p>Üye değil misiniz? <a asp-controller="Register" asp-action="Index" style="color: #f39c12; font-weight: bold;">Kayıt Ol</a></p>                       
+                    </form>
+                    
                 </div>
             </div>
         </div>
     </section>
-
-    <script src="~/login-form-14/js/jquery.min.js"></script>
-    <script src="~/login-form-14/js/popper.js"></script>
-    <script src="~/login-form-14/js/bootstrap.min.js"></script>
-    <script src="~/login-form-14/js/main.js"></script>
-
+    @section Scripts {
+        <script src="~/waggypetshop/js/jquery-1.11.0.min.js"></script>
+    }
 </body>
-</html>
+
+
+
 
 
 
