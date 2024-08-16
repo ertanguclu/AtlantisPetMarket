@@ -146,7 +146,7 @@ namespace AtlantisPetMarket.Controllers
                 Secure = true
             });
 
-            return RedirectToAction("Index", new { id = productCartVM.CartId });
+            return RedirectToAction("Index", "Home");
         }
 
 
