@@ -4,8 +4,12 @@
     ViewData["Title"] = "Ürünler";
     Layout = "~/Views/Shared/_HomeLayout.cshtml";
 }
+<<<<<<< HEAD
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
 
+=======
+<link rel="stylesheet" href="https://cdn.materialdesignicons.com/5.2.45/css/materialdesignicons.min.css" />
+>>>>>>> feature/MES-0001
 
 <div class="container">
     <div class="isotope-container row">
@@ -23,11 +27,11 @@
 
                         <div class="card-text">
                             <span class="rating secondary-font">
-                                <iconify-icon icon="clarity:star-solid" class="text-primary"></iconify-icon>
-                                <iconify-icon icon="clarity:star-solid" class="text-primary"></iconify-icon>
-                                <iconify-icon icon="clarity:star-solid" class="text-primary"></iconify-icon>
-                                <iconify-icon icon="clarity:star-solid" class="text-primary"></iconify-icon>
-                                <iconify-icon icon="clarity:star-solid" class="text-primary"></iconify-icon>
+                                <i class="mdi mdi-star text-primary"></i>
+                                <i class="mdi mdi-star text-primary"></i>
+                                <i class="mdi mdi-star text-primary"></i>
+                                <i class="mdi mdi-star text-primary"></i>
+                                <i class="mdi mdi-star text-primary"></i>
                                 5.0
                             </span>
 
@@ -37,7 +41,7 @@
                                 <!-- Decrease Quantity Button -->
                                 <form asp-controller="Cart" asp-action="DecreaseQuantity" asp-route-cartItemId="@item.Id" method="post">
                                     <button type="submit" class="btn-cart px-2 py-2">
-                                        <i class="fas fa-minus"></i> <!-- Azaltma ikonu -->
+                                        <i class="mdi mdi-minus"></i> <!-- Azaltma ikonu -->
                                     </button>
                                 </form>
 
@@ -49,20 +53,19 @@
                                 <!-- Increase Quantity Button -->
                                 <form asp-controller="Cart" asp-action="IncreaseQuantity" asp-route-cartItemId="@item.Id" method="post">
                                     <button type="submit" class="btn-cart px-2 py-2">
-                                        <i class="fas fa-plus"></i> <!-- Arttırma ikonu -->
-                                    </button>
-                                </form>
-
-                                <!-- Add to Cart Button -->
-                                <form asp-controller="Cart" asp-action="Create" asp-route-id="@item.Id" method="post">
-                                    <input type="hidden" name="ProductId" value="@item.Id" />
-                                    <input type="hidden" name="Quantity" value="1" /> <!-- Varsayılan olarak 1 ekleniyor -->
-                                    <button type="submit" class="btn-cart px-4 py-3">
-                                        <h5 class="text-uppercase m-0">Add to Cart</h5>
+                                        <i class="mdi mdi-plus"></i> <!-- Arttırma ikonu -->
                                     </button>
                                 </form>
                             </div>
 
+                            <!-- Add to Cart Button -->
+                            <form asp-controller="Cart" asp-action="Create" asp-route-id="@item.Id" method="post">
+                                <input type="hidden" name="ProductId" value="@item.Id" />
+                                <input type="hidden" name="Quantity" value="1" /> <!-- Varsayılan olarak 1 ekleniyor -->
+                                <button type="submit" class="btn-cart btn-primary px-4 py-3 mt-3 w-100">
+                                    <h5 class="text-uppercase m-0">Add to Cart</h5>
+                                </button>
+                            </form>
                         </div>
                     </div>
                 </div>

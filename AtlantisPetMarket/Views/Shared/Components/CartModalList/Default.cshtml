@@ -23,7 +23,7 @@
                             <small class="text-body-secondary">Miktar: @item.Quantity</small>
                         </div>
                         <span class="text-body-secondary">₺@item.Product.Price</span>
-                        <form asp-action="Delete" asp-route-cartItemId="@item.Id" asp-route-cartId="@item.CartId" method="post" class="ms-2">
+                        <form asp-controller="Cart" asp-action="Delete" asp-route-cartItemId="@item.Id" asp-route-cartId="@item.CartId" method="post" class="ms-2">
                             <button type="submit" class="btn btn-danger btn-sm">Kaldır</button>
                         </form>
                     </li>

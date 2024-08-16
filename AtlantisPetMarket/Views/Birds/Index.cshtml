@@ -1,9 +1,10 @@
 ﻿@model IEnumerable<BusinessLayer.Models.CartViewModel.ProductCartVM>
+
 @{
     ViewData["Title"] = "Ürünler";
     Layout = "~/Views/Shared/_HomeLayout.cshtml";
 }
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-Fo3rlrZj/k7ujTnHg4C+X2JoBLz5/0zK2b5Syy6R3ihN5Kt5J2G1F5J2ihcJz5NfZbZ9F6b5mQ5E5F7N5J5ZjM==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="stylesheet" href="https://cdn.materialdesignicons.com/5.2.45/css/materialdesignicons.min.css" />
 
 <div class="container">
     <div class="isotope-container row">
@@ -12,7 +13,7 @@
             <div class="item cat col-md-4 col-lg-3 my-4">
                 <div class="card position-relative">
                     <a href="single-product.html">
-                        <img src="~/productimage/@item.ProductPhotoPath" class="img-fluid rounded-4 product-image-wrapper" alt="image">
+                        <img src="@item.ProductPhotoPath" class="img-fluid rounded-4" alt="image">
                     </a>
                     <div class="card-body p-0">
                         <a href="single-product.html">
@@ -21,11 +22,11 @@
 
                         <div class="card-text">
                             <span class="rating secondary-font">
-                                <iconify-icon icon="clarity:star-solid" class="text-primary"></iconify-icon>
-                                <iconify-icon icon="clarity:star-solid" class="text-primary"></iconify-icon>
-                                <iconify-icon icon="clarity:star-solid" class="text-primary"></iconify-icon>
-                                <iconify-icon icon="clarity:star-solid" class="text-primary"></iconify-icon>
-                                <iconify-icon icon="clarity:star-solid" class="text-primary"></iconify-icon>
+                                <i class="mdi mdi-star text-primary"></i>
+                                <i class="mdi mdi-star text-primary"></i>
+                                <i class="mdi mdi-star text-primary"></i>
+                                <i class="mdi mdi-star text-primary"></i>
+                                <i class="mdi mdi-star text-primary"></i>
                                 5.0
                             </span>
 
@@ -35,7 +36,7 @@
                                 <!-- Decrease Quantity Button -->
                                 <form asp-controller="Cart" asp-action="DecreaseQuantity" asp-route-cartItemId="@item.Id" method="post">
                                     <button type="submit" class="btn-cart px-2 py-2">
-                                        <i class="fas fa-minus"></i> <!-- Azaltma ikonu -->
+                                        <i class="mdi mdi-minus"></i> <!-- Azaltma ikonu -->
                                     </button>
                                 </form>
 
@@ -47,20 +48,19 @@
                                 <!-- Increase Quantity Button -->
                                 <form asp-controller="Cart" asp-action="IncreaseQuantity" asp-route-cartItemId="@item.Id" method="post">
                                     <button type="submit" class="btn-cart px-2 py-2">
-                                        <i class="fas fa-plus"></i> <!-- Arttırma ikonu -->
-                                    </button>
-                                </form>
-
-                                <!-- Add to Cart Button -->
-                                <form asp-controller="Cart" asp-action="Create" asp-route-id="@item.Id" method="post">
-                                    <input type="hidden" name="ProductId" value="@item.Id" />
-                                    <input type="hidden" name="Quantity" value="1" /> <!-- Varsayılan olarak 1 ekleniyor -->
-                                    <button type="submit" class="btn-cart px-4 py-3">
-                                        <h5 class="text-uppercase m-0">Add to Cart</h5>
+                                        <i class="mdi mdi-plus"></i> <!-- Arttırma ikonu -->
                                     </button>
                                 </form>
                             </div>
 
+                            <!-- Add to Cart Button -->
+                            <form asp-controller="Cart" asp-action="Create" asp-route-id="@item.Id" method="post">
+                                <input type="hidden" name="ProductId" value="@item.Id" />
+                                <input type="hidden" name="Quantity" value="1" /> <!-- Varsayılan olarak 1 ekleniyor -->
+                                <button type="submit" class="btn-cart btn-primary px-4 py-3 mt-3 w-100">
+                                    <h5 class="text-uppercase m-0">Add to Cart</h5>
+                                </button>
+                            </form>
                         </div>
                     </div>
                 </div>
