@@ -12,11 +12,11 @@ namespace EntityLayer.Models.Concrete
 
         public DateTime? BirthDate { get; set; }
 
-        [NotMapped] // Burasi Database'e yansimayacaktir
+        [NotMapped]
         public int? Yas { get; set; }
 
         public string? ImagePath { get; set; }
-        public string? About { get; set; }   
+        public string? About { get; set; }
         public ICollection<Cart> Carts { get; set; }
 
         public ICollection<Order> Orders { get; set; }

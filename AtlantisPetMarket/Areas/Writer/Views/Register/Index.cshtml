@@ -1,90 +1,140 @@
-﻿@model AtlantisPetMarket.Areas.Writer.Models.UserRegisterViewModel
+﻿@model UserRegisterViewModel
 @{
     Layout = null;
 }
 
-
 <!doctype html>
 <html lang="en">
-<head>
-    <title>Kayıt Paneli</title>
+
+  <head>
+    <title>Kayıt Ol</title>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="author" content="">
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <link rel="stylesheet" href="~/waggypetshop/css/bootstrap.css">
+    <link rel="stylesheet" href="~/waggypetshop/css/swiper.css">
+    <link rel="stylesheet" href="~/waggypetshop/css/vendor.css">
+    <link rel="stylesheet" href="~/waggypetshop/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Chilanka&family=Montserrat:wght@300;400;500&display=swap"
+          rel="stylesheet">
 
-    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            
+        }
 
-    <link rel="stylesheet" href="~/login-form-14/css/style.css">
 
-</head>
-<body>
-    <section class="ftco-section">
+        /* Arka plan resmi ayarı */
+        body {
+            background-image: url('/waggypetshop/images/background-img.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        .container {
+            display: flex;
+            height: 100vh;
+            align-items: center;
+            justify-content: center;
+            padding: 0 5%;
+        }
+
+        .left-column {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            flex: 1;
+        }
+
+            .left-column img {
+                max-width: 100%;
+                height: auto;
+            }
+
+        .right-column {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            padding-left: 50px;
+        }
+
+            .right-column form {
+                width: 100%;
+                max-width: 450px;
+                padding: 20px;
+                border-radius: 10px;
+
+            }
+
+            .right-column input.form-control {
+                font-size: 1.1rem;
+                padding: 10px;
+                border: 1px solid #ced4da;
+                border-radius: 4px;
+
+            }
+
+
+    </style>
+  </head>
+
+  <body>
+    <section id="register">
         <div class="container">
-            <div class="row justify-content-center">
+            <!-- Sol Sütun: Logo -->
+            <div class="left-column">
+                <img src="/waggypetshop/images/petshopregister.png" alt="Logo" id="logo">
             </div>
-            <div class="row justify-content-center">
-                <div class="col-md-12 col-lg-10">
-                    <div class="wrap d-md-flex">
-                        <div class="img" style="background-image: url(/login-form-14/images/baykus3.jpg)">
-                        </div>
-                        <div class="login-wrap p-1 p-md-2">
-                            <div class="d-flex">
-                                <div class="w-100">
-                                    <h3 class="mb-4">Kayıt Ol</h3>
-                                </div>
-                            </div>
-                            <form action="#" class="signin-form" method="post">
-                                <div class="form-group mb-3">
-                                    <label class="label" asp-for="Name">Adınız</label>
-                                    <input type="text" class="form-control form-control-lg" id="exampleInputEmail1" asp-for="Name">
-                                    <span asp-validation-for="Name" class="text-danger"></span>
-                                </div>
-                                <div class="form-group mb-3">
-                                    <label class="label" asp-for="Surname">Soyadınız</label>
-                                    <input type="text" class="form-control form-control-lg" id="exampleInputEmail1" asp-for="Surname">
-                                    <span asp-validation-for="Surname" class="text-danger"></span>
-                                </div>
-                                <div class="form-group mb-3">
-                                    <label class="label" asp-for="Password">ŞİFRE</label>
-                                    <input type="password" class="form-control form-control-lg" id="exampleInputPassword1" asp-for="Password">
-                                    <span asp-validation-for="Password" class="text-danger"></span>
-                                </div>
-                                <div class="form-group mb-3">
-                                    <label class="label"  asp-for="ConfirmPassword">ŞİFRE TEKRAR</label>
-                                    <input type="password" class="form-control form-control-lg" id="exampleInputPassword1" asp-for="ConfirmPassword">
-                                    <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
-                                </div>
-                                <div class="form-group mb-3">
-                                    <label class="label" asp-for="Mail">MAİL ADRESİNİZ</label>
-                                    <input type="email" class="form-control form-control-lg" id="exampleInputEmail1" asp-for="Mail">
-                                    <span asp-validation-for="Mail" class="text-danger"></span>
-                                </div>
-                                <div class="form-group mb-3">
-                                    <label class="label" asp-for="UserName">Kullanıcı Adı</label>
-                                    <input type="text" class="form-control form-control-lg" id="exampleInputEmail1" asp-for="UserName" >
-                                    <span asp-validation-for="UserName" class="text-danger"></span>
-                                </div>        
-                                <div class="text-danger" asp-validation-summary="ModelOnly"></div>
-                                <div class="form-group">
-                                    <button class="form-control btn btn-primary rounded submit px-3">Kayıt Ol</button>
-                                </div>                              
-                            </form>
-                            <p class="text-center">Bir hesabınız var mı? <a href="/Writer/Login/Index/">Giriş Yap</a></p>
-                        </div>
+
+            <!-- Sağ Sütun: Form -->
+            <div class="right-column">
+                <form asp-controller="Register" asp-action="Index" method="post">
+                    <div class="mb-3">
+                        <input type="text" class="form-control" asp-for="Name" placeholder="Adınız">
+                        <span asp-validation-for="Name" class="text-black"></span>
                     </div>
-                </div>
+                    <div class="mb-3">
+                        <input type="text" class="form-control" asp-for="Surname" placeholder="Soyadınız">
+                        <span asp-validation-for="Surname" class="text-black"></span>
+                    </div>
+                    <div class="mb-3">
+                        <input type="password" class="form-control" asp-for="Password" placeholder="Şifre">
+                        <span asp-validation-for="Password" class="text-black"></span>
+                    </div>
+                    <div class="mb-3">
+                        <input type="password" class="form-control" asp-for="ConfirmPassword" placeholder="Şifre Tekrar">
+                        <span asp-validation-for="ConfirmPassword" class="text-black"></span>
+                    </div>
+                    <div class="mb-3">
+                        <input type="email" class="form-control" asp-for="Mail" placeholder="E-mail">
+                        <span asp-validation-for="Mail" class="text-black"></span>
+                    </div>
+                    <div class="mb-3">
+                        <input type="text" class="form-control" asp-for="UserName" placeholder="Kullanıcı Adı">
+                        <span asp-validation-for="UserName" class="text-black"></span>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary rounded submit px-3 d-flex justify-content-center align-items-center" style="width: 100%;">Kayıt Ol</button>
+                    </div>
+                    <p>Bir hesabınız var mı? <a asp-controller="Login" asp-action="Index" style="color: #f39c12; font-weight: bold;">Giriş Yap</a></p>
+                </form>
+               
             </div>
         </div>
     </section>
+  </body>
 
-    <script src="~/login-form-14/js/jquery.min.js"></script>
-    <script src="~/login-form-14/js/popper.js"></script>
-    <script src="~/login-form-14/js/bootstrap.min.js"></script>
-    <script src="~/login-form-14/js/main.js"></script>
-
-</body>
 </html>
-
-
 

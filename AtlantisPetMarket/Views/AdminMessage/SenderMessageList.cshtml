@@ -1,0 +1,41 @@
+﻿@model List<Message>
+@{
+    ViewData["Title"] = "SenderMessageList";
+    Layout = "~/Views/Shared/_NewAdminLayout.cshtml";
+}
+
+<div class="col-lg-12 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Müşteri-Admin Giden Kutusu</h4>
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th style="color:white">#</th>
+                            <th style="color:white">Alıcı</th>
+                            <th style="color:white">Konu</th>
+                            <th style="color:white">Tarih</th>
+                            <th style="color:white">Sil</th>
+                            <th style="color:white">Mesajı Gör</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>#</td>
+                                <td>@item.ReceiverName</td>
+                                <td>@item.Subject</td>
+                                <td>@(((DateTime)item.CreateDate).ToString("dd-MMM-yyyy"))</td>
+                                <td><a asp-controller="AdminMessage" asp-action="AdminMessageDelete" asp-route-Id="@item.Id" class="btn btn-outline-danger">Sil</a></td>
+                                <td><a asp-controller="AdminMessage" asp-action="AdminMessageDetails" asp-route-Id="@item.Id" class="btn btn-outline-success">Mesajı Gör</a></td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
