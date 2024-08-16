@@ -7,6 +7,13 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <Compile Remove="Views\Shared\Components\NewFolder\**" />
+	  <Content Remove="Views\Shared\Components\NewFolder\**" />
+	  <EmbeddedResource Remove="Views\Shared\Components\NewFolder\**" />
+	  <None Remove="Views\Shared\Components\NewFolder\**" />
+	</ItemGroup>
+
+	<ItemGroup>
 	  <Content Remove="Views\Shared\HomeLayoutPartial\CartModalPartial.cshtml" />
 	</ItemGroup>
 	<ItemGroup>
@@ -35,7 +42,6 @@
 	</ItemGroup>
 	<ItemGroup>
 	  <Folder Include="Areas\Writer\Data\" />
-	  <Folder Include="Views\Shared\Components\NewFolder\" />
 	  <Folder Include="wwwroot\processedimage\" />
 	  <Folder Include="wwwroot\productimage\" />
 	  <Folder Include="wwwroot\userimage\" />
