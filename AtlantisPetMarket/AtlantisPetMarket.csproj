@@ -5,6 +5,10 @@
 		<Nullable>enable</Nullable>
 		<ImplicitUsings>enable</ImplicitUsings>
 	</PropertyGroup>
+
+	<ItemGroup>
+	  <Content Remove="Views\Shared\HomeLayoutPartial\CartModalPartial.cshtml" />
+	</ItemGroup>
 	<ItemGroup>
 		<ProjectReference Include="..\BusinessLayer\BusinessLayer.csproj" />
 	</ItemGroup>
@@ -31,6 +35,7 @@
 	</ItemGroup>
 	<ItemGroup>
 	  <Folder Include="Areas\Writer\Data\" />
+	  <Folder Include="Views\Shared\Components\NewFolder\" />
 	  <Folder Include="wwwroot\processedimage\" />
 	  <Folder Include="wwwroot\productimage\" />
 	  <Folder Include="wwwroot\userimage\" />
