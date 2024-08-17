@@ -36,7 +36,7 @@
                         columns.Add(model => model.ProductName).Titled("Ürün Adı");
                         columns.Add(model => model.Category.CategoryName).Titled("Kategori Adı");
                         columns.Add(model => model.ParentCategory.ParentCategoryName).Titled("Tür");
-                        columns.Add(model => model.Description).Titled("Açıklama");
+                        //columns.Add(model => model.Description).Titled("Açıklama");
                         columns.Add(model => model.Price).Titled("Fiyat");
                         columns.Add(model => Html.Raw(
                         $"<div style='display: flex; gap: 5px;'>" +
@@ -56,7 +56,7 @@
                     .Empty("No data found")
                     .Pageable(pager =>
                     {
-                        pager.RowsPerPage = 4;
+                        pager.RowsPerPage = 14;
                     })
                     .Sortable()
                     )
