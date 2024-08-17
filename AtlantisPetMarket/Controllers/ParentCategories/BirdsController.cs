@@ -22,19 +22,25 @@ namespace AtlantisPetMarket.Controllers.ParentCategories
 
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string? category)
         {
-            var birdCategory = await _parentCategoryManager.GetByAsync(pc => pc.ParentCategoryName.ToLower() == "kuş");
+            var catCategory = await _parentCategoryManager.GetByAsync(pc => pc.ParentCategoryName.ToLower() == "kuş");
 
-            if (birdCategory == null)
+            if (catCategory == null)
             {
                 return NotFound();
             }
 
-            var products = await _productManager.GetAllAsync(p => p.ParentCategoryId == birdCategory.Id);
-            var birdViewModel = _mapper.Map<IEnumerable<ProductCartVM>>(products);
+            // Kategoriye göre filtreleme yap, eğer kategori parametresi boşsa tüm ürünleri getir
+            var products = await _productManager.GetProductsByCategoryAsync(
+                p => p.ParentCategoryId == catCategory.Id &&
+                     (string.IsNullOrEmpty(category) || p.Category.CategoryName.ToLower() == category.ToLower()),
+                p => p.Category
+            );
 
-            return View(birdViewModel);
+            var catsViewModel = _mapper.Map<IEnumerable<ProductCartVM>>(products.ToList());
+
+            return View(catsViewModel);
         }
     }
 }

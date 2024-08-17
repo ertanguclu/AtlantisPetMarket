@@ -172,22 +172,25 @@
 
 
 
- *@                     
+ *@
 
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" style="font-size:17px" role="button" id="pages" data-bs-toggle="dropdown"
-                               aria-expanded="false">Kedi</a>
+                            <a class="nav-link" style="font-size:17px" href="/Cats/Index" id="pages">Kedi</a>
                             <ul class="dropdown-menu" aria-labelledby="pages">
                                 <li class="dropdown-submenu">
-                                    <a href="#" class="dropdown-item">
+                                    <a href="/Cats/Index" class="dropdown-item">
                                         Mama
                                     </a>
                                     <ul class="dropdown-menu">
+                                        <li><a href="/Cats/Index?category=Kuru Mama" class="dropdown-item">Kuru Mama</a></li>
                                         <li><a href="/Cats/Index" class="dropdown-item">Yaş Mama</a></li>
-                                        <li><a href="dry-food.html" class="dropdown-item">Kuru Mama</a></li>
+                                        <li><a href="/Cats/Index" class="dropdown-item">Açık Mama</a></li>
                                         <li><a href="dry-food.html" class="dropdown-item">Ödül Maması</a></li>
                                     </ul>
                                 </li>
+
+
+
                                 <li class="dropdown-submenu">
                                     <a href="toys.html" class="dropdown-item">Oyuncak
 
@@ -197,6 +200,12 @@
                                         <li><a href="dry-food.html" class="dropdown-item">Frizbi</a></li>  
                                     </ul>
                                 </li>
+                                <li class="dropdown-submenu">
+                                    <a href="/Cats/Index?category=Kumlar" class="dropdown-item">Kedi Kumları</a>
+                                </li>
+
+
+
                                 <li class="dropdown-submenu">
                                     <a href="accessories.html" class="dropdown-item">Aksesuar
 
@@ -259,6 +268,15 @@
                                         <li><a href="dry-food.html" class="dropdown-item">Kanarya Yemi</a></li>
                                         <li><a href="dry-food.html" class="dropdown-item">Papağan Yemi</a></li>
                                     </ul>
+                                </li>
+                                <li class="dropdown-submenu">
+                                    <a href="/Birds/Index?category=Yemler" class="dropdown-item">Kuş Yemleri</a>
+                                </li>
+                                <li class="dropdown-submenu">
+                                    <a href="/Birds/Index?category=Krakerler" class="dropdown-item">Krakerler</a>
+                                </li>
+                                <li class="dropdown-submenu">
+                                    <a href="/Birds/Index?category=Suluk - Yemlik" class="dropdown-item">Suluk - Yemlik</a>
                                 </li>
                                 <li class="dropdown-submenu">
                                     <a href="toys.html" class="dropdown-item">
@@ -329,9 +347,11 @@
                                         Mama
                                     </a>
                                     <ul class="dropdown-menu">
-                                        <li><a href="/Cats/Index" class="dropdown-item">Yaş Mama</a></li>
                                         <li><a href="dry-food.html" class="dropdown-item">Kuru Mama</a></li>
+                                        <li><a href="/Cats/Index" class="dropdown-item">Yaş Mama</a></li>
+                                        <li><a href="/Cats/Index" class="dropdown-item">Açık Mama</a></li>
                                         <li><a href="dry-food.html" class="dropdown-item">Ödül Maması</a></li>
+                                        
                                     </ul>
                                 </li>
                                 <li class="dropdown-submenu">
@@ -395,20 +415,51 @@
 
     </div>
 </header>
+
+@section scripts {
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // "Kedi" linkine tıklama olayını yönetme
+            var pagesLink = document.querySelector("#pages");
+            if (pagesLink) {
+                console.log("Kedi linki bulundu, olay dinleyici ekleniyor...");
+                pagesLink.addEventListener("click", function (event) {
+                    console.log("Kedi linkine tıklandı.");
+                    // Dropdown menü zaten açık değilse, tıklama /Cats/Index sayfasına yönlendirir
+                    if (!this.parentElement.classList.contains("show")) {
+                        console.log("Menü açık değil, /Cats/Index sayfasına yönlendiriliyor.");
+                        window.location.href = "/Cats/Index";
+                    }
+                });
+            } else {
+                console.log("Kedi linki bulunamadı.");
+            }
+        });
+
+    </script>
+}
+
 <style>
     /* Alt menü için gerekli düzenlemeler */
+    .nav-item.dropdown:hover > .dropdown-menu {
+        display: block;
+    }
+
+    /* Alt menüler için gerekli düzenlemeler */
     .dropdown-submenu {
         position: relative;
     }
 
+        /* Alt alt menülerin başlangıçta gizlenmesi */
         .dropdown-submenu > .dropdown-menu {
             top: 0;
             left: 100%;
             margin-top: -6px;
-            display: none;
+            display: none; /* Başlangıçta gizli */
         }
 
+        /* Alt menü üzerine gelindiğinde alt alt menülerin açılması */
         .dropdown-submenu:hover > .dropdown-menu {
-            display: block;
+            display: block; /* Hover durumunda görünür */
         }
 </style>
