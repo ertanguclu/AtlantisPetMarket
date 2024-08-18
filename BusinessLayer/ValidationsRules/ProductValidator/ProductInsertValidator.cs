@@ -8,6 +8,7 @@ namespace BusinessLayer.ValidationsRules.ProductValidator
     {
         public ProductInsertValidator()
         {
+
             RuleFor(x => x.Brand)
             .NotEmpty().WithMessage("Marka alanı boş geçilemez.")
             .MinimumLength(2).WithMessage("Marka alanı en az 2 karakter olabilir.")
@@ -36,11 +37,11 @@ namespace BusinessLayer.ValidationsRules.ProductValidator
                     .GreaterThanOrEqualTo(0).WithMessage("Stok miktarı 0'dan büyük olmalıdır.");
 
             RuleFor(x => x.ProductPhotoPath)
-                    .NotEmpty().WithMessage("Ürün fotoğrafı boş geçilemez.");
+                    .Must(file => file != null && file.Length > 0).WithMessage("Lütfen bir resim seçiniz.");
 
 
             RuleFor(x => x.Color)
-                    .MaximumLength(50).WithMessage("Renk alanı en fazla 50 karakter olabilir.");
+                        .MaximumLength(50).WithMessage("Renk alanı en fazla 50 karakter olabilir.");
 
             RuleFor(x => x.CategoryId)
                     .NotEmpty().WithMessage("Kategori boş geçilemez");

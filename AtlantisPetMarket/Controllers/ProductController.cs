@@ -6,7 +6,6 @@ using EntityLayer.DbContexts;
 using EntityLayer.Models.Concrete;
 using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using System.Globalization;
 
 namespace AtlantisPetMarket.Controllers
@@ -14,7 +13,7 @@ namespace AtlantisPetMarket.Controllers
 
     public class ProductController : Controller
     {
-      
+
 
         private readonly IProductManager<AppDbContext, Product, int> _productManager;
         private readonly ICategoryManager<AppDbContext, Category, int> _categoryManager;
@@ -26,7 +25,7 @@ namespace AtlantisPetMarket.Controllers
         public ProductController(IProductManager<AppDbContext, Product, int> productManager,
             ICategoryManager<AppDbContext, Category, int> categoryManager, IParentCategoryManager<AppDbContext, ParentCategory, int> parentCategory, IMapper mapper, IValidator<ProductInsertVM> insertValidator, IValidator<ProductUpdateVM> updateValidator)
         {
-            
+
             _productManager = productManager;
             _categoryManager = categoryManager;
             _parentCategoryManager = parentCategory;
@@ -35,46 +34,10 @@ namespace AtlantisPetMarket.Controllers
             _updateValidator = updateValidator;
         }
 
-        //public async Task<ActionResult<IEnumerable<Product>>> Index(int id)
-        //{
-        //    var products = await _productManager.GetAllIncludeAsync(x => x.CategoryId == id, x => x.Category, x => x.ParentCategory);
-        //    return View(products);
-        //}
-
-        //public ActionResult<IQueryable<Product>> Index(int id)
-        //{
-        //    var productsQuery = _productManager.GetAllInclude(
-        //        x => x.CategoryId == id,
-        //        x => x.Category,
-        //        x => x.ParentCategory
-        //    ).AsNoTracking();
-
-        //    // Veritabanı sorgusunu hemen çalıştırmadan IQueryable döndürüyoruz
-        //    return View(productsQuery);
-        //}
 
         public IActionResult Index()
         {
-            //var products = await _productManager.GetAllIncludeAsync(x => x.CategoryId == id, x => x.Category, x => x.ParentCategory);
-            //var vmProducts = _mapper.Map<IEnumerable<ProductListVM>>(products);
-            //return View(vmProducts);
 
-
-
-
-            //#region Metod Syntax ile Queryable Sorgu olustuma
-            //var products = _context.Products
-            //                    .Include(p => p.Category)
-            //                    .Include(p => p.ParentCategory)
-
-            //                    .AsNoTracking() // Çekilen datayi izleme
-            //                    .AsQueryable(); // Sorgu taslagi olarak ver.
-
-
-            //var products = _productManager.GetAllInclude(p=>p.Category,p=>p.ParentCategory);
-
-            //var products = _productManager.GetProducts();
-            //var productsvm = _mapper.Map<ProductListVM>(products);
             var productsVM = _productManager.GetProducts()
                                 .ProjectTo<ProductListVM>(_mapper.ConfigurationProvider);
 
@@ -82,9 +45,6 @@ namespace AtlantisPetMarket.Controllers
 
 
         }
-
-
-
         [HttpGet]
         public async Task<IActionResult> GetCategoriesByParentId(int parentCategoryId)
         {
@@ -120,7 +80,6 @@ namespace AtlantisPetMarket.Controllers
 
             if (!decimal.TryParse(price, NumberStyles.Any, CultureInfo.InvariantCulture, out var parsedPrice))
             {
-                ModelState.AddModelError("Price", "Fiyat alanı geçerli bir sayı olmalıdır.");
                 ViewBag.Categories = await _categoryManager.GetAllAsync(null);
                 return View(productInsertVM);
             }

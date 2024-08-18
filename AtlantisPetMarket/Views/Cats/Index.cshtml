@@ -56,16 +56,17 @@
                                         <i class="mdi mdi-plus"></i> <!-- Arttırma ikonu -->
                                     </button>
                                 </form>
-                            </div>
 
-                            <!-- Add to Cart Button -->
-                            <form asp-controller="Cart" asp-action="Create" asp-route-id="@item.Id" method="post">
-                                <input type="hidden" name="ProductId" value="@item.Id" />
-                                <input type="hidden" name="Quantity" value="1" /> <!-- Varsayılan olarak 1 ekleniyor -->
-                                <button type="submit" class="btn-cart btn-primary px-4 py-3 mt-3 w-100">
-                                    <h5 class="text-uppercase m-0">Add to Cart</h5>
-                                </button>
-                            </form>
+                                <!-- Add to Cart Button -->
+                                <form asp-controller="Cart" asp-action="Create" asp-route-id="@item.Id" method="post">
+                                    <input type="hidden" name="ProductId" value="@item.Id" />
+                                    <input type="hidden" name="Quantity" value="1" /> <!-- Varsayılan olarak 1 ekleniyor -->
+                                    <button type="submit" class="btn btn-primary rounded submit px-3 d-flex justify-content-center align-items-center ms-3">
+                                        <!-- ms-3 ile boşluk ekleniyor -->
+                                        <h5 class="text-uppercase m-0">Add to Cart</h5>
+                                    </button>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -73,6 +74,22 @@
         }
     </div>
 </div>
+<style>
+    .btn-cart {
+        background: transparent; /* Arka planı kaldırır */
+        border: none; /* Kenarlığı kaldırır */
+        color: #000; /* İkon rengini belirler */
+        font-size: 1.5rem; /* İkon boyutunu ayarlar */
+    }
+
+        .btn-cart i {
+            line-height: 1; /* İkonu ortalar */
+        }
+
+        .btn-cart:hover {
+            color: #DEAD6F; /* Hover durumunda ikon rengini değiştirir */
+        }
+</style>
 <style>
     .product-image-wrapper {
         width: 310px; /* Resim genişliği */
@@ -89,5 +106,6 @@
         border-radius: 15px;
     }
 </style>
+
 
 
