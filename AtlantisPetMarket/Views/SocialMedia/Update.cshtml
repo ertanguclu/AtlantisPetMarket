@@ -1,4 +1,4 @@
-﻿@model SocialMedia
+﻿@model SocialMediaUpdateVM
 @{
     ViewData["Title"] = "Update";
     Layout = "~/Views/Shared/_NewAdminLayout.cshtml";
@@ -37,4 +37,9 @@
         </div>
     </div>
 </div>
+@section scripts {
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+}
 

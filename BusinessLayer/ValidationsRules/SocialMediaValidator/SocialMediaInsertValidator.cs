@@ -8,12 +8,12 @@ namespace BusinessLayer.ValidationsRules.SocialMediaValidator
         public SocialMediaInsertValidator()
         {
             RuleFor(s => s.Name)
-                .NotEmpty().WithMessage("Sosyal medya adı boş geçilemez.")
+                .NotEmpty().WithMessage("Sosyal medya adı boş bırakılamaz.")
                 .MaximumLength(15).WithMessage("Ad alanı en fazla 15 karakter olabilir.");
             RuleFor(s => s.Url)
-                .NotEmpty().WithMessage("Url alanı boş geçilemez.");
+                .NotEmpty().WithMessage("Lütfen bir url giriniz.");
             RuleFor(s => s.Icon)
-                .NotEmpty().WithMessage("Icon alanı boş geçilemez.");
+                .NotEmpty().WithMessage("Lütfen bir ikon seçiniz.");
 
         }
     }
