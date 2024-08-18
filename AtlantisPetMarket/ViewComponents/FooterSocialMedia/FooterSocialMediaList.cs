@@ -15,9 +15,11 @@ namespace AtlantisPetMarket.ViewComponents.FooterSocialMedia
             _socialManager = socialManager;
             _mapper = mapper;
         }
-        public IViewComponentResult Invoke()
+        public async Task<IViewComponentResult> InvokeAsync()
         {
-            return View();
+            var socialMedias = await _socialManager.GetAllAsync(null);
+
+            return View(socialMedias);
         }
     }
 }

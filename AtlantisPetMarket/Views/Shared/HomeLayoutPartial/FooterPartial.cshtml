@@ -4,30 +4,15 @@
             <div class="col-md-3">
                 <div class="footer-menu">
                     <img src="~/waggypetshop/images/petshoplog.png" alt="logo">
-                    <p class="blog-paragraph fs-6 mt-3" Tekliflerimizden haberdar olmak için bültenimize abone olun.</p>
-                    <div class="social-links">
-                        <ul class="d-flex list-unstyled gap-2">
-                            <li class="social">
-                                <a href="#">
-                                    <iconify-icon class="social-icon" icon="ri:facebook-fill"></iconify-icon>
-                                </a>
-                            </li>
-                           
-                            <li class="social">
-                                <a href="#">
-                                    <iconify-icon class="social-icon" icon="ri:instagram-fill"></iconify-icon>
-                                </a>
-                            </li>
-                        
-                        </ul>
-                    </div>
+                    <p class="blog-paragraph fs-6 mt-3"> Tekliflerimizden haberdar olmak için bültenimize abone olun.</p>
+                    @await Component.InvokeAsync("FooterSocialMediaList")
                 </div>
             </div>
             <div class="col-md-3">
                 <div class="footer-menu">
                     <h3>Alışverişe Devam Et</h3>
                     <ul class="menu-list list-unstyled">
-                        
+
                         <li class="menu-item">
                             <a href="Cats/Index" class="nav-link">Kedi</a>
                         </li>
@@ -55,16 +40,16 @@
                         </li>
 
                         @* <li class="menu-item">
-                            <a href="#" class="nav-link">Payment</a>
+                        <a href="#" class="nav-link">Payment</a>
                         </li>
                         <li class="menu-item">
-                            <a href="#" class="nav-link">Returns & Refunds</a>
+                        <a href="#" class="nav-link">Returns & Refunds</a>
                         </li>
                         <li class="menu-item">
-                            <a href="#" class="nav-link">Checkout</a>
+                        <a href="#" class="nav-link">Checkout</a>
                         </li>
                         <li class="menu-item">
-                            <a href="#" class="nav-link">Delivery Information</a>
+                        <a href="#" class="nav-link">Delivery Information</a>
                         </li> *@
                     </ul>
                 </div>
@@ -75,6 +60,8 @@
                     </div>
                 </div>
 
+            </div>
+        </div>
     </div>
 </footer>
 
@@ -87,7 +74,7 @@
             <div class="col-md-6 copyright">
                 <p class="secondary-font">© @DateTime.Now.Year. Tüm hakları saklıdır.</p>
             </div>
-           
+
         </div>
     </div>
 </div>
