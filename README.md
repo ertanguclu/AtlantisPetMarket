@@ -26,7 +26,7 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <a href="https://github.com/your_username/repo_name">
+  <a href="https://github.com/ertanguclu/AtlantisPetMarket">
     <img src="images/petshopregister.png" alt="Logo" width="590" height="288">
   </a>
 
@@ -67,7 +67,7 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-![Home](images/Ekran%20g%C3%B6r%C3%BCnt%C3%BCs%C3%BC%202024-08-18%20115333.png)
+![Home](images/HomeIndex.png)
 
 **AtlantisPetMarket** is a comprehensive web application designed to enhance the e-commerce experience in the pet shop industry. This project enables users to easily find, purchase, and manage pet products. It also provides a powerful admin panel for users to add, edit, and delete products and categories.
 
@@ -121,19 +121,20 @@ The homepage serves as the main entry point for users to navigate and view the g
 
 
 
-![Home](images/Home.png)
+![Home](images/HomeIndex.png)
 
 
 <h3>Product Create</h3>
 The Product Create page allows administrators to add new products. On this page, you can enter information such as the product name, description, price, stock status, and category to save new products to the database. The product creation process is straightforward and user-friendly.
 
-![Product](images/ProductCreate.png)
+![Product](images/ProductC.png)
+![Product](images/ProductList.png)
 
 
 <h3>Category Create</h3>
 The Category Create page is used to create new product categories. On this page, you can define new categories to group and organize products. Categories make it easier to organize your products and help users find the products they are looking for more easily.
 
-![Category](images/CategoryCreate.png)
+![Category](images/CategoryList.png)
 
 
 <h3>Login</h3>
