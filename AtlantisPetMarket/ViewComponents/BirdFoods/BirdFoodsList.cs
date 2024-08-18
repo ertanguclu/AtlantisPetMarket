@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using BusinessLayer.Abstract;
-using BusinessLayer.Models.ProductVM;
+using BusinessLayer.Models.CartViewModel;
 using EntityLayer.DbContexts;
 using EntityLayer.Models.Concrete;
 using Microsoft.AspNetCore.Mvc;
@@ -18,11 +18,20 @@ namespace AtlantisPetMarket.ViewComponents.BirdFoods
         }
         public async Task<IViewComponentResult> InvokeAsync()
         {
-            string categoryName = "Kuş Yemi";
-            var products = await _productManager.GetProductsByCategoryAsync(p => p.Category.CategoryName == categoryName, p => p.Category);
+            // Kuş kategorisine ve 'yem' içeren ürünlere göre filtreleme
+            var products = await _productManager.GetProductsByCategoryAsync(
+                p => p.ParentCategory.ParentCategoryName.ToLower() == "kuş" && p.Category.CategoryName.ToLower().Contains("yemler"),
+                p => p.ParentCategory,
+                p => p.Category
+            );
+
+            // Rastgele seçme ve ilk 8 ürünü alma
             var random = new Random();
             var randomProducts = products.OrderBy(x => random.Next()).Take(8).ToList();
-            var model = _mapper.Map<List<ProductListVM>>(randomProducts);
+
+            // Modeli oluşturma
+            var model = _mapper.Map<List<ProductCartVM>>(randomProducts);
+
             return View(model);
         }
     }
