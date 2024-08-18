@@ -1,11 +1,13 @@
 ﻿using EntityLayer.Models.Concrete;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 
 namespace EntityLayer.DbContexts
 {
     public class AppDbContext : IdentityDbContext<User, UserRole, int>
     {
+        private readonly IConfiguration _configuration;
 
         public DbSet<Product> Products { get; set; }
         public DbSet<Category> Categories { get; set; }
@@ -24,14 +26,14 @@ namespace EntityLayer.DbContexts
         {
 
         }
-        public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
+        public AppDbContext(DbContextOptions<AppDbContext> options, IConfiguration configuration) : base(options)
         {
-
+            _configuration = configuration;
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            base.OnConfiguring(optionsBuilder);
-            optionsBuilder.UseMySQL(@"Server=localhost;Database=PetShopDb;Uid=root;password=Password187");
+            var connectionString = _configuration.GetConnectionString("DefaultConnection");
+            optionsBuilder.UseMySQL(connectionString);
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

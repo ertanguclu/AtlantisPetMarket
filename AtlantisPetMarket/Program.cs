@@ -16,10 +16,9 @@ using Microsoft.EntityFrameworkCore;
 using System.Globalization;
 using System.Reflection;
 
-
 var builder = WebApplication.CreateBuilder(args);
 
-// Database context
+// Add services to the container
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseMySQL(builder.Configuration.GetConnectionString("DefaultConnection")));
 
@@ -35,14 +34,14 @@ builder.Services.AddScoped<IOrderManager<AppDbContext, Order, int>, OrderManager
 builder.Services.AddScoped<IOrderItemManager<AppDbContext, OrderItem, int>, OrderItemManager<AppDbContext, OrderItem, int>>();
 builder.Services.AddScoped<IMessageManager<AppDbContext, Message, int>, MessageManager<AppDbContext, Message, int>>();
 
-
 // AutoMapper
 builder.Services.AddAutoMapper(typeof(MapperConfig));
-// Controllers and views
-builder.Services.AddControllersWithViews();
-builder.Services.AddControllersWithViews(options => options.SuppressImplicitRequiredAttributeForNonNullableReferenceTypes = true);
 
-//FluentValidation
+// Controllers and views
+builder.Services.AddControllersWithViews(options =>
+    options.SuppressImplicitRequiredAttributeForNonNullableReferenceTypes = true);
+
+// FluentValidation
 builder.Services.AddFluentValidationClientsideAdapters();
 builder.Services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
 builder.Services.AddTransient<IValidator<ProductInsertVM>, ProductInsertValidator>();
@@ -52,19 +51,14 @@ builder.Services.AddTransient<IValidator<CategoryInsertVM>, CategoryInsertValida
 builder.Services.AddTransient<IValidator<ContactInsertVM>, ContactInsertValidator>();
 builder.Services.AddTransient<IValidator<ContactUpdateVM>, ContactUpdateValidator>();
 
-
-
-
 // Identity
-//builder.Services.AddIdentity<User, UserRole>()
-//    .AddEntityFrameworkStores<AppDbContext>();
 builder.Services.AddIdentity<User, UserRole>()
         .AddEntityFrameworkStores<AppDbContext>()
         .AddDefaultTokenProviders();
 
-
 var app = builder.Build();
 
+// Localization settings
 var cultureInfo = new CultureInfo("tr-TR");
 CultureInfo.DefaultThreadCurrentCulture = cultureInfo;
 CultureInfo.DefaultThreadCurrentUICulture = cultureInfo;
@@ -82,18 +76,14 @@ app.UseRouting();
 app.UseAuthentication(); // Add authentication middleware
 app.UseAuthorization();
 
-
 app.MapControllerRoute(
     name: "areas",
     pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
 );
+
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}"
 );
-
-
-
-
 
 app.Run();
