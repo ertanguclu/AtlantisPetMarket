@@ -18,7 +18,7 @@
             <div class="item cat col-md-4 col-lg-3 my-4">
                 <div class="card position-relative">
                     <a href="single-product.html">
-                        <img src="~/productimage/@item.ProductPhotoPath" class="img-fluid rounded-4 product-image-wrapper" alt="image">
+                        <img src="~/productimage/@item.ProductPhotoPath" class="product-image-wrapper img-fluid rounded-4" alt="image">
                     </a>
                     <div class="card-body p-0">
                         <a href="single-product.html">
@@ -74,6 +74,7 @@
         }
     </div>
 </div>
+
 <style>
     .btn-cart {
         background: transparent; /* Arka planı kaldırır */
@@ -105,7 +106,55 @@
             object-fit: cover; /* Resmi kapsayacak şekilde ölçekler, en-boy oranını korur */
         border-radius: 15px;
     }
+
+    .card-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+    }
+
+    .card-title {
+        min-height: 35px; /* Minimum yüksekliği ayarlıyoruz */
+        max-height: 70px; /* Maksimum iki satır gösteriyoruz */
+        overflow: hidden; /* Taşan metni gizliyoruz */
+        text-overflow: ellipsis; /* Taşan metin için üç nokta koyuyoruz */
+        display: -webkit-box;
+        -webkit-line-clamp: 2; /* En fazla iki satır gösteriyoruz */
+        -webkit-box-orient: vertical;
+        font-size: 1.2em; /* Font boyutunu belirliyoruz */
+        line-height: 1.2em; /* Satır yüksekliğini belirliyoruz */
+        display: flex;
+        align-items: flex-start; /* Başlığı üst kısma hizalar */
+    }
+
+
+    .card-text {
+    margin-top: auto; /* Yıldızları mümkün olduğunca yukarıda tutar */
+    }
+
+
+
 </style>
+@section scripts {
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var cardTitles = document.querySelectorAll(".card-title");
+
+            cardTitles.forEach(function (title) {
+                var lineHeight = parseInt(window.getComputedStyle(title).lineHeight);
+                var height = title.scrollHeight;
+                var lines = height / lineHeight;
+
+                if (lines === 1) {
+                    title.style.height = "35px"; // Tek satır olduğunda 35px yap
+                } else {
+                    title.style.height = "70px"; // İki satır olduğunda 70px yap
+                }
+            });
+        });
+    </script>
+}
 
 
 
