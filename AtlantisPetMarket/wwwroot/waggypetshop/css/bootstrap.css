@@ -4439,8 +4439,9 @@ textarea.form-control-lg {
 }
 
 .card-title {
-  margin-bottom: var(--bs-card-title-spacer-y);
-  color: var(--bs-card-title-color);
+    margin-bottom: var(--bs-card-title-spacer-y);
+    color: var(--bs-card-title-color);
+
 }
 
 .card-subtitle {
