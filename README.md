@@ -7,17 +7,16 @@
 [![MIT License][license-shield]][license-url]
 ![C#](https://img.shields.io/badge/C%23-blue.svg?style=for-the-badge)
 ![ASP.NET Core](https://img.shields.io/badge/ASP.NET%20Core-512BD4?style=for-the-badge&logo=asp-dot-net&logoColor=white)
+![ASP.NET MVC](https://img.shields.io/badge/ASP.NET%20MVC-5C2D91?style=for-the-badge&logo=asp-dot-net&logoColor=white)
 ![Entity Framework Core](https://img.shields.io/badge/Entity%20Framework%20Core-512BD4?style=for-the-badge&logo=entity-framework&logoColor=white)
 ![.NET 8.0](https://img.shields.io/badge/.NET%208.0-512BD4?style=for-the-badge&logo=.net&logoColor=white)
 ![JavaScript](https://img.shields.io/badge/JavaScript-yellow.svg?style=for-the-badge)
 ![HTML](https://img.shields.io/badge/HTML-orange.svg?style=for-the-badge)
 ![CSS](https://img.shields.io/badge/CSS-blue.svg?style=for-the-badge)
-
-
 ![jQuery](https://img.shields.io/badge/jQuery-0769AD?style=for-the-badge&logo=jquery&logoColor=white)
-![MySQL](https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&logo=mysql&logoColor=white)
 ![Bootstrap](https://img.shields.io/badge/Bootstrap-563D7C?style=for-the-badge&logo=bootstrap&logoColor=white)
-![ASP.NET MVC](https://img.shields.io/badge/ASP.NET%20MVC-5C2D91?style=for-the-badge&logo=asp-dot-net&logoColor=white)
+![MySQL](https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&logo=mysql&logoColor=white)
+
 
 
 
