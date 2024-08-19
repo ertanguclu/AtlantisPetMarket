@@ -2,7 +2,6 @@
 using EntityLayer.Models.Concrete;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
-using System.Threading.Tasks;
 
 namespace BusinessLayer.Concrete
 {
@@ -22,5 +21,6 @@ namespace BusinessLayer.Concrete
             return await _context.Set<CartItem>()
                 .FirstOrDefaultAsync(predicate);
         }
+
     }
 }

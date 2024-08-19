@@ -14,13 +14,15 @@ namespace AtlantisPetMarket.Controllers
     {
         private readonly ICartManager<AppDbContext, Cart, int> _cartManager;
         private readonly ICartItemManager<AppDbContext, CartItem, int> _cartItemManager;
+        private readonly IProductManager<AppDbContext, Product, int> _productManager;
         private readonly IMapper _mapper;
         //private readonly IValidator<CartVM> _validator;
 
-        public CartController(ICartManager<AppDbContext, Cart, int> cartManager, ICartItemManager<AppDbContext, CartItem, int> cartItemManager, IMapper mapper)
+        public CartController(ICartManager<AppDbContext, Cart, int> cartManager, ICartItemManager<AppDbContext, CartItem, int> cartItemManager, IMapper mapper, IProductManager<AppDbContext, Product, int> productManager)
         {
             _cartManager = cartManager;
             _cartItemManager = cartItemManager;
+            _productManager = productManager;
             _mapper = mapper;
             //_validator = validator;
         }
@@ -53,6 +55,28 @@ namespace AtlantisPetMarket.Controllers
 
             // Cookie'den gelen CartId geçerli değilse veya sepet bulunamadıysa
             return RedirectToAction("EmptyCart");
+        }
+        [HttpGet]
+        public async Task<JsonResult> Search(string searchQuery)
+        {
+            var lowerQuery = searchQuery.ToLower();
+            var filteredProducts = await _productManager.GetAllIncludeAsync(c => c.ProductName.ToLower().Contains(lowerQuery));
+
+
+            // Eğer ürünler doğru dönmüyorsa, `filteredProducts` üzerinde debug yaparak ne döndüğünü kontrol edin.
+            var productVM = _mapper.Map<IEnumerable<ProductCartVM>>(filteredProducts);
+
+            return Json(productVM);
+        }
+        public async Task<IActionResult> Details(int id)
+        {
+            var productDetails = await _productManager.FindAsync(id);
+            var productVM = _mapper.Map<ProductCartVM>(productDetails);
+            if (productVM == null)
+            {
+                return NotFound();
+            }
+            return View(productVM);
         }
 
         //public async Task<IActionResult> CartModalPartial()
@@ -188,7 +212,7 @@ namespace AtlantisPetMarket.Controllers
                 return NotFound();
             }
 
-            cartItem.Quantity += 1; 
+            cartItem.Quantity += 1;
             await _cartItemManager.UpdateAsync(cartItem);
 
             return RedirectToAction("Index", new { id = cartItem.CartId });
@@ -202,14 +226,14 @@ namespace AtlantisPetMarket.Controllers
             {
                 return NotFound();
             }
-                        if (cartItem.Quantity > 1)
+            if (cartItem.Quantity > 1)
             {
-                cartItem.Quantity -= 1; 
+                cartItem.Quantity -= 1;
                 await _cartItemManager.UpdateAsync(cartItem);
             }
             else
             {
-                
+
                 await _cartItemManager.DeleteAsync(cartItem);
             }
 
