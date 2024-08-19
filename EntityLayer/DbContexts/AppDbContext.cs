@@ -32,8 +32,12 @@ namespace EntityLayer.DbContexts
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            var connectionString = _configuration.GetConnectionString("DefaultConnection");
-            optionsBuilder.UseMySQL(connectionString);
+            //var connectionString = _configuration.GetConnectionString("DefaultConnection");
+            //optionsBuilder.UseMySQL(connectionString);
+            if (!optionsBuilder.IsConfigured)
+            {
+                optionsBuilder.UseMySQL("Server=localhost;Database=PetShopDb;User Id=root;Password=Password187");
+            }
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
