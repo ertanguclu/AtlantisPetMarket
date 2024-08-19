@@ -5,7 +5,6 @@ using EntityLayer.DbContexts;
 using EntityLayer.Models.Concrete;
 using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
-using Mysqlx.Crud;
 
 namespace AtlantisPetMarket.Controllers
 {
