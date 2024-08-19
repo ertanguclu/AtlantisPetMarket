@@ -25,8 +25,9 @@ namespace BusinessLayer.AutoMapperConfig
             CreateMap<CartItem, ProductCartVM>().ReverseMap();
 
             CreateMap<Category, CategoryUpdateVM>().ReverseMap();
-
             CreateMap<Category, CategoryInsertVM>().ReverseMap();
+            CreateMap<Category, CategoryListVM>();
+
             CreateMap<CartItem, CartItemViewModel>().ReverseMap();
 
             CreateMap<Cart, CartVM>().ReverseMap();

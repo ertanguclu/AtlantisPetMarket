@@ -10,7 +10,7 @@
                 </div>
             </div>
 
-            <div class="col-sm-6 offset-sm-2 offset-md-0 col-lg-5 d-none d-lg-block">
+            @* <div class="col-sm-6 offset-sm-2 offset-md-0 col-lg-5 d-none d-lg-block">
                 <div class="search-bar border rounded-2 px-3 border-dark-subtle">
                     <form id="search-form" class="text-center d-flex align-items-center" action="" method="post">
                         <input type="text" class="form-control border-0 bg-transparent"
@@ -21,7 +21,25 @@
                         </svg>
                     </form>
                 </div>
+            </div> *@
+            <div class="col-sm-6 offset-sm-2 offset-md-0 col-lg-5 d-none d-lg-block">
+                <div class="search-bar border rounded-2 px-3 border-dark-subtle" style="position: relative;">
+                    <form id="search-form" class="text-center d-flex align-items-center" onsubmit="return false;">
+                        <input type="text" id="searchInput" class="form-control border-0 bg-transparent"
+                               placeholder="200'den fazla üründe arama yapın" autocomplete="off" />
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                            <path fill="currentColor"
+                                  d="M21.71 20.29L18 16.61A9 9 0 1 0 16.61 18l3.68 3.68a1 1 0 0 0 1.42 0a1 1 0 0 0 0-1.39ZM11 18a7 7 0 1 1 7-7a7 7 0 0 1-7 7Z" />
+                        </svg>
+                    </form>
+                    <!-- Arama sonuçlarının gösterileceği açılır pencere -->
+                    <div id="searchResults" style="display: none; position: absolute; top: 100%; left: 0; right: 0; border: 1px solid #ddd; background-color: #fff; z-index: 1000; max-height: 200px; overflow-y: auto;">
+                        <!-- Dinamik olarak doldurulacak -->
+                    </div>
+                </div>
             </div>
+
+
 
             @await Component.InvokeAsync("HeaderContactList")
         </div>
@@ -301,7 +319,6 @@
 
     </script>
 }
-
 <style>
     /* Alt menü için gerekli düzenlemeler */
     .nav-item.dropdown:hover > .dropdown-menu {
