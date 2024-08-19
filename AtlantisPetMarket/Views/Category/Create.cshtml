@@ -13,6 +13,7 @@
                 <div>
                     <label>Üst Kategori</label>
                     <select asp-for="ParentCategoryId" class="form-select form-select-sm" aria-label=".form-select-sm example">
+                        <option value="">Lütfen bir üst kategori seçin</option>
                         @foreach (ParentCategory pCategory in ViewBag.parentCategories)
                         {
                             <option value="@pCategory.Id">@pCategory.ParentCategoryName</option>
@@ -26,7 +27,6 @@
                     <span asp-validation-for="CategoryName" class="text-danger"></span>
                 </div>
                 <button type="submit" class="btn btn-primary mr-2">Kaydet</button>
-                <button class="btn btn-dark">İptal</button>
             </form>
         </div>
     </div>
