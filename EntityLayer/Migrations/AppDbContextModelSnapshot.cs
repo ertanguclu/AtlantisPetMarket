@@ -280,31 +280,31 @@ namespace EntityLayer.Migrations
                         new
                         {
                             Id = 1,
-                            CreateDate = new DateTime(2024, 8, 19, 12, 40, 44, 605, DateTimeKind.Local).AddTicks(1092),
+                            CreateDate = new DateTime(2024, 8, 19, 21, 36, 9, 141, DateTimeKind.Local).AddTicks(2426),
                             ParentCategoryName = "Kedi"
                         },
                         new
                         {
                             Id = 2,
-                            CreateDate = new DateTime(2024, 8, 19, 12, 40, 44, 605, DateTimeKind.Local).AddTicks(1103),
+                            CreateDate = new DateTime(2024, 8, 19, 21, 36, 9, 141, DateTimeKind.Local).AddTicks(2431),
                             ParentCategoryName = "Köpek"
                         },
                         new
                         {
                             Id = 3,
-                            CreateDate = new DateTime(2024, 8, 19, 12, 40, 44, 605, DateTimeKind.Local).AddTicks(1110),
+                            CreateDate = new DateTime(2024, 8, 19, 21, 36, 9, 141, DateTimeKind.Local).AddTicks(2435),
                             ParentCategoryName = "Kuş"
                         },
                         new
                         {
                             Id = 4,
-                            CreateDate = new DateTime(2024, 8, 19, 12, 40, 44, 605, DateTimeKind.Local).AddTicks(1116),
+                            CreateDate = new DateTime(2024, 8, 19, 21, 36, 9, 141, DateTimeKind.Local).AddTicks(2439),
                             ParentCategoryName = "Balık"
                         },
                         new
                         {
                             Id = 5,
-                            CreateDate = new DateTime(2024, 8, 19, 12, 40, 44, 605, DateTimeKind.Local).AddTicks(1122),
+                            CreateDate = new DateTime(2024, 8, 19, 21, 36, 9, 141, DateTimeKind.Local).AddTicks(2442),
                             ParentCategoryName = "Kemirgen"
                         });
                 });

@@ -9,7 +9,7 @@ using MySql.EntityFrameworkCore.Metadata;
 namespace EntityLayer.Migrations
 {
     /// <inheritdoc />
-    public partial class NewMig : Migration
+    public partial class Update : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -477,11 +477,11 @@ namespace EntityLayer.Migrations
                 columns: new[] { "Id", "CreateDate", "ParentCategoryName" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2024, 8, 19, 12, 40, 44, 605, DateTimeKind.Local).AddTicks(1092), "Kedi" },
-                    { 2, new DateTime(2024, 8, 19, 12, 40, 44, 605, DateTimeKind.Local).AddTicks(1103), "Köpek" },
-                    { 3, new DateTime(2024, 8, 19, 12, 40, 44, 605, DateTimeKind.Local).AddTicks(1110), "Kuş" },
-                    { 4, new DateTime(2024, 8, 19, 12, 40, 44, 605, DateTimeKind.Local).AddTicks(1116), "Balık" },
-                    { 5, new DateTime(2024, 8, 19, 12, 40, 44, 605, DateTimeKind.Local).AddTicks(1122), "Kemirgen" }
+                    { 1, new DateTime(2024, 8, 19, 21, 36, 9, 141, DateTimeKind.Local).AddTicks(2426), "Kedi" },
+                    { 2, new DateTime(2024, 8, 19, 21, 36, 9, 141, DateTimeKind.Local).AddTicks(2431), "Köpek" },
+                    { 3, new DateTime(2024, 8, 19, 21, 36, 9, 141, DateTimeKind.Local).AddTicks(2435), "Kuş" },
+                    { 4, new DateTime(2024, 8, 19, 21, 36, 9, 141, DateTimeKind.Local).AddTicks(2439), "Balık" },
+                    { 5, new DateTime(2024, 8, 19, 21, 36, 9, 141, DateTimeKind.Local).AddTicks(2442), "Kemirgen" }
                 });
 
             migrationBuilder.CreateIndex(
