@@ -60,7 +60,7 @@ namespace AtlantisPetMarket.Controllers
         public async Task<JsonResult> Search(string searchQuery)
         {
             var lowerQuery = searchQuery.ToLower();
-            var filteredProducts = await _productManager.GetAllIncludeAsync(c => c.ProductName.ToLower().Contains(lowerQuery));
+            var filteredProducts = await _productManager.GetProductsByCategoryAsync(c => c.ProductName.ToLower().Contains(lowerQuery));
 
 
             // Eğer ürünler doğru dönmüyorsa, `filteredProducts` üzerinde debug yaparak ne döndüğünü kontrol edin.
