@@ -4,10 +4,12 @@ using MySql.EntityFrameworkCore.Metadata;
 
 #nullable disable
 
+#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
+
 namespace EntityLayer.Migrations
 {
     /// <inheritdoc />
-    public partial class MigrationsAdd : Migration
+    public partial class NewMig : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -109,7 +111,7 @@ namespace EntityLayer.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
-                    ParentCategoryName = table.Column<string>(type: "longtext", nullable: false),
+                    ParentCategoryName = table.Column<string>(type: "varchar(20)", maxLength: 20, nullable: false),
                     CreateDate = table.Column<DateTime>(type: "datetime(6)", nullable: false)
                 },
                 constraints: table =>
@@ -299,7 +301,7 @@ namespace EntityLayer.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
-                    CategoryName = table.Column<string>(type: "varchar(255)", nullable: false),
+                    CategoryName = table.Column<string>(type: "longtext", nullable: false),
                     ParentCategoryId = table.Column<int>(type: "int", nullable: false),
                     CreateDate = table.Column<DateTime>(type: "datetime(6)", nullable: false)
                 },
@@ -470,6 +472,18 @@ namespace EntityLayer.Migrations
                 })
                 .Annotation("MySQL:Charset", "utf8mb4");
 
+            migrationBuilder.InsertData(
+                table: "ParentCategories",
+                columns: new[] { "Id", "CreateDate", "ParentCategoryName" },
+                values: new object[,]
+                {
+                    { 1, new DateTime(2024, 8, 19, 12, 40, 44, 605, DateTimeKind.Local).AddTicks(1092), "Kedi" },
+                    { 2, new DateTime(2024, 8, 19, 12, 40, 44, 605, DateTimeKind.Local).AddTicks(1103), "Köpek" },
+                    { 3, new DateTime(2024, 8, 19, 12, 40, 44, 605, DateTimeKind.Local).AddTicks(1110), "Kuş" },
+                    { 4, new DateTime(2024, 8, 19, 12, 40, 44, 605, DateTimeKind.Local).AddTicks(1116), "Balık" },
+                    { 5, new DateTime(2024, 8, 19, 12, 40, 44, 605, DateTimeKind.Local).AddTicks(1122), "Kemirgen" }
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_Addresses_UserId",
                 table: "Addresses",
@@ -526,12 +540,6 @@ namespace EntityLayer.Migrations
                 name: "IX_Carts_UserId",
                 table: "Carts",
                 column: "UserId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Categories_CategoryName_ParentCategoryId",
-                table: "Categories",
-                columns: new[] { "CategoryName", "ParentCategoryId" },
-                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Categories_ParentCategoryId",

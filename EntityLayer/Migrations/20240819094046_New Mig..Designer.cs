@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EntityLayer.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240818214151_Migrations Add")]
-    partial class MigrationsAdd
+    [Migration("20240819094046_New Mig.")]
+    partial class NewMig
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -118,7 +118,7 @@ namespace EntityLayer.Migrations
 
                     b.Property<string>("CategoryName")
                         .IsRequired()
-                        .HasColumnType("varchar(255)");
+                        .HasColumnType("longtext");
 
                     b.Property<DateTime>("CreateDate")
                         .HasColumnType("datetime(6)");
@@ -129,9 +129,6 @@ namespace EntityLayer.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("ParentCategoryId");
-
-                    b.HasIndex("CategoryName", "ParentCategoryId")
-                        .IsUnique();
 
                     b.ToTable("Categories");
                 });
@@ -275,11 +272,44 @@ namespace EntityLayer.Migrations
 
                     b.Property<string>("ParentCategoryName")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasMaxLength(20)
+                        .HasColumnType("varchar(20)");
 
                     b.HasKey("Id");
 
                     b.ToTable("ParentCategories");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CreateDate = new DateTime(2024, 8, 19, 12, 40, 44, 605, DateTimeKind.Local).AddTicks(1092),
+                            ParentCategoryName = "Kedi"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CreateDate = new DateTime(2024, 8, 19, 12, 40, 44, 605, DateTimeKind.Local).AddTicks(1103),
+                            ParentCategoryName = "Köpek"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CreateDate = new DateTime(2024, 8, 19, 12, 40, 44, 605, DateTimeKind.Local).AddTicks(1110),
+                            ParentCategoryName = "Kuş"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            CreateDate = new DateTime(2024, 8, 19, 12, 40, 44, 605, DateTimeKind.Local).AddTicks(1116),
+                            ParentCategoryName = "Balık"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            CreateDate = new DateTime(2024, 8, 19, 12, 40, 44, 605, DateTimeKind.Local).AddTicks(1122),
+                            ParentCategoryName = "Kemirgen"
+                        });
                 });
 
             modelBuilder.Entity("EntityLayer.Models.Concrete.Product", b =>
