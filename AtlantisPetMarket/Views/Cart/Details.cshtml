@@ -1,0 +1,106 @@
+﻿@model ProductCartVM
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
+}
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="row">
+                <!-- Ürün Resmi (Sol Sütun) -->
+                <div class="col-md-6 d-flex justify-content-center">
+                    <img src="~/productimage/@Model.ProductPhotoPath" class="product-image img-fluid rounded" alt="@Model.ProductName">
+                </div>
+
+                <!-- Ürün Bilgileri (Sağ Sütun) -->
+                <div class="col-md-6 d-flex flex-column justify-content-center">
+                    <h1 class="display-5">@Model.ProductName</h1>
+                    <p class="lead text-muted">@Model.Description</p>
+                    <p class="lead text-muted">Marka: @Model.Brand</p>
+                    <h3 class="text-primary">@Model.Price.ToString("C")</h3> <!-- Fiyatı para birimi formatında gösterir -->
+
+                    <div class="d-flex align-items-center mt-4">
+                        <!-- Decrease Quantity Button -->
+                        <form asp-controller="Cart" asp-action="DecreaseQuantity" asp-route-cartItemId="@Model.Id" method="post">
+                            <button type="submit" class="btn-cart px-2 py-2">
+                                <i class="mdi mdi-minus"></i> <!-- Azaltma ikonu -->
+                            </button>
+                        </form>
+
+                        <!-- Quantity Display -->
+                        <div class="px-2 py-2">
+                            <h5 class="m-0">@Model.Quantity</h5> <!-- Ürün miktarını gösterir -->
+                        </div>
+
+                        <!-- Increase Quantity Button -->
+                        <form asp-controller="Cart" asp-action="IncreaseQuantity" asp-route-cartItemId="@Model.Id" method="post">
+                            <button type="submit" class="btn-cart px-2 py-2">
+                                <i class="mdi mdi-plus"></i> <!-- Arttırma ikonu -->
+                            </button>
+                        </form>
+
+                        <!-- Sepete Ekle Button -->
+                        <form asp-controller="Cart" asp-action="Create" asp-route-id="@Model.Id" method="post" class="ms-3">
+                            <input type="hidden" name="ProductId" value="@Model.Id" />
+                            <input type="hidden" name="Quantity" value="1" />
+                            <button type="submit" class="btn btn-primary btn-lg">Sepete Ekle</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .product-image {
+        max-width: 100%; /* Genişliği %100 olarak sınırlama */
+        max-height: 400px; /* Yüksekliği 400px olarak sınırlama */
+        width: auto; /* Genişlik ve yükseklik arasındaki oranı korur */
+        height: auto;
+        object-fit: contain; /* Resmi kutuya sığdırır */
+        border-radius: 10px;
+    }
+
+    .display-5 {
+        font-size: 2rem;
+        font-weight: bold;
+    }
+
+    .lead {
+        font-size: 1.2rem;
+        margin-bottom: 20px;
+    }
+
+    .text-primary {
+        font-size: 1.8rem;
+    }
+
+    .btn-cart {
+        background: transparent; /* Arka planı kaldırır */
+        border: none; /* Kenarlığı kaldırır */
+        color: #000; /* İkon rengini belirler */
+        font-size: 1.5rem; /* İkon boyutunu ayarlar */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 5px; /* Butonlar arasında boşluk ekler */
+    }
+
+        .btn-cart:hover {
+            color: #DEAD6F; /* Hover durumunda ikon rengini değiştirir */
+        }
+
+    .btn-primary {
+        background-color: #F7EEE4; /* Buton arka plan rengi */
+        border-color: #F7EEE4; /* Kenar rengi */
+        color: #000; /* Metin rengi */
+    }
+
+        .btn-primary:hover {
+            background-color: #DEAD6F; /* Hover durumunda arka plan rengi */
+            border-color: #DEAD6F; /* Hover durumunda kenar rengi */
+            color: #fff; /* Hover durumunda metin rengi */
+        }
+</style>

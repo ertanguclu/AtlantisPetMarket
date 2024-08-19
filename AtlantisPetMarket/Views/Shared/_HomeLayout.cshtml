@@ -27,6 +27,7 @@
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
     <link rel="stylesheet" href="https://cdn.materialdesignicons.com/5.2.45/css/materialdesignicons.min.css" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> <!-- jQuery'nin yüklü olduğundan emin olun -->
 
 
 </head>
@@ -50,10 +51,56 @@
 
     @RenderBody()
 
-  
+
     @await Html.PartialAsync("HomeLayoutPartial/FooterPartial")
 
     @await Html.PartialAsync("HomeLayoutPartial/ScriptPartial")
+
+    <script>
+        $(document).ready(function () {
+            $('#searchInput').on('input', function () {
+                var query = $(this).val();
+                if (query.length < 2) {
+                    $('#searchResults').hide();
+                    return;
+                }
+
+                $.ajax({
+                    url: '/Cart/Search', // CartController'ın Search eylem yöntemine uygun URL
+                    type: 'GET',
+                    data: { searchQuery: query },
+                    success: function (data) {
+                        var searchResults = $('#searchResults');
+                        searchResults.empty();
+                        if (data.length > 0) {
+                            $.each(data, function (index, product) {
+                                searchResults.append(
+                                    '<a href="/Cart/Details/' + product.id + '" class="list-group-item list-group-item-action">' +
+                                    '<h6>' + product.productName + '</h6>' +
+                                    '<p>' + product.description + '</p>' +
+                                    '<p><strong>' + product.price + ' ₺</strong></p>' +
+                                    '</a>'
+                                );
+                            });
+                            searchResults.show();
+                        } else {
+                            searchResults.append('<p class="list-group-item">Ürün bulunamadı.</p>');
+                            searchResults.show();
+                        }
+                    },
+                    error: function () {
+                        console.log("Bir hata oluştu.");
+                    }
+                });
+            });
+
+            $(document).on('click', function (e) {
+                if (!$(e.target).closest('#searchInput, #searchResults').length) {
+                    $('#searchResults').hide();
+                }
+            });
+        });
+    </script>
 
     @RenderSection("scripts", required: false)
 
