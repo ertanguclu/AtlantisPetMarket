@@ -11,11 +11,11 @@
         {
             <div class="item cat col-md-4 col-lg-3 my-4">
                 <div class="card position-relative">
-                    <a href="single-product.html">
+                    <a asp-action="Details" asp-controller="Cart" asp-route-Id="@item.Id">
                         <img src="~/productimage/@item.ProductPhotoPath" class="product-image-wrapper img-fluid rounded-4" alt="image">
                     </a>
                     <div class="card-body p-0">
-                        <a href="single-product.html">
+                        <a asp-action="Details" asp-controller="Cart" asp-route-Id="@item.Id">
                             <h3 class="card-title pt-4 m-0">@item.ProductName</h3>
                         </a>
 
@@ -29,7 +29,7 @@
                                 5.0
                             </span>
 
-                            <h3 class="secondary-font text-primary">@item.Price</h3>
+                            <h3 class="secondary-font text-primary">@item.Price.ToString("C")</h3>
 
                             <div class="d-flex flex-wrap mt-3">
                                 <!-- Decrease Quantity Button -->
