@@ -22,7 +22,7 @@ namespace AtlantisPetMarket.Controllers
             _insertValidator = insertValidator;
             _updateValidator = updateValidator;
         }
-        public async Task<ActionResult<IEnumerable<Contact>>> Index()
+        public async Task<ActionResult> Index()
         {
             var contacts = await _contactManager.GetAllAsync(null);
             var vmContacts = _mapper.Map<IEnumerable<ContactListVM>>(contacts);
