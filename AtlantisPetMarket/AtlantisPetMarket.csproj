@@ -7,13 +7,6 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <Compile Remove="Views\Shared\Components\NewFolder\**" />
-	  <Content Remove="Views\Shared\Components\NewFolder\**" />
-	  <EmbeddedResource Remove="Views\Shared\Components\NewFolder\**" />
-	  <None Remove="Views\Shared\Components\NewFolder\**" />
-	</ItemGroup>
-
-	<ItemGroup>
 	  <Content Remove="Views\Shared\HomeLayoutPartial\CartModalPartial.cshtml" />
 	</ItemGroup>
 	<ItemGroup>

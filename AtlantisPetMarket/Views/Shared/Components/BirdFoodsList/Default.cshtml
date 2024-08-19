@@ -1,14 +1,12 @@
-﻿@model List<ProductListVM>
+﻿@model List<ProductCartVM>
 <div class="isotope-container row">
     @foreach (var item in Model)
     {
-
         <div class="item cat col-md-4 col-lg-3 my-4">
-            <!-- <div class="z-1 position-absolute rounded-3 m-3 px-3 border border-dark-subtle">
-              New
-            </div> -->
             <div class="card position-relative">
-                <a href="single-product.html"><img src="~/waggypetshop/images/item9.jpg" class="img-fluid rounded-4" alt="image"></a>
+                <a href="single-product.html">
+                    <img src="~/productimage/@item.ProductPhotoPath" class="product-image-wrapper img-fluid rounded-4" alt="image">
+                </a>
                 <div class="card-body p-0">
                     <a href="single-product.html">
                         <h3 class="card-title pt-4 m-0">@item.ProductName</h3>
@@ -16,33 +14,136 @@
 
                     <div class="card-text">
                         <span class="rating secondary-font">
-                            <iconify-icon icon="clarity:star-solid" class="text-primary"></iconify-icon>
-                            <iconify-icon icon="clarity:star-solid" class="text-primary"></iconify-icon>
-                            <iconify-icon icon="clarity:star-solid" class="text-primary"></iconify-icon>
-                            <iconify-icon icon="clarity:star-solid" class="text-primary"></iconify-icon>
-                            <iconify-icon icon="clarity:star-solid" class="text-primary"></iconify-icon>
+                            <i class="mdi mdi-star text-primary"></i>
+                            <i class="mdi mdi-star text-primary"></i>
+                            <i class="mdi mdi-star text-primary"></i>
+                            <i class="mdi mdi-star text-primary"></i>
+                            <i class="mdi mdi-star text-primary"></i>
                             5.0
                         </span>
 
                         <h3 class="secondary-font text-primary">@item.Price</h3>
 
                         <div class="d-flex flex-wrap mt-3">
-                            <a href="#" class="btn-cart me-3 px-4 pt-3 pb-3">
-                                <h5 class="text-uppercase m-0">Add to Cart</h5>
-                            </a>
-                            <a href="#" class="btn-wishlist px-4 pt-3 ">
-                                <iconify-icon icon="fluent:heart-28-filled" class="fs-5"></iconify-icon>
-                            </a>
+                            <!-- Decrease Quantity Button -->
+                            <form asp-controller="Cart" asp-action="DecreaseQuantity" asp-route-cartItemId="@item.Id" method="post">
+                                <button type="submit" class="btn-cart px-2 py-2">
+                                    <i class="mdi mdi-minus"></i> <!-- Azaltma ikonu -->
+                                </button>
+                            </form>
+
+                            <!-- Quantity Display -->
+                            <div class="px-2 py-2">
+                                <h5 class="m-0">@item.Quantity</h5> <!-- Ürün miktarını gösterir -->
+                            </div>
+
+                            <!-- Increase Quantity Button -->
+                            <form asp-controller="Cart" asp-action="IncreaseQuantity" asp-route-cartItemId="@item.Id" method="post">
+                                <button type="submit" class="btn-cart px-2 py-2">
+                                    <i class="mdi mdi-plus"></i> <!-- Arttırma ikonu -->
+                                </button>
+                            </form>
+
+                            <!-- Add to Cart Button -->
+                            <form asp-controller="Cart" asp-action="Create" asp-route-id="@item.Id" method="post">
+                                <input type="hidden" name="ProductId" value="@item.Id" />
+                                <input type="hidden" name="Quantity" value="1" /> <!-- Varsayılan olarak 1 ekleniyor -->
+                                <button type="submit" class="btn btn-primary rounded submit px-3 d-flex justify-content-center align-items-center ms-3">
+                                    <!-- ms-3 ile boşluk ekleniyor -->
+                                    <h5 class="text m-0">Sepete Ekle</h5>
+                                </button>
+                            </form>
                         </div>
-
-
                     </div>
-
                 </div>
             </div>
         </div>
-
-
     }
 </div>
+
+<style>
+    .btn-cart {
+        background: transparent; /* Arka planı kaldırır */
+        border: none; /* Kenarlığı kaldırır */
+        color: #000; /* İkon rengini belirler */
+        font-size: 1.5rem; /* İkon boyutunu ayarlar */
+    }
+
+        .btn-cart i {
+            line-height: 1; /* İkonu ortalar */
+        }
+
+        .btn-cart:hover {
+            color: #DEAD6F; /* Hover durumunda ikon rengini değiştirir */
+        }
+
+    .btn-primary {
+        background-color: #F7EEE4; /* Buton arka plan rengi */
+        border-color: #F7EEE4; /* Kenar rengi */
+        color: #000; /* Metin rengi */
+    }
+</style>
+<style>
+    .product-image-wrapper {
+        width: 310px; /* Resim genişliği */
+        height: 283px; /* Resim yüksekliği */
+        overflow: hidden; /* Resmin belirlenen boyutların dışına taşmasını engeller */
+        border-radius: 15px;
+        background-color: #F2F2F2; /* Krem rengi *
+            }
+            .product-image-wrapper img
+            {
+                width: 100%;
+                height: 100%;
+                object-fit: cover; /* Resmi kapsayacak şekilde ölçekler, en-boy oranını korur */
+        border-radius: 15px;
+    }
+
+    .card-body {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        height: 100%;
+    }
+
+    .card-title {
+        min-height: 35px; /* Minimum yüksekliği ayarlıyoruz */
+        max-height: 70px; /* Maksimum iki satır gösteriyoruz */
+        overflow: hidden; /* Taşan metni gizliyoruz */
+        text-overflow: ellipsis; /* Taşan metin için üç nokta koyuyoruz */
+        display: -webkit-box;
+        -webkit-line-clamp: 2; /* En fazla iki satır gösteriyoruz */
+        -webkit-box-orient: vertical;
+        font-size: 1.2em; /* Font boyutunu belirliyoruz */
+        line-height: 1.2em; /* Satır yüksekliğini belirliyoruz */
+        display: flex;
+        align-items: flex-start; /* Başlığı üst kısma hizalar */
+    }
+
+
+    .card-text {
+        margin-top: auto; /* Yıldızları mümkün olduğunca yukarıda tutar */
+    }
+
+</style>
+@section scripts {
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var cardTitles = document.querySelectorAll(".card-title");
+
+            cardTitles.forEach(function(title) {
+                var lineHeight = parseInt(window.getComputedStyle(title).lineHeight);
+                var height = title.scrollHeight;
+                var lines = height / lineHeight;
+
+                if (lines === 1) {
+                    title.style.height = "35px"; // Tek satır olduğunda 35px yap
+                } else {
+                    title.style.height = "70px"; // İki satır olduğunda 70px yap
+                }
+            });
+        });
+    </script>
+}
+
 

@@ -1,0 +1,14 @@
+﻿@model List<SocialMedia>
+
+<div class="social-links">
+    <ul class="d-flex list-unstyled gap-2">
+        @foreach (var social in Model)
+        {
+            <li class="social">
+                <a href="@social.Url">
+                    <iconify-icon class="social-icon" icon="@social.Icon"></iconify-icon>
+                </a>
+            </li>
+        }     
+    </ul>
+</div>
