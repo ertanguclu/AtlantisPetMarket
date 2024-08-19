@@ -55,7 +55,6 @@ namespace AtlantisPetMarket.Controllers
         {
             var socialMedia = await _socialMediaManager.FindAsync(id);
             var socialMediaUpdateVM = _mapper.Map<SocialMediaUpdateVM>(socialMedia);
-            //ViewBag.sIcon = socialMedia.Icon;
             return View(socialMediaUpdateVM);
         }
         [HttpPost]
