@@ -21,8 +21,5 @@ namespace EntityLayer.Models.Concrete
         public ICollection<OrderItem> OrderItems { get; set; }
         public ICollection<Review> Reviews { get; set; }
 
-
-
-        //public Photo Photo { get; set; }
     }
 }
