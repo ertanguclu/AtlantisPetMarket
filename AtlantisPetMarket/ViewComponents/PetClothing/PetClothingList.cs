@@ -21,7 +21,7 @@ namespace AtlantisPetMarket.ViewComponents.PetClothing
 
         public async Task<IViewComponentResult> InvokeAsync()
         {
-            var values = await _productManager.GetAllAsync(x => x.CategoryId == 5);
+            var values = await _productManager.GetProductsByCategoryAsync(x => x.Category.CategoryName.ToLower() == "kıyafet", x => x.Category);
             var random = new Random();
             var randomProducts = values.OrderBy(x => random.Next()).Take(4).ToList();
             var model = _mapper.Map<List<ProductCartVM>>(randomProducts);
