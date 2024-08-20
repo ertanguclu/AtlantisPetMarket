@@ -23,8 +23,8 @@ namespace EntityLayer.Models.Concrete
         public ICollection<CartItem> CardItems { get; set; }
         public ICollection<OrderItem> OrderItems { get; set; }
         public ICollection<Review> Reviews { get; set; }
-        
-        
+
+
 
         //public Photo Photo { get; set; }
     }
