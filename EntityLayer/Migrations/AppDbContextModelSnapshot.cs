@@ -115,7 +115,7 @@ namespace EntityLayer.Migrations
 
                     b.Property<string>("CategoryName")
                         .IsRequired()
-                        .HasColumnType("varchar(255)");
+                        .HasColumnType("longtext");
 
                     b.Property<DateTime>("CreateDate")
                         .HasColumnType("datetime(6)");
@@ -126,9 +126,6 @@ namespace EntityLayer.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("ParentCategoryId");
-
-                    b.HasIndex("CategoryName", "ParentCategoryId")
-                        .IsUnique();
 
                     b.ToTable("Categories");
                 });
@@ -272,11 +269,44 @@ namespace EntityLayer.Migrations
 
                     b.Property<string>("ParentCategoryName")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasMaxLength(20)
+                        .HasColumnType("varchar(20)");
 
                     b.HasKey("Id");
 
                     b.ToTable("ParentCategories");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CreateDate = new DateTime(2024, 8, 20, 14, 43, 27, 246, DateTimeKind.Local).AddTicks(9780),
+                            ParentCategoryName = "Kedi"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CreateDate = new DateTime(2024, 8, 20, 14, 43, 27, 246, DateTimeKind.Local).AddTicks(9785),
+                            ParentCategoryName = "Köpek"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CreateDate = new DateTime(2024, 8, 20, 14, 43, 27, 246, DateTimeKind.Local).AddTicks(9789),
+                            ParentCategoryName = "Kuş"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            CreateDate = new DateTime(2024, 8, 20, 14, 43, 27, 246, DateTimeKind.Local).AddTicks(9792),
+                            ParentCategoryName = "Balık"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            CreateDate = new DateTime(2024, 8, 20, 14, 43, 27, 246, DateTimeKind.Local).AddTicks(9795),
+                            ParentCategoryName = "Kemirgen"
+                        });
                 });
 
             modelBuilder.Entity("EntityLayer.Models.Concrete.Product", b =>
@@ -476,6 +506,26 @@ namespace EntityLayer.Migrations
                         .HasDatabaseName("UserNameIndex");
 
                     b.ToTable("AspNetUsers", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "7ce17b75-5217-49aa-a92f-fdce87b3e1a9",
+                            Email = "ercanozturk00@gmail.com",
+                            EmailConfirmed = true,
+                            LockoutEnabled = false,
+                            Name = "Ercan",
+                            NormalizedEmail = "ERCANOZTURK00@GMAIL.COM",
+                            NormalizedUserName = "ERCANOZTURK",
+                            PasswordHash = "AQAAAAIAAYagAAAAEM+IBGg+qpAD7mXJjWSeRlo2YAOhvR++7h14qp8FugDkQgO1OSRVlSp7fIzEtG4Mug==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "a2b5422d-2daa-4879-908b-beefc9473418",
+                            Surname = "Öztürk",
+                            TwoFactorEnabled = false,
+                            UserName = "ercanozturk"
+                        });
                 });
 
             modelBuilder.Entity("EntityLayer.Models.Concrete.UserRole", b =>
@@ -503,6 +553,15 @@ namespace EntityLayer.Migrations
                         .HasDatabaseName("RoleNameIndex");
 
                     b.ToTable("AspNetRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            ConcurrencyStamp = "d09d926f-90e8-44a3-81bc-1e4161cd6871",
+                            Name = "Admin",
+                            NormalizedName = "ADMIN"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
@@ -583,6 +642,13 @@ namespace EntityLayer.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            UserId = 1,
+                            RoleId = 1
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<int>", b =>
