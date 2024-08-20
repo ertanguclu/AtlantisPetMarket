@@ -7,17 +7,16 @@
 [![MIT License][license-shield]][license-url]
 ![C#](https://img.shields.io/badge/C%23-blue.svg?style=for-the-badge)
 ![ASP.NET Core](https://img.shields.io/badge/ASP.NET%20Core-512BD4?style=for-the-badge&logo=asp-dot-net&logoColor=white)
+![ASP.NET MVC](https://img.shields.io/badge/ASP.NET%20MVC-5C2D91?style=for-the-badge&logo=asp-dot-net&logoColor=white)
 ![Entity Framework Core](https://img.shields.io/badge/Entity%20Framework%20Core-512BD4?style=for-the-badge&logo=entity-framework&logoColor=white)
 ![.NET 8.0](https://img.shields.io/badge/.NET%208.0-512BD4?style=for-the-badge&logo=.net&logoColor=white)
 ![JavaScript](https://img.shields.io/badge/JavaScript-yellow.svg?style=for-the-badge)
 ![HTML](https://img.shields.io/badge/HTML-orange.svg?style=for-the-badge)
 ![CSS](https://img.shields.io/badge/CSS-blue.svg?style=for-the-badge)
-
-
 ![jQuery](https://img.shields.io/badge/jQuery-0769AD?style=for-the-badge&logo=jquery&logoColor=white)
-![MySQL](https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&logo=mysql&logoColor=white)
 ![Bootstrap](https://img.shields.io/badge/Bootstrap-563D7C?style=for-the-badge&logo=bootstrap&logoColor=white)
-![ASP.NET MVC](https://img.shields.io/badge/ASP.NET%20MVC-5C2D91?style=for-the-badge&logo=asp-dot-net&logoColor=white)
+![MySQL](https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&logo=mysql&logoColor=white)
+
 
 
 
@@ -27,7 +26,7 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <a href="https://github.com/your_username/repo_name">
+  <a href="https://github.com/ertanguclu/AtlantisPetMarket">
     <img src="images/petshopregister.png" alt="Logo" width="590" height="288">
   </a>
 
@@ -68,7 +67,7 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-![Home](images/Ekran%20g%C3%B6r%C3%BCnt%C3%BCs%C3%BC%202024-08-18%20115333.png)
+![Home](images/HomeIndex.png)
 
 **AtlantisPetMarket** is a comprehensive web application designed to enhance the e-commerce experience in the pet shop industry. This project enables users to easily find, purchase, and manage pet products. It also provides a powerful admin panel for users to add, edit, and delete products and categories.
 
@@ -122,19 +121,34 @@ The homepage serves as the main entry point for users to navigate and view the g
 
 
 
-![Home](images/Home.png)
+![Home](images/HomeIndex.png)
+
+
+
+<h3>Product Listing</h3>
+The Product Listing page displays a list of all available products. Users can browse through different products, view details such as name, price, category, and stock status. This page makes it easy to explore the product catalog and find specific items you want to purchase.
+<img src="images/ProductIndex.png" alt="Atlantis Pet Market Products">
+
+<img src="images/SingleProduct.png" alt="Atlantis Pet Market Products">
+
+
+
+<h3>Add to Cart</h3>
+The Add to Cart feature allows users to select products from the Product Listing or Product Details pages and add them to their shopping cart. Users can easily manage their selections, view the total price, and proceed to checkout when they are ready to complete their purchase.
+<img src="images/Cart.png" alt="Atlantis Pet Market Cart">
 
 
 <h3>Product Create</h3>
 The Product Create page allows administrators to add new products. On this page, you can enter information such as the product name, description, price, stock status, and category to save new products to the database. The product creation process is straightforward and user-friendly.
 
-![Product](images/ProductCreate.png)
+![Product](images/ProductC.png)
+![Product](images/ProductList.png)
 
 
 <h3>Category Create</h3>
 The Category Create page is used to create new product categories. On this page, you can define new categories to group and organize products. Categories make it easier to organize your products and help users find the products they are looking for more easily.
 
-![Category](images/CategoryCreate.png)
+![Category](images/CategoryList.png)
 
 
 <h3>Login</h3>
@@ -183,13 +197,15 @@ The Login page allows users to access their accounts. By entering their username
 - **N-Tier Architecture**: A software architecture model that divides the application into multiple layers (tiers), such as presentation, business logic, and data access, promoting separation of concerns and scalability.
 
 - **Non-Factor Grid**: A flexible, responsive grid layout system that adapts to various screen sizes and orientations, ensuring a consistent and accessible user interface.
+- **Cookies**: Small data files stored on the user's device by the web browser, used to maintain user session state, preferences, and track user activity across different sessions, enhancing the user experience and application functionality.
 
 
 
 <!-- LICENSE -->
 ## License
 
-Distributed under the MIT License. See `LICENSE.txt` for more information.
+Distributed under the MIT License. See [LICENSE.txt](./LICENSE.txt) for more information.
+
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
