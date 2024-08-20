@@ -4,10 +4,12 @@ using MySql.EntityFrameworkCore.Metadata;
 
 #nullable disable
 
+#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
+
 namespace EntityLayer.Migrations
 {
     /// <inheritdoc />
-    public partial class initCreate : Migration
+    public partial class NewMigrations : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -109,7 +111,7 @@ namespace EntityLayer.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
-                    ParentCategoryName = table.Column<string>(type: "longtext", nullable: false),
+                    ParentCategoryName = table.Column<string>(type: "varchar(20)", maxLength: 20, nullable: false),
                     CreateDate = table.Column<DateTime>(type: "datetime(6)", nullable: false)
                 },
                 constraints: table =>
@@ -299,7 +301,7 @@ namespace EntityLayer.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
-                    CategoryName = table.Column<string>(type: "varchar(255)", nullable: false),
+                    CategoryName = table.Column<string>(type: "longtext", nullable: false),
                     ParentCategoryId = table.Column<int>(type: "int", nullable: false),
                     CreateDate = table.Column<DateTime>(type: "datetime(6)", nullable: false)
                 },
@@ -470,6 +472,33 @@ namespace EntityLayer.Migrations
                 })
                 .Annotation("MySQL:Charset", "utf8mb4");
 
+            migrationBuilder.InsertData(
+                table: "AspNetRoles",
+                columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
+                values: new object[] { 1, "d09d926f-90e8-44a3-81bc-1e4161cd6871", "Admin", "ADMIN" });
+
+            migrationBuilder.InsertData(
+                table: "AspNetUsers",
+                columns: new[] { "Id", "About", "AccessFailedCount", "BirthDate", "ConcurrencyStamp", "Email", "EmailConfirmed", "Gender", "ImagePath", "LockoutEnabled", "LockoutEnd", "Name", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "Surname", "TcNo", "TwoFactorEnabled", "UserName" },
+                values: new object[] { 1, null, 0, null, "7ce17b75-5217-49aa-a92f-fdce87b3e1a9", "ercanozturk00@gmail.com", true, null, null, false, null, "Ercan", "ERCANOZTURK00@GMAIL.COM", "ERCANOZTURK", "AQAAAAIAAYagAAAAEM+IBGg+qpAD7mXJjWSeRlo2YAOhvR++7h14qp8FugDkQgO1OSRVlSp7fIzEtG4Mug==", null, false, "a2b5422d-2daa-4879-908b-beefc9473418", "Öztürk", null, false, "ercanozturk" });
+
+            migrationBuilder.InsertData(
+                table: "ParentCategories",
+                columns: new[] { "Id", "CreateDate", "ParentCategoryName" },
+                values: new object[,]
+                {
+                    { 1, new DateTime(2024, 8, 20, 14, 43, 27, 246, DateTimeKind.Local).AddTicks(9780), "Kedi" },
+                    { 2, new DateTime(2024, 8, 20, 14, 43, 27, 246, DateTimeKind.Local).AddTicks(9785), "Köpek" },
+                    { 3, new DateTime(2024, 8, 20, 14, 43, 27, 246, DateTimeKind.Local).AddTicks(9789), "Kuş" },
+                    { 4, new DateTime(2024, 8, 20, 14, 43, 27, 246, DateTimeKind.Local).AddTicks(9792), "Balık" },
+                    { 5, new DateTime(2024, 8, 20, 14, 43, 27, 246, DateTimeKind.Local).AddTicks(9795), "Kemirgen" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "AspNetUserRoles",
+                columns: new[] { "RoleId", "UserId" },
+                values: new object[] { 1, 1 });
+
             migrationBuilder.CreateIndex(
                 name: "IX_Addresses_UserId",
                 table: "Addresses",
@@ -526,12 +555,6 @@ namespace EntityLayer.Migrations
                 name: "IX_Carts_UserId",
                 table: "Carts",
                 column: "UserId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Categories_CategoryName_ParentCategoryId",
-                table: "Categories",
-                columns: new[] { "CategoryName", "ParentCategoryId" },
-                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Categories_ParentCategoryId",
