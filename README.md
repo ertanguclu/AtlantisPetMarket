@@ -127,7 +127,7 @@ The homepage serves as the main entry point for users to navigate and view the g
 
 <h3>Product Listing</h3>
 The Product Listing page displays a list of all available products. Users can browse through different products, view details such as name, price, category, and stock status. This page makes it easy to explore the product catalog and find specific items you want to purchase.
-![Product](images/ProductS.png)
+![Product](images/Products.png)
 
 
 <h3>Add to Cart</h3>
