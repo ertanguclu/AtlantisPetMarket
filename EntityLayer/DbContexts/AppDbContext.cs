@@ -38,9 +38,13 @@ namespace EntityLayer.DbContexts
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.ApplyConfiguration(new ParentCategoryConfig());
-
             base.OnModelCreating(modelBuilder);
+
+            modelBuilder.ApplyConfiguration(new ParentCategoryConfig());
+            modelBuilder.ApplyConfiguration(new UserConfig());
+            modelBuilder.ApplyConfiguration(new UserRoleConfig());
+            modelBuilder.ApplyConfiguration(new UserRolesConfig());
+
 
 
         }

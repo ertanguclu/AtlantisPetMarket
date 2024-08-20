@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EntityLayer.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240819183610_Update")]
-    partial class Update
+    [Migration("20240820111225_NewMig1")]
+    partial class NewMig1
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -283,31 +283,31 @@ namespace EntityLayer.Migrations
                         new
                         {
                             Id = 1,
-                            CreateDate = new DateTime(2024, 8, 19, 21, 36, 9, 141, DateTimeKind.Local).AddTicks(2426),
+                            CreateDate = new DateTime(2024, 8, 20, 14, 12, 22, 712, DateTimeKind.Local).AddTicks(9731),
                             ParentCategoryName = "Kedi"
                         },
                         new
                         {
                             Id = 2,
-                            CreateDate = new DateTime(2024, 8, 19, 21, 36, 9, 141, DateTimeKind.Local).AddTicks(2431),
+                            CreateDate = new DateTime(2024, 8, 20, 14, 12, 22, 712, DateTimeKind.Local).AddTicks(9736),
                             ParentCategoryName = "Köpek"
                         },
                         new
                         {
                             Id = 3,
-                            CreateDate = new DateTime(2024, 8, 19, 21, 36, 9, 141, DateTimeKind.Local).AddTicks(2435),
+                            CreateDate = new DateTime(2024, 8, 20, 14, 12, 22, 712, DateTimeKind.Local).AddTicks(9740),
                             ParentCategoryName = "Kuş"
                         },
                         new
                         {
                             Id = 4,
-                            CreateDate = new DateTime(2024, 8, 19, 21, 36, 9, 141, DateTimeKind.Local).AddTicks(2439),
+                            CreateDate = new DateTime(2024, 8, 20, 14, 12, 22, 712, DateTimeKind.Local).AddTicks(9743),
                             ParentCategoryName = "Balık"
                         },
                         new
                         {
                             Id = 5,
-                            CreateDate = new DateTime(2024, 8, 19, 21, 36, 9, 141, DateTimeKind.Local).AddTicks(2442),
+                            CreateDate = new DateTime(2024, 8, 20, 14, 12, 22, 712, DateTimeKind.Local).AddTicks(9746),
                             ParentCategoryName = "Kemirgen"
                         });
                 });
@@ -509,6 +509,26 @@ namespace EntityLayer.Migrations
                         .HasDatabaseName("UserNameIndex");
 
                     b.ToTable("AspNetUsers", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "ee13222d-6cde-4a63-8a5a-a7ddf26891de",
+                            Email = "ercanozturk00@gmail.com",
+                            EmailConfirmed = true,
+                            LockoutEnabled = false,
+                            Name = "Ercan",
+                            NormalizedEmail = "ERCANOZTURK00@GMAIL.COM",
+                            NormalizedUserName = "ERCANOZTURK",
+                            PasswordHash = "AQAAAAIAAYagAAAAEPJk4BmmscSmAGccwFMDLJ4JiRM1ecJ0EDhrGIUqTEi3YbuvkvijqqnyGp6wfEt5hg==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "7584c557-631f-47d7-b99f-992c7a599719",
+                            Surname = "Öztürk",
+                            TwoFactorEnabled = false,
+                            UserName = "ercanozturk"
+                        });
                 });
 
             modelBuilder.Entity("EntityLayer.Models.Concrete.UserRole", b =>
@@ -536,6 +556,15 @@ namespace EntityLayer.Migrations
                         .HasDatabaseName("RoleNameIndex");
 
                     b.ToTable("AspNetRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            ConcurrencyStamp = "bdaf0b55-eb93-43cc-841f-2f38a5e2c9de",
+                            Name = "Admin",
+                            NormalizedName = "ADMIN"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>

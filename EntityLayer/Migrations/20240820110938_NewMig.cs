@@ -9,7 +9,7 @@ using MySql.EntityFrameworkCore.Metadata;
 namespace EntityLayer.Migrations
 {
     /// <inheritdoc />
-    public partial class Update : Migration
+    public partial class NewMig : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -473,15 +473,20 @@ namespace EntityLayer.Migrations
                 .Annotation("MySQL:Charset", "utf8mb4");
 
             migrationBuilder.InsertData(
+                table: "AspNetUsers",
+                columns: new[] { "Id", "About", "AccessFailedCount", "BirthDate", "ConcurrencyStamp", "Email", "EmailConfirmed", "Gender", "ImagePath", "LockoutEnabled", "LockoutEnd", "Name", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "Surname", "TcNo", "TwoFactorEnabled", "UserName" },
+                values: new object[] { 1, null, 0, null, "468f2537-689f-4afe-b63e-887d82f9ebfb", "ercanozturk00@gmail.com", true, null, null, false, null, "Ercan", "ERCANOZTURK00@GMAIL.COM", "ERCANOZTURK", "AQAAAAIAAYagAAAAENLsGDI3hg3zx0P7G4nIApo6OOteJA8bDZN5ZMf0NttwTvhUYLZudH3KTaRyxFSBrw==", null, false, "3eb73fd9-35f3-448e-ab91-d6edccc12e7a", "Öztürk", null, false, "ercanozturk" });
+
+            migrationBuilder.InsertData(
                 table: "ParentCategories",
                 columns: new[] { "Id", "CreateDate", "ParentCategoryName" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2024, 8, 19, 21, 36, 9, 141, DateTimeKind.Local).AddTicks(2426), "Kedi" },
-                    { 2, new DateTime(2024, 8, 19, 21, 36, 9, 141, DateTimeKind.Local).AddTicks(2431), "Köpek" },
-                    { 3, new DateTime(2024, 8, 19, 21, 36, 9, 141, DateTimeKind.Local).AddTicks(2435), "Kuş" },
-                    { 4, new DateTime(2024, 8, 19, 21, 36, 9, 141, DateTimeKind.Local).AddTicks(2439), "Balık" },
-                    { 5, new DateTime(2024, 8, 19, 21, 36, 9, 141, DateTimeKind.Local).AddTicks(2442), "Kemirgen" }
+                    { 1, new DateTime(2024, 8, 20, 14, 9, 36, 983, DateTimeKind.Local).AddTicks(4313), "Kedi" },
+                    { 2, new DateTime(2024, 8, 20, 14, 9, 36, 983, DateTimeKind.Local).AddTicks(4320), "Köpek" },
+                    { 3, new DateTime(2024, 8, 20, 14, 9, 36, 983, DateTimeKind.Local).AddTicks(4323), "Kuş" },
+                    { 4, new DateTime(2024, 8, 20, 14, 9, 36, 983, DateTimeKind.Local).AddTicks(4327), "Balık" },
+                    { 5, new DateTime(2024, 8, 20, 14, 9, 36, 983, DateTimeKind.Local).AddTicks(4330), "Kemirgen" }
                 });
 
             migrationBuilder.CreateIndex(

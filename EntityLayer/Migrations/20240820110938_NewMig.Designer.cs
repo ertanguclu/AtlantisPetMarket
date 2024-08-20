@@ -3,6 +3,7 @@ using System;
 using EntityLayer.DbContexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EntityLayer.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240820110938_NewMig")]
+    partial class NewMig
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -280,31 +283,31 @@ namespace EntityLayer.Migrations
                         new
                         {
                             Id = 1,
-                            CreateDate = new DateTime(2024, 8, 20, 14, 14, 20, 70, DateTimeKind.Local).AddTicks(5657),
+                            CreateDate = new DateTime(2024, 8, 20, 14, 9, 36, 983, DateTimeKind.Local).AddTicks(4313),
                             ParentCategoryName = "Kedi"
                         },
                         new
                         {
                             Id = 2,
-                            CreateDate = new DateTime(2024, 8, 20, 14, 14, 20, 70, DateTimeKind.Local).AddTicks(5665),
+                            CreateDate = new DateTime(2024, 8, 20, 14, 9, 36, 983, DateTimeKind.Local).AddTicks(4320),
                             ParentCategoryName = "Köpek"
                         },
                         new
                         {
                             Id = 3,
-                            CreateDate = new DateTime(2024, 8, 20, 14, 14, 20, 70, DateTimeKind.Local).AddTicks(5669),
+                            CreateDate = new DateTime(2024, 8, 20, 14, 9, 36, 983, DateTimeKind.Local).AddTicks(4323),
                             ParentCategoryName = "Kuş"
                         },
                         new
                         {
                             Id = 4,
-                            CreateDate = new DateTime(2024, 8, 20, 14, 14, 20, 70, DateTimeKind.Local).AddTicks(5673),
+                            CreateDate = new DateTime(2024, 8, 20, 14, 9, 36, 983, DateTimeKind.Local).AddTicks(4327),
                             ParentCategoryName = "Balık"
                         },
                         new
                         {
                             Id = 5,
-                            CreateDate = new DateTime(2024, 8, 20, 14, 14, 20, 70, DateTimeKind.Local).AddTicks(5677),
+                            CreateDate = new DateTime(2024, 8, 20, 14, 9, 36, 983, DateTimeKind.Local).AddTicks(4330),
                             ParentCategoryName = "Kemirgen"
                         });
                 });
@@ -512,16 +515,16 @@ namespace EntityLayer.Migrations
                         {
                             Id = 1,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "40768d59-f3ac-489f-a544-0562ca2d1a33",
+                            ConcurrencyStamp = "468f2537-689f-4afe-b63e-887d82f9ebfb",
                             Email = "ercanozturk00@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             Name = "Ercan",
                             NormalizedEmail = "ERCANOZTURK00@GMAIL.COM",
                             NormalizedUserName = "ERCANOZTURK",
-                            PasswordHash = "AQAAAAIAAYagAAAAEOciR5xBUly0/NRvVuwWWjUa5Z4JbRtGUXiI7UV7wgZZqd2SgM/r6Sc4h76wKQtv1w==",
+                            PasswordHash = "AQAAAAIAAYagAAAAENLsGDI3hg3zx0P7G4nIApo6OOteJA8bDZN5ZMf0NttwTvhUYLZudH3KTaRyxFSBrw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "d8a388bc-83cb-44d2-88d0-f3d5238a59aa",
+                            SecurityStamp = "3eb73fd9-35f3-448e-ab91-d6edccc12e7a",
                             Surname = "Öztürk",
                             TwoFactorEnabled = false,
                             UserName = "ercanozturk"
@@ -553,15 +556,6 @@ namespace EntityLayer.Migrations
                         .HasDatabaseName("RoleNameIndex");
 
                     b.ToTable("AspNetRoles", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            ConcurrencyStamp = "43db8f70-654e-496b-91fc-db7e9811cfff",
-                            Name = "Admin",
-                            NormalizedName = "ADMIN"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
@@ -642,13 +636,6 @@ namespace EntityLayer.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            UserId = 1,
-                            RoleId = 1
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<int>", b =>
