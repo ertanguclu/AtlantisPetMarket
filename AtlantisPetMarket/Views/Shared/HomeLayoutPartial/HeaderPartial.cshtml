@@ -1,0 +1,292 @@
+﻿<header>
+    <div class="container py-2">
+        <div class="row py-4 pb-0 pb-sm-4 align-items-center ">
+
+            <div class="col-sm-4 col-lg-3 text-center text-sm-start">
+                <div class="main-logo">
+                    <a href="/Home/Index">
+                        <img src="~/waggypetshop/images/petshop.png" alt="logo" class="img-fluid">
+                    </a>
+                </div>
+            </div>
+            <div class="col-sm-6 offset-sm-2 offset-md-0 col-lg-5 d-none d-lg-block">
+                <div class="search-bar border rounded-2 px-3 border-dark-subtle" style="position: relative;">
+                    <form id="search-form" class="text-center d-flex align-items-center" onsubmit="return false;">
+                        <input type="text" id="searchInput" class="form-control border-0 bg-transparent"
+                               placeholder="200'den fazla üründe arama yapın" autocomplete="off" />
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                            <path fill="currentColor"
+                                  d="M21.71 20.29L18 16.61A9 9 0 1 0 16.61 18l3.68 3.68a1 1 0 0 0 1.42 0a1 1 0 0 0 0-1.39ZM11 18a7 7 0 1 1 7-7a7 7 0 0 1-7 7Z" />
+                        </svg>
+                    </form>
+                    <!-- Arama sonuçlarının gösterileceği açılır pencere -->
+                    <div id="searchResults" style="display: none; position: absolute; top: 100%; left: 0; right: 0; border: 1px solid #ddd; background-color: #fff; z-index: 1000; max-height: 200px; overflow-y: auto;">
+                        <!-- Dinamik olarak doldurulacak -->
+                    </div>
+                </div>
+            </div>
+
+
+
+            @await Component.InvokeAsync("HeaderContactList")
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <hr class="m-0">
+    </div>
+
+    <div class="container">
+        <nav class="main-menu d-flex navbar navbar-expand-lg ">
+
+            <div class="d-flex d-lg-none align-items-end mt-3">
+                <ul class="d-flex justify-content-end list-unstyled m-0">
+                    <li>
+                        <a href="account.html" class="mx-3">
+                            <iconify-icon icon="healthicons:person" class="fs-4"></iconify-icon>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="wishlist.html" class="mx-3">
+                            <iconify-icon icon="mdi:heart" class="fs-4"></iconify-icon>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="#" class="mx-3" data-bs-toggle="offcanvas" data-bs-target="#offcanvasCart"
+                           aria-controls="offcanvasCart">
+                            <iconify-icon icon="mdi:cart" class="fs-4 position-relative"></iconify-icon>
+                            <span class="position-absolute translate-middle badge rounded-circle bg-primary pt-2">
+                                03
+                            </span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="#" class="mx-3" data-bs-toggle="offcanvas" data-bs-target="#offcanvasSearch"
+                           aria-controls="offcanvasSearch">
+                            <iconify-icon icon="tabler:search" class="fs-4"></iconify-icon>
+                            <span>04</span>
+                        </a>
+                    </li>
+                </ul>
+
+            </div>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
+                    aria-controls="offcanvasNavbar">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+
+                <div class="offcanvas-header justify-content-center">
+                    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                </div>
+
+                <div class="offcanvas-body justify-content-between">
+                    <select class="filter-categories border-0 mb-0 me-5">
+                        <option>Shop by Category</option>
+                        <option>Clothes</option>
+                        <option>Food</option>
+                        <option>Food</option>
+                        <option>Toy</option>
+                    </select>
+
+                    <ul class="navbar-nav menu-list list-unstyled d-flex gap-md-3 mb-0">
+                        <li class="nav-item">
+                            <a style="font-size:17px" href="/Home/Index" class="nav-link active">Ana Sayfa</a>
+                        </li>
+
+                        <li class="nav-item dropdown">
+                            <a class="nav-link" style="font-size:17px" href="/Cats/Index" id="pages">Kedi</a>
+                            <ul class="dropdown-menu" aria-labelledby="pages">
+                                <li class="dropdown-submenu">
+                                    <a href="/Cats/Index" class="dropdown-item">
+                                        Mama
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="/Cats/Index?category=Kuru Mama" class="dropdown-item">Kuru Mama</a></li>
+                                        <li><a href="/Cats/Index?category=Yas-Mama" class="dropdown-item">Yaş Mama</a></li>
+                                        <li><a href="/Cats/Index?category=Acik-Mama" class="dropdown-item">Açık Mama</a></li>
+                                        <li><a href="/Cats/Index?category=Odul-Mamasi" class="dropdown-item">Ödül Maması</a></li>
+                                    </ul>
+                                </li>
+
+                                <li class="dropdown-submenu">
+                                    <a href="/Cats/Index?category=Kumlar" class="dropdown-item">Kumlar</a>
+                                </li>
+                                <li class="dropdown-submenu">
+                                    <a href="/Cats/Index?category=Tuvaletler" class="dropdown-item">Tuvaletler</a>
+                                </li>
+                                <li class="dropdown-submenu">
+                                    <a href="/Cats/Index?category=Cantalar" class="dropdown-item">Çantalar</a>
+                                </li>
+                                <li class="dropdown-submenu">
+                                    <a href="/Cats/Index?category=Aksesuarlar" class="dropdown-item">Aksesuarlar</a>
+                                </li>
+
+
+
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link" style="font-size:17px" href="/Dogs/Index" id="pages">Köpek</a>
+                            <ul class="dropdown-menu" aria-labelledby="pages">
+
+                                <li class="dropdown-submenu">
+
+                               <a href="/Dogs/Index?category=Kuru-Mama" class="dropdown-item">Kuru Mama</a></>
+                                </li>
+
+                                <li class="dropdown-submenu">
+                                <li><a href="/Dogs/Index?category=Odul-Mamasi" class="dropdown-item">Ödül Maması</a></li>
+                                 </li>
+
+                              
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link" style="font-size:17px" href="/Birds/Index" id="pages">Kuş</a>
+                            <ul class="dropdown-menu" aria-labelledby="pages">
+
+                                <li class="dropdown-submenu">
+                                    <a href="/Birds/Index?category=Yemler" class="dropdown-item">Kuş Yemleri</a>
+                                </li>
+                                <li class="dropdown-submenu">
+                                    <a href="/Birds/Index?category=Krakerler" class="dropdown-item">Krakerler</a>
+                                </li>
+                                <li class="dropdown-submenu">
+                                    <a href="/Birds/Index?category=Suluk - Yemlik" class="dropdown-item">Suluk - Yemlik</a>
+                                </li>
+                                <li class="dropdown-submenu">
+                                    <a href="/Birds/Index?category=Kafesler" class="dropdown-item">Kafesler</a>
+                                </li>
+                                <li class="dropdown-submenu">
+                                    <a href="/Birds/Index?category=Vitaminler" class="dropdown-item">Vitaminler</a>
+                                </li>
+                                <li class="dropdown-submenu">
+                                    <a href="/Birds/Index?category=Taslar" class="dropdown-item">Taşlar</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link" style="font-size:17px" href="/Fish/Index" id="pages">Balık</a>
+                            <ul class="dropdown-menu" aria-labelledby="pages">
+                                <li class="dropdown-submenu">
+                                    <a href="/Fish/Index?category=Akvaryum - Fanus" class="dropdown-item">Akvaryum - Fanus</a>
+                                </li>
+                                <li class="dropdown-submenu">
+                                    <a href="/Fish/Index?category=Yemler" class="dropdown-item">Yemler</a>
+                                </li>
+                                <li class="dropdown-submenu">
+                                    <a href="/Fish/Index?category=Filtreler" class="dropdown-item">Filtreler</a>
+                                </li>
+                                <li class="dropdown-submenu">
+                                    <a href="/Fish/Index?category=Motorlar-Isiticilar" class="dropdown-item">Motorlar - Isıtıcılar</a>
+                                </li>
+                                <li class="dropdown-submenu">
+                                    <a href="/Fish/Index?category=Isik-Dekor" class="dropdown-item">Işık - Dekor</a>
+                                </li>
+                                <li class="dropdown-submenu">
+                                    <a href="/Fish/Index?category=Yavruluk" class="dropdown-item">Yavruluk</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link" style="font-size:17px" href="/Rodents/Index" id="pages">Kemirgen</a>
+                            <ul class="dropdown-menu" aria-labelledby="pages">
+                                <li class="dropdown-submenu">
+                                    <a href="/Rodents/Index?category=Yemler" class="dropdown-item">Yemler</a>
+                                </li>
+                                <li class="dropdown-submenu">
+                                    <a href="/Rodents/Index?category=Yonca-Talas" class="dropdown-item">Yonca - Talaş</a>
+                                </li>
+                                <li class="dropdown-submenu">
+                                    <a href="/Rodents/Index?category=Suluklar" class="dropdown-item">Suluklar</a>
+                                </li>
+                                <li class="dropdown-submenu">
+                                    <a href="/Rodents/Index?category=Tas-Vitamin" class="dropdown-item">Taş - Vitamin</a>
+                                </li>
+
+                            </ul>
+                        </li>
+                    </ul>
+
+                    <div class="d-none d-lg-flex align-items-end">
+                        <ul class="d-flex justify-content-end list-unstyled m-0">
+                            <li>
+                                <a href="/Writer/Login/Index" class="mx-3">
+                                    <iconify-icon icon="healthicons:person" class="fs-4"></iconify-icon>
+                                </a>
+                            </li>
+                            <li class="">
+                                <a href="#" class="mx-3" data-bs-toggle="offcanvas" data-bs-target="#offcanvasCart"
+                                   aria-controls="offcanvasCart">
+                                    <iconify-icon icon="mdi:cart" class="fs-4 position-relative"></iconify-icon>
+                                    @await Component.InvokeAsync("CartItemCounts")
+                                </a>
+                            </li>
+
+
+                        </ul>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </nav>
+
+
+
+    </div>
+</header>
+
+@section scripts {
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // "Kedi" linkine tıklama olayını yönetme
+            var pagesLink = document.querySelector("#pages");
+            if (pagesLink) {
+                console.log("Kedi linki bulundu, olay dinleyici ekleniyor...");
+                pagesLink.addEventListener("click", function (event) {
+                    console.log("Kedi linkine tıklandı.");
+                    // Dropdown menü zaten açık değilse, tıklama /Cats/Index sayfasına yönlendirir
+                    if (!this.parentElement.classList.contains("show")) {
+                        console.log("Menü açık değil, /Cats/Index sayfasına yönlendiriliyor.");
+                        window.location.href = "/Cats/Index";
+                    }
+                });
+            } else {
+                console.log("Kedi linki bulunamadı.");
+            }
+        });
+
+    </script>
+}
+<style>
+    /* Alt menü için gerekli düzenlemeler */
+    .nav-item.dropdown:hover > .dropdown-menu {
+        display: block;
+    }
+
+    /* Alt menüler için gerekli düzenlemeler */
+    .dropdown-submenu {
+        position: relative;
+    }
+
+        /* Alt alt menülerin başlangıçta gizlenmesi */
+        .dropdown-submenu > .dropdown-menu {
+            top: 0;
+            left: 100%;
+            margin-top: -6px;
+            display: none; /* Başlangıçta gizli */
+        }
+
+        /* Alt menü üzerine gelindiğinde alt alt menülerin açılması */
+        .dropdown-submenu:hover > .dropdown-menu {
+            display: block; /* Hover durumunda görünür */
+        }
+</style>

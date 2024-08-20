@@ -1,8 +1,317 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Default";
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<section id="banner" style="background: #F9F3EC;">
+    <div class="container">
+        <div class="swiper main-swiper">
+            <div class="swiper-wrapper">
+
+                <div class="swiper-slide py-5">
+                    <div class="row banner-content align-items-center">
+                        <div class="img-wrapper col-md-5">
+                            <img src="~/waggypetshop/images/banner-img.png" class="img-fluid">
+                        </div>
+                        <div class="content-wrapper col-md-7 p-5 mb-5">
+                            <div class="secondary-font text-primary text-uppercase mb-4">Save 10 - 20 % off</div>
+                            <h2 class="banner-title display-1 fw-normal">
+                                Evcil Hayvanınız İçin <span class="text-primary">
+                                    En İyi
+                                    Yerdesiniz
+                                </span>
+                            </h2>
+                            <a href="/Dogs/Index" class="btn btn-outline-dark btn-lg text-uppercase fs-6 rounded-1">
+                                Satın Al
+                                <svg width="24" height="24" viewBox="0 0 24 24" class="mb-1">
+                                    <use xlink:href="#arrow-right"></use>
+                                </svg>
+                            </a>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="swiper-slide py-5">
+                    <div class="row banner-content align-items-center">
+                        <div class="img-wrapper col-md-5">
+                            <img src="~/waggypetshop/images//banner-img3.png" class="img-fluid">
+                        </div>
+                        <div class="content-wrapper col-md-7 p-5 mb-5">
+                            <div class="secondary-font text-primary text-uppercase mb-4">Save 10 - 20 % off</div>
+                            <h2 class="banner-title display-1 fw-normal">
+                                Evcil Hayvanınız İçin <span class="text-primary">
+                                    En İyi
+                                    Yerdesiniz
+                                </span>
+                            </h2>
+                            <a href="/Cats/Index" class="btn btn-outline-dark btn-lg text-uppercase fs-6 rounded-1">
+                                Satın Al
+                                <svg width="24" height="24" viewBox="0 0 24 24" class="mb-1">
+                                    <use xlink:href="#arrow-right"></use>
+                                </svg>
+                            </a>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="swiper-slide py-5">
+                    <div class="row banner-content align-items-center">
+                        <div class="img-wrapper col-md-5">
+                            <img src="~/waggypetshop/images/banner-img4.png" class="img-fluid">
+                        </div>
+                        <div class="content-wrapper col-md-7 p-5 mb-5">
+                            <div class="secondary-font text-primary text-uppercase mb-4">Save 10 - 20 % off</div>
+                            <h2 class="banner-title display-1 fw-normal">
+                                Evcil Hayvanınız İçin <span class="text-primary">
+                                    En İyi
+                                    Yerdesiniz
+                                </span>
+                            </h2>
+                            <a href="/Dogs/Index" class="btn btn-outline-dark btn-lg text-uppercase fs-6 rounded-1">
+                                SAtın Al
+                                <svg width="24" height="24" viewBox="0 0 24 24" class="mb-1">
+                                    <use xlink:href="#arrow-right"></use>
+                                </svg>
+                            </a>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="swiper-pagination mb-5"></div>
+
+        </div>
+    </div>
+</section>
+
+<section id="categories">
+    <div class="container my-3 py-5">
+        <div class="row my-5">
+            <div class="col text-center">
+                <a href="/Cats/Index" class="categories-item">
+                    <iconify-icon class="category-icon" icon="ph:cat"></iconify-icon>
+                    <h5>KEDİ</h5>
+                </a>
+            </div>
+            <div class="col text-center">
+                <a href="/Dogs/Index" class="categories-item">
+                    <iconify-icon class="category-icon" icon="ph:dog"></iconify-icon>
+                    <h5>KÖPEK</h5>
+                </a>
+            </div>
+            <div class="col text-center">
+                <a href="/Birds/Index" class="categories-item">
+                    <iconify-icon class="category-icon" icon="ph:bird"></iconify-icon>
+                    <h5>KUŞ</h5>
+                </a>
+            </div>
+            <div class="col text-center">
+                <a href="/Fish/Index" class="categories-item">
+                    <iconify-icon class="category-icon" icon="ph:fish"></iconify-icon>
+                    <h5>BALIK</h5>
+                </a>
+            </div>
+            <div class="col text-center">
+                <a href="/Rodents/Index" class="categories-item">
+                    <iconify-icon class="category-icon" icon="ph:rabbit"></iconify-icon>
+                    <h5>KEMİRGEN</h5>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="clothing" class="my-5 overflow-hidden">
+    <div class="container pb-5">
+
+        @await Component.InvokeAsync("PetClothingList")
+        <!-- / products-carousel -->
+
+
+    </div>
+</section>
+
+<section id="foodies" class="my-5">
+    <div class="container my-5 py-5">
+
+        <div class="section-header d-md-flex justify-content-between align-items-center">
+            <h2 class="display-3 fw-normal">Hayvan Yemleri</h2>
+            <div class="mb-4 mb-md-0">
+                <p class="m-0">
+                    <button class="filter-button me-4  active" id="showAll" style="font-weight: bold;">HEPSİ</button>
+                    <button class="filter-button me-4 " id="showCats" style="font-weight: bold;">KEDİ</button>
+                    <button class="filter-button me-4 " id="showDogs" style="font-weight: bold;">KÖPEK</button>
+                    <button class="filter-button me-4 " id="showBirds" style="font-weight: bold;">KUŞ</button>
+                    <button class="filter-button me-4 " id="showFishs" style="font-weight: bold;">BALIK</button>
+                    <button class="filter-button me-4 " id="showRodents" style="font-weight: bold;">KEMİRGEN</button>
+                </p>
+            </div>
+            <div>
+                <a href="#" class="btn btn-outline-dark btn-lg text-uppercase fs-6 rounded-1">
+                    Satın Al
+                    <svg width="24" height="24" viewBox="0 0 24 24" class="mb-1">
+                        <use xlink:href="#arrow-right"></use>
+                    </svg>
+                </a>
+            </div>
+        </div>
+
+        <div id="foodsContainer">
+        </div>
+
+
+    </div>
+</section>
+
+<section id="banner-2" class="my-3" style="background: #F9F3EC;">
+    <div class="container">
+        <div class="row flex-row-reverse banner-content align-items-center">
+            <div class="img-wrapper col-12 col-md-6">
+                <img src="~/waggypetshop/images/banner-img2.png" class="img-fluid">
+            </div>
+            <div class="content-wrapper col-12 offset-md-1 col-md-5 p-5">
+                <div class="secondary-font text-primary text-uppercase mb-3 fs-4">KÖPEĞİNİZ İÇİN </div>
+                <h2 class="banner-title display-1 fw-normal">
+                    Fırsat Ürünleri
+                </h2>
+                <a href="/Cats/Index" class="btn btn-outline-dark btn-lg text-uppercase fs-6 rounded-1">
+                    Satın Al
+                    <svg width="24" height="24" viewBox="0 0 24 24" class="mb-1">
+                        <use xlink:href="#arrow-right"></use>
+                    </svg>
+                </a>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<section id="testimonial">
+    <div class="container my-5 py-5">
+        <div class="row">
+            <div class="offset-md-1 col-md-10">
+                <div class="swiper testimonial-swiper">
+                    <div class="swiper-wrapper">
+
+                        <div class="swiper-slide">
+                            <div class="row ">
+                                <div class="col-2">
+                                    <iconify-icon icon="ri:double-quotes-l" class="quote-icon text-primary"></iconify-icon>
+                                </div>
+                                <div class="col-md-10 mt-md-5 p-5 pt-0 pt-md-5">
+                                    <p class="testimonial-content fs-2">
+                                        Bir evcil hayvan, sadece bir hayvan değil; bir ailenin sevgi dolu bir üyesidir." 
+                                    </p>
+                                    <p class="text-black">- George Eliot</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="row ">
+                                <div class="col-2">
+                                    <iconify-icon icon="ri:double-quotes-l" class="quote-icon text-primary"></iconify-icon>
+                                </div>
+                                <div class="col-md-10 mt-md-5 p-5 pt-0 pt-md-5">
+                                    <p class="testimonial-content fs-2">
+                                        Evcil hayvanlar, bize koşulsuz sevginin ne demek olduğunu gösteren sessiz öğretmenlerdir.
+                                    </p>
+                                    <p class="text-black">- Ernest Hemingway</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="row ">
+                                <div class="col-2">
+                                    <iconify-icon icon="ri:double-quotes-l" class="quote-icon text-primary"></iconify-icon>
+                                </div>
+                                <div class="col-md-10 mt-md-5 p-5 pt-0 pt-md-5">
+                                    <p class="testimonial-content fs-2">
+                                        Evcil hayvanlarımız, sevgi dolu anların en büyük kaynağı ve evlerimizin en özel üyeleridir. Onların mutluluğu ve sağlığı, sürdürülebilir bir yaşamın ve mutlu bir ailenin anahtarıdır.
+                                    </p>
+                                    <p class="text-black">- Joshima Lin</p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="swiper-pagination"></div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
+
+<section id="bestselling" class="my-5 overflow-hidden">
+    <div class="container py-5 mb-5">
+
+        <div class="section-header d-md-flex justify-content-between align-items-center mb-3">
+            <h2 class="display-3 fw-normal">Ayın Ürünleri</h2>
+            <div>
+                <a href="#" class="btn btn-outline-dark btn-lg text-uppercase fs-6 rounded-1">
+                    Satıl Al
+                    <svg width="24" height="24" viewBox="0 0 24 24" class="mb-1">
+                        <use xlink:href="#arrow-right"></use>
+                    </svg>
+                </a>
+            </div>
+        </div>
+
+        @await Component.InvokeAsync("ProductOfTheMonthList")
+        <!-- / category-carousel -->
+
+
+    </div>
+</section>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+        // Fonksiyon: Ürünleri yükler
+        function loadProducts(filter) {
+            $.ajax({
+                url: '/PetFoodies/LoadFoods',
+                type: 'GET',
+                data: { category: filter },
+                success: function (data) {
+                    $('#foodsContainer').html(data);
+                },
+                error: function (xhr, status, error) {
+                    console.error('Ajax request failed:', status, error);
+                }
+            });
+        }
+
+        // Butonlara tıklama olayları
+        $('#showAll').click(function () {
+            loadProducts('all');
+        });
+
+        $('#showCats').click(function () {
+            loadProducts('Kedi Maması');
+        });
+
+        $('#showDogs').click(function () {
+            loadProducts('Köpek Maması');
+        });
+        $('#showBirds').click(function () {
+            loadProducts('Kuş Yemi');
+        });
+        $('#showFishs').click(function () {
+            loadProducts('Balık Yemi');
+        });
+        $('#showRodents').click(function () {
+            loadProducts('Kemirgen Yemi');
+        });
+
+        // Sayfa yüklendiğinde tüm ürünleri göster
+        loadProducts('all');
+    });
+</script>
+<style>
+    .bold-button {
+        font-weight: bold;
+    }
+</style>

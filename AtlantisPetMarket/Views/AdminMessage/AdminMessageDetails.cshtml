@@ -1,0 +1,39 @@
+﻿@model Message
+@{
+    ViewData["Title"] = "AdminMessageDetails";
+    Layout = "~/Views/Shared/_NewAdminLayout.cshtml";
+}
+
+<div class="col-12 grid-margin stretch-card">
+    <div class="card">      
+        <div class="card-body">
+            <h4 style="color:white" class="card-description"> Mesaj Detay Sayfası </h4>
+            <br />
+            <form class="forms-sample">
+                <div class="form-group">
+                    <label>Başlık</label>
+                    <input style="background-color:black" asp-for="Subject" class="form-control" readonly />
+                </div>
+                <div class="form-group">
+                    <label>Gönderen</label>
+                    <input style="background-color:black" asp-for="SenderName" class="form-control" readonly />
+                </div>
+                <div class="form-group">
+                    <label>Alıcı</label>
+                    <input style="background-color:black" asp-for="ReceiverName" class="form-control" readonly />
+                </div>
+                <div class="form-group">
+                    <label>Tarih</label>
+                    <input style="background-color:black" type="text" value="@Model.CreateDate.ToString("dd/MM/yyyy HH:mm")" class="form-control" readonly />
+                </div>
+                <div class="form-group">
+                    <label>Mesaj</label>
+                    <textarea style="background-color:black" asp-for="MessageContent" class="form-control" rows="6" readonly></textarea>
+                </div>
+                <a asp-controller="AdminMessage" asp-action="ReceiverMessageList" class="btn btn-primary mr-2">Admin Gelen Mesajlar</a>
+                <a asp-controller="AdminMessage" asp-action="SenderMessageList" class="btn btn-warning mr-2">Admin Giden Mesajlar</a>
+
+            </form>
+        </div>
+    </div>
+</div>

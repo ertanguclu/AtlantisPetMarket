@@ -1,0 +1,83 @@
+﻿<ul class="nav">
+    @await Component.InvokeAsync("AdminSidebar")
+    <li class="nav-item menu-items">
+        <a class="nav-link" href="/Dashboard/Index/">
+            <span class="menu-icon">
+                <i class="mdi mdi-speedometer"></i>
+            </span>
+            <span class="menu-title">Dashboard</span>
+        </a>
+    </li>
+    <li class="nav-item menu-items">
+        <a class="nav-link" href="/Writer/Dashboard/Index/">
+            <span class="menu-icon">
+                <i class="mdi mdi-comment-account-outline"></i>
+            </span>
+            <span class="menu-title">Yazar Paneli</span>
+        </a>
+    </li>
+    <li class="nav-item menu-items">
+        <a class="nav-link" href="/Product/Index/">
+            <span class="menu-icon">
+                <i class="mdi mdi-basket"></i>
+            </span>
+            <span class="menu-title">Ürünler</span>
+        </a>
+    </li>
+    <li class="nav-item menu-items">
+        <a class="nav-link" href="/Category/Index/">
+            <span class="menu-icon">
+                <i class="mdi mdi-laptop"></i>
+            </span>
+            <span class="menu-title">Kategoriler</span>
+        </a>
+    </li>
+    <li class="nav-item menu-items">
+        <a class="nav-link" href="/Product/ProductOfTheMonth/">
+            <span class="menu-icon">
+                <i class="mdi mdi-cart-outline"></i>
+            </span>
+            <span class="menu-title">Öne Çıkan Ürünler</span>
+        </a>
+    </li>
+    <li class="nav-item menu-items">
+        <a class="nav-link" href="/SocialMedia/Index/">
+            <span class="menu-icon">
+                <i class="mdi mdi-instagram"></i>
+            </span>
+            <span class="menu-title">Sosyal Medya</span>
+        </a>
+    </li>
+    <li class="nav-item menu-items">
+        <a class="nav-link" href="/Contact/Index/">
+            <span class="menu-icon">
+                <i class="mdi mdi-phone"></i>
+            </span>
+            <span class="menu-title">İletişim</span>
+        </a>
+    </li>
+    <li class="nav-item menu-items">
+        <a class="nav-link" href="/Home/Index/">
+            <span class="menu-icon">
+                <i class="mdi mdi-web"></i>
+            </span>
+            <span class="menu-title">Siteye Git</span>
+        </a>
+    </li>
+    <li class="nav-item menu-items">
+        <a class="nav-link" href="/AdminMessage/ReceiverMessageList/">
+            <span class="menu-icon">
+                <i class="mdi mdi-message"></i>
+            </span>
+            <span class="menu-title">Gelen Mesajlar</span>
+        </a>
+    </li>
+    <li class="nav-item menu-items">
+        <a class="nav-link" href="/AdminMessage/SenderMessageList/">
+            <span class="menu-icon">
+                <i class="mdi mdi-message"></i>
+            </span>
+            <span class="menu-title">Giden Mesajlar</span>
+        </a>
+    </li>
+</ul>

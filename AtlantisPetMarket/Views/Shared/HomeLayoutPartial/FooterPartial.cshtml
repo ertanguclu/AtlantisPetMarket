@@ -1,0 +1,80 @@
+﻿<footer id="footer" class="my-5">
+    <div class="container py-5 my-5">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="footer-menu">
+                    <img src="~/waggypetshop/images/petshop.png" alt="logo">
+                    <p class="blog-paragraph fs-6 mt-3"> Kampanyalar için takipte kalın.</p>
+                    @await Component.InvokeAsync("FooterSocialMediaList")
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="footer-menu">
+                    <h3>Alışverişe Devam Et</h3>
+                    <ul class="menu-list list-unstyled">
+
+                        <li class="menu-item">
+                            <a href="Cats/Index" class="nav-link">Kedi</a>
+                        </li>
+                        <li class="menu-item">
+                            <a href="Dogs/Index" class="nav-link">Köpek </a>
+                        </li>
+                        <li class="menu-item">
+                            <a href="Fish/Index" class="nav-link">Balık</a>
+                        </li>
+                        <li class="menu-item">
+                            <a href="Birds/Index" class="nav-link">Kuş</a>
+                        </li>
+                        <li class="menu-item">
+                            <a href="Rodents/Index" class="nav-link">Kemirgen</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="footer-menu">
+                    <h3>Yardım Merkezi</h3>
+                    <ul class="menu-list list-unstyled">
+                        <li class="menu-item">
+                            <a href="mailto:mertyuksel680@gmail.com" class="nav-link">Bize Ulaş</a>
+                        </li>
+
+                        @* <li class="menu-item">
+                        <a href="#" class="nav-link">Payment</a>
+                        </li>
+                        <li class="menu-item">
+                        <a href="#" class="nav-link">Returns & Refunds</a>
+                        </li>
+                        <li class="menu-item">
+                        <a href="#" class="nav-link">Checkout</a>
+                        </li>
+                        <li class="menu-item">
+                        <a href="#" class="nav-link">Delivery Information</a>
+                        </li> *@
+                    </ul>
+                </div>
+
+                <div class="col-md-3">
+                    <div>
+                        <a href="@Url.Action("Index", "AboutUs")" class="col-md-3">Hakkımızda</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+
+<div id="footer-bottom">
+    <div class="container">
+        <hr class="m-0">
+        <div class="row mt-3">
+            <div class="col-md-6 copyright">
+                <p class="secondary-font">© @DateTime.Now.Year. Tüm hakları saklıdır.</p>
+            </div>
+
+        </div>
+    </div>
+</div>

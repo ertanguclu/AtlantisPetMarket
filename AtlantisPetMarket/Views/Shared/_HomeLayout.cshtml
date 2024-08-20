@@ -1,0 +1,107 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Atlantis Pet Market</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="author" content="">
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+</head>
+
+<head>
+    <link rel="stylesheet" href="~/waggypetshop/css/swiper.css" />
+    <link rel="stylesheet" href="~/waggypetshop/css/bootstrap.css" />
+
+    <link rel="stylesheet" type="text/css" href="~/waggypetshop/css/vendor.css">
+    <link rel="stylesheet" type="text/css" href="~/waggypetshop/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-Fo3rlrZj/k7ujTnHg4C+X2JoBLz5/0zK2b5Syy6R3ihN5Kt5J2G1F5J2ihcJz5NfZbZ9F6b5mQ5E5F7N5J5ZjM==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Chilanka&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+    <link rel="stylesheet" href="https://cdn.materialdesignicons.com/5.2.45/css/materialdesignicons.min.css" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> <!-- jQuery'nin yüklü olduğundan emin olun -->
+
+
+</head>
+
+<body>
+
+    @await Html.PartialAsync("HomeLayoutPartial/SvgPartial")
+
+    <div class="preloader-wrapper">
+        <div class="preloader">
+        </div>
+    </div>
+
+    @await Component.InvokeAsync("CartModalList")
+
+
+    @await Html.PartialAsync("HomeLayoutPartial/SearchPartial")
+
+    @await Html.PartialAsync("HomeLayoutPartial/HeaderPartial")
+
+
+    @RenderBody()
+
+
+    @await Html.PartialAsync("HomeLayoutPartial/FooterPartial")
+
+    @await Html.PartialAsync("HomeLayoutPartial/ScriptPartial")
+
+    <script>
+        $(document).ready(function () {
+            $('#searchInput').on('input', function () {
+                var query = $(this).val();
+                if (query.length < 2) {
+                    $('#searchResults').hide();
+                    return;
+                }
+
+                $.ajax({
+                    url: '/Cart/Search', // CartController'ın Search eylem yöntemine uygun URL
+                    type: 'GET',
+                    data: { searchQuery: query },
+                    success: function (data) {
+                        var searchResults = $('#searchResults');
+                        searchResults.empty();
+                        if (data.length > 0) {
+                            $.each(data, function (index, product) {
+                                searchResults.append(
+                                    '<a href="/Cart/Details/' + product.id + '" class="list-group-item list-group-item-action">' +
+                                    '<h6>' + product.productName + '</h6>' +
+                                    '</a>'
+                                );
+                            });
+                            searchResults.show();
+                        } else {
+                            searchResults.append('<p class="list-group-item">Ürün bulunamadı.</p>');
+                            searchResults.show();
+                        }
+                    },
+                    error: function () {
+                        console.log("Bir hata oluştu.");
+                    }
+                });
+            });
+
+            $(document).on('click', function (e) {
+                if (!$(e.target).closest('#searchInput, #searchResults').length) {
+                    $('#searchResults').hide();
+                }
+            });
+        });
+    </script>
+
+    @RenderSection("scripts", required: false)
+
+</body>
+
+</html>

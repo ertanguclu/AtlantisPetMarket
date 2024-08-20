@@ -1,0 +1,46 @@
+﻿@model SocialMediaInsertVM
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_NewAdminLayout.cshtml";
+}
+
+<div class="col-12 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <h4>Yeni Hesap Ekleme</h4>
+            <br />
+            <form class="forms-sample" asp-action="Create" method="post">
+                <div class="form-group">
+                    <label>Başlık</label>
+                    <input asp-for="Name" class="form-control" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label>URL</label>
+                    <input asp-for="Url" class="form-control" />
+                    <span asp-validation-for="Url" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label>İkon</label>
+                    <select asp-for="Icon" class="form-control" name="Icon">
+                        <option value="">İkon Seçiniz</option>
+                        <option value="ri:twitter-x-fill">Twitter</option>
+                        <option value="ri:youtube-fill">Youtube</option>
+                        <option value="ri:facebook-fill">Facebook</option>
+                        <option value="ri:instagram-fill">Instagram</option>
+                        <option value="ri:whatsapp-fill">WhatsApp</option>
+                        <option value="ri:snapchat-fill">Snapchat</option>
+                        <option value="ri:telegram-fill">Telegram</option>
+                    </select>
+                    <span asp-validation-for="Icon" class="text-danger"></span>
+                </div>
+                <button type="submit" class="btn btn-primary mr-2">Kaydet</button>
+            </form>
+        </div>
+    </div>
+</div>
+@section scripts {
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+}

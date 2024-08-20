@@ -1,0 +1,188 @@
+﻿@model IQueryable<ProductListVM>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_NewAdminLayout.cshtml";
+}
+
+<style>
+    /* Tablo hücrelerindeki yazı rengini gri yap */
+    .table-responsive table tr td {
+        color: grey;
+    }
+</style>
+<style>
+    /* Düzenle başlığının rengini gri yap */
+    .table-responsive table thead th:last-child {
+        color: #d3d3d3; /* Açık gri renk */
+    }
+</style>
+
+
+
+<div class="col-lg-12 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <h4 class="card-title">Ürün Listesi</h4>
+                <a class="btn btn-primary" asp-action="Create" asp-controller="Product">Ürün Ekle</a>
+            </div>
+
+            <div class="table-responsive">
+                
+                @(Html
+                    .Grid(Model)
+                    .Build(columns =>
+                    {
+                        columns.Add(model => model.Brand).Titled("Marka");
+                        columns.Add(model => model.ProductName).Titled("Ürün Adı");
+                        columns.Add(model => model.Category.CategoryName).Titled("Kategori Adı");
+                        columns.Add(model => model.ParentCategory.ParentCategoryName).Titled("Tür");
+                        //columns.Add(model => model.Description).Titled("Açıklama");
+                        columns.Add(model => model.Price).Titled("Fiyat");
+                        columns.Add(model => model.IsProductOfTheMonth).Titled("Ayın Ürünü");
+                        columns.Add(model => Html.Raw(
+                        $"<div style='display: flex; gap: 5px;'>" +
+                        $"<form action='/Product/Update' method='get' style='display:inline;'>" +  // Güncelle butonu önce
+                        $"<input type='hidden' name='id' value='{model.Id}' />" +
+                        "<button type='submit' class='btn btn-outline-info btn-sm'>Güncelle</button>" +
+                        "</form>" +
+                        $"<form action='/Product/Delete' method='post' style='display:inline;'>" +  // Sil butonu sonra
+                        $"<input type='hidden' name='id' value='{model.Id}' />" +
+                        "<button type='submit' class='btn btn-outline-danger btn-sm'>Sil</button>" +
+                        "</form>" +
+                        "</div>"
+                        )).Titled("Düzenle");
+                    })
+                    .Filterable(GridFilterCase.Lower)
+                    .Using(GridFilterMode.Header)
+                    .Empty("No data found")
+                    .Pageable(pager =>
+                    {
+                        pager.RowsPerPage = 14;
+                    })
+                    .Sortable()
+                    )
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+@* 
+
+<div class="col-lg-12 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Ürün Listesi</h4>
+            <div class="table-responsive">
+                @Html.Grid(Model)
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@(Html
+    .Grid(Model)
+    .Build(columns =>
+    {
+        columns.Add(model => model.Brand).Titled("Marka");
+        columns.Add(model => model.ProductName).Titled("Ürün Adı");
+        columns.Add(model => model.Category.CategoryName).Titled("Kategori Adi");
+        columns.Add(model => model.ParentCategory.ParentCategoryName).Titled("Tür");
+        columns.Add(model => model.Description).Titled("Açıklama");
+        columns.Add(model => Html.Raw(
+            $"<form action='/Product/Delete' method='post' style='display:inline;'>" +
+            $"<input type='hidden' name='id' value='{model.Id}' />" +
+            "<button type='submit' class='btn btn-primary'>Sil</button>" +
+            "</form>" +
+            $"<form action='/Product/Update' method='get' style='display:inline;'>" +
+            $"<input type='hidden' name='id' value='{model.Id}' />" +
+            "<button type='submit' class='btn btn-secondary'>Güncelle</button>" +
+            "</form>"
+        )).Titled("Düzenle");
+
+    })
+    .Filterable(GridFilterCase.Lower)
+    .Using(GridFilterMode.Header)
+    .Empty("No data found")
+    .Pageable(pager =>
+    {
+        pager.RowsPerPage = 4;
+    })
+    .Sortable()
+)
+ *@
+
+
+
+
+@* <div class="col-lg-12 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Ürün Listesi</h4>
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col" class="sort" style="color:white">Marka</th>
+                            <th scope="col" class="sort" style="color:white">Kategori</th>
+                            <th scope="col" class="sort" style="color:white">Üst Kategori</th>
+                            <th scope="col" class="sort" style="color:white">Açıklama</th>
+                            <th scope="col" class="sort" style="color:white">Fiyat</th>
+                            <th scope="col" class="sort" style="color:white">Renk</th>
+                            <th scope="col" style="color:white">Sil</th>
+                            <th scope="col" class="sort" style="color:white">Güncelle</th>
+                            <th scope="col"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td class="budget">
+                                    @item.Brand
+                                </td>
+                                <td class="budget">
+                                    @item.Category.CategoryName
+                                </td>
+                                <td class="budget">
+                                    @item.ParentCategory.ParentCategoryName
+                                </td>
+                                <td class="budget">
+                                    @item.Description
+                                </td>
+                                <td class="budget">
+                                    @item.Price
+                                </td>
+                                <td class="budget">
+                                    @item.Color
+                                </td>
+                                <td>
+                                    <form method="post" asp-action="Delete" asp-controller="Product" asp-route-id="@item.Id">
+                                        <button type="submit" class="btn btn-outline-danger">Sil</button>
+                                    </form>
+                                </td>
+                                <td>
+                                    <a class="btn btn-outline-info"
+                                       asp-action="Update"
+                                       asp-route-id="@item.Id">
+                                        Güncelle
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                <br />
+                <a class="btn btn-primary" asp-action="Create" asp-controller="Product">Ürün Ekle</a>
+            </div>
+        </div>
+    </div>
+</div> *@
+
+
+

@@ -1,0 +1,99 @@
+﻿@model ProductInsertVM
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_NewAdminLayout.cshtml";
+}
+<div class="col-12 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <h4>Ürün Ekleme</h4>
+            <br />
+            <form class="forms-sample" asp-controller="Product" asp-action="Create" method="post" enctype="multipart/form-data">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label>Marka</label>
+                    <input asp-for="Brand" class="form-control" />
+                    <span asp-validation-for="Brand" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label>Ürün Adı</label>
+                    <input asp-for="ProductName" class="form-control" />
+                    <span asp-validation-for="ProductName" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label>Üst Kategori</label>
+                    <select asp-for="ParentCategoryId" class="form-select form-select-sm" aria-label=".form-select-sm example">
+                        @foreach (ParentCategory pCategory in ViewBag.parentCategories)
+                        {
+                            <option value="@pCategory.Id">@pCategory.ParentCategoryName</option>
+                        }
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Kategori</label>
+                    <select asp-for="CategoryId" class="form-select form-select-sm" aria-label=".form-select-sm example">
+                        <option value="">Öncelikle Bir Üst Kategori Seçin</option>
+                    </select>
+                    <span asp-validation-for="CategoryId" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Açıklama</label>
+                    <input asp-for="Description" class="form-control" />
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Fiyat</label>
+                    <input asp-for="Price" class="form-control" />
+                    <span asp-validation-for="Price" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Ürün Kodu</label>
+                    <input asp-for="ProductCode" class="form-control" />
+                    <span asp-validation-for="ProductCode" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Stok Adedi</label>
+                    <input asp-for="StockQuantity" class="form-control" />
+                    <span asp-validation-for="StockQuantity" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label>Resim Yükle</label>
+                    <input type="file" asp-for="ProductPhotoPath" class="file-upload-default" style="display: none;">
+                    <div class="input-group col-xs-12">
+                        <input type="text" class="form-control file-upload-info" disabled placeholder="Resim Seçiniz">
+                        <span class="input-group-append">
+                            <button class="file-upload-browse btn btn-primary" type="button">Yükle</button>
+                        </span>
+                    </div>
+                    <span asp-validation-for="ProductPhotoPath" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Renk</label>
+                    <input asp-for="Color" class="form-control" />
+                    <span asp-validation-for="Color" class="text-danger"></span>
+                </div>
+                <div class="form-group form-check form-switch">
+                    <input asp-for="IsProductOfTheMonth" class="form-check-input" type="checkbox" id="isProductOfTheMonth" />
+                    <label style="font-size:large" class="form-check-label" for="isProductOfTheMonth">Ayın Ürünü Olarak İşaretle</label>
+                </div>
+                <button type="submit" class="btn btn-primary mr-2">Kaydet</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section scripts {
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/js/file-upload.js"></script>
+    <script src="~/js/price-format.js"></script>
+    <script src="~/js/category-select.js"></script>
+    <script>
+        var getCategoriesUrl = '@Url.Action("GetCategoriesByParentId", "Product")';
+    </script>
+
+}
+
+
+    

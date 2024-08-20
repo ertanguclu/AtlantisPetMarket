@@ -1,0 +1,43 @@
+﻿@using BusinessLayer.Models.CartViewModel
+@model ProductCartVM
+
+<div class="offcanvas offcanvas-end" data-bs-scroll="true" tabindex="-1" id="offcanvasCart" aria-labelledby="offcanvasCartLabel">
+    <div class="offcanvas-header">
+        <h4 id="offcanvasCartLabel" class="d-flex justify-content-between align-items-center mb-3">
+            <span class="text-primary">Sepetiniz</span>
+            <span class="badge bg-primary rounded-circle pt-2">
+                @(Model.CartItems?.Count() ?? 0)
+            </span>
+        </h4>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+        @if (Model.CartItems != null && Model.CartItems.Any())
+        {
+            <ul class="list-group mb-3">
+                @foreach (var item in Model.CartItems)
+                {
+                    <li class="list-group-item d-flex justify-content-between lh-sm">
+                        <div>
+                            <h6 class="my-0">@item.Product.ProductName</h6>
+                            <small class="text-body-secondary">Miktar: @item.Quantity</small>
+                        </div>
+                        <span class="text-body-secondary">₺@item.Product.Price</span>
+                        <form asp-controller="Cart" asp-action="Delete" asp-route-cartItemId="@item.Id" asp-route-cartId="@item.CartId" method="post" class="ms-2">
+                            <button type="submit" class="btn btn-danger btn-sm">Kaldır</button>
+                        </form>
+                    </li>
+                }
+                <li class="list-group-item d-flex justify-content-between">
+                    <span class="fw-bold">Toplam (₺)</span>
+                    <strong>₺@Model.CartItems.Sum(i => i.Quantity * i.Product.Price)</strong>
+                </li>
+            </ul>
+            <a class="w-100 btn btn-primary btn-lg" asp-action="Index" asp-controller="Cart">Sepete Git</a>
+        }
+        else
+        {
+            <p class="text-center">Sepetiniz boş.</p>
+        }
+    </div>
+</div>

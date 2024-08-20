@@ -1,0 +1,11 @@
+﻿@* @model IEnumerable<AtlantisPetMarket.Models.CartItemVM>
+
+<div id="cartContent">
+    <ul>
+        @foreach (var item in Model)
+        {
+            <li>@item.ProductName - @item.Quantity</li>
+        }
+    </ul>
+</div>
+ *@
