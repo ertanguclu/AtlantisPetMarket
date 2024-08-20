@@ -2,7 +2,7 @@
 
 namespace AtlantisPetMarket.Controllers
 {
-    public class HakkımızdaController : Controller
+    public class AboutUsController : Controller
     {
         public IActionResult Index()
         {
