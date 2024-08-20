@@ -132,7 +132,7 @@ The Product Listing page displays a list of all available products. Users can br
 
 <h3>Add to Cart</h3>
 The Add to Cart feature allows users to select products from the Product Listing or Product Details pages and add them to their shopping cart. Users can easily manage their selections, view the total price, and proceed to checkout when they are ready to complete their purchase.
-![Product](images/Cart.png)
+(images/ProductIndex.png)
 
 <h3>Product Create</h3>
 The Product Create page allows administrators to add new products. On this page, you can enter information such as the product name, description, price, stock status, and category to save new products to the database. The product creation process is straightforward and user-friendly.
