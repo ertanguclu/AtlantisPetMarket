@@ -284,31 +284,31 @@ namespace EntityLayer.Migrations
                         new
                         {
                             Id = 1,
-                            CreateDate = new DateTime(2024, 8, 20, 20, 28, 13, 38, DateTimeKind.Local).AddTicks(3973),
+                            CreateDate = new DateTime(2024, 8, 20, 22, 20, 29, 677, DateTimeKind.Local).AddTicks(8643),
                             ParentCategoryName = "Kedi"
                         },
                         new
                         {
                             Id = 2,
-                            CreateDate = new DateTime(2024, 8, 20, 20, 28, 13, 38, DateTimeKind.Local).AddTicks(3978),
+                            CreateDate = new DateTime(2024, 8, 20, 22, 20, 29, 677, DateTimeKind.Local).AddTicks(8649),
                             ParentCategoryName = "Köpek"
                         },
                         new
                         {
                             Id = 3,
-                            CreateDate = new DateTime(2024, 8, 20, 20, 28, 13, 38, DateTimeKind.Local).AddTicks(3982),
+                            CreateDate = new DateTime(2024, 8, 20, 22, 20, 29, 677, DateTimeKind.Local).AddTicks(8653),
                             ParentCategoryName = "Kuş"
                         },
                         new
                         {
                             Id = 4,
-                            CreateDate = new DateTime(2024, 8, 20, 20, 28, 13, 38, DateTimeKind.Local).AddTicks(3986),
+                            CreateDate = new DateTime(2024, 8, 20, 22, 20, 29, 677, DateTimeKind.Local).AddTicks(8657),
                             ParentCategoryName = "Balık"
                         },
                         new
                         {
                             Id = 5,
-                            CreateDate = new DateTime(2024, 8, 20, 20, 28, 13, 38, DateTimeKind.Local).AddTicks(3989),
+                            CreateDate = new DateTime(2024, 8, 20, 22, 20, 29, 677, DateTimeKind.Local).AddTicks(8661),
                             ParentCategoryName = "Kemirgen"
                         });
                 });
@@ -519,7 +519,7 @@ namespace EntityLayer.Migrations
                         {
                             Id = 1,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "cf784521-1cdd-4442-b5b5-a5a5b1814b63",
+                            ConcurrencyStamp = "eb9e1fe1-6db7-4f17-a767-d22cb4dab43d",
                             Email = "ercanozturk00@gmail.com",
                             EmailConfirmed = true,
                             ImagePath = "110de25f-c2eb-448f-b9a9-5ac30ff4b029.jpg",
@@ -527,9 +527,9 @@ namespace EntityLayer.Migrations
                             Name = "Ercan",
                             NormalizedEmail = "ERCANOZTURK00@GMAIL.COM",
                             NormalizedUserName = "ERCANOZTURK",
-                            PasswordHash = "AQAAAAIAAYagAAAAEHn4XlHHbWkOxObke1QuHKBw9tTD/21NP+LGKaKoITB6GayrRcYa50h48gfX78aPpA==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEAqN1qleRyW8rOf0/nh/VXvFnAQK+Cd8lwHRp1jcuQVT8iepSRd/KANr3tuxBJldJA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "78925c68-fd97-404e-9f5a-e438227b7de7",
+                            SecurityStamp = "664388f9-2c55-44e5-a524-ba7bcbaf9666",
                             Surname = "Öztürk",
                             TwoFactorEnabled = false,
                             UserName = "ercanozturk"
@@ -566,7 +566,7 @@ namespace EntityLayer.Migrations
                         new
                         {
                             Id = 1,
-                            ConcurrencyStamp = "39fa2fde-2125-4d96-92d3-6d6ecbecf56c",
+                            ConcurrencyStamp = "711482b0-c858-44e9-b74f-16d5ff634bce",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });
