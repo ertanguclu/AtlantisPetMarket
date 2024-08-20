@@ -475,23 +475,23 @@ namespace EntityLayer.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { 1, "62a008bb-a407-4e87-878f-03136c492048", "Admin", "ADMIN" });
+                values: new object[] { 1, "d09d926f-90e8-44a3-81bc-1e4161cd6871", "Admin", "ADMIN" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "About", "AccessFailedCount", "BirthDate", "ConcurrencyStamp", "Email", "EmailConfirmed", "Gender", "ImagePath", "LockoutEnabled", "LockoutEnd", "Name", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "Surname", "TcNo", "TwoFactorEnabled", "UserName" },
-                values: new object[] { 1, null, 0, null, "77b38b05-4e71-481b-8e84-b0890e1f3fce", "ercanozturk00@gmail.com", true, null, "110de25f-c2eb-448f-b9a9-5ac30ff4b029.jpg", false, null, "Ercan", "ERCANOZTURK00@GMAIL.COM", "ERCANOZTURK", "AQAAAAIAAYagAAAAEHvnKytuLAB+N28yWd9jpno3C8bX/mPycvFGEW9ueEVtXK4EZLez22K122tIZ4yGOg==", null, false, "5c9b131c-9d58-4e15-92f1-126b43776740", "Öztürk", null, false, "ercanozturk" });
+                values: new object[] { 1, null, 0, null, "7ce17b75-5217-49aa-a92f-fdce87b3e1a9", "ercanozturk00@gmail.com", true, null, null, false, null, "Ercan", "ERCANOZTURK00@GMAIL.COM", "ERCANOZTURK", "AQAAAAIAAYagAAAAEM+IBGg+qpAD7mXJjWSeRlo2YAOhvR++7h14qp8FugDkQgO1OSRVlSp7fIzEtG4Mug==", null, false, "a2b5422d-2daa-4879-908b-beefc9473418", "Öztürk", null, false, "ercanozturk" });
 
             migrationBuilder.InsertData(
                 table: "ParentCategories",
                 columns: new[] { "Id", "CreateDate", "ParentCategoryName" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2024, 8, 20, 16, 1, 24, 842, DateTimeKind.Local).AddTicks(5634), "Kedi" },
-                    { 2, new DateTime(2024, 8, 20, 16, 1, 24, 842, DateTimeKind.Local).AddTicks(5642), "Köpek" },
-                    { 3, new DateTime(2024, 8, 20, 16, 1, 24, 842, DateTimeKind.Local).AddTicks(5645), "Kuş" },
-                    { 4, new DateTime(2024, 8, 20, 16, 1, 24, 842, DateTimeKind.Local).AddTicks(5649), "Balık" },
-                    { 5, new DateTime(2024, 8, 20, 16, 1, 24, 842, DateTimeKind.Local).AddTicks(5652), "Kemirgen" }
+                    { 1, new DateTime(2024, 8, 20, 14, 43, 27, 246, DateTimeKind.Local).AddTicks(9780), "Kedi" },
+                    { 2, new DateTime(2024, 8, 20, 14, 43, 27, 246, DateTimeKind.Local).AddTicks(9785), "Köpek" },
+                    { 3, new DateTime(2024, 8, 20, 14, 43, 27, 246, DateTimeKind.Local).AddTicks(9789), "Kuş" },
+                    { 4, new DateTime(2024, 8, 20, 14, 43, 27, 246, DateTimeKind.Local).AddTicks(9792), "Balık" },
+                    { 5, new DateTime(2024, 8, 20, 14, 43, 27, 246, DateTimeKind.Local).AddTicks(9795), "Kemirgen" }
                 });
 
             migrationBuilder.InsertData(
