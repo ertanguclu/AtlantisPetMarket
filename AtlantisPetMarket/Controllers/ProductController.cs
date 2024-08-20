@@ -6,6 +6,7 @@ using EntityLayer.DbContexts;
 using EntityLayer.Models.Concrete;
 using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Globalization;
 
 namespace AtlantisPetMarket.Controllers
@@ -184,6 +185,21 @@ namespace AtlantisPetMarket.Controllers
                 await _productManager.DeleteAsync(product);
             }
             return RedirectToAction("Index");
+        }
+        [HttpGet]
+        public async Task<IActionResult> ProductOfTheMonth()
+        {
+            var productsQuery = _productManager.GetAllInclude(
+                x => x.IsProductOfTheMonth == true,
+                x => x.Category);
+
+            var products = await productsQuery.ToListAsync();
+            if (products == null)
+            {
+                return NotFound();
+            }
+            var productVM = _mapper.Map<IEnumerable<ProductListVM>>(products);
+            return View(productVM);
         }
 
     }

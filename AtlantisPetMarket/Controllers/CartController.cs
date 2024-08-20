@@ -141,6 +141,7 @@ namespace AtlantisPetMarket.Controllers
                 var cartItem = _mapper.Map<CartItem>(productCartVM);
                 await _cartItemManager.AddAsync(cartItem);
             }
+
             Response.Cookies.Append("CartId", productCartVM.CartId.ToString(), new CookieOptions
             {
                 Expires = DateTimeOffset.UtcNow.AddHours(1),

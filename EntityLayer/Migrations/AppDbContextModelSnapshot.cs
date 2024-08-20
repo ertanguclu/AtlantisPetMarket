@@ -284,31 +284,31 @@ namespace EntityLayer.Migrations
                         new
                         {
                             Id = 1,
-                            CreateDate = new DateTime(2024, 8, 20, 15, 21, 1, 451, DateTimeKind.Local).AddTicks(9216),
+                            CreateDate = new DateTime(2024, 8, 20, 20, 28, 13, 38, DateTimeKind.Local).AddTicks(3973),
                             ParentCategoryName = "Kedi"
                         },
                         new
                         {
                             Id = 2,
-                            CreateDate = new DateTime(2024, 8, 20, 15, 21, 1, 451, DateTimeKind.Local).AddTicks(9219),
+                            CreateDate = new DateTime(2024, 8, 20, 20, 28, 13, 38, DateTimeKind.Local).AddTicks(3978),
                             ParentCategoryName = "Köpek"
                         },
                         new
                         {
                             Id = 3,
-                            CreateDate = new DateTime(2024, 8, 20, 15, 21, 1, 451, DateTimeKind.Local).AddTicks(9221),
+                            CreateDate = new DateTime(2024, 8, 20, 20, 28, 13, 38, DateTimeKind.Local).AddTicks(3982),
                             ParentCategoryName = "Kuş"
                         },
                         new
                         {
                             Id = 4,
-                            CreateDate = new DateTime(2024, 8, 20, 15, 21, 1, 451, DateTimeKind.Local).AddTicks(9223),
+                            CreateDate = new DateTime(2024, 8, 20, 20, 28, 13, 38, DateTimeKind.Local).AddTicks(3986),
                             ParentCategoryName = "Balık"
                         },
                         new
                         {
                             Id = 5,
-                            CreateDate = new DateTime(2024, 8, 20, 15, 21, 1, 451, DateTimeKind.Local).AddTicks(9224),
+                            CreateDate = new DateTime(2024, 8, 20, 20, 28, 13, 38, DateTimeKind.Local).AddTicks(3989),
                             ParentCategoryName = "Kemirgen"
                         });
                 });
@@ -333,6 +333,9 @@ namespace EntityLayer.Migrations
 
                     b.Property<string>("Description")
                         .HasColumnType("longtext");
+
+                    b.Property<bool>("IsProductOfTheMonth")
+                        .HasColumnType("tinyint(1)");
 
                     b.Property<int>("ParentCategoryId")
                         .HasColumnType("int");
@@ -516,16 +519,16 @@ namespace EntityLayer.Migrations
                         {
                             Id = 1,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "f7bc93bb-db42-43e3-be8a-e054cd54e623",
+                            ConcurrencyStamp = "cf784521-1cdd-4442-b5b5-a5a5b1814b63",
                             Email = "ercanozturk00@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             Name = "Ercan",
                             NormalizedEmail = "ERCANOZTURK00@GMAIL.COM",
                             NormalizedUserName = "ERCANOZTURK",
-                            PasswordHash = "AQAAAAIAAYagAAAAEFZVBlMV3ccPW5L1zffQqVpWP+DfUcDzsreXPyZ6YNmHtI3b1MtUA3GKA1Y2vEDzhQ==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEHn4XlHHbWkOxObke1QuHKBw9tTD/21NP+LGKaKoITB6GayrRcYa50h48gfX78aPpA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "3ac04c57-9d8e-44c6-b122-a0a7eff36eb8",
+                            SecurityStamp = "78925c68-fd97-404e-9f5a-e438227b7de7",
                             Surname = "Öztürk",
                             TwoFactorEnabled = false,
                             UserName = "ercanozturk"
@@ -562,7 +565,7 @@ namespace EntityLayer.Migrations
                         new
                         {
                             Id = 1,
-                            ConcurrencyStamp = "e18a878e-dde9-4862-b0f4-6385aafc4bde",
+                            ConcurrencyStamp = "39fa2fde-2125-4d96-92d3-6d6ecbecf56c",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });

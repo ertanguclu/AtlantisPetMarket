@@ -1,5 +1,6 @@
 ﻿using EntityLayer.Config.Abstract;
 using EntityLayer.Models.Concrete;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace EntityLayer.Config.Concrete
@@ -18,6 +19,8 @@ namespace EntityLayer.Config.Concrete
             builder.Property(p => p.StockQuantity).IsRequired();
             builder.Property(p => p.ProductPhotoPath).IsRequired();
             builder.Property(p => p.Color).HasMaxLength(50);
+            builder.Property(p => p.IsProductOfTheMonth).HasDefaultValue(false);
+            builder.Property(p => p.IsProductOfTheMonth).IsRequired();
 
 
 
