@@ -127,12 +127,14 @@ The homepage serves as the main entry point for users to navigate and view the g
 
 <h3>Product Listing</h3>
 The Product Listing page displays a list of all available products. Users can browse through different products, view details such as name, price, category, and stock status. This page makes it easy to explore the product catalog and find specific items you want to purchase.
-![Product](images/Products.png)
+<img src="images/ProductIndex.png" alt="Atlantis Pet Market Products">
+
 
 
 <h3>Add to Cart</h3>
 The Add to Cart feature allows users to select products from the Product Listing or Product Details pages and add them to their shopping cart. Users can easily manage their selections, view the total price, and proceed to checkout when they are ready to complete their purchase.
-(images/ProductIndex.png)
+<img src="images/Cart" alt="Atlantis Pet Market Cart">
+
 
 <h3>Product Create</h3>
 The Product Create page allows administrators to add new products. On this page, you can enter information such as the product name, description, price, stock status, and category to save new products to the database. The product creation process is straightforward and user-friendly.
