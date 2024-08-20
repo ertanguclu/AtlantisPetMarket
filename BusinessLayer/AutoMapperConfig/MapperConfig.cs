@@ -4,6 +4,7 @@ using BusinessLayer.Models.CartViewModel;
 using BusinessLayer.Models.CategoryVM;
 using BusinessLayer.Models.ContactVM;
 using BusinessLayer.Models.ProductVM;
+using BusinessLayer.Models.SocialMediaVM;
 using EntityLayer.Models.Concrete;
 
 namespace BusinessLayer.AutoMapperConfig
@@ -24,8 +25,9 @@ namespace BusinessLayer.AutoMapperConfig
             CreateMap<CartItem, ProductCartVM>().ReverseMap();
 
             CreateMap<Category, CategoryUpdateVM>().ReverseMap();
-
             CreateMap<Category, CategoryInsertVM>().ReverseMap();
+            CreateMap<Category, CategoryListVM>();
+
             CreateMap<CartItem, CartItemViewModel>().ReverseMap();
 
             CreateMap<Cart, CartVM>().ReverseMap();
@@ -34,6 +36,10 @@ namespace BusinessLayer.AutoMapperConfig
             CreateMap<Contact, ContactListVM>();
             CreateMap<Contact, ContactInsertVM>().ReverseMap();
             CreateMap<Contact, ContactUpdateVM>().ReverseMap();
+
+            CreateMap<SocialMedia, SocialMediaListVM>();
+            CreateMap<SocialMedia, SocialMediaInsertVM>().ReverseMap();
+            CreateMap<SocialMedia, SocialMediaUpdateVM>().ReverseMap();
 
 
         }

@@ -12,19 +12,16 @@ namespace EntityLayer.Models.Concrete
         public string ProductCode { get; set; }
         public int StockQuantity { get; set; }
         public string ProductPhotoPath { get; set; }
-
         public int CategoryId { get; set; }
         public Category Category { get; set; }
-
         public int ParentCategoryId { get; set; }
         public ParentCategory ParentCategory { get; set; }
-
         public string? Color { get; set; }
         public ICollection<CartItem> CardItems { get; set; }
         public ICollection<OrderItem> OrderItems { get; set; }
         public ICollection<Review> Reviews { get; set; }
-        
-        
+
+
 
         //public Photo Photo { get; set; }
     }

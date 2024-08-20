@@ -1,4 +1,5 @@
-﻿using EntityLayer.Models.Concrete;
+﻿using EntityLayer.Config.Concrete;
+using EntityLayer.Models.Concrete;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -32,16 +33,18 @@ namespace EntityLayer.DbContexts
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            var connectionString = _configuration.GetConnectionString("DefaultConnection");
-            optionsBuilder.UseMySQL(connectionString);
+            base.OnConfiguring(optionsBuilder);
+            optionsBuilder.UseMySQL(@"Server=localhost;Database=PetShopDb;Uid=root;password=Password187");
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Category>()
-                .HasIndex(c => new { c.CategoryName, c.ParentCategoryId })
-                .IsUnique();
-
             base.OnModelCreating(modelBuilder);
+
+            modelBuilder.ApplyConfiguration(new ParentCategoryConfig());
+            modelBuilder.ApplyConfiguration(new UserConfig());
+            modelBuilder.ApplyConfiguration(new UserRoleConfig());
+            modelBuilder.ApplyConfiguration(new UserRolesConfig());
+
 
 
         }

@@ -1,4 +1,4 @@
-﻿@model IEnumerable<BusinessLayer.Models.CartViewModel.ProductCartVM>
+﻿@model IEnumerable<ProductCartVM>
 
 @{
     ViewData["Title"] = "Ürünler";
@@ -21,7 +21,7 @@
                         <img src="~/productimage/@item.ProductPhotoPath" class="product-image-wrapper img-fluid rounded-4" alt="image">
                     </a>
                     <div class="card-body p-0">
-                        <a href="single-product.html">
+                        <a asp-action="Details" asp-controller="Cart" asp-route-Id="@item.Id">
                             <h3 class="card-title pt-4 m-0">@item.ProductName</h3>
                         </a>
 
@@ -35,7 +35,7 @@
                                 5.0
                             </span>
 
-                            <h3 class="secondary-font text-primary">@item.Price</h3>
+                            <h3 class="secondary-font text-primary">@item.Price.ToString("C")</h3>
 
                             <div class="add-to-cart-container mt-3">
                                 <form asp-controller="Cart" asp-action="DecreaseQuantity" asp-route-cartItemId="@item.Id" method="post">
@@ -156,6 +156,25 @@
     }
 
 </style>
+@section scripts {
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var cardTitles = document.querySelectorAll(".card-title");
+
+            cardTitles.forEach(function(title) {
+                var lineHeight = parseInt(window.getComputedStyle(title).lineHeight);
+                var height = title.scrollHeight;
+                var lines = height / lineHeight;
+
+                if (lines === 1) {
+                    title.style.height = "35px"; // Tek satır olduğunda 35px yap
+                } else {
+                    title.style.height = "70px"; // İki satır olduğunda 70px yap
+                }
+            });
+        });
+    </script>
+}
 
 
 

@@ -5,7 +5,6 @@ using EntityLayer.DbContexts;
 using EntityLayer.Models.Concrete;
 using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
-using Mysqlx.Crud;
 
 namespace AtlantisPetMarket.Controllers
 {
@@ -28,10 +27,11 @@ namespace AtlantisPetMarket.Controllers
             _parentCategoryManager = parentCategoryManager;
 
         }
-        public async Task<ActionResult<IEnumerable<Category>>> Index(int id)
+        public async Task<ActionResult> Index(int id)
         {
             var categories = await _categoryManager.GetAllIncludeAsync(x => x.ParentCategoryId == id, x => x.ParentCategory);
-            return View(categories);
+            var categoryListVM = _mapper.Map<IEnumerable<CategoryListVM>>(categories);
+            return View(categoryListVM);
         }
         [HttpGet]
         public async Task<IActionResult> Create()

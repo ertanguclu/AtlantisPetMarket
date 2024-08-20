@@ -1,12 +1,15 @@
+
 using BusinessLayer.Abstract;
 using BusinessLayer.AutoMapperConfig;
 using BusinessLayer.Concrete;
 using BusinessLayer.Models.CategoryVM;
 using BusinessLayer.Models.ContactVM;
 using BusinessLayer.Models.ProductVM;
+using BusinessLayer.Models.SocialMediaVM;
 using BusinessLayer.ValidationsRules.CategoryValidator;
 using BusinessLayer.ValidationsRules.ContactValidator;
 using BusinessLayer.ValidationsRules.ProductValidator;
+using BusinessLayer.ValidationsRules.SocialMediaValidator;
 using EntityLayer.DbContexts;
 using EntityLayer.Models.Concrete;
 using FluentValidation;
@@ -50,6 +53,8 @@ builder.Services.AddTransient<IValidator<CategoryUpdateVM>, CategoryUpdateValida
 builder.Services.AddTransient<IValidator<CategoryInsertVM>, CategoryInsertValidator>();
 builder.Services.AddTransient<IValidator<ContactInsertVM>, ContactInsertValidator>();
 builder.Services.AddTransient<IValidator<ContactUpdateVM>, ContactUpdateValidator>();
+builder.Services.AddTransient<IValidator<SocialMediaUpdateVM>, SocialMediaUpdateValidator>();
+builder.Services.AddTransient<IValidator<SocialMediaInsertVM>, SocialMediaInsertValidator>();
 
 // Identity
 builder.Services.AddIdentity<User, UserRole>()
