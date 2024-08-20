@@ -20,63 +20,56 @@ namespace AtlantisPetMarket.Controllers
         public async Task<IActionResult> ReceiverMessageList()
         {
 
-            // Oturum açmış kullanıcının kullanıcı adını al
             string userName = User.Identity.Name;
 
             if (string.IsNullOrEmpty(userName))
             {
-                return Unauthorized(); // Eğer kullanıcı adı alınamazsa yetkisiz erişim döner
+                return Unauthorized(); 
             }
 
-            // Kullanıcı adına göre kullanıcıyı bul
+           
             var user = await _userManager.FindByNameAsync(userName);
 
             if (user == null)
             {
-                return Unauthorized(); // Eğer kullanıcı bulunamazsa yetkisiz erişim döner
+                return Unauthorized(); 
             }
 
-            // Kullanıcı e-posta adresini al
+            
             string userEmail = user.Email;
 
             if (string.IsNullOrEmpty(userEmail))
             {
-                return BadRequest("Kullanıcının e-posta adresi bulunamadı."); // E-posta adresi boşsa hata döner
+                return BadRequest("Kullanıcının e-posta adresi bulunamadı."); 
             }
 
-            // Mesajları kullanıcının e-posta adresine göre al
             var messages = await _messageManager.GetListReceiverMessage(userEmail);
 
-            // Mesajlar listesini view'a gönder
             return View(messages);
         }
         public async Task<IActionResult> SenderMessageList()
         {
-            // Oturum açmış kullanıcının kullanıcı adını al
             string userName = User.Identity.Name;
 
             if (string.IsNullOrEmpty(userName))
             {
-                return Unauthorized(); // Eğer kullanıcı adı alınamazsa yetkisiz erişim döner
+                return Unauthorized(); 
             }
 
-            // Kullanıcı adına göre kullanıcıyı bul
             var user = await _userManager.FindByNameAsync(userName);
 
             if (user == null)
             {
-                return Unauthorized(); // Eğer kullanıcı bulunamazsa yetkisiz erişim döner
+                return Unauthorized(); 
             }
 
-            // Kullanıcı e-posta adresini al
             string userEmail = user.Email;
 
             if (string.IsNullOrEmpty(userEmail))
             {
-                return BadRequest("Kullanıcının e-posta adresi bulunamadı."); // E-posta adresi boşsa hata döner
+                return BadRequest("Kullanıcının e-posta adresi bulunamadı."); 
             }
 
-            // Gönderici olarak kullanıcının e-posta adresine göre mesajları al
             var messages = await _messageManager.GetListSenderMessage(userEmail);
 
             return View(messages);
@@ -100,22 +93,18 @@ namespace AtlantisPetMarket.Controllers
         [HttpPost]
         public async Task<IActionResult> AdminMessageSend(Message p)
         {
-            // Oturum açmış kullanıcının e-posta adresini al
             string senderEmail = User.Identity.Name;
 
             if (string.IsNullOrEmpty(senderEmail))
             {
-                return Unauthorized(); // Eğer oturum açmış kullanıcının e-postası alınamazsa yetkisiz erişim döner
+                return Unauthorized(); 
             }
 
-            // Gönderici bilgilerini ata
             p.Sender = senderEmail;
 
-            // Kullanıcıyı UserManager ile bul ve isim soyisim bilgilerini ata
             var senderUser = await _userManager.FindByEmailAsync(senderEmail);
             p.SenderName = senderUser.Name + " " + senderUser.Surname;
 
-            // Veritabanından alıcıyı bul ve isim soyisim bilgilerini ata
             var receiverUser = await _userManager.FindByEmailAsync(p.Receiver);
             p.ReceiverName = receiverUser.Name + " " + receiverUser.Surname;
 
@@ -124,7 +113,6 @@ namespace AtlantisPetMarket.Controllers
                 return NotFound("Alıcı bulunamadı.");
             }
 
-            // Mesajı ekle
             await _messageManager.AddAsync(p);
 
             return RedirectToAction("SenderMessageList");

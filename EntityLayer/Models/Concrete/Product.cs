@@ -23,6 +23,6 @@ namespace EntityLayer.Models.Concrete
 
 
 
-        //public Photo Photo { get; set; }
+        
     }
 }
