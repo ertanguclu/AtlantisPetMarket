@@ -87,17 +87,36 @@ namespace AtlantisPetMarket.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(ProductCartVM productCartVM)
         {
-            int userId = User.Identity.IsAuthenticated ? Convert.ToInt32(User.FindFirstValue(ClaimTypes.NameIdentifier)) : -1;
+            // Oturum ID'sini al veya oluştur
+            string sessionId = HttpContext.Request.Cookies["SessionId"] ?? Guid.NewGuid().ToString();
+            HttpContext.Response.Cookies.Append("SessionId", sessionId, new CookieOptions
+            {
+                Expires = DateTimeOffset.UtcNow.AddHours(1),
+                HttpOnly = true,
+                Secure = true
+            });
 
-            // Sepeti kontrol et
-            var existingCart = await _cartManager.GetCartByUserIdAsync(userId);
+            int? userId = User.Identity.IsAuthenticated ? Convert.ToInt32(User.FindFirstValue(ClaimTypes.NameIdentifier)) : (int?)null;
+            // Nullable integer
+
+            Cart existingCart;
+
+            if (userId.HasValue)
+            {
+                // Kullanıcı oturum açmış
+                existingCart = await _cartManager.GetCartByUserIdAsync(userId.Value);
+            }
+            else
+            {
+                // Kullanıcı oturum açmamış
+                existingCart = await _cartManager.GetCartBySessionIdAsync(sessionId);
+            }
 
             if (existingCart == null)
             {
-                productCartVM.UserId = userId;
-                // Yeni bir sepet oluştur
+                productCartVM.SessionId = sessionId;
+                productCartVM.UserId = userId; // Nullable olduğu için sorun olmayacak
                 var newCart = _mapper.Map<Cart>(productCartVM);
-                newCart.UserId = userId;
 
                 await _cartManager.AddAsync(newCart);
                 productCartVM.CartId = newCart.Id;
@@ -107,7 +126,6 @@ namespace AtlantisPetMarket.Controllers
                 productCartVM.CartId = existingCart.Id;
             }
 
-            // Aynı ürünün sepette olup olmadığını kontrol et
             var existingCartItem = await _cartItemManager.GetByConditionAsync(
                 x => x.CartId == productCartVM.CartId && x.ProductId == productCartVM.ProductId);
 
@@ -123,8 +141,6 @@ namespace AtlantisPetMarket.Controllers
                 var cartItem = _mapper.Map<CartItem>(productCartVM);
                 await _cartItemManager.AddAsync(cartItem);
             }
-
-            // Cookie işlemleri
             Response.Cookies.Append("CartId", productCartVM.CartId.ToString(), new CookieOptions
             {
                 Expires = DateTimeOffset.UtcNow.AddHours(1),

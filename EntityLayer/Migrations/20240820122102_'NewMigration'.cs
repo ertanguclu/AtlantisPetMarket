@@ -9,7 +9,7 @@ using MySql.EntityFrameworkCore.Metadata;
 namespace EntityLayer.Migrations
 {
     /// <inheritdoc />
-    public partial class NewMigrations : Migration
+    public partial class NewMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -281,6 +281,7 @@ namespace EntityLayer.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
                     CreateDateTime = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    SessionId = table.Column<string>(type: "longtext", nullable: false),
                     UserId = table.Column<int>(type: "int", nullable: true),
                     CreateDate = table.Column<DateTime>(type: "datetime(6)", nullable: false)
                 },
@@ -475,23 +476,23 @@ namespace EntityLayer.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { 1, "d09d926f-90e8-44a3-81bc-1e4161cd6871", "Admin", "ADMIN" });
+                values: new object[] { 1, "e18a878e-dde9-4862-b0f4-6385aafc4bde", "Admin", "ADMIN" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "About", "AccessFailedCount", "BirthDate", "ConcurrencyStamp", "Email", "EmailConfirmed", "Gender", "ImagePath", "LockoutEnabled", "LockoutEnd", "Name", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "Surname", "TcNo", "TwoFactorEnabled", "UserName" },
-                values: new object[] { 1, null, 0, null, "7ce17b75-5217-49aa-a92f-fdce87b3e1a9", "ercanozturk00@gmail.com", true, null, null, false, null, "Ercan", "ERCANOZTURK00@GMAIL.COM", "ERCANOZTURK", "AQAAAAIAAYagAAAAEM+IBGg+qpAD7mXJjWSeRlo2YAOhvR++7h14qp8FugDkQgO1OSRVlSp7fIzEtG4Mug==", null, false, "a2b5422d-2daa-4879-908b-beefc9473418", "Öztürk", null, false, "ercanozturk" });
+                values: new object[] { 1, null, 0, null, "f7bc93bb-db42-43e3-be8a-e054cd54e623", "ercanozturk00@gmail.com", true, null, null, false, null, "Ercan", "ERCANOZTURK00@GMAIL.COM", "ERCANOZTURK", "AQAAAAIAAYagAAAAEFZVBlMV3ccPW5L1zffQqVpWP+DfUcDzsreXPyZ6YNmHtI3b1MtUA3GKA1Y2vEDzhQ==", null, false, "3ac04c57-9d8e-44c6-b122-a0a7eff36eb8", "Öztürk", null, false, "ercanozturk" });
 
             migrationBuilder.InsertData(
                 table: "ParentCategories",
                 columns: new[] { "Id", "CreateDate", "ParentCategoryName" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2024, 8, 20, 14, 43, 27, 246, DateTimeKind.Local).AddTicks(9780), "Kedi" },
-                    { 2, new DateTime(2024, 8, 20, 14, 43, 27, 246, DateTimeKind.Local).AddTicks(9785), "Köpek" },
-                    { 3, new DateTime(2024, 8, 20, 14, 43, 27, 246, DateTimeKind.Local).AddTicks(9789), "Kuş" },
-                    { 4, new DateTime(2024, 8, 20, 14, 43, 27, 246, DateTimeKind.Local).AddTicks(9792), "Balık" },
-                    { 5, new DateTime(2024, 8, 20, 14, 43, 27, 246, DateTimeKind.Local).AddTicks(9795), "Kemirgen" }
+                    { 1, new DateTime(2024, 8, 20, 15, 21, 1, 451, DateTimeKind.Local).AddTicks(9216), "Kedi" },
+                    { 2, new DateTime(2024, 8, 20, 15, 21, 1, 451, DateTimeKind.Local).AddTicks(9219), "Köpek" },
+                    { 3, new DateTime(2024, 8, 20, 15, 21, 1, 451, DateTimeKind.Local).AddTicks(9221), "Kuş" },
+                    { 4, new DateTime(2024, 8, 20, 15, 21, 1, 451, DateTimeKind.Local).AddTicks(9223), "Balık" },
+                    { 5, new DateTime(2024, 8, 20, 15, 21, 1, 451, DateTimeKind.Local).AddTicks(9224), "Kemirgen" }
                 });
 
             migrationBuilder.InsertData(
