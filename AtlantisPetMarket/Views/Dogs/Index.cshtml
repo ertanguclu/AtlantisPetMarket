@@ -4,6 +4,7 @@
     ViewData["Title"] = "Ürünler";
     Layout = "~/Views/Shared/_HomeLayout.cshtml";
 }
+<link rel="stylesheet" href="https://cdn.materialdesignicons.com/5.2.45/css/materialdesignicons.min.css" />
 
 <div class="container">
     <div class="isotope-container row">
@@ -29,7 +30,7 @@
                                 5.0
                             </span>
 
-                            <h3 class="secondary-font text-primary" >@item.Price.ToString("C")</h3>
+                            <h3 class="secondary-font text-primary">@item.Price.ToString("C")</h3>
 
                             <div class="d-flex flex-wrap mt-3">
                                 <!-- Decrease Quantity Button -->
@@ -68,7 +69,6 @@
         }
     </div>
 </div>
-
 <style>
     .btn-cart {
         background: transparent; /* Arka planı kaldırır */
@@ -136,13 +136,23 @@
 </style>
 @section scripts {
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
+        document.addEventListener("DOMContentLoaded", function () {
             var cardTitles = document.querySelectorAll(".card-title");
 
-            cardTitles.forEach(function(title) {
+            cardTitles.forEach(function (title) {
                 var lineHeight = parseInt(window.getComputedStyle(title).lineHeight);
                 var height = title.scrollHeight;
                 var lines = height / lineHeight;
+
+                if (lines === 1) {
+                    title.style.height = "35px"; // Tek satır olduğunda 35px yap
+                } else {
+                    title.style.height = "70px"; // İki satır olduğunda 70px yap
+                }
+            });
+        });
+    </script>
+}
 
                 if (lines === 1) {
                     title.style.height = "35px"; // Tek satır olduğunda 35px yap
