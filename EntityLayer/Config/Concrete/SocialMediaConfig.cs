@@ -11,15 +11,16 @@ namespace EntityLayer.Config.Concrete
             base.Configure(builder);
 
             builder.Property(sm => sm.Name)
-                .IsRequired()   
-                .HasMaxLength(20); 
+                .IsRequired()
+                .HasMaxLength(20);
 
             builder.Property(sm => sm.Url)
-                .IsRequired()   
-                .HasMaxLength(200); 
+                .IsRequired()
+                .HasMaxLength(200);
 
             builder.Property(sm => sm.Icon)
-                .IsRequired()  
-                .HasMaxLength(100); 
+                .IsRequired()
+                .HasMaxLength(100);
+        }
     }
 }
