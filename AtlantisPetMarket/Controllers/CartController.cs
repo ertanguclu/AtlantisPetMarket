@@ -62,7 +62,6 @@ namespace AtlantisPetMarket.Controllers
             var lowerQuery = searchQuery.ToLower();
             var filteredProducts = await _productManager.GetProductsByCategoryAsync(c => c.ProductName.ToLower().Contains(lowerQuery));
 
-
             // Eğer ürünler doğru dönmüyorsa, `filteredProducts` üzerinde debug yaparak ne döndüğünü kontrol edin.
             var productVM = _mapper.Map<IEnumerable<ProductCartVM>>(filteredProducts);
 
@@ -79,44 +78,6 @@ namespace AtlantisPetMarket.Controllers
             return View(productVM);
         }
 
-        //public async Task<IActionResult> CartModalPartial()
-        //{
-        //    // Cookie'den gelen CartId'yi al
-        //    var cartIdFromCookie = Request.Cookies["CartId"];
-
-        //    ProductCartVM cartVM = new ProductCartVM();
-
-        //    if (!string.IsNullOrEmpty(cartIdFromCookie) && int.TryParse(cartIdFromCookie, out var cartIdFromCookieInt))
-        //    {
-        //        // Cookie'den gelen CartId ile sepeti al
-        //        var cart = await _cartManager.FindAsync(cartIdFromCookieInt);
-
-        //        if (cart != null)
-        //        {
-        //            // Sepet var, işleme devam et
-        //            var cartItems = await _cartItemManager.GetAllIncludeAsync(
-        //                x => x.CartId == cartIdFromCookieInt,
-        //                x => x.Product
-        //            );
-
-        //            var cartItemVMs = _mapper.Map<List<CartItemViewModel>>(cartItems);
-        //            cartVM = _mapper.Map<ProductCartVM>(cart);
-        //            cartVM.CartItems = cartItemVMs;
-        //        }
-        //    }
-
-        //    // Eğer sepet yoksa boş bir model oluştur
-        //    if (cartVM.CartItems == null)
-        //    {
-        //        cartVM.CartItems = new List<CartItemViewModel>();
-        //    }
-
-        //    return PartialView("HomeLayoutPartial/CartModalPartial", cartVM); // Partial view'ı döndür
-        //}
-
-
-
-
         [HttpGet]
         public async Task<IActionResult> Create()
         {
@@ -126,13 +87,14 @@ namespace AtlantisPetMarket.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(ProductCartVM productCartVM)
         {
-            var userId = User.Identity.IsAuthenticated ? Convert.ToInt32(User.FindFirstValue(ClaimTypes.NameIdentifier)) : -1;
+            int userId = User.Identity.IsAuthenticated ? Convert.ToInt32(User.FindFirstValue(ClaimTypes.NameIdentifier)) : -1;
 
             // Sepeti kontrol et
             var existingCart = await _cartManager.GetCartByUserIdAsync(userId);
 
             if (existingCart == null)
             {
+                productCartVM.UserId = userId;
                 // Yeni bir sepet oluştur
                 var newCart = _mapper.Map<Cart>(productCartVM);
                 newCart.UserId = userId;

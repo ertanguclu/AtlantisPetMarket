@@ -15,7 +15,7 @@ namespace BusinessLayer.Models.CartViewModel
         public string Description { get; set; }
         public decimal Price { get; set; }
         public string ProductCode { get; set; }
-        
+
         public string ProductPhotoPath { get; set; }
         public int CartId { get; set; }
         public Cart Cart { get; set; }
