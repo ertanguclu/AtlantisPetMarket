@@ -4,16 +4,21 @@
     ViewData["Title"] = "Ürünler";
     Layout = "~/Views/Shared/_HomeLayout.cshtml";
 }
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+
+
 <link rel="stylesheet" href="https://cdn.materialdesignicons.com/5.2.45/css/materialdesignicons.min.css" />
+
 
 <div class="container">
     <div class="isotope-container row">
         @foreach (var item in Model)
         {
             <div class="item cat col-md-4 col-lg-3 my-4">
-                <div class="card position-relative">
+                <div class="card">
                     <a href="single-product.html">
-                        <img src="~/productimage/@item.ProductPhotoPath" class="img-fluid rounded-4 product-image-wrapper" alt="image">
+                        <img src="~/productimage/@item.ProductPhotoPath" class="product-image-wrapper img-fluid rounded-4" alt="image">
                     </a>
                     <div class="card-body p-0">
                         <a href="single-product.html">
@@ -32,35 +37,31 @@
 
                             <h3 class="secondary-font text-primary">@item.Price</h3>
 
-                            <div class="d-flex flex-wrap mt-3">
-                                <!-- Decrease Quantity Button -->
+                            <div class="add-to-cart-container mt-3">
                                 <form asp-controller="Cart" asp-action="DecreaseQuantity" asp-route-cartItemId="@item.Id" method="post">
                                     <button type="submit" class="btn-cart px-2 py-2">
-                                        <i class="mdi mdi-minus"></i> <!-- Azaltma ikonu -->
+                                        <i class="mdi mdi-minus"></i>
                                     </button>
                                 </form>
 
-                                <!-- Quantity Display -->
                                 <div class="px-2 py-2">
-                                    <h5 class="m-0">@item.Quantity</h5> <!-- Ürün miktarını gösterir -->
+                                    <h5 class="m-0">@item.Quantity</h5>
                                 </div>
 
-                                <!-- Increase Quantity Button -->
                                 <form asp-controller="Cart" asp-action="IncreaseQuantity" asp-route-cartItemId="@item.Id" method="post">
                                     <button type="submit" class="btn-cart px-2 py-2">
-                                        <i class="mdi mdi-plus"></i> <!-- Arttırma ikonu -->
+                                        <i class="mdi mdi-plus"></i>
+                                    </button>
+                                </form>
+
+                                <form asp-controller="Cart" asp-action="Create" asp-route-id="@item.Id" method="post">
+                                    <input type="hidden" name="ProductId" value="@item.Id" />
+                                    <input type="hidden" name="Quantity" value="1" />
+                                    <button type="submit" class="btn btn-primary rounded submit px-3 d-flex justify-content-center align-items-center ms-3">
+                                        <h5 class="text m-0">Sepete ekle</h5>
                                     </button>
                                 </form>
                             </div>
-
-                            <!-- Add to Cart Button -->
-                            <form asp-controller="Cart" asp-action="Create" asp-route-id="@item.Id" method="post">
-                                <input type="hidden" name="ProductId" value="@item.Id" />
-                                <input type="hidden" name="Quantity" value="1" /> <!-- Varsayılan olarak 1 ekleniyor -->
-                                <button type="submit" class="btn-cart btn-primary px-4 py-3 mt-3 w-100">
-                                    <h5 class="text-uppercase m-0">Add to Cart</h5>
-                                </button>
-                            </form>
                         </div>
                     </div>
                 </div>
@@ -68,19 +69,96 @@
         }
     </div>
 </div>
+
+
+
+
+<style>
+    .text {
+        text-transform: none; /* Metnin olduğu gibi görünmesini sağlar */
+    }
+
+    .btn-cart {
+        background: transparent; /* Arka planı kaldırır */
+        border: none; /* Kenarlığı kaldırır */
+        color: #000; /* İkon rengini belirler */
+        font-size: 1.5rem; /* İkon boyutunu ayarlar */
+    }
+
+        .btn-cart i {
+            line-height: 1; /* İkonu ortalar */
+        }
+
+        .btn-cart:hover {
+            color: #DEAD6F; /* Hover durumunda ikon rengini değiştirir */
+        }
+</style>
 <style>
     .product-image-wrapper {
-        width: 310px; /* Resim genişliği */
-        height: 283px; /* Resim yüksekliği */
-        overflow: hidden; /* Resmin belirlenen boyutların dışına taşmasını engeller */
+        width: 280px; /* Genişliği biraz küçülttük */
+        height: 255px; /* Yüksekliği biraz küçülttük */
+        overflow: hidden;
         border-radius: 15px;
-        background-color: #F2F2F2; /* Krem rengi *
-        }
-        .product-image-wrapper img
-        {
+        background-color: #F2F2F2;
+    }
+
+
+        .product-image-wrapper img {
             width: 100%;
             height: 100%;
-            object-fit: cover; /* Resmi kapsayacak şekilde ölçekler, en-boy oranını korur */
-        border-radius: 15px;
+            object-fit: cover;
+            border-radius: 15px;
+        }
+
+    .card {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        height: 100%;
     }
+
+    .card-body {
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+        padding: 15px;
+    }
+
+    .card-title {
+        height: 60px; /* Başlığın sabit yüksekliğini ayarlar */
+        overflow: hidden; /* Taşan metni gizler */
+        text-overflow: ellipsis; /* Taşan metin için üç nokta koyar */
+        display: -webkit-box;
+        -webkit-line-clamp: 2; /* En fazla iki satır gösterir */
+        -webkit-box-orient: vertical;
+        font-size: 1em; /* Font boyutunu ayarlar */
+        line-height: 1.1em; /* Satır yüksekliğini ayarlar */
+    }
+
+
+    .card-text {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        flex-grow: 1;
+    }
+
+    .single-line .card-title {
+        max-height: 35px; /* Tek satır olduğunda daha az yer kaplar */
+        margin-bottom: 40px; /* Tek satır olduğunda ekstra boşluk ekler */
+    }
+
+    .add-to-cart-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: auto;
+    }
+
 </style>
+
+
+
+
+
+
