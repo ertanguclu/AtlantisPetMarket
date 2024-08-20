@@ -9,7 +9,7 @@ using MySql.EntityFrameworkCore.Metadata;
 namespace EntityLayer.Migrations
 {
     /// <inheritdoc />
-    public partial class NewMig : Migration
+    public partial class NewMigrations : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -473,21 +473,31 @@ namespace EntityLayer.Migrations
                 .Annotation("MySQL:Charset", "utf8mb4");
 
             migrationBuilder.InsertData(
+                table: "AspNetRoles",
+                columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
+                values: new object[] { 1, "d09d926f-90e8-44a3-81bc-1e4161cd6871", "Admin", "ADMIN" });
+
+            migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "About", "AccessFailedCount", "BirthDate", "ConcurrencyStamp", "Email", "EmailConfirmed", "Gender", "ImagePath", "LockoutEnabled", "LockoutEnd", "Name", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "Surname", "TcNo", "TwoFactorEnabled", "UserName" },
-                values: new object[] { 1, null, 0, null, "468f2537-689f-4afe-b63e-887d82f9ebfb", "ercanozturk00@gmail.com", true, null, null, false, null, "Ercan", "ERCANOZTURK00@GMAIL.COM", "ERCANOZTURK", "AQAAAAIAAYagAAAAENLsGDI3hg3zx0P7G4nIApo6OOteJA8bDZN5ZMf0NttwTvhUYLZudH3KTaRyxFSBrw==", null, false, "3eb73fd9-35f3-448e-ab91-d6edccc12e7a", "Öztürk", null, false, "ercanozturk" });
+                values: new object[] { 1, null, 0, null, "7ce17b75-5217-49aa-a92f-fdce87b3e1a9", "ercanozturk00@gmail.com", true, null, null, false, null, "Ercan", "ERCANOZTURK00@GMAIL.COM", "ERCANOZTURK", "AQAAAAIAAYagAAAAEM+IBGg+qpAD7mXJjWSeRlo2YAOhvR++7h14qp8FugDkQgO1OSRVlSp7fIzEtG4Mug==", null, false, "a2b5422d-2daa-4879-908b-beefc9473418", "Öztürk", null, false, "ercanozturk" });
 
             migrationBuilder.InsertData(
                 table: "ParentCategories",
                 columns: new[] { "Id", "CreateDate", "ParentCategoryName" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2024, 8, 20, 14, 9, 36, 983, DateTimeKind.Local).AddTicks(4313), "Kedi" },
-                    { 2, new DateTime(2024, 8, 20, 14, 9, 36, 983, DateTimeKind.Local).AddTicks(4320), "Köpek" },
-                    { 3, new DateTime(2024, 8, 20, 14, 9, 36, 983, DateTimeKind.Local).AddTicks(4323), "Kuş" },
-                    { 4, new DateTime(2024, 8, 20, 14, 9, 36, 983, DateTimeKind.Local).AddTicks(4327), "Balık" },
-                    { 5, new DateTime(2024, 8, 20, 14, 9, 36, 983, DateTimeKind.Local).AddTicks(4330), "Kemirgen" }
+                    { 1, new DateTime(2024, 8, 20, 14, 43, 27, 246, DateTimeKind.Local).AddTicks(9780), "Kedi" },
+                    { 2, new DateTime(2024, 8, 20, 14, 43, 27, 246, DateTimeKind.Local).AddTicks(9785), "Köpek" },
+                    { 3, new DateTime(2024, 8, 20, 14, 43, 27, 246, DateTimeKind.Local).AddTicks(9789), "Kuş" },
+                    { 4, new DateTime(2024, 8, 20, 14, 43, 27, 246, DateTimeKind.Local).AddTicks(9792), "Balık" },
+                    { 5, new DateTime(2024, 8, 20, 14, 43, 27, 246, DateTimeKind.Local).AddTicks(9795), "Kemirgen" }
                 });
+
+            migrationBuilder.InsertData(
+                table: "AspNetUserRoles",
+                columns: new[] { "RoleId", "UserId" },
+                values: new object[] { 1, 1 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Addresses_UserId",

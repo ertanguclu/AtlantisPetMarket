@@ -32,7 +32,7 @@ namespace EntityLayer.Config.Concrete
                     EmailConfirmed = true,
                     SecurityStamp = Guid.NewGuid().ToString(),
                     ConcurrencyStamp = Guid.NewGuid().ToString(),
-                    PasswordHash = hasher.HashPassword(null, "WriterPass123!")
+                    PasswordHash = hasher.HashPassword(null, "Ercan_123")
 
                 }
                 ) ;
