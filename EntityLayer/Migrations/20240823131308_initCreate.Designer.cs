@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EntityLayer.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240820195415_NewProducts")]
-    partial class NewProducts
+    [Migration("20240823131308_initCreate")]
+    partial class initCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -287,31 +287,31 @@ namespace EntityLayer.Migrations
                         new
                         {
                             Id = 1,
-                            CreateDate = new DateTime(2024, 8, 20, 22, 54, 13, 287, DateTimeKind.Local).AddTicks(8999),
+                            CreateDate = new DateTime(2024, 8, 23, 16, 13, 7, 769, DateTimeKind.Local).AddTicks(312),
                             ParentCategoryName = "Kedi"
                         },
                         new
                         {
                             Id = 2,
-                            CreateDate = new DateTime(2024, 8, 20, 22, 54, 13, 287, DateTimeKind.Local).AddTicks(9008),
+                            CreateDate = new DateTime(2024, 8, 23, 16, 13, 7, 769, DateTimeKind.Local).AddTicks(314),
                             ParentCategoryName = "Köpek"
                         },
                         new
                         {
                             Id = 3,
-                            CreateDate = new DateTime(2024, 8, 20, 22, 54, 13, 287, DateTimeKind.Local).AddTicks(9012),
+                            CreateDate = new DateTime(2024, 8, 23, 16, 13, 7, 769, DateTimeKind.Local).AddTicks(316),
                             ParentCategoryName = "Kuş"
                         },
                         new
                         {
                             Id = 4,
-                            CreateDate = new DateTime(2024, 8, 20, 22, 54, 13, 287, DateTimeKind.Local).AddTicks(9015),
+                            CreateDate = new DateTime(2024, 8, 23, 16, 13, 7, 769, DateTimeKind.Local).AddTicks(317),
                             ParentCategoryName = "Balık"
                         },
                         new
                         {
                             Id = 5,
-                            CreateDate = new DateTime(2024, 8, 20, 22, 54, 13, 287, DateTimeKind.Local).AddTicks(9018),
+                            CreateDate = new DateTime(2024, 8, 23, 16, 13, 7, 769, DateTimeKind.Local).AddTicks(319),
                             ParentCategoryName = "Kemirgen"
                         });
                 });
@@ -522,7 +522,7 @@ namespace EntityLayer.Migrations
                         {
                             Id = 1,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "486c5c5b-9267-4f5e-baef-780697db67fa",
+                            ConcurrencyStamp = "807cbc47-3bbc-4549-b744-c0fb59e3a506",
                             Email = "ercanozturk00@gmail.com",
                             EmailConfirmed = true,
                             ImagePath = "110de25f-c2eb-448f-b9a9-5ac30ff4b029.jpg",
@@ -530,9 +530,9 @@ namespace EntityLayer.Migrations
                             Name = "Ercan",
                             NormalizedEmail = "ERCANOZTURK00@GMAIL.COM",
                             NormalizedUserName = "ERCANOZTURK",
-                            PasswordHash = "AQAAAAIAAYagAAAAEMtto2h9ec5Prl4epC2ulXKl0ymjL4rYyFDtH5poxWCshC6QCHgfw9yw3Eh1IJ+u9Q==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEIuibmgQJiqSu1x8YH5S3Wo5zuTYHMWBzUEgtT/0HoriuFMZCKpXHEjT2mF2aU2Seg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "d54d8bff-bf8f-4956-8bde-7a9a57933d2e",
+                            SecurityStamp = "5e0c16db-8797-4bb1-9225-766ea9edb068",
                             Surname = "Öztürk",
                             TwoFactorEnabled = false,
                             UserName = "ercanozturk"
@@ -569,7 +569,7 @@ namespace EntityLayer.Migrations
                         new
                         {
                             Id = 1,
-                            ConcurrencyStamp = "369ce816-fc52-4fd2-8ba5-84bd5eaae836",
+                            ConcurrencyStamp = "ba9573cd-e4c4-4c4a-bef0-3eafd4fc90b0",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });
