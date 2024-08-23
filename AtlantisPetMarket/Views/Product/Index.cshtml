@@ -22,12 +22,13 @@
 <div class="col-lg-12 grid-margin stretch-card">
     <div class="card">
         <div class="card-body">
-            <div style="display: flex; justify-content: space-between; align-items: center;">
-                <h4 class="card-title">Ürün Listesi</h4>
-                <a class="btn btn-primary" asp-action="Create" asp-controller="Product">Ürün Ekle</a>
+            <div style="display: flex; align-items: center; margin-bottom: 15px;">
+                <h4 class="card-title" style="margin: 0; padding: 0; font-size: 24px;">Ürün Listesi</h4>
+                <a class="btn btn-primary" asp-action="Create" asp-controller="Product" style="margin-left: 20px;">Ürün Ekle</a>
             </div>
 
             <div class="table-responsive">
+
                 
                 @(Html
                     .Grid(Model)

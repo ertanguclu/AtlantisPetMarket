@@ -1,6 +1,5 @@
 ﻿$(document).ready(function () {
-    $('#ParentCategoryId').change(function () {
-        var parentCategoryId = $(this).val();
+    function loadCategories(parentCategoryId) {
         if (parentCategoryId) {
             $.ajax({
                 url: getCategoriesUrl,
@@ -21,5 +20,17 @@
         } else {
             $('#CategoryId').empty().append('<option value="">Lütfen bir üst kategori seçin</option>');
         }
+    }
+
+    // Sayfa yüklendiğinde ilk ParentCategory'ye göre kategorileri yükle
+    var initialParentCategoryId = $('#ParentCategoryId').val();
+    if (initialParentCategoryId) {
+        loadCategories(initialParentCategoryId);
+    }
+
+    // Üst Kategori değiştiğinde kategorileri yeniden yükle
+    $('#ParentCategoryId').change(function () {
+        var parentCategoryId = $(this).val();
+        loadCategories(parentCategoryId);
     });
 });
