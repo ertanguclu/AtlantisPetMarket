@@ -30,6 +30,7 @@ namespace EntityLayer.Config.Concrete
                     Email = "ercanozturk00@gmail.com",
                     NormalizedEmail = "ERCANOZTURK00@GMAIL.COM",
                     EmailConfirmed = true,
+                    ImagePath = "110de25f-c2eb-448f-b9a9-5ac30ff4b029.jpg",
                     SecurityStamp = Guid.NewGuid().ToString(),
                     ConcurrencyStamp = Guid.NewGuid().ToString(),
                     PasswordHash = hasher.HashPassword(null, "Ercan_123")

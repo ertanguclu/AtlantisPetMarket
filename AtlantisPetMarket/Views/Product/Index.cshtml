@@ -39,6 +39,7 @@
                         columns.Add(model => model.ParentCategory.ParentCategoryName).Titled("Tür");
                         //columns.Add(model => model.Description).Titled("Açıklama");
                         columns.Add(model => model.Price).Titled("Fiyat");
+                        columns.Add(model => model.IsProductOfTheMonth).Titled("Ayın Ürünü");
                         columns.Add(model => Html.Raw(
                         $"<div style='display: flex; gap: 5px;'>" +
                         $"<form action='/Product/Update' method='get' style='display:inline;'>" +  // Güncelle butonu önce

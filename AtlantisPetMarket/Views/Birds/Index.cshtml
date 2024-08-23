@@ -99,16 +99,15 @@
         height: 255px; /* Yüksekliği biraz küçülttük */
         overflow: hidden;
         border-radius: 15px;
-        background-color: #F2F2F2;
+        background-color: #F2F2F2; /* Krem rengi *
+                    }
+                    .product-image-wrapper img
+                    {
+                        width: 100%;
+                        height: 100%;
+                        object-fit: cover; /* Resmi kapsayacak şekilde ölçekler, en-boy oranını korur */
+        border-radius: 15px;
     }
-
-
-        .product-image-wrapper img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            border-radius: 15px;
-        }
 
     .card {
         display: flex;
@@ -158,10 +157,10 @@
 </style>
 @section scripts {
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
+        document.addEventListener("DOMContentLoaded", function () {
             var cardTitles = document.querySelectorAll(".card-title");
 
-            cardTitles.forEach(function(title) {
+            cardTitles.forEach(function (title) {
                 var lineHeight = parseInt(window.getComputedStyle(title).lineHeight);
                 var height = title.scrollHeight;
                 var lines = height / lineHeight;

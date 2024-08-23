@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EntityLayer.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240820114329_NewMigrations")]
-    partial class NewMigrations
+    [Migration("20240820195415_NewProducts")]
+    partial class NewProducts
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -33,6 +33,10 @@ namespace EntityLayer.Migrations
 
                     b.Property<DateTime>("CreateDateTime")
                         .HasColumnType("datetime(6)");
+
+                    b.Property<string>("SessionId")
+                        .IsRequired()
+                        .HasColumnType("longtext");
 
                     b.Property<int?>("UserId")
                         .HasColumnType("int");
@@ -283,31 +287,31 @@ namespace EntityLayer.Migrations
                         new
                         {
                             Id = 1,
-                            CreateDate = new DateTime(2024, 8, 20, 14, 43, 27, 246, DateTimeKind.Local).AddTicks(9780),
+                            CreateDate = new DateTime(2024, 8, 20, 22, 54, 13, 287, DateTimeKind.Local).AddTicks(8999),
                             ParentCategoryName = "Kedi"
                         },
                         new
                         {
                             Id = 2,
-                            CreateDate = new DateTime(2024, 8, 20, 14, 43, 27, 246, DateTimeKind.Local).AddTicks(9785),
+                            CreateDate = new DateTime(2024, 8, 20, 22, 54, 13, 287, DateTimeKind.Local).AddTicks(9008),
                             ParentCategoryName = "Köpek"
                         },
                         new
                         {
                             Id = 3,
-                            CreateDate = new DateTime(2024, 8, 20, 14, 43, 27, 246, DateTimeKind.Local).AddTicks(9789),
+                            CreateDate = new DateTime(2024, 8, 20, 22, 54, 13, 287, DateTimeKind.Local).AddTicks(9012),
                             ParentCategoryName = "Kuş"
                         },
                         new
                         {
                             Id = 4,
-                            CreateDate = new DateTime(2024, 8, 20, 14, 43, 27, 246, DateTimeKind.Local).AddTicks(9792),
+                            CreateDate = new DateTime(2024, 8, 20, 22, 54, 13, 287, DateTimeKind.Local).AddTicks(9015),
                             ParentCategoryName = "Balık"
                         },
                         new
                         {
                             Id = 5,
-                            CreateDate = new DateTime(2024, 8, 20, 14, 43, 27, 246, DateTimeKind.Local).AddTicks(9795),
+                            CreateDate = new DateTime(2024, 8, 20, 22, 54, 13, 287, DateTimeKind.Local).AddTicks(9018),
                             ParentCategoryName = "Kemirgen"
                         });
                 });
@@ -332,6 +336,9 @@ namespace EntityLayer.Migrations
 
                     b.Property<string>("Description")
                         .HasColumnType("longtext");
+
+                    b.Property<bool>("IsProductOfTheMonth")
+                        .HasColumnType("tinyint(1)");
 
                     b.Property<int>("ParentCategoryId")
                         .HasColumnType("int");
@@ -515,16 +522,17 @@ namespace EntityLayer.Migrations
                         {
                             Id = 1,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "7ce17b75-5217-49aa-a92f-fdce87b3e1a9",
+                            ConcurrencyStamp = "486c5c5b-9267-4f5e-baef-780697db67fa",
                             Email = "ercanozturk00@gmail.com",
                             EmailConfirmed = true,
+                            ImagePath = "110de25f-c2eb-448f-b9a9-5ac30ff4b029.jpg",
                             LockoutEnabled = false,
                             Name = "Ercan",
                             NormalizedEmail = "ERCANOZTURK00@GMAIL.COM",
                             NormalizedUserName = "ERCANOZTURK",
-                            PasswordHash = "AQAAAAIAAYagAAAAEM+IBGg+qpAD7mXJjWSeRlo2YAOhvR++7h14qp8FugDkQgO1OSRVlSp7fIzEtG4Mug==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEMtto2h9ec5Prl4epC2ulXKl0ymjL4rYyFDtH5poxWCshC6QCHgfw9yw3Eh1IJ+u9Q==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "a2b5422d-2daa-4879-908b-beefc9473418",
+                            SecurityStamp = "d54d8bff-bf8f-4956-8bde-7a9a57933d2e",
                             Surname = "Öztürk",
                             TwoFactorEnabled = false,
                             UserName = "ercanozturk"
@@ -561,7 +569,7 @@ namespace EntityLayer.Migrations
                         new
                         {
                             Id = 1,
-                            ConcurrencyStamp = "d09d926f-90e8-44a3-81bc-1e4161cd6871",
+                            ConcurrencyStamp = "369ce816-fc52-4fd2-8ba5-84bd5eaae836",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });

@@ -29,17 +29,14 @@ namespace AtlantisPetMarket.Controllers
 
         public async Task<IActionResult> Index(int id)
         {
-            // Cookie'den gelen CartId'yi al
             var cartIdFromCookie = Request.Cookies["CartId"];
 
             if (!string.IsNullOrEmpty(cartIdFromCookie) && int.TryParse(cartIdFromCookie, out var cartIdFromCookieInt))
             {
-                // Cookie'den gelen CartId ile sepeti al
                 var cart = await _cartManager.FindAsync(cartIdFromCookieInt);
 
                 if (cart != null)
                 {
-                    // Sepet var, işleme devam et
                     var cartItems = await _cartItemManager.GetAllIncludeAsync(
                         x => x.CartId == cartIdFromCookieInt,
                         x => x.Product
@@ -53,7 +50,6 @@ namespace AtlantisPetMarket.Controllers
                 }
             }
 
-            // Cookie'den gelen CartId geçerli değilse veya sepet bulunamadıysa
             return RedirectToAction("EmptyCart");
         }
         [HttpGet]
@@ -62,7 +58,6 @@ namespace AtlantisPetMarket.Controllers
             var lowerQuery = searchQuery.ToLower();
             var filteredProducts = await _productManager.GetProductsByCategoryAsync(c => c.ProductName.ToLower().Contains(lowerQuery));
 
-            // Eğer ürünler doğru dönmüyorsa, `filteredProducts` üzerinde debug yaparak ne döndüğünü kontrol edin.
             var productVM = _mapper.Map<IEnumerable<ProductCartVM>>(filteredProducts);
 
             return Json(productVM);
@@ -87,17 +82,36 @@ namespace AtlantisPetMarket.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(ProductCartVM productCartVM)
         {
-            int userId = User.Identity.IsAuthenticated ? Convert.ToInt32(User.FindFirstValue(ClaimTypes.NameIdentifier)) : -1;
+            // Oturum ID'sini al veya oluştur
+            string sessionId = HttpContext.Request.Cookies["SessionId"] ?? Guid.NewGuid().ToString();
+            HttpContext.Response.Cookies.Append("SessionId", sessionId, new CookieOptions
+            {
+                Expires = DateTimeOffset.UtcNow.AddHours(1),
+                HttpOnly = true,
+                Secure = true
+            });
 
-            // Sepeti kontrol et
-            var existingCart = await _cartManager.GetCartByUserIdAsync(userId);
+            int? userId = User.Identity.IsAuthenticated ? Convert.ToInt32(User.FindFirstValue(ClaimTypes.NameIdentifier)) : (int?)null;
+            // Nullable integer
+
+            Cart existingCart;
+
+            if (userId.HasValue)
+            {
+                // Kullanıcı oturum açmış
+                existingCart = await _cartManager.GetCartByUserIdAsync(userId.Value);
+            }
+            else
+            {
+                // Kullanıcı oturum açmamış
+                existingCart = await _cartManager.GetCartBySessionIdAsync(sessionId);
+            }
 
             if (existingCart == null)
             {
-                productCartVM.UserId = userId;
-                // Yeni bir sepet oluştur
+                productCartVM.SessionId = sessionId;
+                productCartVM.UserId = userId; // Nullable olduğu için sorun olmayacak
                 var newCart = _mapper.Map<Cart>(productCartVM);
-                newCart.UserId = userId;
 
                 await _cartManager.AddAsync(newCart);
                 productCartVM.CartId = newCart.Id;
@@ -107,24 +121,20 @@ namespace AtlantisPetMarket.Controllers
                 productCartVM.CartId = existingCart.Id;
             }
 
-            // Aynı ürünün sepette olup olmadığını kontrol et
             var existingCartItem = await _cartItemManager.GetByConditionAsync(
                 x => x.CartId == productCartVM.CartId && x.ProductId == productCartVM.ProductId);
 
             if (existingCartItem != null)
             {
-                // Ürün zaten sepette, miktarı artır
                 existingCartItem.Quantity += productCartVM.Quantity;
                 await _cartItemManager.UpdateAsync(existingCartItem);
             }
             else
             {
-                // Ürün sepette değil, yeni bir CartItem ekle
                 var cartItem = _mapper.Map<CartItem>(productCartVM);
                 await _cartItemManager.AddAsync(cartItem);
             }
 
-            // Cookie işlemleri
             Response.Cookies.Append("CartId", productCartVM.CartId.ToString(), new CookieOptions
             {
                 Expires = DateTimeOffset.UtcNow.AddHours(1),

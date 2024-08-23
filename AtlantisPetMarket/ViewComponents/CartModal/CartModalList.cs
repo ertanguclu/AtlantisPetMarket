@@ -26,18 +26,15 @@ namespace AtlantisPetMarket.ViewComponents.CartModalList
 
         public async Task<IViewComponentResult> InvokeAsync()
         {
-            // Cookie'den gelen CartId'yi al
             var cartIdFromCookie = HttpContext.Request.Cookies["CartId"];
             ProductCartVM cartVM = new ProductCartVM();
 
             if (!string.IsNullOrEmpty(cartIdFromCookie) && int.TryParse(cartIdFromCookie, out var cartIdFromCookieInt))
             {
-                // Cookie'den gelen CartId ile sepeti al
                 var cart = await _cartManager.FindAsync(cartIdFromCookieInt);
 
                 if (cart != null)
                 {
-                    // Sepet var, işleme devam et
                     var cartItems = await _cartItemManager.GetAllIncludeAsync(
                         x => x.CartId == cartIdFromCookieInt,
                         x => x.Product
@@ -49,13 +46,12 @@ namespace AtlantisPetMarket.ViewComponents.CartModalList
                 }
             }
 
-            // Eğer sepet yoksa boş bir model oluştur
             if (cartVM.CartItems == null)
             {
                 cartVM.CartItems = new List<CartItemViewModel>();
             }
 
-            return View(cartVM); // Default view'ı döndür
+            return View(cartVM); 
         }
     }
 }

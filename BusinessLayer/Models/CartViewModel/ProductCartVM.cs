@@ -6,8 +6,9 @@ namespace BusinessLayer.Models.CartViewModel
     public class ProductCartVM
     {
         public int Id { get; set; }
-        public int UserId { get; set; }
-        public User MyProperty { get; set; }
+        public string SessionId { get; set; }
+        public int? UserId { get; set; }
+        public User? User { get; set; }
 
         public string Brand { get; set; }
         public int Quantity { get; set; }

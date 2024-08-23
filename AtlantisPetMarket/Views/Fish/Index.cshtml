@@ -4,6 +4,7 @@
     ViewData["Title"] = "Ürünler";
     Layout = "~/Views/Shared/_HomeLayout.cshtml";
 }
+<link rel="stylesheet" href="https://cdn.materialdesignicons.com/5.2.45/css/materialdesignicons.min.css" />
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
 
@@ -69,10 +70,6 @@
         }
     </div>
 </div>
-
-
-
-
 <style>
     .text {
         text-transform: none; /* Metnin olduğu gibi görünmesini sağlar */
@@ -99,16 +96,15 @@
         height: 255px; /* Yüksekliği biraz küçülttük */
         overflow: hidden;
         border-radius: 15px;
-        background-color: #F2F2F2;
+        background-color: #F2F2F2; /* Krem rengi *
+                    }
+                    .product-image-wrapper img
+                    {
+                        width: 100%;
+                        height: 100%;
+                        object-fit: cover; /* Resmi kapsayacak şekilde ölçekler, en-boy oranını korur */
+        border-radius: 15px;
     }
-
-
-        .product-image-wrapper img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            border-radius: 15px;
-        }
 
     .card {
         display: flex;
@@ -156,9 +152,24 @@
     }
 
 </style>
+@section scripts {
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var cardTitles = document.querySelectorAll(".card-title");
 
+            cardTitles.forEach(function (title) {
+                var lineHeight = parseInt(window.getComputedStyle(title).lineHeight);
+                var height = title.scrollHeight;
+                var lines = height / lineHeight;
 
-
-
+                if (lines <= 2) {
+                    title.style.height = "70px"; // İki satıra kadar olan yükseklik
+                } else {
+                    title.style.height = "35px"; // Tek satırda 35px
+                }
+            });
+        });
+    </script>
+}
 
 

@@ -13,6 +13,7 @@ namespace BusinessLayer.Models.ProductVM
         public decimal Price { get; set; }
         public string ProductCode { get; set; }
         public int StockQuantity { get; set; }
+        public bool IsProductOfTheMonth { get; set; }
         public IFormFile ProductPhotoUpdate { get; set; }
         public string ProductPhotoPath { get; set; }
 

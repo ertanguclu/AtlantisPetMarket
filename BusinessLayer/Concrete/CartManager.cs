@@ -14,12 +14,16 @@ namespace BusinessLayer.Concrete
             _context = context;
         }
 
-        public async Task<Cart?> GetCartByUserIdAsync(int? userId)
+        public async Task<Cart?> GetCartByUserIdAsync(int userId)
         {
             return await _context.Set<Cart>()
                 .FirstOrDefaultAsync(c => c.UserId == userId);
         }
 
-
+        public async Task<Cart> GetCartBySessionIdAsync(string sessionId)
+        {
+            return await _context.Set<Cart>()
+                .FirstOrDefaultAsync(c => c.SessionId == sessionId);
+        }
     }
 }

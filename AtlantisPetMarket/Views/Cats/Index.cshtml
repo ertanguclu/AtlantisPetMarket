@@ -4,6 +4,7 @@
     ViewData["Title"] = "Ürünler";
     Layout = "~/Views/Shared/_HomeLayout.cshtml";
 }
+<link rel="stylesheet" href="https://cdn.materialdesignicons.com/5.2.45/css/materialdesignicons.min.css" />
 
 <div class="container">
     <div class="isotope-container row">
@@ -63,10 +64,6 @@
         }
     </div>
 </div>
-
-
-
-
 <style>
     .text {
         text-transform: none; /* Metnin olduğu gibi görünmesini sağlar */
@@ -157,8 +154,23 @@
 
 
 </style>
+@section scripts {
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var cardTitles = document.querySelectorAll(".card-title");
 
+            cardTitles.forEach(function (title) {
+                var lineHeight = parseInt(window.getComputedStyle(title).lineHeight);
+                var height = title.scrollHeight;
+                var lines = height / lineHeight;
 
-
-
+                if (lines <= 2) {
+                    title.style.height = "70px"; // İki satıra kadar olan yükseklik
+                } else {
+                    title.style.height = "70px"; // İki satır olduğunda 70px yap
+                }
+            });
+        });
+    </script>
+}
 
