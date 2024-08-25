@@ -215,7 +215,7 @@ Distributed under the MIT License. See [LICENSE.txt](./LICENSE.txt) for more inf
 ## Contact
 We’d love to hear from you! Whether you have questions, feedback, or just want to connect, feel free to reach out to us through the following channels:
 
-- **Ertan Güçlü** - [Linkedin](https://www.linkedin.com/in/ertanguclu/) - ertanguclu@gmail.com
+- **Ertan Güçlü** - [Linkedin](https://www.linkedin.com/in/ertanguclu/) - ertangucluu@gmail.com
 - **Mert Yüksel** - [Linkedin](https://www.linkedin.com/in/mert-y%C3%BCksel/) - mertyuksel680@gmail.com
 - **Seyhun Koçak** - [Linkedin](https://www.linkedin.com/in/seyhunkocak/) - seyhunkocak11@gmail.com
 
